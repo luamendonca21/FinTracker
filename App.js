@@ -2,12 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import AppText from "./app/components/AppText";
 import AppButton from "./app/components/AppButton";
 import Screen from "./app/components/Screen";
+import AppTextInput from "./app/components/AppTextInput";
 export default function App() {
   return (
     <Screen>
       <View style={styles.container}>
         <AppText>Open up App.js to start working on your app!</AppText>
-        <AppButton title="Log In" />
+        <AppTextInput />
+        {/* <AppButton title="Log In" /> */}
       </View>
     </Screen>
   );

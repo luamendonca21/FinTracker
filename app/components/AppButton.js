@@ -23,8 +23,9 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.secondary,
     borderRadius: 50,
     alignItems: "center",
+    alignSelf: "center",
     justifyContent: "center",
-    padding: 15,
+    padding: 12,
   },
   text: { fontSize: 22, fontWeight: "bold" },
 });
