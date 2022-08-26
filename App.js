@@ -8,7 +8,11 @@ export default function App() {
     <Screen>
       <View style={styles.container}>
         <AppText>Open up App.js to start working on your app!</AppText>
-        <AppTextInput />
+        <AppTextInput
+          keyboardType="email-address"
+          icon="email"
+          placeholder="Email"
+        />
         {/* <AppButton title="Log In" /> */}
       </View>
     </Screen>
