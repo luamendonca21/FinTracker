@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import LinkButton from "../components/LinkButton";
@@ -9,16 +9,21 @@ import Screen from "../components/Screen";
 const WelcomeScreen = (props) => {
   return (
     <Screen>
+      <View style={styles.container}>
+        <Image style={styles.image} source={require("../icon.png")} />
+        <AppText style={styles.title}>Fin Tracker</AppText>
+      </View>
       <WavyFooter
         customHeight={400}
-        customButtom={110}
+        customButtom={120}
         color="#5990FF"
-        customWavePattern="M0,192L48,181.3C96,171,192,149,288,122.7C384,96,480,64,576,64C672,64,768,96,864,122.7C960,149,1056,171,1152,149.3C1248,128,1344,64,1392,32L1440,0L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        customWavePattern="M0,64L40,69.3C80,75,160,85,240,117.3C320,149,400,203,480,197.3C560,192,640,128,720,112C800,96,880,128,960,160C1040,192,1120,224,1200,229.3C1280,235,1360,213,1400,202.7L1440,192L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
         style={styles.wave}
       />
-      <View style={styles.container}>
-        <AppText style={styles.title}>Welcome to Fin Tracker App</AppText>
-        <AppText style={styles.subTitle}>
+
+      <View style={styles.footerContainer}>
+        <AppText style={styles.welcome}>Welcome to Fin Tracker App</AppText>
+        <AppText style={styles.welcomeDescription}>
           Follow your favorite cetaceans, discover their life history,
           migration, and receive personalized notifications!
         </AppText>
@@ -34,6 +39,17 @@ const WelcomeScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
+    marginTop: 100,
+    justifyContent: "center",
+  },
+  title: {
+    marginTop: 15,
+    fontSize: 26,
+    fontWeight: "bold",
+  },
+  image: { width: 120, height: 150 },
+  footerContainer: {
     padding: 25,
     alignItems: "center",
     justifyContent: "center",
@@ -44,8 +60,12 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.white,
     borderRadius: 20,
   },
-  title: { fontSize: 18, fontWeight: "bold", padding: 10 },
-  subTitle: {
+  welcome: {
+    fontSize: 18,
+    fontWeight: "bold",
+    padding: 10,
+  },
+  welcomeDescription: {
     textAlign: "center",
     paddingHorizontal: 15,
     marginBottom: 20,

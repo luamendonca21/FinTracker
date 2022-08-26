@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import Svg, { Path } from "react-native-svg";
-const WavyHeader = ({
+const WavyFooter = ({
   color,
   customWavePattern,
   customHeight,
@@ -23,4 +23,4 @@ const WavyHeader = ({
     </View>
   );
 };
-export default WavyHeader;
+export default WavyFooter;
