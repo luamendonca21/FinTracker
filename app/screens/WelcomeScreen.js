@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: "bold",
   },
-  image: { width: 120, height: 150 },
+  image: { width: 120, height: 150, transform: [{ rotate: "-20deg" }] },
   footerContainer: {
     padding: 25,
     alignItems: "center",
