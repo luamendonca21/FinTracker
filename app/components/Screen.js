@@ -13,7 +13,7 @@ const Screen = ({ children, style }) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    top: Constants.statusBarHeight,
+    marginTop: Constants.statusBarHeight,
   },
   view: {
     flex: 1,

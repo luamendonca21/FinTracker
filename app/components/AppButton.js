@@ -26,8 +26,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     padding: 12,
+    marginVertical: 10,
   },
-  text: { fontSize: 22, fontWeight: "bold" },
+  text: { fontSize: 18, fontWeight: "bold" },
 });
 
 export default AppButton;

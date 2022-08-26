@@ -32,9 +32,10 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 12,
     borderWidth: 1,
-    borderColor: defaultStyles.colors.primary,
+    borderColor: defaultStyles.colors.secondary,
     elevation: 2,
     shadowColor: defaultStyles.colors.black,
+    marginVertical: 10,
   },
   textInput: { flex: 1, marginLeft: 5 },
 });
