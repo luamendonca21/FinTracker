@@ -3,6 +3,7 @@ import { View, StyleSheet, Image, ScrollView } from "react-native";
 import defaultStyles from "../config/styles";
 import Detail from "../components/Detail";
 import AppText from "../components/AppText";
+import ListDetails from "../components/ListDetails";
 function CetaceanProfileScreen(props) {
   const cetaceans = [
     {
@@ -20,6 +21,7 @@ function CetaceanProfileScreen(props) {
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
   ];
+
   return (
     <>
       <View style={styles.imageContainer}>
@@ -34,15 +36,7 @@ function CetaceanProfileScreen(props) {
           <AppText style={styles.cetaceanName}>Dolphy</AppText>
           <AppText style={styles.title}>Details</AppText>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View style={styles.detailsContainer}>
-              {Object.keys(cetaceans[0].details).map((item, index) => (
-                <Detail
-                  key={index}
-                  title={item}
-                  subTitle={cetaceans[0].details[item]}
-                />
-              ))}
-            </View>
+            <ListDetails details={cetaceans[0].details} />
           </ScrollView>
           <AppText style={styles.title}>Introduction</AppText>
           <AppText style={styles.text}>{cetaceans[0].introduction}.</AppText>
@@ -86,12 +80,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
     textAlign: "justify",
-  },
-  detailsContainer: {
-    flexDirection: "row",
-    width: "100%",
-    height: 80,
-    padding: 1,
   },
 });
 
