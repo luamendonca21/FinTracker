@@ -4,13 +4,46 @@ import AppTextInput from "../components/AppTextInput";
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
 import Screen from "../components/Screen";
-
+import defaultStyles from "../config/styles";
+import Icon from "../components/Icon";
 const SettingsScreen = (props) => {
   const menuItems = [
-    { id: 1, title: "Account", icon: "account-settings" },
-    { id: 2, title: "Notifications", icon: "bell" },
-    { id: 3, title: "Permissions", icon: "account-lock" },
-    { id: 4, title: "About", icon: "information" },
+    {
+      id: 1,
+      title: "Account",
+      icon: {
+        name: "account-settings",
+        iconColor: defaultStyles.colors.black,
+        backgroundColor: defaultStyles.colors.secondary,
+      },
+    },
+    {
+      id: 2,
+      title: "Notifications",
+      icon: {
+        name: "bell",
+        iconColor: defaultStyles.colors.black,
+        backgroundColor: defaultStyles.colors.secondary,
+      },
+    },
+    {
+      id: 3,
+      title: "Permissions",
+      icon: {
+        name: "account-lock",
+        iconColor: defaultStyles.colors.black,
+        backgroundColor: defaultStyles.colors.secondary,
+      },
+    },
+    {
+      id: 4,
+      title: "About",
+      icon: {
+        name: "information",
+        iconColor: defaultStyles.colors.black,
+        backgroundColor: defaultStyles.colors.secondary,
+      },
+    },
   ];
 
   const renderItem = ({ item }) => {
@@ -18,7 +51,15 @@ const SettingsScreen = (props) => {
       <ListItem
         onPress={() => console.log("Pressed")}
         title={item.title}
-        icon={item.icon}
+        IconComponent={
+          <Icon
+            style={styles.icon}
+            icon={item.icon.name}
+            size={20}
+            iconColor={item.icon.iconColor}
+            backgroundColor={item.icon.backgroundColor}
+          />
+        }
         chevrons={true}
       />
     );
@@ -40,6 +81,10 @@ const SettingsScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+
+  icon: {
+    marginRight: 10,
   },
 });
 
