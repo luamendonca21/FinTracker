@@ -1,9 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
 import defaultStyles from "../config/styles";
-import Detail from "../components/Detail";
 import AppText from "../components/AppText";
-import ListDetails from "../components/ListDetails";
+import { ListDetails } from "../components/Lists";
 function CetaceanProfileScreen(props) {
   const cetaceans = [
     {
