@@ -28,7 +28,7 @@ const WelcomeScreen = (props) => {
           migration, and receive personalized notifications!
         </AppText>
         <AppButton title="Sign Up" />
-        <View style={styles.logIn}>
+        <View style={styles.button}>
           <AppText>Already have an account?</AppText>
           <LinkButton title="Log In" />
         </View>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   wave: { position: "absolute", bottom: 0, width: "100%" },
-  logIn: {
+  button: {
     width: 300,
     justifyContent: "space-evenly",
     flexDirection: "row",

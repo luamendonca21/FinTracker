@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 50,
     padding: 12,
-    borderWidth: 1,
+    borderWidth: 0.8,
     borderColor: defaultStyles.colors.secondary,
     elevation: 2,
     shadowColor: defaultStyles.colors.black,
