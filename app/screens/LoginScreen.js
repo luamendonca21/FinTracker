@@ -4,7 +4,6 @@ import AppTextInput from "../components/AppTextInput";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import Screen from "../components/Screen";
-import defaultStyles from "../config/styles";
 import WavyHeader from "../components/WavyHeader";
 const LoginScreen = (props) => {
   return (
