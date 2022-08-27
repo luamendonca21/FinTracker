@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     position: "absolute",
     bottom: 20,
+    elevation: 2,
     width: "90%",
     alignSelf: "center",
     backgroundColor: defaultStyles.colors.white,
