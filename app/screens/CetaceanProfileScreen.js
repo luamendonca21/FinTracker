@@ -4,6 +4,22 @@ import defaultStyles from "../config/styles";
 import Detail from "../components/Detail";
 import AppText from "../components/AppText";
 function CetaceanProfileScreen(props) {
+  const cetaceans = [
+    {
+      details: {
+        ScientificName: "Tursiops",
+        Age: "1",
+        Weigh: "650 kg",
+        Location: "Camâra de Lobos",
+      },
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+  ];
   return (
     <>
       <View style={styles.imageContainer}>
@@ -19,33 +35,21 @@ function CetaceanProfileScreen(props) {
           <AppText style={styles.title}>Details</AppText>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={styles.detailsContainer}>
-              <Detail title="Age" subTitle="1" />
-              <Detail title="Scientific Name" subTitle="Stenella frontalis" />
-              <Detail title="Location" subTitle="Camâra de Lobos" />
+              {Object.keys(cetaceans[0].details).map((item, index) => (
+                <Detail
+                  key={index}
+                  title={item}
+                  subTitle={cetaceans[0].details[item]}
+                />
+              ))}
             </View>
           </ScrollView>
           <AppText style={styles.title}>Introduction</AppText>
-          <AppText style={styles.text}>
-            They occur in Madeira all year around. Very active and playful at
-            the surface. They often curiously approach boats and leap, bowride
-            and stick their heads out of the water. The population of this
-            species in Madeira consists of two ecotypes; the larger, pelagic
-            offshore type and the smaller, coastal type with the latter
-            community even containing resident groups.
-          </AppText>
+          <AppText style={styles.text}>{cetaceans[0].introduction}.</AppText>
           <AppText style={styles.title}>History</AppText>
-          <AppText style={styles.text}>
-            Common bottlenose dolphins get their name from their short, thick
-            snout (or rostrum). They are generally gray in color. They can range
-            from light gray to almost black on top near their dorsal fin and
-            light gray to almost white on their belly.
-          </AppText>
+          <AppText style={styles.text}>{cetaceans[0].history}</AppText>
           <AppText style={styles.title}>Migration</AppText>
-          <AppText style={styles.text}>
-            Bottlenose dolphins of the United States migrate up and down the
-            Atlantic coast, heading north in the spring, and south again in the
-            autumn.
-          </AppText>
+          <AppText style={styles.text}>{cetaceans[0].migration}</AppText>
         </ScrollView>
       </View>
     </>

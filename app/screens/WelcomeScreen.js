@@ -10,7 +10,7 @@ const WelcomeScreen = (props) => {
   return (
     <Screen>
       <View style={styles.container}>
-        <Image style={styles.image} source={require("../icon.png")} />
+        <Image style={styles.image} source={require("../icon.jpg")} />
         <AppText style={styles.title}>Fin Tracker</AppText>
       </View>
       <WavyFooter

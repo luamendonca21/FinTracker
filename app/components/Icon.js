@@ -5,8 +5,8 @@ import defaultStyles from "../config/styles";
 
 const Icon = ({
   icon,
-  iconColor = "#fff",
-  backgroundColor = "#000",
+  iconColor = defaultStyles.colors.white,
+  backgroundColor = defaultStyles.colors.black,
   size,
   style,
 }) => {
