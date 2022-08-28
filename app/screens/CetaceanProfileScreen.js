@@ -1,5 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import defaultStyles from "../config/styles";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
@@ -9,7 +11,8 @@ function CetaceanProfileScreen(props) {
       details: {
         scientificName: "Tursiops",
         age: "1",
-        weigh: "650 kg",
+        Length: "3m",
+        weigh: "650kg",
         location: "Camâra de Lobos",
       },
       introduction:
@@ -32,7 +35,21 @@ function CetaceanProfileScreen(props) {
 
       <View style={styles.profileContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <AppText style={styles.cetaceanName}>Dolphy</AppText>
+          <View style={styles.header}>
+            <AppText style={styles.cetaceanName}>Dolphy</AppText>
+            <View style={styles.headerIcons}>
+              <MaterialCommunityIcons
+                name="bell"
+                color={defaultStyles.colors.black}
+                size={34}
+              />
+              <MaterialCommunityIcons
+                name="cards-heart-outline"
+                color={defaultStyles.colors.black}
+                size={34}
+              />
+            </View>
+          </View>
           <AppText style={styles.title}>Details</AppText>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <ListDetails details={cetaceans[0].details} />
@@ -68,7 +85,13 @@ const styles = StyleSheet.create({
     marginTop: 245,
     padding: 18,
   },
-  cetaceanName: { fontSize: 22, fontWeight: "bold", marginBottom: 15 },
+  header: { flexDirection: "row", alignItems: "center" },
+  headerIcons: {
+    flexDirection: "row",
+    width: 75,
+    justifyContent: "space-between",
+  },
+  cetaceanName: { fontSize: 22, flex: 1, fontWeight: "bold", marginBottom: 15 },
   title: {
     fontSize: 18,
     fontWeight: "bold",
@@ -77,7 +100,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    lineHeight: 20,
+    lineHeight: 22,
     textAlign: "justify",
   },
 });
