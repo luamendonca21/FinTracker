@@ -7,10 +7,10 @@ function CetaceanProfileScreen(props) {
   const cetaceans = [
     {
       details: {
-        ScientificName: "Tursiops",
-        Age: "1",
-        Weigh: "650 kg",
-        Location: "Camâra de Lobos",
+        scientificName: "Tursiops",
+        age: "1",
+        weigh: "650 kg",
+        location: "Camâra de Lobos",
       },
       introduction:
         "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
