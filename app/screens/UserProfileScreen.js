@@ -5,16 +5,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../config/styles";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
-function CetaceanProfileScreen(props) {
-  const cetaceans = [
+function UserProfileScreen(props) {
+  const users = [
     {
-      name: "Dolphy",
+      name: "Luana",
       details: {
-        scientificName: "Tursiops",
-        age: "1",
-        Length: "3m",
-        weigh: "650kg",
-        location: "Camâra de Lobos",
+        age: "21",
+        hometown: "Madeira",
+        joinedFinTracker: "28/07/2022",
       },
       introduction:
         "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
@@ -30,14 +28,14 @@ function CetaceanProfileScreen(props) {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={require("../assets/dolphins/Atlantic_spotted_dolphin.jpg")}
+          source={require("../assets/userPicture.jpg")}
         />
       </View>
 
       <View style={styles.profileContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <AppText style={styles.cetaceanName}>{cetaceans[0].name}</AppText>
+            <AppText style={styles.cetaceanName}>{users[0].name}</AppText>
             <View style={styles.headerIcons}>
               <MaterialCommunityIcons
                 name="bell"
@@ -53,14 +51,9 @@ function CetaceanProfileScreen(props) {
           </View>
           <AppText style={styles.title}>Details</AppText>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <ListDetails details={cetaceans[0].details} />
+            <ListDetails details={users[0].details} />
           </ScrollView>
-          <AppText style={styles.title}>Introduction</AppText>
-          <AppText style={styles.text}>{cetaceans[0].introduction}.</AppText>
-          <AppText style={styles.title}>History</AppText>
-          <AppText style={styles.text}>{cetaceans[0].history}</AppText>
-          <AppText style={styles.title}>Migration</AppText>
-          <AppText style={styles.text}>{cetaceans[0].migration}</AppText>
+          <AppText style={styles.title}>Favorite Cetaceans</AppText>
         </ScrollView>
       </View>
     </>
@@ -69,15 +62,17 @@ function CetaceanProfileScreen(props) {
 
 const styles = StyleSheet.create({
   imageContainer: {
+    alignItems: "center",
+    justifyContent: "center",
     width: "100%",
     height: "30%",
     position: "absolute",
     top: 0,
-    backgroundColor: defaultStyles.colors.primary,
     left: 0,
     right: 0,
+    backgroundColor: defaultStyles.colors.primary,
   },
-  image: { width: "100%", height: "100%", resizeMode: "cover" },
+  image: { width: 140, height: 140, resizeMode: "cover", borderRadius: 70 },
   profileContainer: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -106,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CetaceanProfileScreen;
+export default UserProfileScreen;

@@ -21,8 +21,17 @@ const LoginScreen = (props) => {
           <AppText style={styles.text}>{`Welcome back, 
 Log In!`}</AppText>
           <View style={styles.inputsContainer}>
-            <AppTextInput icon="account-circle" placeholder="Username" />
-            <AppTextInput icon="lock" placeholder="Password" secureTextEntry />
+            <AppTextInput
+              size={30}
+              icon="account-circle"
+              placeholder="Username"
+            />
+            <AppTextInput
+              size={30}
+              icon="lock"
+              placeholder="Password"
+              secureTextEntry
+            />
             <AppText style={styles.forgotPassword}>
               Forgot your password?
             </AppText>

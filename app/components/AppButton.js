@@ -3,7 +3,7 @@ import { TouchableOpacity, StyleSheet } from "react-native";
 import defaultStyles from "../config/styles";
 import AppText from "./AppText";
 
-const AppButton = ({ title, color = "secondary", onPress }) => {
+const AppButton = ({ title, color = "primary", onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -20,7 +20,6 @@ const AppButton = ({ title, color = "secondary", onPress }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    backgroundColor: defaultStyles.colors.secondary,
     borderRadius: 50,
     alignItems: "center",
     alignSelf: "center",
