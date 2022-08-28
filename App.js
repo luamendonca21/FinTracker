@@ -11,5 +11,5 @@ import SettingsScreen from "./app/screens/SettingsScreen";
 import CetaceanProfileScreen from "./app/screens/CetaceanProfileScreen";
 import UserProfileScreen from "./app/screens/UserProfileScreen";
 export default function App() {
-  return <UserProfileScreen />;
+  return <WelcomeScreen />;
 }
