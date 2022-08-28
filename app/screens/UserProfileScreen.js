@@ -14,12 +14,6 @@ function UserProfileScreen(props) {
         hometown: "Madeira",
         joinedFinTracker: "28/07/2022",
       },
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
   ];
 
@@ -34,21 +28,7 @@ function UserProfileScreen(props) {
 
       <View style={styles.profileContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <AppText style={styles.cetaceanName}>{users[0].name}</AppText>
-            <View style={styles.headerIcons}>
-              <MaterialCommunityIcons
-                name="bell"
-                color={defaultStyles.colors.black}
-                size={34}
-              />
-              <MaterialCommunityIcons
-                name="cards-heart-outline"
-                color={defaultStyles.colors.black}
-                size={34}
-              />
-            </View>
-          </View>
+          <AppText style={styles.userName}>{users[0].name}</AppText>
           <AppText style={styles.title}>Details</AppText>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <ListDetails details={users[0].details} />
@@ -81,13 +61,7 @@ const styles = StyleSheet.create({
     marginTop: 245,
     padding: 18,
   },
-  header: { flexDirection: "row", alignItems: "center" },
-  headerIcons: {
-    flexDirection: "row",
-    width: 75,
-    justifyContent: "space-between",
-  },
-  cetaceanName: { fontSize: 22, flex: 1, fontWeight: "bold", marginBottom: 15 },
+  userName: { fontSize: 22, flex: 1, fontWeight: "bold", marginBottom: 15 },
   title: {
     fontSize: 18,
     fontWeight: "bold",
