@@ -10,9 +10,9 @@ const WavyHeader = ({
 }) => {
   return (
     <View style={style}>
-      <View style={{ backgroundColor: "#5990FF", height: customHeight }}>
+      <View style={{ backgroundColor: color, height: customHeight }}>
         <Svg
-          height="80%"
+          height="130%"
           width="100%"
           viewBox="0 0 1440 320"
           style={{ position: "absolute", top: customTop }}

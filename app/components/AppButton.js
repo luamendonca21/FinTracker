@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     elevation: 2,
   },
-  text: { fontSize: 18, fontWeight: "bold" },
+  text: { fontSize: 18, fontWeight: "bold", color: defaultStyles.colors.white },
 });
 
 export default AppButton;

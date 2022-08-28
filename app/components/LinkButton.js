@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     fontSize: 16,
     fontWeight: "bold",
-    color: defaultStyles.colors.secondary,
+    color: defaultStyles.colors.primary,
   },
 });
 

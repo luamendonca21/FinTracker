@@ -10,7 +10,7 @@ const WavyFooter = ({
 }) => {
   return (
     <View style={style}>
-      <View style={{ backgroundColor: "#5990FF", height: customHeight }}>
+      <View style={{ backgroundColor: color, height: customHeight }}>
         <Svg
           height="160%"
           width="100%"

@@ -11,7 +11,7 @@ const SettingsScreen = (props) => {
       title: "Account",
       icon: {
         name: "account-settings",
-        iconColor: defaultStyles.colors.black,
+        iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.secondary,
       },
     },
@@ -20,8 +20,8 @@ const SettingsScreen = (props) => {
       title: "Notifications",
       icon: {
         name: "bell",
-        iconColor: defaultStyles.colors.black,
-        backgroundColor: defaultStyles.colors.secondary,
+        iconColor: defaultStyles.colors.white,
+        backgroundColor: defaultStyles.colors.primary,
       },
     },
     {
@@ -29,8 +29,8 @@ const SettingsScreen = (props) => {
       title: "Permissions",
       icon: {
         name: "account-lock",
-        iconColor: defaultStyles.colors.black,
-        backgroundColor: defaultStyles.colors.secondary,
+        iconColor: defaultStyles.colors.white,
+        backgroundColor: defaultStyles.colors.primary,
       },
     },
     {
@@ -38,8 +38,8 @@ const SettingsScreen = (props) => {
       title: "About",
       icon: {
         name: "information",
-        iconColor: defaultStyles.colors.black,
-        backgroundColor: defaultStyles.colors.secondary,
+        iconColor: defaultStyles.colors.white,
+        backgroundColor: defaultStyles.colors.primary,
       },
     },
   ];
