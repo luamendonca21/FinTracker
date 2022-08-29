@@ -20,8 +20,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    textDecorationLine: "underline",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     color: defaultStyles.colors.primary,
   },

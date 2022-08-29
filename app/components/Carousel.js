@@ -5,10 +5,11 @@ import CarouselItem from "./CarouselItem";
 function Carousel({ data }) {
   return (
     <View style={styles.sliderContainer}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           {data.map((item, index) => (
             <CarouselItem
+              onPress={() => console.log("Tapped")}
               key={index}
               title={item.details.scientificName}
               imageUrl={item.imageUrl}
@@ -22,7 +23,7 @@ function Carousel({ data }) {
 
 const styles = StyleSheet.create({
   sliderContainer: {
-    height: 290,
+    height: 350,
     width: "100%",
   },
   container: {

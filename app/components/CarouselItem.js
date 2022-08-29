@@ -2,9 +2,9 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import AppText from "./AppText";
 import defaultStyles from "../config/styles";
-function CarouselItem({ imageUrl, title }) {
+function CarouselItem({ imageUrl, title, onPress }) {
   return (
-    <TouchableOpacity onPress={() => console.log("Tapped")}>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.item}>
         <Image style={styles.image} source={imageUrl} />
         <AppText style={styles.itemTitle}>{title}</AppText>

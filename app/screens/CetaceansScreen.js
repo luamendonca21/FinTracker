@@ -1,8 +1,10 @@
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
+import LinkButton from "../components/LinkButton";
 import AppText from "../components/AppText";
 import Carousel from "../components/Carousel";
 import defaultStyles from "../config/styles";
+import AppButton from "../components/AppButton";
 
 const CetaceansScreen = (props) => {
   const cetaceans = [
@@ -197,6 +199,9 @@ const CetaceansScreen = (props) => {
         <View style={styles.cetaceansContainer}>
           <AppText style={styles.speciesText}>Dolphins</AppText>
           <Carousel data={cetaceans} />
+          <View style={styles.button}>
+            <LinkButton color="secondary" title="Expand" />
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -205,7 +210,7 @@ const CetaceansScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: defaultStyles.colors.tertiary,
+    backgroundColor: defaultStyles.colors.light,
     flex: 1,
     padding: 15,
   },
@@ -219,10 +224,8 @@ const styles = StyleSheet.create({
   cetaceansContainer: {
     flex: 1,
     borderRadius: 20,
-    justifyContent: "center",
     backgroundColor: defaultStyles.colors.white,
     width: "100%",
-    height: "60%",
     marginVertical: 10,
     elevation: 1,
     padding: 10,
@@ -250,6 +253,9 @@ const styles = StyleSheet.create({
     width: 120,
     height: 180,
     borderRadius: 15,
+  },
+  button: {
+    marginTop: 5,
   },
 });
 
