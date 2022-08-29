@@ -8,7 +8,26 @@ import { ListDetails } from "../components/Lists";
 function CetaceanProfileScreen(props) {
   const cetaceans = [
     {
-      name: "Dolphy",
+      id: 1,
+      name: "Atlantic spotted Dolphin",
+      details: {
+        scientificName: "Stenella frontalis",
+        age: "1",
+        Length: "3m",
+        weigh: "650kg",
+        location: "Camâra de Lobos",
+      },
+      imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+    {
+      id: 2,
+      name: "Bottlenose Dolphin",
       details: {
         scientificName: "Tursiops",
         age: "1",
@@ -16,6 +35,97 @@ function CetaceanProfileScreen(props) {
         weigh: "650kg",
         location: "Camâra de Lobos",
       },
+      imageUrl: require("../assets/dolphins/Bottlenose_dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+    {
+      id: 3,
+      name: "Common Dolphin",
+      details: {
+        scientificName: "Delphinus delphis",
+        age: "1",
+        Length: "3m",
+        weigh: "650kg",
+        location: "Camâra de Lobos",
+      },
+      imageUrl: require("../assets/dolphins/Common_dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+    {
+      id: 4,
+      name: "Frasers Dolphin",
+      details: {
+        scientificName: "Lagenodelphis hosei",
+        age: "1",
+        Length: "3m",
+        weigh: "650kg",
+        location: "Camâra de Lobos",
+      },
+      imageUrl: require("../assets/dolphins/Frasers_dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+    {
+      id: 5,
+      name: "Risso's Dolphin",
+      details: {
+        scientificName: "Grampus griseuss",
+        age: "1",
+        Length: "3m",
+        weigh: "650kg",
+        location: "Camâra de Lobos",
+      },
+      imageUrl: require("../assets/dolphins/Rissos_Dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+    {
+      id: 6,
+      name: "Rough toothed Dolphin",
+      details: {
+        scientificName: "Steno bredanensiss",
+        age: "1",
+        Length: "3m",
+        weigh: "650kg",
+        location: "Camâra de Lobos",
+      },
+      imageUrl: require("../assets/dolphins/Rough_toothed_dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+    {
+      id: 7,
+      name: "Stripped Dolphin",
+      details: {
+        scientificName: "Stenella coeruleoalba",
+        age: "1",
+        Length: "3m",
+        weigh: "650kg",
+        location: "Camâra de Lobos",
+      },
+      imageUrl: require("../assets/dolphins/Stripped_dolphin.jpg"),
       introduction:
         "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
       history:
@@ -25,19 +135,21 @@ function CetaceanProfileScreen(props) {
     },
   ];
 
+  const index = 1;
   return (
     <>
       <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={require("../assets/dolphins/Atlantic_spotted_dolphin.jpg")}
-        />
+        <Image style={styles.image} source={cetaceans[index].imageUrl} />
       </View>
 
       <View style={styles.profileContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <AppText style={styles.cetaceanName}>{cetaceans[0].name}</AppText>
+            <View style={{ flex: 1 }}>
+              <AppText numberOfLines={3} style={styles.cetaceanName}>
+                {cetaceans[index].name}
+              </AppText>
+            </View>
             <View style={styles.headerIcons}>
               <MaterialCommunityIcons
                 name="bell"
@@ -53,14 +165,16 @@ function CetaceanProfileScreen(props) {
           </View>
           <AppText style={styles.title}>Details</AppText>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <ListDetails details={cetaceans[0].details} />
+            <ListDetails details={cetaceans[index].details} />
           </ScrollView>
           <AppText style={styles.title}>Introduction</AppText>
-          <AppText style={styles.text}>{cetaceans[0].introduction}.</AppText>
+          <AppText style={styles.text}>
+            {cetaceans[index].introduction}.
+          </AppText>
           <AppText style={styles.title}>History</AppText>
-          <AppText style={styles.text}>{cetaceans[0].history}</AppText>
+          <AppText style={styles.text}>{cetaceans[index].history}</AppText>
           <AppText style={styles.title}>Migration</AppText>
-          <AppText style={styles.text}>{cetaceans[0].migration}</AppText>
+          <AppText style={styles.text}>{cetaceans[index].migration}</AppText>
         </ScrollView>
       </View>
     </>
@@ -86,13 +200,20 @@ const styles = StyleSheet.create({
     marginTop: 245,
     padding: 15,
   },
-  header: { flexDirection: "row", alignItems: "center" },
+  header: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
   headerIcons: {
     flexDirection: "row",
     width: 75,
     justifyContent: "space-between",
   },
-  cetaceanName: { fontSize: 22, flex: 1, fontWeight: "bold", marginBottom: 15 },
+  cetaceanName: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 15,
+  },
   title: {
     fontSize: 18,
     fontWeight: "bold",

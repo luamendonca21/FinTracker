@@ -21,10 +21,19 @@ const LoginScreen = (props) => {
           <AppText style={styles.text}>{`Hello, 
 Sign Up!`}</AppText>
           <View style={styles.inputsContainer}>
-            <AppTextInput icon="account-circle" placeholder="Username" />
-            <AppTextInput icon="email" placeholder="Email" />
+            <AppTextInput
+              size={30}
+              icon="account-circle"
+              placeholder="Username"
+            />
+            <AppTextInput size={30} icon="email" placeholder="Email" />
 
-            <AppTextInput icon="lock" placeholder="Password" secureTextEntry />
+            <AppTextInput
+              size={30}
+              icon="lock"
+              placeholder="Password"
+              secureTextEntry
+            />
           </View>
           <View style={styles.button}>
             <AppButton title="Sign Up" />

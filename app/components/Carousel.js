@@ -10,8 +10,7 @@ function Carousel({ data }) {
           <CarouselItem
             onPress={() => console.log("Tapped")}
             key={index}
-            title={item.details.scientificName}
-            imageUrl={item.imageUrl}
+            item={item}
           />
         ))}
       </View>
