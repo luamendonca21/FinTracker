@@ -47,7 +47,7 @@ Log In!`}</AppText>
 
 const styles = StyleSheet.create({
   text: { fontSize: 26, fontWeight: "700", color: defaultStyles.colors.white },
-  container: { marginTop: 10, padding: 20, flex: 1 },
+  container: { marginTop: 10, padding: 15, flex: 1 },
   inputsContainer: { marginTop: 150 },
   forgotPassword: {
     textAlign: "right",

@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.white,
     flex: 1,
     marginTop: 245,
-    padding: 18,
+    padding: 15,
   },
   header: { flexDirection: "row", alignItems: "center" },
   headerIcons: {

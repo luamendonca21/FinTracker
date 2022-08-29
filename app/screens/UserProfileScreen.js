@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.white,
     flex: 1,
     marginTop: 245,
-    padding: 18,
+    padding: 15,
   },
   userName: { fontSize: 22, flex: 1, fontWeight: "bold", marginBottom: 15 },
   title: {
