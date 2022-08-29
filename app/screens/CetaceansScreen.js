@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import AppText from "../components/AppText";
+import CarouselItem from "../components/CarouselItem";
 import defaultStyles from "../config/styles";
 
 function CetaceansScreen(props) {
@@ -23,42 +24,22 @@ function CetaceansScreen(props) {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              <TouchableOpacity onPress={() => console.log("Tapped")}>
-                <View style={styles.item}>
-                  <Image
-                    style={styles.image}
-                    source={require("../assets/dolphins/Atlantic_spotted_dolphin.jpg")}
-                  />
-                  <AppText style={styles.itemTitle}>Tursiops</AppText>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => console.log("Tapped")}>
-                <View style={styles.item}>
-                  <Image
-                    style={styles.image}
-                    source={require("../assets/dolphins/Atlantic_spotted_dolphin.jpg")}
-                  />
-                  <AppText style={styles.itemTitle}>Tursiops</AppText>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => console.log("Tapped")}>
-                <View style={styles.item}>
-                  <Image
-                    style={styles.image}
-                    source={require("../assets/dolphins/Atlantic_spotted_dolphin.jpg")}
-                  />
-                  <AppText style={styles.itemTitle}>Tursiops</AppText>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => console.log("Tapped")}>
-                <View style={styles.item}>
-                  <Image
-                    style={styles.image}
-                    source={require("../assets/dolphins/Atlantic_spotted_dolphin.jpg")}
-                  />
-                  <AppText style={styles.itemTitle}>Tursiops</AppText>
-                </View>
-              </TouchableOpacity>
+              <CarouselItem
+                title="Tursiops"
+                imageUrl={require("../assets/dolphins/Atlantic_spotted_dolphin.jpg")}
+              />
+              <CarouselItem
+                title="Tursiops"
+                imageUrl={require("../assets/dolphins/Atlantic_spotted_dolphin.jpg")}
+              />
+              <CarouselItem
+                title="Tursiops"
+                imageUrl={require("../assets/dolphins/Atlantic_spotted_dolphin.jpg")}
+              />
+              <CarouselItem
+                title="Tursiops"
+                imageUrl={require("../assets/dolphins/Atlantic_spotted_dolphin.jpg")}
+              />
             </ScrollView>
           </View>
         </View>
@@ -87,7 +68,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 250,
     marginVertical: 10,
-    elevation: 2,
+    elevation: 1,
     padding: 10,
   },
   speciesText: {
