@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
   item: {
     marginHorizontal: 5,
     marginVertical: 5,
-    width: 114,
   },
   itemTitle: {
     color: defaultStyles.colors.black,
@@ -28,7 +27,7 @@ const styles = StyleSheet.create({
     marginVertical: 150,
   },
   image: {
-    width: 114,
+    width: 115,
     height: 180,
     alignSelf: "center",
     borderRadius: 15,

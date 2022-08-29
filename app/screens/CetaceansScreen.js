@@ -1,10 +1,8 @@
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
-import LinkButton from "../components/LinkButton";
 import AppText from "../components/AppText";
 import Carousel from "../components/Carousel";
 import defaultStyles from "../config/styles";
-import AppButton from "../components/AppButton";
 
 const CetaceansScreen = (props) => {
   const cetaceans = [
@@ -196,12 +194,18 @@ const CetaceansScreen = (props) => {
         <AppText style={styles.welcomeText}>
           Welcome to the depth of the ocean
         </AppText>
-        <View style={styles.cetaceansContainer}>
-          <AppText style={styles.speciesText}>Dolphins</AppText>
+        <View style={styles.categoryContainer}>
+          <AppText style={styles.category}>Dolphins</AppText>
+          <AppText style={styles.seeMore}>Swipe to see more</AppText>
+
           <Carousel data={cetaceans} />
-          <View style={styles.button}>
-            <LinkButton color="secondary" title="Expand" />
-          </View>
+          {/* <LinkButton color="black" title="See more" /> */}
+        </View>
+        <View style={styles.categoryContainer}>
+          <AppText style={styles.category}>Whales</AppText>
+          <AppText style={styles.seeMore}>Swipe to see more</AppText>
+          <Carousel data={cetaceans} />
+          {/* <LinkButton color="black" title="See more" /> */}
         </View>
       </ScrollView>
     </View>
@@ -210,18 +214,19 @@ const CetaceansScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: defaultStyles.colors.light,
+    backgroundColor: defaultStyles.colors.primary,
     flex: 1,
     padding: 15,
   },
   welcomeText: {
+    color: defaultStyles.colors.white,
     fontSize: 22,
     fontWeight: "700",
     width: "70%",
     marginTop: 50,
     marginBottom: 10,
   },
-  cetaceansContainer: {
+  categoryContainer: {
     flex: 1,
     borderRadius: 20,
     backgroundColor: defaultStyles.colors.white,
@@ -230,16 +235,12 @@ const styles = StyleSheet.create({
     elevation: 1,
     padding: 10,
   },
-  speciesText: {
+  category: {
     fontWeight: "700",
+    color: defaultStyles.colors.black,
     fontSize: 18,
     marginBottom: 10,
     marginHorizontal: 5,
-  },
-  sliderContainer: {
-    flexDirection: "row",
-    height: 190,
-    alignItems: "center",
   },
   itemTitle: {
     color: defaultStyles.colors.black,
@@ -256,6 +257,11 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 5,
+  },
+  seeMore: {
+    color: defaultStyles.colors.medium,
+    marginHorizontal: 5,
+    marginBottom: 5,
   },
 });
 

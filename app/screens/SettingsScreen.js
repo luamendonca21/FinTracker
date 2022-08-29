@@ -12,7 +12,7 @@ const SettingsScreen = (props) => {
       icon: {
         name: "account-settings",
         iconColor: defaultStyles.colors.white,
-        backgroundColor: defaultStyles.colors.secondary,
+        backgroundColor: defaultStyles.colors.primary,
       },
     },
     {
