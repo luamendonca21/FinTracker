@@ -14,18 +14,23 @@ function CarouselItem({ imageUrl, title }) {
 }
 
 const styles = StyleSheet.create({
-  item: { marginRight: 10 },
+  item: {
+    marginHorizontal: 5,
+    marginVertical: 5,
+    width: 114,
+  },
   itemTitle: {
     color: defaultStyles.colors.black,
     position: "absolute",
     fontWeight: "700",
     color: defaultStyles.colors.white,
     marginHorizontal: 10,
-    marginVertical: 145,
+    marginVertical: 150,
   },
   image: {
-    width: 120,
+    width: 114,
     height: 180,
+    alignSelf: "center",
     borderRadius: 15,
   },
 });
