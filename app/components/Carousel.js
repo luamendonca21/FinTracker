@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
   sliderContainer: {
     height: 290,
     width: "100%",
-    alignItems: "center",
   },
   container: {
     flexDirection: "row",

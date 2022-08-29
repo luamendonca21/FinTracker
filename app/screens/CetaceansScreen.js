@@ -97,7 +97,7 @@ const CetaceansScreen = (props) => {
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
     {
-      id: 5,
+      id: 6,
       name: "Dolphy",
       details: {
         scientificName: "Tursiops",
@@ -115,7 +115,7 @@ const CetaceansScreen = (props) => {
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
     {
-      id: 5,
+      id: 7,
       name: "Dolphy",
       details: {
         scientificName: "Tursiops",
@@ -133,7 +133,7 @@ const CetaceansScreen = (props) => {
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
     {
-      id: 5,
+      id: 8,
       name: "Dolphy",
       details: {
         scientificName: "Tursiops",
@@ -151,7 +151,25 @@ const CetaceansScreen = (props) => {
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
     {
-      id: 5,
+      id: 9,
+      name: "Dolphy",
+      details: {
+        scientificName: "Tursiops",
+        age: "1",
+        Length: "3m",
+        weigh: "650kg",
+        location: "Camâra de Lobos",
+      },
+      imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+    {
+      id: 10,
       name: "Dolphy",
       details: {
         scientificName: "Tursiops",
@@ -199,11 +217,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   cetaceansContainer: {
+    flex: 1,
     borderRadius: 20,
     justifyContent: "center",
     backgroundColor: defaultStyles.colors.white,
     width: "100%",
-    height: 350,
+    height: "60%",
     marginVertical: 10,
     elevation: 1,
     padding: 10,
