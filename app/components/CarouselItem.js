@@ -7,7 +7,7 @@ function CarouselItem({ item, onPress }) {
     <TouchableOpacity onPress={onPress}>
       <View style={styles.item}>
         <Image style={styles.image} source={item.imageUrl} />
-        <AppText numberOfLines={1} style={styles.itemTitle}>
+        <AppText numberOfLines={2} style={styles.itemTitle}>
           {item.name}
         </AppText>
       </View>
@@ -25,9 +25,10 @@ const styles = StyleSheet.create({
   itemTitle: {
     position: "absolute",
     fontWeight: "700",
+    height: "98%",
     color: defaultStyles.colors.white,
-    marginHorizontal: 10,
-    marginVertical: 150,
+    marginHorizontal: 8,
+    textAlignVertical: "bottom",
   },
   image: {
     width: 115,
