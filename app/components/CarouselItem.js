@@ -1,17 +1,27 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  TouchableHighlight,
+} from "react-native";
 import AppText from "./AppText";
 import defaultStyles from "../config/styles";
 function CarouselItem({ item, onPress }) {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableHighlight
+      style={{ borderRadius: 15 }}
+      underlayColor={defaultStyles.colors.light}
+      onPress={onPress}
+    >
       <View style={styles.item}>
         <Image style={styles.image} source={item.imageUrl} />
         <AppText numberOfLines={2} style={styles.itemTitle}>
           {item.name}
         </AppText>
       </View>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 }
 
