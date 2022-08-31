@@ -152,7 +152,7 @@ function CetaceanProfileScreen(props) {
             </View>
             <View style={styles.headerIcons}>
               <MaterialCommunityIcons
-                name="bell"
+                name="bell-outline"
                 color={defaultStyles.colors.black}
                 size={34}
               />
