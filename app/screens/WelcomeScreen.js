@@ -1,12 +1,12 @@
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Dimensions } from "react-native";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import LinkButton from "../components/LinkButton";
 import WavyFooter from "../components/WavyFooter";
 import defaultStyles from "../config/styles";
 import Screen from "../components/Screen";
-
+const windowHeight = Dimensions.get("window").height;
 const WelcomeScreen = (props) => {
   return (
     <Screen>
@@ -15,7 +15,7 @@ const WelcomeScreen = (props) => {
         <AppText style={styles.title}>Fin Tracker</AppText>
       </View>
       <WavyFooter
-        customHeight={380}
+        customHeight={windowHeight / 2.2}
         color={defaultStyles.colors.primary}
         customWavePattern="M0,192L48,208C96,224,192,256,288,250.7C384,245,480,203,576,160C672,117,768,75,864,101.3C960,128,1056,224,1152,250.7C1248,277,1344,235,1392,213.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
         style={styles.wave}
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     lineHeight: 22,
   },
-  wave: { position: "absolute", bottom: 0, width: "100%", height: "45%" },
+  wave: { position: "absolute", bottom: 0, width: "100%" },
   button: {
     width: 300,
     justifyContent: "space-evenly",

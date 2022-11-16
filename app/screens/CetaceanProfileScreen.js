@@ -1,11 +1,13 @@
 import React from "react";
-import { View, StyleSheet, Image, ScrollView } from "react-native";
+import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import defaultStyles from "../config/styles";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
-function CetaceanProfileScreen(props) {
+const windowHeight = Dimensions.get("window").height;
+
+const CetaceanProfileScreen = (props) => {
   const cetaceans = [
     {
       id: 1,
@@ -179,12 +181,12 @@ function CetaceanProfileScreen(props) {
       </View>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   imageContainer: {
     width: "100%",
-    height: "30%",
+    height: windowHeight / 3,
     position: "absolute",
     top: 0,
     backgroundColor: defaultStyles.colors.primary,
@@ -197,7 +199,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     backgroundColor: defaultStyles.colors.white,
     flex: 1,
-    marginTop: 245,
+    marginTop: windowHeight / 3.5,
     padding: 15,
   },
   header: {
