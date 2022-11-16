@@ -15,7 +15,7 @@ const WavyHeader = ({
           height="130%"
           width="100%"
           viewBox="0 0 1440 320"
-          style={{ position: "absolute", top: customTop }}
+          style={{ position: "absolute", top: customHeight / 1.7 }}
         >
           <Path fill={color} d={customWavePattern} />
         </Svg>
