@@ -6,6 +6,7 @@ import LinkButton from "../components/LinkButton";
 import WavyFooter from "../components/WavyFooter";
 import defaultStyles from "../config/styles";
 import Screen from "../components/Screen";
+
 const WelcomeScreen = (props) => {
   return (
     <Screen>
@@ -14,8 +15,7 @@ const WelcomeScreen = (props) => {
         <AppText style={styles.title}>Fin Tracker</AppText>
       </View>
       <WavyFooter
-        customHeight={400}
-        customButtom={120}
+        customHeight={380}
         color={defaultStyles.colors.primary}
         customWavePattern="M0,192L48,208C96,224,192,256,288,250.7C384,245,480,203,576,160C672,117,768,75,864,101.3C960,128,1056,224,1152,250.7C1248,277,1344,235,1392,213.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
         style={styles.wave}
@@ -40,7 +40,8 @@ const WelcomeScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginTop: 100,
+    marginTop: 60,
+    height: "20%",
     justifyContent: "center",
   },
   title: {
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     elevation: 2,
+    height: "40%",
     width: "90%",
     alignSelf: "center",
     backgroundColor: defaultStyles.colors.white,
@@ -68,11 +70,11 @@ const styles = StyleSheet.create({
   },
   welcomeDescription: {
     textAlign: "center",
-    paddingHorizontal: 15,
-    marginBottom: 20,
+    paddingHorizontal: 10,
+    marginBottom: 15,
     lineHeight: 22,
   },
-  wave: { position: "absolute", bottom: 0, width: "100%" },
+  wave: { position: "absolute", bottom: 0, width: "100%", height: "45%" },
   button: {
     width: 300,
     justifyContent: "space-evenly",
