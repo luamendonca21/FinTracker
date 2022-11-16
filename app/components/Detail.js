@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35,
     marginRight: 10,
   },
-  title: { fontWeight: "bold", color: defaultStyles.colors.secondary },
+  title: { fontWeight: "bold", color: defaultStyles.colors.primary },
   subTitle: { color: defaultStyles.colors.black },
 });
 

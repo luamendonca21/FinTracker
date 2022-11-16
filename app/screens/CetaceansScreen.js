@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import AppText from "../components/AppText";
+import FilterInput from "../components/FilterInput";
 import Carousel from "../components/Carousel";
 import defaultStyles from "../config/styles";
 
@@ -140,6 +141,11 @@ const CetaceansScreen = (props) => {
         <AppText style={styles.welcomeText}>
           Welcome to the depth of the ocean
         </AppText>
+        <FilterInput
+          icon="search"
+          size={24}
+          placeholder="Search for cetaceans..."
+        />
         <View style={styles.categoryContainer}>
           <AppText style={styles.category}>Dolphins</AppText>
           <AppText style={styles.seeMore}>Swipe to see more</AppText>
