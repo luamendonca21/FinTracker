@@ -22,14 +22,14 @@ const LoginScreen = (props) => {
 Sign Up!`}</AppText>
           <View style={styles.inputsContainer}>
             <AppTextInput
-              size={30}
+              size={25}
               icon="account-circle"
               placeholder="Username"
             />
-            <AppTextInput size={30} icon="email" placeholder="Email" />
+            <AppTextInput size={25} icon="email" placeholder="Email" />
 
             <AppTextInput
-              size={30}
+              size={25}
               icon="lock"
               placeholder="Password"
               secureTextEntry

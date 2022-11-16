@@ -22,12 +22,12 @@ const LoginScreen = (props) => {
 Log In!`}</AppText>
           <View style={styles.inputsContainer}>
             <AppTextInput
-              size={30}
+              size={25}
               icon="account-circle"
               placeholder="Username"
             />
             <AppTextInput
-              size={30}
+              size={25}
               icon="lock"
               placeholder="Password"
               secureTextEntry

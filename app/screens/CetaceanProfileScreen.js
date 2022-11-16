@@ -156,12 +156,12 @@ const CetaceanProfileScreen = (props) => {
               <MaterialCommunityIcons
                 name="bell-outline"
                 color={defaultStyles.colors.black}
-                size={34}
+                size={32}
               />
               <MaterialCommunityIcons
                 name="cards-heart-outline"
                 color={defaultStyles.colors.black}
-                size={34}
+                size={32}
               />
             </View>
           </View>
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   },
   headerIcons: {
     flexDirection: "row",
-    width: 75,
+    width: 70,
     justifyContent: "space-between",
   },
   cetaceanName: {
@@ -223,7 +223,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   text: {
-    fontSize: 16,
     lineHeight: 22,
     textAlign: "justify",
   },
