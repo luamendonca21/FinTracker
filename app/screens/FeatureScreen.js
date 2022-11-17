@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import AppText from "../components/AppText";
 import defaultStyles from "../config/styles";
@@ -47,8 +47,14 @@ const features = [
       "See your position in the leaderboard and compete with other users",
   },
 ];
-const index = 5;
 const FeatureScreen = ({ props }) => {
+  const [index, setIndex] = useState(0);
+
+  const handleClick = (index) => {
+    if (index != 6) {
+      setIndex(index + 1);
+    }
+  };
   return (
     <>
       <View style={styles.container}>
@@ -61,7 +67,11 @@ const FeatureScreen = ({ props }) => {
         <Index features={features} indexSelected={index} />
       </View>
       <View style={styles.button}>
-        <AppSecondaryButton title="Next" index={index} />
+        <AppSecondaryButton
+          title="Next"
+          index={index}
+          onPress={() => handleClick(index)}
+        />
       </View>
     </>
   );
