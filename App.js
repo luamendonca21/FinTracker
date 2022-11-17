@@ -12,6 +12,7 @@ import CetaceanProfileScreen from "./app/screens/CetaceanProfileScreen";
 import UserProfileScreen from "./app/screens/UserProfileScreen";
 import CetaceansScreen from "./app/screens/CetaceansScreen";
 import AboutScreen from "./app/screens/AboutScreen";
+import FeatureScreen from "./app/screens/FeatureScreen";
 export default function App() {
-  return <AboutScreen />;
+  return <FeatureScreen />;
 }

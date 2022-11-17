@@ -6,21 +6,21 @@ import {
   TouchableOpacity,
 } from "react-native";
 import AppText from "./AppText";
-import defaultStyles from "../config/colors";
+import defaultStyles from "../config/styles";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const BoxItem = ({ item }) => {
   return (
     <TouchableHighlight
       onPress={() => console.log("Pressed")}
-      underlayColor={defaultStyles.light}
+      underlayColor={defaultStyles.colors.light}
       style={styles.container}
     >
       <>
         <MaterialIcons
           name={item.icon}
           size={50}
-          color={defaultStyles.primary}
+          color={defaultStyles.colors.primary}
         />
         <View style={styles.itemDescription}>
           <AppText style={styles.title}>{item.title}</AppText>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     height: 180,
     marginHorizontal: 5,
     marginVertical: 5,
-    backgroundColor: defaultStyles.white,
+    backgroundColor: defaultStyles.colors.white,
     alignItems: "center",
     paddingVertical: 15,
     justifyContent: "space-between",

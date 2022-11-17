@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   welcome: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     padding: 10,
   },
