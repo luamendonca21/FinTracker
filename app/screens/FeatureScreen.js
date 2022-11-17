@@ -61,7 +61,7 @@ const FeatureScreen = ({ props }) => {
         <Index features={features} indexSelected={index} />
       </View>
       <View style={styles.button}>
-        <AppSecondaryButton title="Next" />
+        <AppSecondaryButton title="Next" index={index} />
       </View>
     </>
   );
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     textAlign: "center",
     lineHeight: 28,
-    width: 260,
+    width: 290,
   },
   indexContainer: {
     flexDirection: "row",

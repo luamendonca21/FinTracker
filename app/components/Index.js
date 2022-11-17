@@ -10,13 +10,12 @@ const Index = ({ features, indexSelected }) => {
   return (
     <View style={styles.container}>
       {features.map((item, index) => (
-        <>
-          <MaterialCommunityIcons
-            name={checkIndex(index)}
-            size={12}
-            color={defaultStyles.colors.medium}
-          />
-        </>
+        <MaterialCommunityIcons
+          key={index}
+          name={checkIndex(index)}
+          size={12}
+          color={defaultStyles.colors.medium}
+        />
       ))}
     </View>
   );

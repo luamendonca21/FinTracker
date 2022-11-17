@@ -6,7 +6,7 @@ import defaultStyles from "../config/styles";
 
 import AppText from "./AppText";
 
-const AppSecondaryButton = ({ title, color = "secondary", onPress }) => {
+const AppSecondaryButton = ({ index, title, color = "secondary", onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -20,7 +20,7 @@ const AppSecondaryButton = ({ title, color = "secondary", onPress }) => {
         size={36}
         color={defaultStyles.colors.white}
       />
-      <AppText style={styles.text}>{title}</AppText>
+      <AppText style={styles.text}>{index == 6 ? "Finish" : title}</AppText>
     </TouchableOpacity>
   );
 };

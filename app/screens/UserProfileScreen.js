@@ -5,6 +5,7 @@ import defaultStyles from "../config/styles";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
+import Carousel from "../components/Carousel";
 const windowHeight = Dimensions.get("window").height;
 
 function UserProfileScreen(props) {
@@ -16,6 +17,63 @@ function UserProfileScreen(props) {
         hometown: "Madeira",
         joinedFinTracker: "28/07/2022",
       },
+    },
+  ];
+
+  const favorites = [
+    {
+      id: 6,
+      name: "Rough toothed Dolphin",
+      details: {
+        scientificName: "Steno bredanensiss",
+        age: "1",
+        Length: "3m",
+        weigh: "650kg",
+        location: "Camâra de Lobos",
+      },
+      imageUrl: require("../assets/dolphins/Rough_toothed_dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+    {
+      id: 4,
+      name: "Frasers Dolphin",
+      details: {
+        scientificName: "Lagenodelphis hosei",
+        age: "1",
+        Length: "3m",
+        weigh: "650kg",
+        location: "Camâra de Lobos",
+      },
+      imageUrl: require("../assets/dolphins/Frasers_dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+    {
+      id: 1,
+      name: "Atlantic spotted Dolphin",
+      details: {
+        scientificName: "Stenella frontalis",
+        age: "1",
+        Length: "3m",
+        weigh: "650kg",
+        location: "Camâra de Lobos",
+      },
+      imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
   ];
 
@@ -53,6 +111,7 @@ function UserProfileScreen(props) {
               <ListDetails details={users[0].details} />
             </ScrollView>
             <AppText style={styles.title}>Favorite Cetaceans</AppText>
+            <Carousel data={favorites} />
           </View>
         </ScrollView>
       </View>
