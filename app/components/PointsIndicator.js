@@ -2,8 +2,8 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import AppText from "./AppText";
 import { MaterialIcons } from "@expo/vector-icons";
-
 import defaultStyles from "../config/colors";
+
 const PointsIndicator = ({ props }) => {
   return (
     <View style={styles.container}>

@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+import AppText from "../components/AppText";
 import Screen from "../components/Screen";
 import BoxItem from "../components/BoxItem";
-import AppText from "../components/AppText";
 
 const items = [
   {

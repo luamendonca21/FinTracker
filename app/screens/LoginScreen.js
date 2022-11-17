@@ -1,11 +1,12 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import defaultStyles from "../config/styles";
-import AppTextInput from "../components/AppTextInput";
-import AppText from "../components/AppText";
-import AppButton from "../components/AppButton";
+import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
-import WavyHeader from "../components/WavyHeader";
+import { AppTextInput } from "../components/Inputs";
+import AppText from "../components/AppText";
+import { AppButton } from "../components/Buttons";
+import defaultStyles from "../config/styles";
+
 const LoginScreen = (props) => {
   return (
     <>

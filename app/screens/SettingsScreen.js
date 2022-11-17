@@ -1,9 +1,10 @@
 import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import { ListItem, ListItemSeparator } from "../components/Lists";
 import Screen from "../components/Screen";
-import defaultStyles from "../config/styles";
+import { ListItem, ListItemSeparator } from "../components/Lists";
 import Icon from "../components/Icon";
+import defaultStyles from "../config/styles";
+
 const SettingsScreen = (props) => {
   const menuItems = [
     {

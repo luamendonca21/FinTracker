@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet, TouchableHighlight } from "react-native";
-import defaultStyles from "../../config/styles";
 import AppText from "../AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import defaultStyles from "../../config/styles";
 
 const ListItem = ({ title, onPress, IconComponent, chevrons }) => {
   return (

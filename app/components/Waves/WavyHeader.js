@@ -1,13 +1,8 @@
 import React from "react";
 import { View } from "react-native";
 import Svg, { Path } from "react-native-svg";
-const WavyHeader = ({
-  color,
-  customWavePattern,
-  customHeight,
-  customTop,
-  style,
-}) => {
+
+const WavyHeader = ({ color, customWavePattern, customHeight, style }) => {
   return (
     <View style={style}>
       <View style={{ backgroundColor: color, height: customHeight }}>

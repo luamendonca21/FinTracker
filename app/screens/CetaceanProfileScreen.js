@@ -1,10 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-import defaultStyles from "../config/styles";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import defaultStyles from "../config/styles";
+
 const windowHeight = Dimensions.get("window").height;
 
 const CetaceanProfileScreen = (props) => {

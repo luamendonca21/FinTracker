@@ -1,11 +1,12 @@
 import React from "react";
 import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import defaultStyles from "../config/styles";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
-import Carousel from "../components/Carousel";
+import { Carousel } from "../components/Carousels";
+import { MaterialIcons } from "@expo/vector-icons";
+import defaultStyles from "../config/styles";
+
 const windowHeight = Dimensions.get("window").height;
 
 function UserProfileScreen(props) {

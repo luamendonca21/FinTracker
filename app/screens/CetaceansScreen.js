@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import AppText from "../components/AppText";
-import FilterInput from "../components/FilterInput";
-import Carousel from "../components/Carousel";
+import { FilterInput } from "../components/Inputs";
+import { Carousel } from "../components/Carousels";
 import defaultStyles from "../config/styles";
 
 const CetaceansScreen = (props) => {

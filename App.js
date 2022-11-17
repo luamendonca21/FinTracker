@@ -4,6 +4,7 @@ import {
   Text,
   View,
 } from "react-native";
+
 import LoginScreen from "./app/screens/LoginScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
@@ -13,6 +14,7 @@ import UserProfileScreen from "./app/screens/UserProfileScreen";
 import CetaceansScreen from "./app/screens/CetaceansScreen";
 import AboutScreen from "./app/screens/AboutScreen";
 import FeatureScreen from "./app/screens/FeatureScreen";
+
 export default function App() {
   return <FeatureScreen />;
 }

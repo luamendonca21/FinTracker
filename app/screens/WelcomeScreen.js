@@ -1,12 +1,13 @@
 import React from "react";
 import { View, StyleSheet, Image, Dimensions } from "react-native";
-import AppText from "../components/AppText";
-import AppButton from "../components/AppButton";
-import LinkButton from "../components/LinkButton";
-import WavyFooter from "../components/WavyFooter";
-import defaultStyles from "../config/styles";
+import { WavyFooter } from "../components/Waves";
 import Screen from "../components/Screen";
+import AppText from "../components/AppText";
+import { AppButton, LinkButton } from "../components/Buttons";
+import defaultStyles from "../config/styles";
+
 const windowHeight = Dimensions.get("window").height;
+
 const WelcomeScreen = (props) => {
   return (
     <Screen>

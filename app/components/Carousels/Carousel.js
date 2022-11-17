@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ScrollView, StyleSheet, FlatList } from "react-native";
-import CarouselItem from "./CarouselItem";
+import { CarouselItem } from "../Carousels";
 
 function Carousel({ data }) {
   return (

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import AppText from "../components/AppText";
-import defaultStyles from "../config/styles";
-import AppSecondaryButton from "../components/AppSecondaryButton";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AppSecondaryButton } from "../components/Buttons";
 import Index from "../components/Index";
+import defaultStyles from "../config/styles";
+
 const features = [
   {
     id: 0,
@@ -64,7 +64,7 @@ const FeatureScreen = ({ props }) => {
         ></Image>
         <AppText style={styles.title}>{features[index].title}</AppText>
         <AppText style={styles.subTitle}>{features[index].description}</AppText>
-        <Index features={features} indexSelected={index} />
+        <Index items={features} indexSelected={index} />
       </View>
       <View style={styles.button}>
         <AppSecondaryButton
