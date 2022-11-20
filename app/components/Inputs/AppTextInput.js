@@ -11,7 +11,7 @@ const AppTextInput = ({ icon, secureTextEntry, ...otherProps }) => {
   };
 
   const hidePassword = () => {
-    return hiddenPassword ? ["eye", false] : ["eye-off", true];
+    return hiddenPassword ? ["eye-off", false] : ["eye", true];
   };
 
   return (
