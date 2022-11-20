@@ -4,7 +4,13 @@ import AppText from "./../AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../../config/styles";
 
-const AppSecondaryButton = ({ index, title, color = "secondary", onPress }) => {
+const AppSecondaryButton = ({
+  index,
+  title,
+  icon,
+  color = "secondary",
+  onPress,
+}) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -13,12 +19,16 @@ const AppSecondaryButton = ({ index, title, color = "secondary", onPress }) => {
         { backgroundColor: defaultStyles.colors[color] },
       ]}
     >
-      <MaterialCommunityIcons
-        name="arrow-right-thin"
-        size={36}
-        color={defaultStyles.colors.white}
-      />
-      <AppText style={styles.text}>{index == 6 ? "Finish" : title}</AppText>
+      {icon && (
+        <MaterialCommunityIcons
+          name={icon}
+          size={36}
+          color={defaultStyles.colors.white}
+        />
+      )}
+      <AppText style={styles.text}>
+        {icon && index == 6 ? "Fim" : title}
+      </AppText>
     </TouchableOpacity>
   );
 };

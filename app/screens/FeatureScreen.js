@@ -110,7 +110,8 @@ const FeatureScreen = ({ props }) => {
       </View>
       <View style={styles.button}>
         <AppSecondaryButton
-          title="Next"
+          title="Seguinte"
+          icon="arrow-right-thin"
           index={index}
           onPress={() => handleClick(index)}
         />
