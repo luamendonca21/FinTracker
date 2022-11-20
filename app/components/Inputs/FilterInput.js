@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   textInput: {
+    color: defaultStyles.colors.white,
     flex: 1,
     marginLeft: 5,
   },

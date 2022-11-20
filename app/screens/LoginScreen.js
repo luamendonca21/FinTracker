@@ -9,7 +9,7 @@ import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
-import { AppButton } from "../components/Buttons";
+import { AppButton, LinkButton } from "../components/Buttons";
 import defaultStyles from "../config/styles";
 
 const LoginScreen = (props) => {
@@ -25,26 +25,31 @@ const LoginScreen = (props) => {
         />
         <Screen>
           <View style={styles.container}>
-            <AppText style={styles.text}>{`Welcome back, 
-Log In!`}</AppText>
+            <AppText style={styles.text}>{`Bem-vindo de volta, 
+Inicie Sessão!`}</AppText>
             <View style={styles.inputsContainer}>
               <AppTextInput
                 size={25}
                 icon="account-circle"
-                placeholder="Username"
+                placeholder="Nome de utilizador"
               />
               <AppTextInput
                 size={25}
                 icon="lock"
-                placeholder="Password"
+                placeholder="Palavra-passe"
                 secureTextEntry
               />
-              <AppText style={styles.forgotPassword}>
-                Forgot your password?
-              </AppText>
+              <LinkButton
+                style={styles.forgotPassword}
+                title="Esqueci-me da palavra-passe"
+                color={defaultStyles.colors.black}
+              />
             </View>
             <View style={styles.button}>
-              <AppButton title="Log In" />
+              <AppButton
+                title="Iniciar Sessão"
+                onPress={() => console.log("Pressed")}
+              />
             </View>
           </View>
         </Screen>
@@ -57,9 +62,7 @@ const styles = StyleSheet.create({
   text: { fontSize: 26, fontWeight: "700", color: defaultStyles.colors.white },
   container: { marginTop: 10, padding: 15, flex: 1 },
   inputsContainer: { marginTop: 150 },
-  forgotPassword: {
-    textAlign: "right",
-  },
+  forgotPassword: { alignSelf: "flex-end" },
   button: {
     flex: 1,
     justifyContent: "flex-end",

@@ -4,7 +4,7 @@ import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
 import { Carousel } from "../components/Carousels";
-import { MaterialIcons } from "@expo/vector-icons";
+import IconButton from "../components/IconButton";
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -13,10 +13,10 @@ function UserProfileScreen(props) {
   const users = [
     {
       name: "Luana",
-      details: {
-        age: "21",
-        hometown: "Madeira",
-        joinedFinTracker: "28/07/2022",
+      detalhes: {
+        idade: "21",
+        naturalidade: "Madeira",
+        contaCriadaEm: "28/07/2022",
       },
     },
   ];
@@ -95,12 +95,10 @@ function UserProfileScreen(props) {
           </View>
           <View style={styles.body}>
             <View style={styles.detailsHeader}>
-              <AppText style={styles.title}>Details</AppText>
-              <MaterialIcons
-                style={{
-                  marginTop: 15,
-                  marginBottom: 5,
-                }}
+              <AppText style={styles.title}>Detalhes</AppText>
+              <IconButton
+                style={styles.iconButton}
+                onPress={() => console.log("Pressed")}
                 name="edit"
                 size={25}
               />
@@ -109,9 +107,9 @@ function UserProfileScreen(props) {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              <ListDetails details={users[0].details} />
+              <ListDetails details={users[0].detalhes} />
             </ScrollView>
-            <AppText style={styles.title}>Favorite Cetaceans</AppText>
+            <AppText style={styles.title}>Cetáceos Favoritos</AppText>
             <Carousel data={favorites} />
           </View>
         </ScrollView>
@@ -163,11 +161,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   detailsHeader: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    width: 95,
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
   },
+  iconButton: { marginBottom: 5, marginTop: 15 },
   text: {
     fontSize: 16,
     lineHeight: 22,

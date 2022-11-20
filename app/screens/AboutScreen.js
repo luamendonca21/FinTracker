@@ -7,14 +7,14 @@ import BoxItem from "../components/BoxItem";
 const items = [
   {
     id: 1,
-    title: "Features",
-    subTitle: "Get tips to explore the main features",
+    title: "Funcionalidades",
+    subTitle: "Obtem dicas para explorar as principais funcionalidades",
     icon: "stars",
   },
   {
     id: 2,
-    title: "Contacts",
-    subTitle: "Contact us for any question",
+    title: "Contactos",
+    subTitle: "Contacta-nos para qualquer questão",
     icon: "phone",
   },
 ];
@@ -26,13 +26,13 @@ const AboutScreen = (props) => {
   return (
     <Screen>
       <View style={styles.container}>
-        <AppText style={styles.title}>About Fin Tracker</AppText>
+        <AppText style={styles.title}>Sobre Fin Tracker</AppText>
         <AppText style={styles.subTitle}>
-          Fin Tracker is a mobile application that allows the general audience
-          to explore and engage the migrations of cetaceans and other marine
-          animals that have been tagged.Fin Tracker is a mobile application that
-          allows the general audience to explore and engage the migrations of
-          cetaceans and other marine animals that have been tagged.
+          O Fin Tracker é uma aplicação móvel que permite ao público em geral
+          para explorar e envolver as migrações de cetáceos e outros marinhos
+          animais que tenham sido marcados.Fin Tracker é uma aplicação móvel que
+          permite que o público em geral explore e envolva as migrações de
+          cetáceos e outros animais marinhos que tenham sido marcados.
         </AppText>
         <View style={styles.itemsContainer}>
           <FlatList

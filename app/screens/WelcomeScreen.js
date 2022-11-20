@@ -23,15 +23,19 @@ const WelcomeScreen = (props) => {
       />
 
       <View style={styles.footerContainer}>
-        <AppText style={styles.welcome}>Welcome to Fin Tracker App</AppText>
-        <AppText style={styles.welcomeDescription}>
-          Follow your favorite cetaceans, discover their life history,
-          migration, and receive personalized notifications!
-        </AppText>
-        <AppButton title="Sign Up" />
-        <View style={styles.button}>
-          <AppText>Already have an account?</AppText>
-          <LinkButton title="Log In" />
+        <View style={styles.welcomeContainer}>
+          <AppText style={styles.welcome}>Bem-vindo a Fin Tracker</AppText>
+          <AppText style={styles.welcomeDescription}>
+            Segue os teus cetáceos favoritos, descobre a sua história de vida,
+            migração, e recebe notificações personalizadas!
+          </AppText>
+        </View>
+        <View style={{ width: "100%" }}>
+          <AppButton title="Registar" />
+          <View style={styles.button}>
+            <AppText>Já tem uma conta criada?</AppText>
+            <LinkButton title="Iniciar Sessão" />
+          </View>
         </View>
       </View>
     </Screen>
@@ -54,7 +58,7 @@ const styles = StyleSheet.create({
   footerContainer: {
     padding: 25,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     position: "absolute",
     bottom: 20,
     elevation: 2,
@@ -64,20 +68,25 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.white,
     borderRadius: 20,
   },
+  welcomeContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   welcome: {
     fontSize: 20,
     fontWeight: "bold",
-    padding: 10,
+    padding: 5,
   },
   welcomeDescription: {
     textAlign: "center",
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     marginBottom: 15,
     lineHeight: 22,
   },
   wave: { position: "absolute", bottom: 0, width: "100%" },
   button: {
-    width: 300,
+    width: "100%",
     justifyContent: "space-evenly",
     flexDirection: "row",
   },

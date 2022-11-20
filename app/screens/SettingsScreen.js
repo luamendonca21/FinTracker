@@ -9,7 +9,7 @@ const SettingsScreen = (props) => {
   const menuItems = [
     {
       id: 1,
-      title: "Account",
+      title: "Conta",
       icon: {
         name: "account-settings",
         iconColor: defaultStyles.colors.white,
@@ -18,7 +18,7 @@ const SettingsScreen = (props) => {
     },
     {
       id: 2,
-      title: "Notifications",
+      title: "Notificações",
       icon: {
         name: "bell",
         iconColor: defaultStyles.colors.white,
@@ -27,7 +27,7 @@ const SettingsScreen = (props) => {
     },
     {
       id: 3,
-      title: "Permissions",
+      title: "Permissões",
       icon: {
         name: "account-lock",
         iconColor: defaultStyles.colors.white,
@@ -36,7 +36,7 @@ const SettingsScreen = (props) => {
     },
     {
       id: 4,
-      title: "About",
+      title: "Sobre",
       icon: {
         name: "information",
         iconColor: defaultStyles.colors.white,

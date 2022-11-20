@@ -3,12 +3,12 @@ import { View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../config/styles";
 
-const Index = ({ items, indexSelected }) => {
+const Index = ({ items, indexSelected, style }) => {
   const checkIndex = (index) => {
     return index == indexSelected ? "circle" : "circle-outline";
   };
   return (
-    <View style={styles.container}>
+    <View style={[style, styles.container]}>
       {items.map((item, index) => (
         <MaterialCommunityIcons
           style={styles.icon}
@@ -25,9 +25,9 @@ const Index = ({ items, indexSelected }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
   },
-  icon: { paddingHorizontal: 4 },
+  icon: { paddingHorizontal: 5 },
 });
 
 export default Index;

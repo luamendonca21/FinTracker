@@ -8,7 +8,7 @@ const PointsIndicator = ({ props }) => {
   return (
     <View style={styles.container}>
       <View style={styles.pointsContainer}>
-        <AppText style={styles.text}>40 points</AppText>
+        <AppText style={styles.text}>40 pontos</AppText>
       </View>
       <View style={styles.starsContainer}>
         <MaterialIcons name="stars" size={32} color={defaultStyles.thirdly} />

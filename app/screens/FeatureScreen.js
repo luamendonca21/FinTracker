@@ -8,43 +8,42 @@ import defaultStyles from "../config/styles";
 const features = [
   {
     id: 0,
-    title: "GPS Location",
+    title: "Localização GPS",
     description:
-      "You can follow your favorite cetaceans in a map and see your location",
+      "Podes seguir os teus cetáceos favoritos num mapa e ver a sua localização.",
   },
   {
     id: 1,
-    title: "Knowledge",
+    title: "Conhecimento",
     description:
-      "Know your favorite cetaceans, by learning about their life, history, and migration.",
+      "Conheçe os teus cetáceos favoritos, aprendendo sobre a sua vida, história e migração.",
   },
   {
     id: 2,
-    title: "Notifications",
+    title: "Notificações",
     description:
-      "You can customize your notifications, and set to be notified if any cetacean is close to you or to a custom location",
+      "Podes personalizar as tuas notificações, e definir para ser notificado se algum cetáceo estiver perto de ti ou de um local personalizado.",
   },
   {
     id: 3,
-    title: "Unlock cetacean’s complete profile",
-    description: "You get access to cetacean’s complete profile by visiting it",
+    title: "Desbloquear o perfil completo do cetáceo",
+    description: "Tem acesso ao perfil completo do cetáceo, visitando-o.",
   },
   {
     id: 4,
-    title: "Earn points",
-    description: "You can earn 5 points by visiting a cetacean.",
+    title: "Ganha pontos",
+    description: "Podes ganhar 5 pontos ao visitar um cetáceo.",
   },
   {
     id: 5,
-    title: "Get more cetaceans",
-    description:
-      "You get access to more 5 cetaceans by each 20 points you earn",
+    title: "Obter mais cetáceos",
+    description: "Tem acesso a mais 5 cetáceos por cada 20 pontos que ganha.",
   },
   {
     id: 6,
-    title: "Leaderboard",
+    title: "Tabela de liderança",
     description:
-      "See your position in the leaderboard and compete with other users",
+      "Vê a tua posição na tabela de liderança e compara-te com os outros utilizadores.",
   },
 ];
 const FeatureScreen = ({ props }) => {
@@ -62,9 +61,24 @@ const FeatureScreen = ({ props }) => {
           style={styles.image}
           source={require("../assets/features/gpslocation.png")}
         ></Image>
-        <AppText style={styles.title}>{features[index].title}</AppText>
-        <AppText style={styles.subTitle}>{features[index].description}</AppText>
-        <Index items={features} indexSelected={index} />
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "flex-start",
+
+            width: "100%",
+          }}
+        >
+          <AppText style={styles.title}>{features[index].title}</AppText>
+          <AppText style={styles.subTitle}>
+            {features[index].description}
+          </AppText>
+          <Index
+            style={styles.indexContainer}
+            items={features}
+            indexSelected={index}
+          />
+        </View>
       </View>
       <View style={styles.button}>
         <AppSecondaryButton
@@ -86,27 +100,25 @@ const styles = StyleSheet.create({
   image: {
     borderRadius: 20,
     marginVertical: 30,
+    width: 300,
+    height: 200,
   },
   title: {
     fontSize: 22,
     fontWeight: "bold",
     textAlign: "center",
     width: 260,
-
     color: defaultStyles.colors.primary,
   },
   subTitle: {
     fontSize: 20,
-    marginTop: 5,
-    marginBottom: 30,
     textAlign: "center",
     lineHeight: 28,
-    width: 290,
+    marginTop: 5,
+    width: "90%",
   },
   indexContainer: {
-    flexDirection: "row",
-    width: 160,
-    justifyContent: "space-evenly",
+    marginTop: 20,
   },
   button: {
     alignItems: "flex-end",

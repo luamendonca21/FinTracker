@@ -25,25 +25,28 @@ const LoginScreen = (props) => {
         />
         <Screen>
           <View style={styles.container}>
-            <AppText style={styles.text}>{`Hello, 
-Sign Up!`}</AppText>
+            <AppText style={styles.text}>{`Olá, 
+Regista-te!`}</AppText>
             <View style={styles.inputsContainer}>
               <AppTextInput
                 size={25}
                 icon="account-circle"
-                placeholder="Username"
+                placeholder="Nome de utilizador"
               />
               <AppTextInput size={25} icon="email" placeholder="Email" />
 
               <AppTextInput
                 size={25}
                 icon="lock"
-                placeholder="Password"
+                placeholder="Palavra-passe"
                 secureTextEntry
               />
             </View>
             <View style={styles.button}>
-              <AppButton title="Sign Up" />
+              <AppButton
+                title="Registar"
+                onPress={() => console.log("Pressed")}
+              />
             </View>
           </View>
         </Screen>

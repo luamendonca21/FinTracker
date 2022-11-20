@@ -139,23 +139,23 @@ const CetaceansScreen = (props) => {
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <AppText style={styles.welcomeText}>
-          Welcome to the depth of the ocean
+          Bem-vindo ao fundo do oceano
         </AppText>
         <FilterInput
           icon="search"
           size={24}
-          placeholder="Search for cetaceans..."
+          placeholder="Pesquisa por cetáceos..."
         />
         <View style={styles.categoryContainer}>
-          <AppText style={styles.category}>Dolphins</AppText>
-          <AppText style={styles.seeMore}>Swipe to see more</AppText>
+          <AppText style={styles.category}>Golfinhos</AppText>
+          <AppText style={styles.seeMore}>Desliza para ver mais</AppText>
 
           <Carousel data={cetaceans} />
           {/* <LinkButton color="black" title="See more" /> */}
         </View>
         <View style={styles.categoryContainer}>
-          <AppText style={styles.category}>Whales</AppText>
-          <AppText style={styles.seeMore}>Swipe to see more</AppText>
+          <AppText style={styles.category}>Baleias</AppText>
+          <AppText style={styles.seeMore}>Desliza para ver mais</AppText>
           <Carousel data={cetaceans} />
           {/* <LinkButton color="black" title="See more" /> */}
         </View>

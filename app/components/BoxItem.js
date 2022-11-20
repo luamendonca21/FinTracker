@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.white,
     alignItems: "center",
     paddingVertical: 15,
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     borderRadius: 20,
     elevation: 2,
   },
@@ -44,7 +44,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
   },
-  subTitle: { lineHeight: 22, textAlign: "center", paddingHorizontal: 16 },
+  subTitle: {
+    lineHeight: 22,
+    textAlign: "center",
+    paddingHorizontal: 4,
+  },
 });
 
 export default BoxItem;
