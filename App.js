@@ -16,5 +16,5 @@ import AboutScreen from "./app/screens/AboutScreen";
 import FeatureScreen from "./app/screens/FeatureScreen";
 
 export default function App() {
-  return <FeatureScreen />;
+  return <SettingsScreen />;
 }
