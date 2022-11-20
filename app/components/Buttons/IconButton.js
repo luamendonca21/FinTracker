@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 const IconButton = ({ onPress, style, ...props }) => {
   return (
-    <TouchableOpacity style={[style, styles.container]} onPress={onPress}>
+    <TouchableOpacity style={[style]} onPress={onPress}>
       <MaterialIcons {...props} />
     </TouchableOpacity>
   );

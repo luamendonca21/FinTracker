@@ -4,7 +4,7 @@ import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
 import { Carousel } from "../components/Carousels";
-import IconButton from "../components/IconButton";
+import IconButton from "../components/Buttons/IconButton";
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -99,6 +99,7 @@ function UserProfileScreen(props) {
               <IconButton
                 style={styles.iconButton}
                 onPress={() => console.log("Pressed")}
+                color={defaultStyles.colors.black}
                 name="edit"
                 size={25}
               />

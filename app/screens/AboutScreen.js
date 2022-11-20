@@ -29,10 +29,8 @@ const AboutScreen = (props) => {
         <AppText style={styles.title}>Sobre Fin Tracker</AppText>
         <AppText style={styles.subTitle}>
           O Fin Tracker é uma aplicação móvel que permite ao público em geral
-          para explorar e envolver as migrações de cetáceos e outros marinhos
-          animais que tenham sido marcados.Fin Tracker é uma aplicação móvel que
-          permite que o público em geral explore e envolva as migrações de
-          cetáceos e outros animais marinhos que tenham sido marcados.
+          explorar as migrações de cetáceos e outros animais marinhos que tenham
+          sido marcados.
         </AppText>
         <View style={styles.itemsContainer}>
           <FlatList

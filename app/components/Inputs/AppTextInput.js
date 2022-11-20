@@ -1,9 +1,19 @@
-import React from "react";
-import { View, StyleSheet, TextInput } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../../config/styles";
 
-const AppTextInput = ({ icon, ...otherProps }) => {
+const AppTextInput = ({ icon, secureTextEntry, ...otherProps }) => {
+  const [hiddenPassword, setHiddenPassword] = useState(true);
+
+  const handlePress = () => {
+    setHiddenPassword(!hiddenPassword);
+  };
+
+  const hidePassword = () => {
+    return hiddenPassword ? ["eye", false] : ["eye-off", true];
+  };
+
   return (
     <View style={styles.container}>
       {icon && (
@@ -14,10 +24,22 @@ const AppTextInput = ({ icon, ...otherProps }) => {
         />
       )}
       <TextInput
+        secureTextEntry={hidePassword()[1]}
         {...otherProps}
         placeholderTextColor={defaultStyles.colors.medium}
         style={[defaultStyles.text, styles.textInput]}
       ></TextInput>
+      {secureTextEntry ? (
+        <TouchableOpacity onPress={handlePress}>
+          <MaterialCommunityIcons
+            name={hidePassword()[0]}
+            {...otherProps}
+            color={defaultStyles.colors.black}
+          />
+        </TouchableOpacity>
+      ) : (
+        ""
+      )}
     </View>
   );
 };

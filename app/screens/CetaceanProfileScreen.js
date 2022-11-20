@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import IconButton from "../components/Buttons/IconButton";
+import { MaterialIcons } from "@expo/vector-icons";
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -138,6 +139,13 @@ const CetaceanProfileScreen = (props) => {
   ];
 
   const index = 1;
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleNotificationPress = () => {};
+  const handleFavoritePress = () => {
+    setIsFavorite(!isFavorite);
+  };
   return (
     <>
       <View style={styles.imageContainer}>
@@ -153,16 +161,27 @@ const CetaceanProfileScreen = (props) => {
               </AppText>
             </View>
             <View style={styles.headerIcons}>
-              <MaterialCommunityIcons
-                name="bell-outline"
+              <IconButton
+                onPress={handleNotificationPress}
+                name="notifications-none"
                 color={defaultStyles.colors.black}
                 size={32}
               />
-              <MaterialCommunityIcons
-                name="cards-heart-outline"
-                color={defaultStyles.colors.black}
-                size={32}
-              />
+              {!isFavorite ? (
+                <IconButton
+                  onPress={handleFavoritePress}
+                  name="favorite-outline"
+                  color={defaultStyles.colors.black}
+                  size={32}
+                />
+              ) : (
+                <IconButton
+                  onPress={handleFavoritePress}
+                  name="favorite"
+                  color="red"
+                  size={32}
+                />
+              )}
             </View>
           </View>
           <AppText style={styles.title}>Detalhes</AppText>
