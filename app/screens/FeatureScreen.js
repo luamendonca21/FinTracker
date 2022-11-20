@@ -3,29 +3,34 @@ import { View, StyleSheet, Image } from "react-native";
 import AppText from "../components/AppText";
 import { AppSecondaryButton } from "../components/Buttons";
 import Index from "../components/Index";
+import { MaterialIcons } from "@expo/vector-icons";
 import defaultStyles from "../config/styles";
 
 const features = [
   {
     id: 0,
     title: "Localização GPS",
+    icon: "location-on",
     description:
       "Podes seguir os teus cetáceos favoritos num mapa e ver a sua localização.",
   },
   {
     id: 1,
     title: "Conhecimento",
+    icon: "menu-book",
     description:
       "Conheçe os teus cetáceos favoritos, aprendendo sobre a sua vida, história e migração.",
   },
   {
     id: 2,
     title: "Notificações",
+    icon: "notifications",
     description:
       "Podes personalizar as tuas notificações, e definir para ser notificado se algum cetáceo estiver perto de ti ou de um local personalizado.",
   },
   {
     id: 3,
+    icon: "lock-open",
     title: "Desbloquear o perfil completo do cetáceo",
     description: "Tem acesso ao perfil completo do cetáceo, visitando-o.",
   },
@@ -36,11 +41,13 @@ const features = [
   },
   {
     id: 5,
+    icon: "list",
     title: "Obter mais cetáceos",
     description: "Tem acesso a mais 5 cetáceos por cada 20 pontos que ganha.",
   },
   {
     id: 6,
+    icon: "stars",
     title: "Tabela de liderança",
     description:
       "Vê a tua posição na tabela de liderança e compara-te com os outros utilizadores.",
@@ -57,10 +64,31 @@ const FeatureScreen = ({ props }) => {
   return (
     <>
       <View style={styles.container}>
-        <Image
-          style={styles.image}
-          source={require("../assets/features/gpslocation.png")}
-        ></Image>
+        {index != 4 ? (
+          <MaterialIcons
+            style={styles.icon}
+            name={features[index].icon}
+            color={defaultStyles.colors.thirdly}
+            size={120}
+          />
+        ) : (
+          ""
+        )}
+        {index == 4 ? (
+          <AppText
+            style={{
+              fontSize: 50,
+              color: defaultStyles.colors.thirdly,
+              fontWeight: "bold",
+              marginBottom: 20,
+            }}
+          >
+            +5 pontos
+          </AppText>
+        ) : (
+          ""
+        )}
+
         <View
           style={{
             alignItems: "center",
@@ -97,11 +125,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  image: {
-    borderRadius: 20,
+  icon: {
     marginVertical: 30,
-    width: 300,
-    height: 200,
   },
   title: {
     fontSize: 22,

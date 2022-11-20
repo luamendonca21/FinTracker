@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
   },
-  iconButton: { marginBottom: 5, marginTop: 15 },
+  iconButton: { marginLeft: 5, marginBottom: 5, marginTop: 15 },
   text: {
     fontSize: 16,
     lineHeight: 22,
