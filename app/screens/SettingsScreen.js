@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import Screen from "../components/Screen";
-import ListSettings from "../components/ListSettings";
+import ListSettings from "../components/Lists/ListSettings";
 import defaultStyles from "../config/styles";
 
 const SettingsScreen = (props) => {
@@ -45,7 +45,10 @@ const SettingsScreen = (props) => {
   ];
   return (
     <Screen>
-      <ListSettings menuItems={menuItems} />
+      <ListSettings
+        menuItems={menuItems}
+        onPress={() => console.log("Pressed")}
+      />
     </Screen>
   );
 };

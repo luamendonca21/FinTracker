@@ -1,13 +1,13 @@
 import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import { ListItem, ListItemSeparator } from "../components/Lists";
-import Icon from "../components/Icon";
+import { ListItem, ListItemSeparator } from "../../components/Lists";
+import Icon from "../../components/Icon";
 
-const ListSettings = ({ menuItems }) => {
+const ListSettings = ({ menuItems, onPress }) => {
   const renderItem = ({ item }) => {
     return (
       <ListItem
-        onPress={() => console.log("Pressed")}
+        onPress={onPress}
         title={item.title}
         IconComponent={
           <Icon
