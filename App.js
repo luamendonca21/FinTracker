@@ -14,7 +14,8 @@ import UserProfileScreen from "./app/screens/UserProfileScreen";
 import CetaceansScreen from "./app/screens/CetaceansScreen";
 import AboutScreen from "./app/screens/AboutScreen";
 import FeatureScreen from "./app/screens/FeatureScreen";
+import HomeScreen from "./app/screens/HomeScreen";
 
 export default function App() {
-  return <RegisterScreen />;
+  return <HomeScreen />;
 }

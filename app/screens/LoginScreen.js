@@ -45,8 +45,9 @@ Inicie Sessão!`}</AppText>
                 color={defaultStyles.colors.black}
               />
             </View>
-            <View style={styles.button}>
+            <View style={styles.buttonContainer}>
               <AppButton
+                style={styles.button}
                 title="Iniciar Sessão"
                 onPress={() => console.log("Pressed")}
               />
@@ -63,9 +64,12 @@ const styles = StyleSheet.create({
   container: { marginTop: 10, padding: 15, flex: 1 },
   inputsContainer: { marginTop: 150 },
   forgotPassword: { alignSelf: "flex-end" },
-  button: {
+  buttonContainer: {
     flex: 1,
     justifyContent: "flex-end",
+  },
+  button: {
+    width: "100%",
   },
   wave: { width: "100%", position: "absolute" },
 });

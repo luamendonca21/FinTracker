@@ -42,8 +42,9 @@ Regista-te!`}</AppText>
                 secureTextEntry
               />
             </View>
-            <View style={styles.button}>
+            <View style={styles.buttonContainer}>
               <AppButton
+                style={styles.button}
                 title="Registar"
                 onPress={() => console.log("Pressed")}
               />
@@ -62,9 +63,12 @@ const styles = StyleSheet.create({
   forgotPassword: {
     textAlign: "right",
   },
-  button: {
+  buttonContainer: {
     flex: 1,
     justifyContent: "flex-end",
+  },
+  button: {
+    width: "100%",
   },
   wave: { width: "100%", position: "absolute" },
 });

@@ -26,7 +26,7 @@ const ListSettings = ({ menuItems, onPress }) => {
     <View style={styles.container}>
       <FlatList
         data={menuItems}
-        keyExtractor={(menuItem) => menuItem.id}
+        keyExtractor={(item) => item.id}
         renderItem={renderItem}
         ItemSeparatorComponent={ListItemSeparator}
       />
