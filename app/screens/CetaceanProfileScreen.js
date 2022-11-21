@@ -3,7 +3,8 @@ import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
 import IconButton from "../components/Buttons/IconButton";
-import { MaterialIcons } from "@expo/vector-icons";
+import BottomSheet from "../components/BottomSheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -141,68 +142,97 @@ const CetaceanProfileScreen = (props) => {
   const index = 1;
 
   const [isFavorite, setIsFavorite] = useState(false);
+  const [BottomSheetActive, setBottomSheetActive] = useState(false);
 
-  const handleNotificationPress = () => {};
+  const handleNotificationPress = () => {
+    setBottomSheetActive(!BottomSheetActive);
+  };
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
   };
-  return (
-    <>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={cetaceans[index].imageUrl} />
-      </View>
 
-      <View style={styles.profileContainer}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <View style={{ flex: 1 }}>
-              <AppText numberOfLines={3} style={styles.cetaceanName}>
-                {cetaceans[index].name}
-              </AppText>
-            </View>
-            <View style={styles.headerIcons}>
-              <IconButton
-                onPress={handleNotificationPress}
-                name="notifications-none"
-                color={defaultStyles.colors.black}
-                size={32}
-              />
-              {!isFavorite ? (
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={cetaceans[index].imageUrl} />
+        </View>
+
+        <View style={styles.profileContainer}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.header}>
+              <View style={{ flex: 1 }}>
+                <AppText numberOfLines={3} style={styles.cetaceanName}>
+                  {cetaceans[index].name}
+                </AppText>
+              </View>
+              <View style={styles.headerIcons}>
+                {!isFavorite ? (
+                  <IconButton
+                    onPress={handleFavoritePress}
+                    name="favorite-outline"
+                    color={defaultStyles.colors.black}
+                    size={32}
+                  />
+                ) : (
+                  <IconButton
+                    onPress={handleFavoritePress}
+                    name="favorite"
+                    color="red"
+                    size={32}
+                  />
+                )}
                 <IconButton
-                  onPress={handleFavoritePress}
-                  name="favorite-outline"
+                  onPress={handleNotificationPress}
+                  name="notifications-none"
                   color={defaultStyles.colors.black}
                   size={32}
                 />
-              ) : (
-                <IconButton
-                  onPress={handleFavoritePress}
-                  name="favorite"
-                  color="red"
-                  size={32}
-                />
-              )}
+              </View>
             </View>
-          </View>
-          <AppText style={styles.title}>Detalhes</AppText>
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <ListDetails details={cetaceans[index].details} />
+            <AppText style={styles.title}>Detalhes</AppText>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              <ListDetails details={cetaceans[index].details} />
+            </ScrollView>
+            <AppText style={styles.title}>Introdução</AppText>
+            <AppText style={styles.text}>
+              {cetaceans[index].introduction}.
+            </AppText>
+            <AppText style={styles.title}>História</AppText>
+            <AppText style={styles.text}>{cetaceans[index].history}</AppText>
+            <AppText style={styles.title}>Rota de migração</AppText>
+            <AppText style={styles.text}>{cetaceans[index].migration}</AppText>
           </ScrollView>
-          <AppText style={styles.title}>Introdução</AppText>
-          <AppText style={styles.text}>
-            {cetaceans[index].introduction}.
-          </AppText>
-          <AppText style={styles.title}>História</AppText>
-          <AppText style={styles.text}>{cetaceans[index].history}</AppText>
-          <AppText style={styles.title}>Rota de migração</AppText>
-          <AppText style={styles.text}>{cetaceans[index].migration}</AppText>
-        </ScrollView>
+        </View>
+        {BottomSheetActive ? (
+          <>
+            <View style={styles.transparentContainer}></View>
+            <BottomSheet />
+          </>
+        ) : (
+          ""
+        )}
       </View>
-    </>
+    </GestureHandlerRootView>
   );
 };
 
 const styles = StyleSheet.create({
+  transparentContainer: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    flex: 1,
+    backgroundColor: defaultStyles.colors.transparent,
+  },
+  container: {
+    flex: 1,
+    alignContent: "center",
+    justifyContent: "center",
+  },
   imageContainer: {
     width: "100%",
     height: windowHeight / 3,

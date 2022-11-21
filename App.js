@@ -17,5 +17,5 @@ import FeatureScreen from "./app/screens/FeatureScreen";
 import HomeScreen from "./app/screens/HomeScreen";
 
 export default function App() {
-  return <HomeScreen />;
+  return <CetaceanProfileScreen />;
 }
