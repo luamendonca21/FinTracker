@@ -31,7 +31,7 @@ const CetaceanProfileScreen = (props) => {
     },
     {
       id: 2,
-      name: "Bottlenose Dolphin",
+      name: "Bottlenose Dolphins",
       details: {
         nomeCientífico: "Tursiops",
         idade: "1",
@@ -139,16 +139,42 @@ const CetaceanProfileScreen = (props) => {
     },
   ];
 
+  const notifications = [
+    { id: 1, title: "Quando estiver perto da minha localização" },
+    { id: 2, title: "Quando estiver perto de um local personalizado" },
+  ];
+
   const index = 1;
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [BottomSheetActive, setBottomSheetActive] = useState(false);
+  const [notifyMyLocationActive, setnotifyMyLocationActive] = useState(false);
+  const [notifyCustomLocationActive, setnotifyCustomLocationActive] =
+    useState(false);
+
+  const handleNotificationSelect = ({ id }) => {
+    if (id == 1) {
+      setnotifyMyLocationActive(true);
+      setnotifyCustomLocationActive(false);
+    } else if (id == 2) {
+      setnotifyMyLocationActive(false);
+      setnotifyCustomLocationActive(true);
+    }
+  };
 
   const handleNotificationPress = () => {
     setBottomSheetActive(!BottomSheetActive);
   };
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
+  };
+
+  const selectFavoriteIcon = () => {
+    return isFavorite ? ["favorite", "red"] : ["favorite-outline", "black"];
+  };
+
+  const selectNotificationIcon = () => {
+    return !BottomSheetActive ? "notifications-none" : "notifications";
   };
 
   return (
@@ -167,24 +193,15 @@ const CetaceanProfileScreen = (props) => {
                 </AppText>
               </View>
               <View style={styles.headerIcons}>
-                {!isFavorite ? (
-                  <IconButton
-                    onPress={handleFavoritePress}
-                    name="favorite-outline"
-                    color={defaultStyles.colors.black}
-                    size={32}
-                  />
-                ) : (
-                  <IconButton
-                    onPress={handleFavoritePress}
-                    name="favorite"
-                    color="red"
-                    size={32}
-                  />
-                )}
+                <IconButton
+                  onPress={handleFavoritePress}
+                  name={selectFavoriteIcon()[0]}
+                  color={selectFavoriteIcon()[1]}
+                  size={32}
+                />
                 <IconButton
                   onPress={handleNotificationPress}
-                  name="notifications-none"
+                  name={selectNotificationIcon()}
                   color={defaultStyles.colors.black}
                   size={32}
                 />
@@ -209,7 +226,21 @@ const CetaceanProfileScreen = (props) => {
         </View>
         {BottomSheetActive ? (
           <>
-            <BottomSheet />
+            <View style={styles.transparentContainer}></View>
+            <BottomSheet>
+              {notifications.map((item, index) => (
+                <View key={index} style={styles.option}>
+                  <IconButton
+                    onPress={handleNotificationSelect(item.id)}
+                    name={"add-circle-outline"}
+                    size={22}
+                  />
+                  <AppText numberOfLines={3} style={{ flex: 1, marginLeft: 4 }}>
+                    {item.title}
+                  </AppText>
+                </View>
+              ))}
+            </BottomSheet>
           </>
         ) : (
           ""
@@ -273,6 +304,14 @@ const styles = StyleSheet.create({
   text: {
     lineHeight: 22,
     textAlign: "justify",
+  },
+
+  option: {
+    marginVertical: 5,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-evenly",
+    width: "100%",
   },
 });
 

@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
+import AppText from "./AppText";
+import IconButton from "./Buttons/IconButton";
 import defaultStyles from "../config/styles";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import Animated, {
@@ -10,36 +12,38 @@ import Animated, {
 
 const windowHeight = Dimensions.get("window").height;
 
-const BottomSheet = ({ props }) => {
-  const translationY = useSharedValue(0);
+const BottomSheet = ({ children }) => {
+  const translateY = useSharedValue(0);
   const context = useSharedValue({ y: 0 });
   const gesture = Gesture.Pan()
     .onStart(() => {
-      context.value = { y: translationY.value };
+      context.value = { y: translateY.value };
     })
     .onUpdate((event) => {
-      translationY.value = event.translationY + context.value.y;
-      translationY.value = Math.max(translationY.value, -windowHeight / 3);
-      console.log(translationY.value);
+      translateY.value = event.translationY + context.value.y;
+      translateY.value = Math.max(translateY.value, -windowHeight / 3);
     })
     .onEnd(() => {
-      if (translationY.value > -windowHeight / 3) {
-        translationY.value = withSpring(0, { damping: 50 });
-      } else if (translationY.value < -windowHeight / 1.5) {
-        translationY.value = withSpring(-windowHeight / 3, { damping: 50 });
+      if (translateY.value > -windowHeight / 4) {
+        translateY.value = withSpring(0, {
+          damping: 15,
+        });
+      } else if (translateY.value < -windowHeight / 3.5) {
+        translateY.value = withSpring(-windowHeight / 3, { damping: 15 });
       }
     });
 
   useEffect(() => {
-    translationY.value = withSpring(-windowHeight / 3, { damping: 50 });
+    translateY.value = withSpring(-windowHeight / 3, { damping: 15 });
   }, []);
   const rBottomSheetStyle = useAnimatedStyle(() => {
-    return { transform: [{ translateY: translationY.value }] };
+    return { transform: [{ translateY: translateY.value }] };
   });
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
-        <View style={styles.line}></View>
+        <View style={styles.line} />
+        {children}
       </Animated.View>
     </GestureDetector>
   );
@@ -47,6 +51,7 @@ const BottomSheet = ({ props }) => {
 
 const styles = StyleSheet.create({
   bottomSheetContainer: {
+    padding: 15,
     height: windowHeight,
     width: "100%",
     backgroundColor: defaultStyles.colors.white,
@@ -57,10 +62,11 @@ const styles = StyleSheet.create({
   },
   line: {
     width: 75,
-    height: 4,
+    height: 3,
     backgroundColor: defaultStyles.colors.black,
     alignSelf: "center",
-    marginVertical: 15,
+    marginVertical: 5,
+    marginBottom: 15,
     borderRadius: 2,
   },
 });
