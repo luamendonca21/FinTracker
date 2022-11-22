@@ -4,159 +4,152 @@ import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
 import IconButton from "../components/Buttons/IconButton";
 import BottomSheet from "../components/BottomSheet";
+import OptionSelector from "../components/OptionSelector";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
+const cetaceans = [
+  {
+    id: 1,
+    name: "Atlantic spotted Dolphin",
+    details: {
+      nomeCientífico: "Stenella frontalis",
+      idade: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
+    },
+    imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
+    introduction:
+      "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
+    history:
+      "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
+    migration:
+      "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
+  },
+  {
+    id: 2,
+    name: "Bottlenose Dolphins",
+    details: {
+      nomeCientífico: "Tursiops",
+      idade: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
+    },
+    imageUrl: require("../assets/dolphins/Bottlenose_dolphin.jpg"),
+    introduction:
+      "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
+    history:
+      "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
+    migration:
+      "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
+  },
+  {
+    id: 3,
+    name: "Common Dolphin",
+    details: {
+      nomeCientífico: "Delphinus delphis",
+      idade: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
+    },
+    imageUrl: require("../assets/dolphins/Common_dolphin.jpg"),
+    introduction:
+      "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
+    history:
+      "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
+    migration:
+      "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
+  },
+  {
+    id: 4,
+    name: "Frasers Dolphin",
+    details: {
+      nomeCientífico: "Lagenodelphis hosei",
+      idade: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
+    },
+    imageUrl: require("../assets/dolphins/Frasers_dolphin.jpg"),
+    introduction:
+      "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
+    history:
+      "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
+    migration:
+      "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
+  },
+  {
+    id: 5,
+    name: "Risso's Dolphin",
+    details: {
+      scientificName: "Grampus griseuss",
+      age: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
+    },
+    imageUrl: require("../assets/dolphins/Rissos_Dolphin.jpg"),
+    introduction:
+      "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
+    history:
+      "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
+    migration:
+      "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
+  },
+  {
+    id: 6,
+    name: "Rough toothed Dolphin",
+    details: {
+      scientificName: "Steno bredanensiss",
+      age: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
+    },
+    imageUrl: require("../assets/dolphins/Rough_toothed_dolphin.jpg"),
+    introduction:
+      "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
+    history:
+      "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
+    migration:
+      "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
+  },
+  {
+    id: 7,
+    name: "Stripped Dolphin",
+    details: {
+      scientificName: "Stenella coeruleoalba",
+      age: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
+    },
+    imageUrl: require("../assets/dolphins/Stripped_dolphin.jpg"),
+    introduction:
+      "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
+    history:
+      "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
+    migration:
+      "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
+  },
+];
+
+const index = 1;
+
+const notifications = [
+  { id: 1, title: "Quando estiver perto da minha localização" },
+  { id: 2, title: "Quando estiver perto de um local personalizado" },
+];
 
 const CetaceanProfileScreen = (props) => {
-  const cetaceans = [
-    {
-      id: 1,
-      name: "Atlantic spotted Dolphin",
-      details: {
-        nomeCientífico: "Stenella frontalis",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
-      imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
-      introduction:
-        "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
-      history:
-        "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
-      migration:
-        "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
-    },
-    {
-      id: 2,
-      name: "Bottlenose Dolphins",
-      details: {
-        nomeCientífico: "Tursiops",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
-      imageUrl: require("../assets/dolphins/Bottlenose_dolphin.jpg"),
-      introduction:
-        "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
-      history:
-        "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
-      migration:
-        "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
-    },
-    {
-      id: 3,
-      name: "Common Dolphin",
-      details: {
-        nomeCientífico: "Delphinus delphis",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
-      imageUrl: require("../assets/dolphins/Common_dolphin.jpg"),
-      introduction:
-        "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
-      history:
-        "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
-      migration:
-        "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
-    },
-    {
-      id: 4,
-      name: "Frasers Dolphin",
-      details: {
-        nomeCientífico: "Lagenodelphis hosei",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
-      imageUrl: require("../assets/dolphins/Frasers_dolphin.jpg"),
-      introduction:
-        "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
-      history:
-        "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
-      migration:
-        "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
-    },
-    {
-      id: 5,
-      name: "Risso's Dolphin",
-      details: {
-        scientificName: "Grampus griseuss",
-        age: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
-      imageUrl: require("../assets/dolphins/Rissos_Dolphin.jpg"),
-      introduction:
-        "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
-      history:
-        "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
-      migration:
-        "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
-    },
-    {
-      id: 6,
-      name: "Rough toothed Dolphin",
-      details: {
-        scientificName: "Steno bredanensiss",
-        age: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
-      imageUrl: require("../assets/dolphins/Rough_toothed_dolphin.jpg"),
-      introduction:
-        "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
-      history:
-        "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
-      migration:
-        "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
-    },
-    {
-      id: 7,
-      name: "Stripped Dolphin",
-      details: {
-        scientificName: "Stenella coeruleoalba",
-        age: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
-      imageUrl: require("../assets/dolphins/Stripped_dolphin.jpg"),
-      introduction:
-        "Ocorrem na Madeira durante todo o ano. Muito activas e lúdicas na superfície. Muitas vezes aproximam-se curiosamente de barcos e saltam, fazem proa e enfiam a cabeça fora de água. A população desta espécie na Madeira é constituída por dois ecótipos; o maior, do tipo offshore pelágico e o menor, do tipo costeiro, com esta última comunidade mesmo contendo grupos residentes.",
-      history:
-        "Os golfinhos roaz-corvineiro comuns recebem o seu nome do seu focinho curto e grosso (ou rostro). São geralmente de cor cinzenta. Podem variar entre cinzento claro e quase preto no topo perto da barbatana dorsal e cinzento claro até quase branco na barriga.",
-      migration:
-        "Os golfinhos roazes dos Estados Unidos migram para cima e para baixo na costa atlântica, dirigindo-se para norte na Primavera, e novamente para sul no Outono.",
-    },
-  ];
-
-  const notifications = [
-    { id: 1, title: "Quando estiver perto da minha localização" },
-    { id: 2, title: "Quando estiver perto de um local personalizado" },
-  ];
-
-  const index = 1;
-
   const [isFavorite, setIsFavorite] = useState(false);
-  const [BottomSheetActive, setBottomSheetActive] = useState(false);
+  const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [notificationActive, setNotificationActive] = useState(0);
 
-  const handleNotificationSelect = (id) => {
-    setNotificationActive(id);
-  };
-
-  const handleNotificationPress = () => {
-    setBottomSheetActive(!BottomSheetActive);
-  };
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
   };
@@ -165,13 +158,20 @@ const CetaceanProfileScreen = (props) => {
     return isFavorite ? ["favorite", "red"] : ["favorite-outline", "black"];
   };
 
+  const handleNotificationPress = () => {
+    setBottomSheetActive(!isBottomSheetActive);
+  };
+
   const selectNotificationIcon = () => {
-    return !BottomSheetActive ? "notifications-none" : "notifications";
+    return !isBottomSheetActive ? "notifications-none" : "notifications";
+  };
+  const handleNotificationOptionPress = (id) => {
+    setNotificationActive(id);
   };
   const selectNotificationOptionIcon = (id) => {
     return notificationActive == id
-      ? ["check-circle", defaultStyles.colors.secondary]
-      : ["add-circle-outline", "black"];
+      ? ["check-circle", defaultStyles.colors.white]
+      : ["add-circle-outline", defaultStyles.colors.black];
   };
 
   return (
@@ -221,22 +221,20 @@ const CetaceanProfileScreen = (props) => {
             <AppText style={styles.text}>{cetaceans[index].migration}</AppText>
           </ScrollView>
         </View>
-        {BottomSheetActive ? (
+        {isBottomSheetActive ? (
           <>
             <View style={styles.transparentContainer}></View>
-            <BottomSheet>
+            <BottomSheet title="Notifications">
               {notifications.map((item, index) => (
-                <View key={index} style={styles.option}>
-                  <IconButton
-                    onPress={() => handleNotificationSelect(item.id)}
-                    name={selectNotificationOptionIcon(item.id)[0]}
-                    color={selectNotificationOptionIcon(item.id)[1]}
-                    size={22}
-                  />
-                  <AppText numberOfLines={3} style={{ flex: 1, marginLeft: 4 }}>
-                    {item.title}
-                  </AppText>
-                </View>
+                <OptionSelector
+                  key={index}
+                  id={item.id}
+                  title={item.title}
+                  optionActive={notificationActive}
+                  onPress={() => handleNotificationOptionPress(item.id)}
+                  name={selectNotificationOptionIcon(item.id)[0]}
+                  color={selectNotificationOptionIcon(item.id)[1]}
+                />
               ))}
             </BottomSheet>
           </>
@@ -304,12 +302,24 @@ const styles = StyleSheet.create({
     textAlign: "justify",
   },
 
-  option: {
+  optionInactive: {
     marginVertical: 5,
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-evenly",
-    width: "100%",
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+  },
+
+  optionActive: {
+    marginVertical: 5,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-evenly",
+    backgroundColor: defaultStyles.colors.secondary,
+    borderRadius: 50,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
   },
 });
 

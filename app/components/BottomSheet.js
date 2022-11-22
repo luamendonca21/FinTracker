@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 import AppText from "./AppText";
-import IconButton from "./Buttons/IconButton";
-import defaultStyles from "../config/styles";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
+import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
-const BottomSheet = ({ children }) => {
+const BottomSheet = ({ children, title }) => {
   const translateY = useSharedValue(0);
   const context = useSharedValue({ y: 0 });
   const gesture = Gesture.Pan()
@@ -43,6 +42,7 @@ const BottomSheet = ({ children }) => {
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
         <View style={styles.line} />
+        <AppText style={styles.title}>{title}</AppText>
         {children}
       </Animated.View>
     </GestureDetector>
@@ -60,13 +60,19 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     elevation: 5,
   },
+  title: {
+    fontSize: 18,
+    marginBottom: 5,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
   line: {
     width: 75,
     height: 3,
     backgroundColor: defaultStyles.colors.black,
     alignSelf: "center",
-    marginVertical: 5,
-    marginBottom: 15,
+    marginVertical: 2,
+    marginBottom: 10,
     borderRadius: 2,
   },
 });
