@@ -23,16 +23,15 @@ const BottomSheet = ({ props }) => {
       console.log(translationY.value);
     })
     .onEnd(() => {
-      if (translationY.value > -windowHeight / 2) {
-        translationY.value = withSpring(0, { damping: 15 });
-        console.log(windowHeight);
-      } else if (translationY.value < -windowHeight / 2) {
-        translationY.value = withSpring(-windowHeight / 3, { damping: 15 });
+      if (translationY.value > -windowHeight / 3) {
+        translationY.value = withSpring(0, { damping: 50 });
+      } else if (translationY.value < -windowHeight / 1.5) {
+        translationY.value = withSpring(-windowHeight / 3, { damping: 50 });
       }
     });
 
   useEffect(() => {
-    translationY.value = withSpring(-windowHeight / 3, { damping: 15 });
+    translationY.value = withSpring(-windowHeight / 3, { damping: 50 });
   }, []);
   const rBottomSheetStyle = useAnimatedStyle(() => {
     return { transform: [{ translateY: translationY.value }] };

@@ -209,7 +209,6 @@ const CetaceanProfileScreen = (props) => {
         </View>
         {BottomSheetActive ? (
           <>
-            <View style={styles.transparentContainer}></View>
             <BottomSheet />
           </>
         ) : (

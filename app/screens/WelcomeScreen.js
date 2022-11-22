@@ -30,9 +30,9 @@ const WelcomeScreen = (props) => {
             migração, e recebe notificações personalizadas!
           </AppText>
         </View>
-        <View style={{ width: "100%" }}>
-          <AppButton title="Registar" />
-          <View style={styles.button}>
+        <View style={styles.registerContainer}>
+          <AppButton style={styles.button} title="Registar" />
+          <View style={styles.login}>
             <AppText>Já tem uma conta criada?</AppText>
             <LinkButton title="Iniciar Sessão" />
           </View>
@@ -87,8 +87,14 @@ const styles = StyleSheet.create({
   wave: { position: "absolute", bottom: 0, width: "100%" },
   button: {
     width: "100%",
+  },
+  login: {
+    width: "100%",
     justifyContent: "space-evenly",
     flexDirection: "row",
+  },
+  registerContainer: {
+    width: "100%",
   },
 });
 
