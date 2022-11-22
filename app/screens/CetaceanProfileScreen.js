@@ -148,18 +148,10 @@ const CetaceanProfileScreen = (props) => {
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [BottomSheetActive, setBottomSheetActive] = useState(false);
-  const [notifyMyLocationActive, setnotifyMyLocationActive] = useState(false);
-  const [notifyCustomLocationActive, setnotifyCustomLocationActive] =
-    useState(false);
+  const [notificationActive, setNotificationActive] = useState(0);
 
-  const handleNotificationSelect = ({ id }) => {
-    if (id == 1) {
-      setnotifyMyLocationActive(true);
-      setnotifyCustomLocationActive(false);
-    } else if (id == 2) {
-      setnotifyMyLocationActive(false);
-      setnotifyCustomLocationActive(true);
-    }
+  const handleNotificationSelect = (id) => {
+    setNotificationActive(id);
   };
 
   const handleNotificationPress = () => {
@@ -175,6 +167,11 @@ const CetaceanProfileScreen = (props) => {
 
   const selectNotificationIcon = () => {
     return !BottomSheetActive ? "notifications-none" : "notifications";
+  };
+  const selectNotificationOptionIcon = (id) => {
+    return notificationActive == id
+      ? ["check-circle", defaultStyles.colors.secondary]
+      : ["add-circle-outline", "black"];
   };
 
   return (
@@ -231,8 +228,9 @@ const CetaceanProfileScreen = (props) => {
               {notifications.map((item, index) => (
                 <View key={index} style={styles.option}>
                   <IconButton
-                    onPress={handleNotificationSelect(item.id)}
-                    name={"add-circle-outline"}
+                    onPress={() => handleNotificationSelect(item.id)}
+                    name={selectNotificationOptionIcon(item.id)[0]}
+                    color={selectNotificationOptionIcon(item.id)[1]}
                     size={22}
                   />
                   <AppText numberOfLines={3} style={{ flex: 1, marginLeft: 4 }}>
