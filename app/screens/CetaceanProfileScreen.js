@@ -224,7 +224,7 @@ const CetaceanProfileScreen = (props) => {
         {isBottomSheetActive ? (
           <>
             <View style={styles.transparentContainer}></View>
-            <BottomSheet title="Notifications">
+            <BottomSheet title="Notificações">
               {notifications.map((item, index) => (
                 <OptionSelector
                   key={index}

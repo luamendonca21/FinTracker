@@ -22,8 +22,7 @@ const PointsIndicator = ({ props }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "45%",
-    //backgroundColor: "black",
+    width: 170,
     padding: 10,
     height: 100,
     justifyContent: "space-between",

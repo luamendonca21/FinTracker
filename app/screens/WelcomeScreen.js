@@ -33,8 +33,13 @@ const WelcomeScreen = (props) => {
         <View style={styles.registerContainer}>
           <AppButton style={styles.button} title="Registar" />
           <View style={styles.login}>
-            <AppText>Já tem uma conta criada?</AppText>
-            <LinkButton title="Iniciar Sessão" />
+            <AppText style={{ paddingHorizontal: 2 }}>
+              Já tem uma conta criada?
+            </AppText>
+            <LinkButton
+              style={{ paddingHorizontal: 2 }}
+              title="Iniciar Sessão"
+            />
           </View>
         </View>
       </View>
@@ -80,7 +85,7 @@ const styles = StyleSheet.create({
   },
   welcomeDescription: {
     textAlign: "center",
-    paddingHorizontal: 5,
+    paddingHorizontal: 20,
     marginBottom: 15,
     lineHeight: 22,
   },
@@ -90,7 +95,7 @@ const styles = StyleSheet.create({
   },
   login: {
     width: "100%",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     flexDirection: "row",
   },
   registerContainer: {

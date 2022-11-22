@@ -27,7 +27,7 @@ const LoginScreen = (props) => {
           <View style={styles.container}>
             <AppText style={styles.text}>{`Olá, 
 Regista-te!`}</AppText>
-            <View style={styles.inputsContainer}>
+            <View style={styles.formContainer}>
               <AppTextInput
                 size={25}
                 icon="account-circle"
@@ -41,8 +41,6 @@ Regista-te!`}</AppText>
                 placeholder="Palavra-passe"
                 secureTextEntry
               />
-            </View>
-            <View style={styles.buttonContainer}>
               <AppButton
                 style={styles.button}
                 title="Registar"
@@ -58,14 +56,10 @@ Regista-te!`}</AppText>
 
 const styles = StyleSheet.create({
   text: { fontSize: 26, fontWeight: "700", color: defaultStyles.colors.white },
-  container: { marginTop: 10, padding: 15, flex: 1 },
-  inputsContainer: { marginTop: 150 },
+  container: { padding: 15, flex: 1 },
+  formContainer: { marginTop: 180 },
   forgotPassword: {
     textAlign: "right",
-  },
-  buttonContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
   },
   button: {
     width: "100%",

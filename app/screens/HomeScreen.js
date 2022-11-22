@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.92,
     alignSelf: "center",
     alignItems: "center",
-    height: 200,
+    height: 215,
     borderRadius: 20,
     marginTop: 20,
   },
