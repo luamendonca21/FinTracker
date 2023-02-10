@@ -19,7 +19,8 @@
     "react-native-svg": "12.3.0",
     "expo-updates": "~0.14.7",
     "ua-parser-js": "0.7.33",
-    "qs": "6.7.3"
+    "qs": "6.7.3",
+    "@sideway/formula": "3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
