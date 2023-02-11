@@ -148,14 +148,14 @@ const CetaceansScreen = (props) => {
         />
         <View style={styles.categoryContainer}>
           <AppText style={styles.category}>Golfinhos</AppText>
-          <AppText style={styles.seeMore}>Desliza para ver mais</AppText>
+          <AppText style={styles.seeMore}>Desliza para ver mais...</AppText>
 
           <Carousel data={cetaceans} />
           {/* <LinkButton color="black" title="See more" /> */}
         </View>
         <View style={styles.categoryContainer}>
           <AppText style={styles.category}>Baleias</AppText>
-          <AppText style={styles.seeMore}>Desliza para ver mais</AppText>
+          <AppText style={styles.seeMore}>Desliza para ver mais...</AppText>
           <Carousel data={cetaceans} />
           {/* <LinkButton color="black" title="See more" /> */}
         </View>
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   seeMore: {
-    color: defaultStyles.colors.medium,
+    color: defaultStyles.colors.gray,
     marginHorizontal: 5,
     marginBottom: 5,
   },

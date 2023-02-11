@@ -3,25 +3,33 @@ import { View, StyleSheet, FlatList } from "react-native";
 import AppText from "../components/AppText";
 import Screen from "../components/Screen";
 import BoxItem from "../components/BoxItem";
-
+import { useNavigation } from "@react-navigation/native";
 const items = [
   {
-    id: 1,
+    id: 0,
     title: "Funcionalidades",
     subTitle: "Obtem dicas para explorar as principais funcionalidades",
     icon: "stars",
+    target: "Features",
   },
   {
-    id: 2,
+    id: 1,
     title: "Contactos",
     subTitle: "Contacta-nos para qualquer questão",
     icon: "phone",
+    target: "Profile",
   },
 ];
 
-const AboutScreen = (props) => {
+const handlePressItem = ({ target }, navigation) => {
+  navigation.navigate(target);
+};
+const AboutScreen = () => {
+  const navigation = useNavigation();
   const renderItem = ({ item }) => {
-    return <BoxItem item={item} />;
+    return (
+      <BoxItem onPress={() => handlePressItem(item, navigation)} item={item} />
+    );
   };
   return (
     <Screen>

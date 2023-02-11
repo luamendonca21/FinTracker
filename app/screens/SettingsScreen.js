@@ -44,12 +44,10 @@ const SettingsScreen = (props) => {
     },
   ];
   return (
-    <Screen>
-      <ListSettings
-        menuItems={menuItems}
-        onPress={() => console.log("Pressed")}
-      />
-    </Screen>
+    <ListSettings
+      menuItems={menuItems}
+      onPress={() => console.log("Pressed")}
+    />
   );
 };
 

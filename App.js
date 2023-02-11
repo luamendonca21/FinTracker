@@ -15,7 +15,19 @@ import CetaceansScreen from "./app/screens/CetaceansScreen";
 import AboutScreen from "./app/screens/AboutScreen";
 import FeatureScreen from "./app/screens/FeatureScreen";
 import HomeScreen from "./app/screens/HomeScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import HomeNavigator from "./app/navigation/HomeNavigator";
+import defaultStyles from "./app/config/styles";
+import myTheme from "./app/navigation/navigationTheme";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AppNavigator from "./app/navigation/AppNavigator";
 
 export default function App() {
-  return <CetaceanProfileScreen />;
+  return (
+    <NavigationContainer theme={myTheme}>
+      <AppNavigator />
+    </NavigationContainer>
+  );
 }

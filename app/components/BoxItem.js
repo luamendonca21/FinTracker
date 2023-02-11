@@ -4,10 +4,10 @@ import AppText from "./AppText";
 import { MaterialIcons } from "@expo/vector-icons";
 import defaultStyles from "../config/styles";
 
-const BoxItem = ({ item }) => {
+const BoxItem = ({ item, onPress }) => {
   return (
     <TouchableHighlight
-      onPress={() => console.log("Pressed")}
+      onPress={onPress}
       underlayColor={defaultStyles.colors.light}
       style={styles.container}
     >

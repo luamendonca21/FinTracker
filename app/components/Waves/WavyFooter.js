@@ -1,10 +1,11 @@
 import React from "react";
 import { View } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import { StyleSheet } from "react-native";
 
 const WavyFooter = ({ color, customWavePattern, customHeight, style }) => {
   return (
-    <View style={style}>
+    <View style={styles.bottom}>
       <View style={{ backgroundColor: color, height: customHeight }}>
         <Svg
           height="160%"
@@ -19,3 +20,7 @@ const WavyFooter = ({ color, customWavePattern, customHeight, style }) => {
   );
 };
 export default WavyFooter;
+
+const styles = StyleSheet.create({
+  bottom: { position: "absolute", bottom: 0, width: "100%" },
+});

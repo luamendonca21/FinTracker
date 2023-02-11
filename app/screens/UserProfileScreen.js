@@ -112,6 +112,7 @@ function UserProfileScreen(props) {
             </ScrollView>
             <AppText style={styles.title}>Cetáceos Favoritos</AppText>
             <Carousel data={favorites} />
+            <AppText style={styles.title}>Visitados</AppText>
           </View>
         </ScrollView>
       </View>

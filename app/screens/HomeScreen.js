@@ -5,6 +5,7 @@ import AppText from "../components/AppText";
 import defaultStyles from "../config/styles";
 import { AppButton } from "../components/Buttons";
 import Index from "../components/Index";
+import colors from "../config/colors";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -14,22 +15,28 @@ const shortcuts = [
     title: "Cetáceos favoritos",
     subTitle: "Visualiza os teus cetáceos favoritos.",
     buttonTitle: "Ir para favoritos",
+    target: "Profile",
   },
   {
     id: 1,
     title: "Funcionalidades",
     subTitle: "Descobre o que podes fazer.",
     buttonTitle: "Ir para funcionalidades",
+    target: "Features",
   },
   {
     id: 2,
     title: "Definições",
     subTitle: "Personaliza as tuas definições.",
     buttonTitle: "Ir para definições",
+    target: "Settings",
   },
 ];
-const HomeScreen = ({ props }) => {
+const HomeScreen = ({ navigation }) => {
   const [shortcutActive, setShortcutActive] = useState(0);
+  const handlePressShortcut = ({ target }) => {
+    navigation.navigate(target);
+  };
   const onchange = (nativeEvent) => {
     if (nativeEvent) {
       const slide = Math.ceil(
@@ -44,6 +51,7 @@ const HomeScreen = ({ props }) => {
     <Screen>
       <View style={styles.container}>
         <AppText style={styles.welcome}>Bem-vinda, Luana!</AppText>
+        <AppText style={{ fontSize: 18 }}>Atalhos</AppText>
         <View style={styles.shortcuts}>
           <View style={styles.shortcutsContainer}>
             <ScrollView
@@ -63,6 +71,7 @@ const HomeScreen = ({ props }) => {
                     style={styles.button}
                     color="secondary"
                     title={item.buttonTitle}
+                    onPress={() => handlePressShortcut(item)}
                   />
                 </View>
               ))}
@@ -72,6 +81,7 @@ const HomeScreen = ({ props }) => {
             <Index items={shortcuts} indexSelected={shortcutActive} />
           </View>
         </View>
+        <AppText style={styles.title}>Perto de ti</AppText>
       </View>
     </Screen>
   );
@@ -85,7 +95,9 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 22,
     fontWeight: "bold",
+    marginBottom: 30,
   },
+  title: { fontSize: 18, marginTop: 15, fontWeight: "bold" },
   shortcuts: {
     backgroundColor: defaultStyles.colors.primary,
     width: windowWidth * 0.92,
@@ -93,7 +105,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 215,
     borderRadius: 20,
-    marginTop: 20,
+    marginTop: 10,
+    marginBottom: 5,
   },
   shortcutsContainer: {
     width: "100%",
