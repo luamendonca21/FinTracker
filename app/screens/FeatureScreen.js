@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import AppText from "../components/AppText";
 import { AppSecondaryButton } from "../components/Buttons";
@@ -53,7 +53,31 @@ const features = [
       "Vê a tua posição na tabela de liderança e compara-te com os outros utilizadores.",
   },
 ];
-const FeatureScreen = ({ props }) => {
+const FeatureScreen = ({ navigation }) => {
+  useEffect(() => {
+    navigation.getParent().setOptions({
+      tabBarStyle: {
+        display: "none",
+        height: 60,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        borderColor: defaultStyles.colors.white,
+        backgroundColor: defaultStyles.colors.white,
+      },
+    });
+    return () => {
+      navigation.getParent().setOptions({
+        tabBarStyle: {
+          display: "flex",
+          height: 60,
+          borderTopRightRadius: 20,
+          borderTopLeftRadius: 20,
+          borderColor: defaultStyles.colors.white,
+          backgroundColor: defaultStyles.colors.white,
+        },
+      });
+    };
+  }, []);
   const [index, setIndex] = useState(0);
 
   const handleClick = (index) => {
