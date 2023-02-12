@@ -19,6 +19,7 @@ const AppNavigator = () => (
       },
       tabBarStyle: {
         height: 60,
+        position: "absolute",
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         borderColor: defaultStyles.colors.white,

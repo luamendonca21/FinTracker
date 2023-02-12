@@ -1,5 +1,6 @@
 import {
   RecyclerViewBackedScrollViewComponent,
+  StatusBar,
   StyleSheet,
   Text,
   View,
@@ -26,8 +27,12 @@ import AppNavigator from "./app/navigation/AppNavigator";
 
 export default function App() {
   return (
-    <NavigationContainer theme={myTheme}>
-      <AppNavigator />
-    </NavigationContainer>
+    <>
+      <StatusBar backgroundColor={defaultStyles.colors.medium} />
+
+      <NavigationContainer theme={myTheme}>
+        <AppNavigator />
+      </NavigationContainer>
+    </>
   );
 }

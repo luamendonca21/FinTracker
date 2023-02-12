@@ -48,42 +48,40 @@ const HomeScreen = ({ navigation }) => {
     }
   };
   return (
-    <Screen>
-      <View style={styles.container}>
-        <AppText style={styles.welcome}>Bem-vinda, Luana!</AppText>
-        <AppText style={{ fontSize: 18 }}>Atalhos</AppText>
-        <View style={styles.shortcuts}>
-          <View style={styles.shortcutsContainer}>
-            <ScrollView
-              style={styles.shortcutsContainer}
-              onScroll={({ nativeEvent }) => onchange(nativeEvent)}
-              horizontal
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-            >
-              {shortcuts.map((item, index) => (
-                <View key={index} style={styles.shortcutsContent}>
-                  <AppText style={styles.shortcutsTitle}>{item.title}</AppText>
-                  <AppText style={styles.shortcutsSubtitle}>
-                    {item.subTitle}
-                  </AppText>
-                  <AppButton
-                    style={styles.button}
-                    color="secondary"
-                    title={item.buttonTitle}
-                    onPress={() => handlePressShortcut(item)}
-                  />
-                </View>
-              ))}
-            </ScrollView>
-          </View>
-          <View style={styles.index}>
-            <Index items={shortcuts} indexSelected={shortcutActive} />
-          </View>
+    <View style={styles.container}>
+      <AppText style={styles.welcome}>Bem-vinda, Luana!</AppText>
+      <AppText style={{ fontSize: 18 }}>Atalhos</AppText>
+      <View style={styles.shortcuts}>
+        <View style={styles.shortcutsContainer}>
+          <ScrollView
+            style={styles.shortcutsContainer}
+            onScroll={({ nativeEvent }) => onchange(nativeEvent)}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+          >
+            {shortcuts.map((item, index) => (
+              <View key={index} style={styles.shortcutsContent}>
+                <AppText style={styles.shortcutsTitle}>{item.title}</AppText>
+                <AppText style={styles.shortcutsSubtitle}>
+                  {item.subTitle}
+                </AppText>
+                <AppButton
+                  style={styles.button}
+                  color="secondary"
+                  title={item.buttonTitle}
+                  onPress={() => handlePressShortcut(item)}
+                />
+              </View>
+            ))}
+          </ScrollView>
         </View>
-        <AppText style={styles.title}>Perto de ti</AppText>
+        <View style={styles.index}>
+          <Index items={shortcuts} indexSelected={shortcutActive} />
+        </View>
       </View>
-    </Screen>
+      <AppText style={styles.title}>Perto de ti</AppText>
+    </View>
   );
 };
 

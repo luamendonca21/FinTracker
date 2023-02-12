@@ -5,11 +5,13 @@ import { ListDetails } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
 import { Carousel } from "../components/Carousels";
 import IconButton from "../components/Buttons/IconButton";
+import Icon from "../components/Icon";
+import Screen from "../components/Screen";
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
-function UserProfileScreen(props) {
+function UserProfileScreen({ navigation }) {
   const users = [
     {
       name: "Luana",
@@ -81,6 +83,14 @@ function UserProfileScreen(props) {
   return (
     <>
       <View style={styles.imageContainer}>
+        <Icon
+          onPress={() => navigation.navigate("Settings")}
+          style={styles.icon}
+          icon="cog-outline"
+          size={26}
+          iconColor={defaultStyles.colors.black}
+          backgroundColor={defaultStyles.colors.white}
+        />
         <Image
           style={styles.image}
           source={require("../assets/userPicture.jpg")}
@@ -139,6 +149,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     aspectRatio: 1,
   },
+  icon: { position: "absolute", right: 15, top: 15 },
   profileContainer: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,

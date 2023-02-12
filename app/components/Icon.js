@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../config/styles";
 
@@ -9,9 +9,10 @@ const Icon = ({
   backgroundColor = defaultStyles.colors.black,
   size,
   style,
+  onPress,
 }) => {
   return (
-    <View
+    <TouchableOpacity
       style={[
         styles.container,
         style,
@@ -22,9 +23,10 @@ const Icon = ({
           borderRadius: size,
         },
       ]}
+      onPress={onPress}
     >
       <MaterialCommunityIcons name={icon} size={size} color={iconColor} />
-    </View>
+    </TouchableOpacity>
   );
 };
 

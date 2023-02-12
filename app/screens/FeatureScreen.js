@@ -4,6 +4,7 @@ import AppText from "../components/AppText";
 import { AppSecondaryButton } from "../components/Buttons";
 import Index from "../components/Index";
 import { MaterialIcons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 import defaultStyles from "../config/styles";
 
 const features = [

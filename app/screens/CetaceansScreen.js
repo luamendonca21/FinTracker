@@ -3,18 +3,19 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import AppText from "../components/AppText";
 import { FilterInput } from "../components/Inputs";
 import { Carousel } from "../components/Carousels";
+import Screen from "../components/Screen";
 import defaultStyles from "../config/styles";
-
+import { StatusBar } from "react-native";
 const cetaceans = [
   {
     id: 1,
     name: "Atlantic spotted Dolphin",
     details: {
-      scientificName: "Stenella frontalis",
-      age: "1",
-      Length: "3m",
-      weigh: "650kg",
-      location: "Camâra de Lobos",
+      nomeCientífico: "Stenella frontalis",
+      idade: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
     },
     imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
     introduction:
@@ -28,11 +29,11 @@ const cetaceans = [
     id: 2,
     name: "Bottlenose Dolphin",
     details: {
-      scientificName: "Tursiops",
-      age: "1",
-      Length: "3m",
-      weigh: "650kg",
-      location: "Camâra de Lobos",
+      nomeCientífico: "Tursiops",
+      idade: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
     },
     imageUrl: require("../assets/dolphins/Bottlenose_dolphin.jpg"),
     introduction:
@@ -46,11 +47,11 @@ const cetaceans = [
     id: 3,
     name: "Common Dolphin",
     details: {
-      scientificName: "Delphinus delphis",
-      age: "1",
-      Length: "3m",
-      weigh: "650kg",
-      location: "Camâra de Lobos",
+      nomeCientífico: "Delphinus delphis",
+      idade: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
     },
     imageUrl: require("../assets/dolphins/Common_dolphin.jpg"),
     introduction:
@@ -64,11 +65,11 @@ const cetaceans = [
     id: 4,
     name: "Frasers Dolphin",
     details: {
-      scientificName: "Lagenodelphis hosei",
-      age: "1",
-      Length: "3m",
-      weigh: "650kg",
-      location: "Camâra de Lobos",
+      nomeCientífico: "Lagenodelphis hosei",
+      idade: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
     },
     imageUrl: require("../assets/dolphins/Frasers_dolphin.jpg"),
     introduction:
@@ -82,11 +83,11 @@ const cetaceans = [
     id: 5,
     name: "Risso's Dolphin",
     details: {
-      scientificName: "Grampus griseuss",
-      age: "1",
-      Length: "3m",
-      weigh: "650kg",
-      location: "Camâra de Lobos",
+      nomeCientífico: "Grampus griseuss",
+      idade: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
     },
     imageUrl: require("../assets/dolphins/Rissos_Dolphin.jpg"),
     introduction:
@@ -100,11 +101,11 @@ const cetaceans = [
     id: 6,
     name: "Rough toothed Dolphin",
     details: {
-      scientificName: "Steno bredanensiss",
-      age: "1",
-      Length: "3m",
-      weigh: "650kg",
-      location: "Camâra de Lobos",
+      nomeCientífico: "Steno bredanensiss",
+      idade: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
     },
     imageUrl: require("../assets/dolphins/Rough_toothed_dolphin.jpg"),
     introduction:
@@ -118,11 +119,11 @@ const cetaceans = [
     id: 7,
     name: "Stripped Dolphin",
     details: {
-      scientificName: "Stenella coeruleoalba",
-      age: "1",
-      Length: "3m",
-      weigh: "650kg",
-      location: "Camâra de Lobos",
+      nomeCientífico: "Stenella coeruleoalba",
+      idade: "1",
+      comprimento: "3m",
+      peso: "650kg",
+      localização: "Camâra de Lobos",
     },
     imageUrl: require("../assets/dolphins/Stripped_dolphin.jpg"),
     introduction:
