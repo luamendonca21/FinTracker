@@ -4,23 +4,23 @@ import Screen from "../components/Screen";
 import ListSettings from "../components/Lists/ListSettings";
 import defaultStyles from "../config/styles";
 
-const SettingsScreen = () => {
+const AccountScreen = () => {
   const menuItems = [
     {
       id: 1,
-      title: "Conta",
+      title: "Palavra-passe",
       icon: {
-        name: "account",
+        name: "key",
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
-      target: "Account",
+      target: "",
     },
     {
       id: 2,
-      title: "Notificações",
+      title: "Nome de perfil",
       icon: {
-        name: "bell",
+        name: "pencil",
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
@@ -28,9 +28,9 @@ const SettingsScreen = () => {
     },
     {
       id: 3,
-      title: "Permissões",
+      title: "Foto de perfil",
       icon: {
-        name: "account-lock",
+        name: "camera-account",
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
@@ -38,13 +38,13 @@ const SettingsScreen = () => {
     },
     {
       id: 4,
-      title: "Sobre",
+      title: "Eliminar conta",
       icon: {
-        name: "information",
+        name: "delete",
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
-      target: "About",
+      target: "",
     },
   ];
   return <ListSettings menuItems={menuItems} />;
@@ -52,4 +52,4 @@ const SettingsScreen = () => {
 
 const styles = StyleSheet.create({});
 
-export default SettingsScreen;
+export default AccountScreen;

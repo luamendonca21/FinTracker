@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "700",
     width: "70%",
-    marginTop: 50,
+    marginTop: 20,
     marginBottom: 10,
   },
   categoryContainer: {
@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginVertical: 10,
     elevation: 2,
+
     padding: 10,
   },
   category: {

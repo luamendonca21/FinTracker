@@ -12,7 +12,10 @@ import AppText from "../components/AppText";
 import { AppButton } from "../components/Buttons";
 import defaultStyles from "../config/styles";
 
-const LoginScreen = (props) => {
+const RegisterScreen = ({ navigation }) => {
+  const handleRegister = () => {
+    navigation.navigate("Login");
+  };
   return (
     <KeyboardAvoidingView>
       <ScrollView>
@@ -42,7 +45,7 @@ Regista-te!`}</AppText>
               <AppButton
                 style={styles.button}
                 title="Registar"
-                onPress={() => console.log("Pressed")}
+                onPress={handleRegister}
               />
             </View>
           </View>
@@ -64,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default RegisterScreen;

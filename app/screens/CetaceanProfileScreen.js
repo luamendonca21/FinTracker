@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
 import IconButton from "../components/Buttons/IconButton";
@@ -222,7 +229,10 @@ const CetaceanProfileScreen = ({ route }) => {
         </View>
         {isBottomSheetActive ? (
           <>
-            <View style={styles.transparentContainer}></View>
+            <TouchableOpacity
+              style={styles.transparentContainer}
+              onPress={() => setBottomSheetActive(false)}
+            ></TouchableOpacity>
             <BottomSheet title="Notificações">
               {notifications.map((item, index) => (
                 <OptionSelector

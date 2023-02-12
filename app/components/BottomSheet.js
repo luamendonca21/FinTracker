@@ -21,16 +21,12 @@ const BottomSheet = ({ children, title }) => {
     .onUpdate((event) => {
       translateY.value = event.translationY + context.value.y;
       translateY.value = Math.max(translateY.value, -windowHeight / 3);
+      translateY.value = Math.min(translateY.value, -windowHeight / 3.5);
     })
     .onEnd(() => {
-      if (translateY.value > -windowHeight / 4) {
-        translateY.value = withSpring(0, {
-          damping: 15,
-        });
-      } else if (translateY.value < -windowHeight / 3.5) {
-        translateY.value = withSpring(-windowHeight / 3, { damping: 15 });
-      }
-    });
+      translateY.value = withSpring(-windowHeight / 3, { damping: 15 });
+    })
+    .onFinalize(() => {});
 
   useEffect(() => {
     translateY.value = withSpring(-windowHeight / 3, { damping: 15 });

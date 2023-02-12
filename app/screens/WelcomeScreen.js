@@ -8,7 +8,14 @@ import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
-const WelcomeScreen = (props) => {
+const WelcomeScreen = ({ navigation }) => {
+  const handlePressRegister = () => {
+    navigation.navigate("Register");
+  };
+
+  const handleLogin = () => {
+    navigation.navigate("Login");
+  };
   return (
     <Screen>
       <View style={styles.container}>
@@ -30,12 +37,17 @@ const WelcomeScreen = (props) => {
           </AppText>
         </View>
         <View style={styles.registerContainer}>
-          <AppButton style={styles.button} title="Registar" />
+          <AppButton
+            onPress={handlePressRegister}
+            style={styles.button}
+            title="Registar"
+          />
           <View style={styles.login}>
             <AppText style={{ paddingHorizontal: 2 }}>
               Já tem uma conta criada?
             </AppText>
             <LinkButton
+              onPress={handleLogin}
               style={{ paddingHorizontal: 2 }}
               title="Iniciar Sessão"
             />

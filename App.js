@@ -24,6 +24,7 @@ import defaultStyles from "./app/config/styles";
 import myTheme from "./app/navigation/navigationTheme";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppNavigator from "./app/navigation/AppNavigator";
+import AuthNavigator from "./app/navigation/AuthNavigator";
 
 export default function App() {
   return (

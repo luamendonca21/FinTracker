@@ -9,6 +9,8 @@ const HomeNavigator = () => (
   <Stack.Navigator
     screenOptions={{
       headerShown: false,
+      headerStyle: { height: 40 },
+
       headerStyle: { backgroundColor: defaultStyles.colors.primary },
       headerTintColor: defaultStyles.colors.white,
     }}

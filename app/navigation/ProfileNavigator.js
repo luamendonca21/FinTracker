@@ -6,6 +6,7 @@ import UserProfileScreen from "../screens/UserProfileScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import AboutScreen from "../screens/AboutScreen";
 import FeatureScreen from "../screens/FeatureScreen";
+import AccountScreen from "../screens/AccountScreen";
 const Stack = createNativeStackNavigator();
 
 const ProfileNavigator = () => (
@@ -23,6 +24,15 @@ const ProfileNavigator = () => (
       options={{ headerShown: true, headerTitle: "Definições" }}
       name="Settings"
       component={SettingsScreen}
+    />
+    <Stack.Screen
+      options={{
+        headerShown: true,
+        headerTitle: "Conta",
+        animation: "slide_from_right",
+      }}
+      name="Account"
+      component={AccountScreen}
     />
     <Stack.Screen
       options={{ headerShown: true, headerTitle: "Sobre" }}

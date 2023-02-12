@@ -13,6 +13,7 @@ import { AppButton, LinkButton } from "../components/Buttons";
 import defaultStyles from "../config/styles";
 
 const LoginScreen = (props) => {
+  const handleLogin = () => {};
   return (
     <KeyboardAvoidingView>
       <ScrollView>

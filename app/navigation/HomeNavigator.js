@@ -10,7 +10,10 @@ const Stack = createNativeStackNavigator();
 const HomeNavigator = () => (
   <Stack.Navigator
     screenOptions={{
-      headerStyle: { backgroundColor: defaultStyles.colors.primary },
+      headerStyle: {
+        headerStyle: { height: 40 },
+        backgroundColor: defaultStyles.colors.primary,
+      },
       headerTintColor: defaultStyles.colors.white,
       animation: "slide_from_right",
     }}
