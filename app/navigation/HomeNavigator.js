@@ -20,9 +20,21 @@ const HomeNavigator = () => (
       name="HomeScreen"
       component={HomeScreen}
     />
-    <Stack.Screen name="About" component={AboutScreen} />
-    <Stack.Screen name="Features" component={FeatureScreen} />
-    <Stack.Screen name="Settings" component={SettingsScreen} />
+    <Stack.Screen
+      options={{ headerTitle: "Funcionalidades" }}
+      name="Features"
+      component={FeatureScreen}
+    />
+    <Stack.Screen
+      options={{ headerTitle: "Definições" }}
+      name="Settings"
+      component={SettingsScreen}
+    />
+    <Stack.Screen
+      options={{ headerTitle: "Sobre" }}
+      name="About"
+      component={AboutScreen}
+    />
   </Stack.Navigator>
 );
 

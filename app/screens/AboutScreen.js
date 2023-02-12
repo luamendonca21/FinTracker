@@ -32,24 +32,22 @@ const AboutScreen = () => {
     );
   };
   return (
-    <Screen>
-      <View style={styles.container}>
-        <AppText style={styles.title}>Sobre Fin Tracker</AppText>
-        <AppText style={styles.subTitle}>
-          O Fin Tracker é uma aplicação móvel que permite ao público em geral
-          explorar as migrações de cetáceos e outros animais marinhos que tenham
-          sido marcados.
-        </AppText>
-        <View style={styles.itemsContainer}>
-          <FlatList
-            numColumns={2}
-            data={items}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
+    <View style={styles.container}>
+      <AppText style={styles.title}>Sobre Fin Tracker</AppText>
+      <AppText style={styles.subTitle}>
+        O Fin Tracker é uma aplicação móvel que permite ao público em geral
+        explorar as migrações de cetáceos e outros animais marinhos que tenham
+        sido marcados.
+      </AppText>
+      <View style={styles.itemsContainer}>
+        <FlatList
+          numColumns={2}
+          data={items}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
       </View>
-    </Screen>
+    </View>
   );
 };
 

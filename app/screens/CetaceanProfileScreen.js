@@ -145,7 +145,8 @@ const notifications = [
   { id: 2, title: "Quando estiver perto de um local personalizado" },
 ];
 
-const CetaceanProfileScreen = (props) => {
+const CetaceanProfileScreen = ({ route }) => {
+  const { item } = route.params;
   const [isFavorite, setIsFavorite] = useState(false);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [notificationActive, setNotificationActive] = useState(0);
@@ -178,7 +179,7 @@ const CetaceanProfileScreen = (props) => {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={cetaceans[index].imageUrl} />
+          <Image style={styles.image} source={item.imageUrl} />
         </View>
 
         <View style={styles.profileContainer}>
@@ -186,7 +187,7 @@ const CetaceanProfileScreen = (props) => {
             <View style={styles.header}>
               <View style={{ flex: 1 }}>
                 <AppText numberOfLines={3} style={styles.cetaceanName}>
-                  {cetaceans[index].name}
+                  {item.name}
                 </AppText>
               </View>
               <View style={styles.headerIcons}>
@@ -209,16 +210,14 @@ const CetaceanProfileScreen = (props) => {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              <ListDetails details={cetaceans[index].details} />
+              <ListDetails details={item.details} />
             </ScrollView>
             <AppText style={styles.title}>Introdução</AppText>
-            <AppText style={styles.text}>
-              {cetaceans[index].introduction}.
-            </AppText>
+            <AppText style={styles.text}>{item.introduction}.</AppText>
             <AppText style={styles.title}>História</AppText>
-            <AppText style={styles.text}>{cetaceans[index].history}</AppText>
+            <AppText style={styles.text}>{item.history}</AppText>
             <AppText style={styles.title}>Rota de migração</AppText>
-            <AppText style={styles.text}>{cetaceans[index].migration}</AppText>
+            <AppText style={styles.text}>{item.migration}</AppText>
           </ScrollView>
         </View>
         {isBottomSheetActive ? (

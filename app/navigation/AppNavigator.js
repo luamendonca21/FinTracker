@@ -3,6 +3,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import CetaceansScreen from "../screens/CetaceansScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
 import HomeNavigator from "./HomeNavigator";
+import CetaceansNavigator from "./CetaceansNavigator";
+import ProfileNavigator from "./ProfileNavigator";
 import defaultStyles from "../config/styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
@@ -27,6 +29,7 @@ const AppNavigator = () => (
   >
     <Tab.Screen
       options={{
+        tabBarLabel: "Perfil",
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="home-outline" size={32} color={color} />
         ),
@@ -36,6 +39,8 @@ const AppNavigator = () => (
     />
     <Tab.Screen
       options={{
+        tabBarLabel: "Espécies",
+
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons
             name="format-list-bulleted"
@@ -45,10 +50,11 @@ const AppNavigator = () => (
         ),
       }}
       name="Species"
-      component={CetaceansScreen}
+      component={CetaceansNavigator}
     />
     <Tab.Screen
       options={{
+        tabBarLabel: "Perfil",
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons
             name="account-outline"
@@ -58,7 +64,7 @@ const AppNavigator = () => (
         ),
       }}
       name="Profile"
-      component={UserProfileScreen}
+      component={ProfileNavigator}
     />
   </Tab.Navigator>
 );

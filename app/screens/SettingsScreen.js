@@ -4,7 +4,7 @@ import Screen from "../components/Screen";
 import ListSettings from "../components/Lists/ListSettings";
 import defaultStyles from "../config/styles";
 
-const SettingsScreen = (props) => {
+const SettingsScreen = () => {
   const menuItems = [
     {
       id: 1,
@@ -14,6 +14,7 @@ const SettingsScreen = (props) => {
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
+      target: "",
     },
     {
       id: 2,
@@ -23,6 +24,7 @@ const SettingsScreen = (props) => {
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
+      target: "",
     },
     {
       id: 3,
@@ -32,6 +34,7 @@ const SettingsScreen = (props) => {
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
+      target: "",
     },
     {
       id: 4,
@@ -41,14 +44,10 @@ const SettingsScreen = (props) => {
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
+      target: "About",
     },
   ];
-  return (
-    <ListSettings
-      menuItems={menuItems}
-      onPress={() => console.log("Pressed")}
-    />
-  );
+  return <ListSettings menuItems={menuItems} />;
 };
 
 const styles = StyleSheet.create({});

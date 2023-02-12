@@ -3,11 +3,16 @@ import { View, StyleSheet, FlatList } from "react-native";
 import { ListItem, ListItemSeparator } from "../../components/Lists";
 import Icon from "../../components/Icon";
 
-const ListSettings = ({ menuItems, onPress }) => {
+import { useNavigation } from "@react-navigation/native";
+const ListSettings = ({ menuItems }) => {
+  const navigation = useNavigation();
+  const handlePress = (item) => {
+    navigation.navigate(item.target);
+  };
   const renderItem = ({ item }) => {
     return (
       <ListItem
-        onPress={onPress}
+        onPress={() => handlePress(item)}
         title={item.title}
         IconComponent={
           <Icon
