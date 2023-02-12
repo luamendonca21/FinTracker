@@ -81,9 +81,11 @@ const FeatureScreen = ({ navigation }) => {
   const [index, setIndex] = useState(0);
 
   const handleClick = (index) => {
-    if (index != 6) {
+    if (index <= 6) {
       setIndex(index + 1);
     }
+
+    if (index == 6) navigation.goBack();
   };
   return (
     <>

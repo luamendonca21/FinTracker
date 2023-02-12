@@ -21,7 +21,7 @@ const HomeNavigator = () => (
       component={HomeScreen}
     />
     <Stack.Screen
-      options={{ headerTitle: "Funcionalidades" }}
+      options={{ headerShown: false }}
       name="Features"
       component={FeatureScreen}
     />
