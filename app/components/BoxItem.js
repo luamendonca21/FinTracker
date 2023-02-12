@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, TouchableHighlight } from "react-native";
 import AppText from "./AppText";
 import { MaterialIcons } from "@expo/vector-icons";
 import defaultStyles from "../config/styles";
 
 const BoxItem = ({ item, onPress }) => {
+  const [pressed, setPressed] = useState(false);
   return (
     <TouchableHighlight
-      onPress={onPress}
-      underlayColor={defaultStyles.colors.light}
-      style={styles.container}
+      onHideUnderlay={() => {
+        setPressed(false);
+      }}
+      onShowUnderlay={() => {
+        setPressed(true);
+      }}
+      onPress={() => {
+        onPress();
+      }}
+      underlayColor={defaultStyles.colors.white}
+      style={[
+        styles.container,
+        pressed
+          ? {
+              borderColor: defaultStyles.colors.thirdly,
+              borderWidth: 1,
+            }
+          : "",
+      ]}
     >
       <>
         <MaterialIcons
@@ -29,15 +46,16 @@ const BoxItem = ({ item, onPress }) => {
 const styles = StyleSheet.create({
   container: {
     width: "47%",
-    height: 180,
-    marginHorizontal: 5,
-    marginVertical: 5,
+    height: 200,
+    marginHorizontal: 6,
+    marginVertical: 6,
     backgroundColor: defaultStyles.colors.white,
     alignItems: "center",
     paddingVertical: 15,
     justifyContent: "flex-start",
     borderRadius: 20,
     elevation: 2,
+    paddingHorizontal: 6,
   },
   title: {
     fontSize: 18,

@@ -16,6 +16,7 @@ const ListSettings = ({ menuItems }) => {
         title={item.title}
         IconComponent={
           <Icon
+            activeOpacity={1}
             style={styles.icon}
             icon={item.icon.name}
             size={20}

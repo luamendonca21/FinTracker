@@ -10,9 +10,11 @@ const Icon = ({
   size,
   style,
   onPress,
+  activeOpacity,
 }) => {
   return (
     <TouchableOpacity
+      activeOpacity={activeOpacity}
       style={[
         styles.container,
         style,
