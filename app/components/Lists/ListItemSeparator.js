@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import defaultStyles from "../../config/styles";
 
-const ListItemSeparator = (props) => {
+const ListItemSeparator = () => {
   return <View style={styles.container}></View>;
 };
 

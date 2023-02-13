@@ -3,7 +3,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { View, StyleSheet, TextInput } from "react-native";
 import defaultStyles from "../../config/styles";
 
-const FilterInput = ({ icon, ...otherProps }) => {
+const FilterInput = ({ icon, onChange, ...otherProps }) => {
   return (
     <View style={styles.container}>
       {icon && (
@@ -15,6 +15,7 @@ const FilterInput = ({ icon, ...otherProps }) => {
         />
       )}
       <TextInput
+        onChange={onChange}
         style={styles.textInput}
         {...otherProps}
         placeholderTextColor={defaultStyles.colors.white}

@@ -145,8 +145,6 @@ const cetaceans = [
   },
 ];
 
-const index = 1;
-
 const notifications = [
   { id: 1, title: "Quando estiver perto da minha localização" },
   { id: 2, title: "Quando estiver perto de um local personalizado" },

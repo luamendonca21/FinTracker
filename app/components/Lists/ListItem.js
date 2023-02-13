@@ -4,15 +4,19 @@ import AppText from "../AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../../config/styles";
 
-const ListItem = ({ title, onPress, IconComponent, chevrons }) => {
+const ListItem = ({
+  underlayColor = defaultStyles.colors.light,
+  title,
+  style,
+  onPress,
+  IconComponent,
+  chevrons,
+}) => {
   return (
-    <TouchableHighlight
-      underlayColor={defaultStyles.colors.light}
-      onPress={onPress}
-    >
-      <View style={styles.container}>
+    <TouchableHighlight underlayColor={underlayColor} onPress={onPress}>
+      <View style={[styles.container, style]}>
         {IconComponent}
-        <AppText style={styles.text}>{title}</AppText>
+        <AppText style={[styles.text, style]}>{title}</AppText>
         {chevrons && (
           <MaterialCommunityIcons
             name="chevron-right"
@@ -32,7 +36,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     padding: 12,
-    shadowColor: defaultStyles.colors.black,
   },
   text: { flex: 1 },
 });
