@@ -7,8 +7,7 @@ import Screen from "../components/Screen";
 import defaultStyles from "../config/styles";
 import { StatusBar } from "react-native";
 import { Dimensions } from "react-native";
-import { ListItem } from "../components/Lists";
-import ListItemSeparator from "../components/Lists";
+import { ListItem, ListItemSeparator } from "../components/Lists";
 const cetaceans = [];
 const windowHeight = Dimensions.get("window").height;
 
@@ -190,7 +189,12 @@ const CetaceansScreen = ({ navigation }) => {
                 data={getCetaceansFiltered()}
                 keyExtractor={(item) => item.id}
                 renderItem={renderItem}
-                ItemSeparatorComponent={ListItemSeparator}
+                ItemSeparatorComponent={() => (
+                  <ListItemSeparator
+                    width="95%"
+                    color={defaultStyles.colors.transparent}
+                  />
+                )}
               />
             </View>
           ) : (
@@ -204,12 +208,6 @@ const CetaceansScreen = ({ navigation }) => {
           <View style={styles.categoryList}>
             <View style={styles.categoryContainer}>
               <AppText style={styles.category}>Golfinhos</AppText>
-              <AppText style={styles.seeMore}>Desliza para ver mais...</AppText>
-              <Carousel data={cetaceans} />
-              {/* <LinkButton color="black" title="See more" /> */}
-            </View>
-            <View style={styles.categoryContainer}>
-              <AppText style={styles.category}>Baleias</AppText>
               <AppText style={styles.seeMore}>Desliza para ver mais...</AppText>
               <Carousel data={cetaceans} />
               {/* <LinkButton color="black" title="See more" /> */}
