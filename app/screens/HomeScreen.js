@@ -88,6 +88,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 15,
+    backgroundColor: defaultStyles.colors.white,
     flex: 1,
   },
   welcome: {

@@ -5,6 +5,7 @@ import SettingsScreen from "../screens/SettingsScreen";
 import FeatureScreen from "../screens/FeatureScreen";
 import AboutScreen from "../screens/AboutScreen";
 import defaultStyles from "../config/styles";
+import AccountScreen from "../screens/AccountScreen";
 const Stack = createNativeStackNavigator();
 
 const HomeNavigator = () => (
@@ -37,6 +38,11 @@ const HomeNavigator = () => (
       options={{ headerTitle: "Sobre" }}
       name="About"
       component={AboutScreen}
+    />
+    <Stack.Screen
+      options={{ headerTitle: "Conta" }}
+      name="Account"
+      component={AccountScreen}
     />
   </Stack.Navigator>
 );

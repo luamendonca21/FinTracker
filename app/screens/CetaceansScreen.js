@@ -12,7 +12,7 @@ import ListItemSeparator from "../components/Lists";
 const cetaceans = [];
 const windowHeight = Dimensions.get("window").height;
 
-const CetaceansScreen = () => {
+const CetaceansScreen = ({ navigation }) => {
   const [cetaceans, setCetaceans] = useState([
     {
       id: 1,
@@ -133,8 +133,7 @@ const CetaceansScreen = () => {
         localização: "Camâra de Lobos",
       },
       imageUrl: require("../assets/dolphins/Stripped_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      introduction: "eu",
       history:
         "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
       migration:
@@ -147,8 +146,12 @@ const CetaceansScreen = () => {
   };
 
   const getCetaceansFiltered = () => {
-    return cetaceans.filter((c) =>
-      c.name.toLowerCase().includes(searchQuery.toLowerCase())
+    return cetaceans.filter(
+      (c) =>
+        c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        c.details.nomeCientífico
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
     );
   };
 
@@ -157,7 +160,7 @@ const CetaceansScreen = () => {
       <ListItem
         underlayColor={defaultStyles.colors.transparent}
         title={item.name}
-        onPress={() => console.log("Pressed")}
+        onPress={() => navigation.navigate("CetaceansProfile", { item })}
         style={styles.listSearchItem}
       />
     );
@@ -169,6 +172,10 @@ const CetaceansScreen = () => {
           Bem-vindo ao fundo do oceano
         </AppText>
         <FilterInput
+          onPress={() => setSearchQuery("")}
+          value={searchQuery}
+          clear
+          style={styles.filterInput}
           onChangeText={(text) => handleSearch(text)}
           icon="search"
           size={24}
@@ -179,7 +186,7 @@ const CetaceansScreen = () => {
             <View style={styles.searchBox}>
               <FlatList
                 nestedScrollEnabled
-                showsVerticalScrollIndicator={false}
+                showsVerticalScrollIndicator
                 data={getCetaceansFiltered()}
                 keyExtractor={(item) => item.id}
                 renderItem={renderItem}
@@ -226,12 +233,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
   },
+  filterInput: { marginTop: 30, marginBottom: 5 },
   searchBox: {
     paddingVertical: 12,
     width: "100%",
     backgroundColor: defaultStyles.colors.transparent,
     borderRadius: 20,
-    marginVertical: 15,
+    marginTop: 5,
+    maxHeight: 250,
   },
   listSearchItem: { color: defaultStyles.colors.white },
   welcomeText: {
@@ -247,7 +256,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: defaultStyles.colors.white,
     width: "100%",
-    marginVertical: 10,
+    marginVertical: 5,
     elevation: 2,
 
     padding: 10,

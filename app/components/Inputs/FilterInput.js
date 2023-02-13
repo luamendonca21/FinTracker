@@ -2,10 +2,18 @@ import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, StyleSheet, TextInput } from "react-native";
 import defaultStyles from "../../config/styles";
+import IconButton from "../Buttons/IconButton";
 
-const FilterInput = ({ icon, onChange, ...otherProps }) => {
+const FilterInput = ({
+  icon,
+  clear,
+  style,
+  onChange,
+  onPress,
+  ...otherProps
+}) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       {icon && (
         <MaterialIcons
           style={styles.icon}
@@ -20,6 +28,17 @@ const FilterInput = ({ icon, onChange, ...otherProps }) => {
         {...otherProps}
         placeholderTextColor={defaultStyles.colors.white}
       ></TextInput>
+      {clear ? (
+        <IconButton
+          style={styles.iconButton}
+          onPress={onPress}
+          color={defaultStyles.colors.white}
+          name="close"
+          size={26}
+        />
+      ) : (
+        ""
+      )}
     </View>
   );
 };
@@ -34,7 +53,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    marginTop: 30,
   },
   textInput: {
     color: defaultStyles.colors.white,

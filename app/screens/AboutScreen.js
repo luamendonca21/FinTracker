@@ -3,7 +3,6 @@ import { View, StyleSheet, FlatList } from "react-native";
 import AppText from "../components/AppText";
 import Screen from "../components/Screen";
 import BoxItem from "../components/BoxItem";
-import { useNavigation } from "@react-navigation/native";
 const items = [
   {
     id: 0,
@@ -24,8 +23,7 @@ const items = [
 const handlePressItem = ({ target }, navigation) => {
   navigation.navigate(target);
 };
-const AboutScreen = () => {
-  const navigation = useNavigation();
+const AboutScreen = ({ navigation }) => {
   const renderItem = ({ item }) => {
     return (
       <BoxItem onPress={() => handlePressItem(item, navigation)} item={item} />
