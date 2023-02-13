@@ -20,16 +20,16 @@ const BottomSheet = ({ children, title }) => {
     })
     .onUpdate((event) => {
       translateY.value = event.translationY + context.value.y;
-      translateY.value = Math.max(translateY.value, -windowHeight / 3);
-      translateY.value = Math.min(translateY.value, -windowHeight / 3.5);
+      translateY.value = Math.max(translateY.value, -330);
+      translateY.value = Math.min(translateY.value, -290);
     })
     .onEnd(() => {
-      translateY.value = withSpring(-windowHeight / 3, { damping: 15 });
+      translateY.value = withSpring(-320, { damping: 15 });
     })
     .onFinalize(() => {});
 
   useEffect(() => {
-    translateY.value = withSpring(-windowHeight / 3, { damping: 15 });
+    translateY.value = withSpring(-320, { damping: 15 });
   }, []);
   const rBottomSheetStyle = useAnimatedStyle(() => {
     return { transform: [{ translateY: translateY.value }] };
