@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   circleContainer: {
     width: SIZE,
     height: SIZE,
-    elevation: 1,
+    elevation: 0.5,
     backgroundColor: "white",
     borderRadius: 100,
     justifyContent: "center",

@@ -6,8 +6,8 @@ import { ListDetails } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
 import { Carousel } from "../components/Carousels/ImageCarousel";
 import IconButton from "../components/Buttons/IconButton";
+import Screen from "../components/Screen";
 import Icon from "../components/Icon";
-import Constants from "expo-constants";
 
 import defaultStyles from "../config/styles";
 
@@ -84,56 +84,58 @@ function UserProfileScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Icon
-          onPress={() => navigation.navigate("Settings")}
-          style={styles.icon}
-          icon="cog-outline"
-          size={26}
-          iconColor={defaultStyles.colors.black}
-          backgroundColor={defaultStyles.colors.white}
-        />
-        <Image
-          style={styles.image}
-          source={require("../assets/userPicture.jpg")}
-        />
-      </View>
+      <Screen>
+        <View style={styles.imageContainer}>
+          <Icon
+            onPress={() => navigation.navigate("Settings")}
+            style={styles.icon}
+            icon="cog-outline"
+            size={26}
+            iconColor={defaultStyles.colors.black}
+            backgroundColor={defaultStyles.colors.white}
+          />
+          <Image
+            style={styles.image}
+            source={require("../assets/userPicture.jpg")}
+          />
+        </View>
 
-      <View style={styles.profileContainer}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <AppText style={styles.userName}>{users[0].name}</AppText>
-            <PointsIndicator />
-          </View>
-          <View style={styles.body}>
-            <View style={styles.detailsHeader}>
-              <AppText style={styles.title}>Detalhes</AppText>
-              <IconButton
-                style={styles.iconButton}
-                onPress={() => console.log("Pressed")}
-                color={defaultStyles.colors.black}
-                name="edit"
-                size={25}
-              />
+        <View style={styles.profileContainer}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.header}>
+              <AppText style={styles.userName}>{users[0].name}</AppText>
+              <PointsIndicator />
             </View>
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              <ListDetails details={users[0].detalhes} />
-            </ScrollView>
-            <AppText style={styles.title}>Cetáceos Favoritos</AppText>
-            <Carousel data={favorites} />
-            <AppText style={styles.title}>Visitados</AppText>
-          </View>
-        </ScrollView>
-      </View>
+            <View style={styles.body}>
+              <View style={styles.detailsHeader}>
+                <AppText style={styles.title}>Detalhes</AppText>
+                <IconButton
+                  style={styles.iconButton}
+                  onPress={() => console.log("Pressed")}
+                  color={defaultStyles.colors.black}
+                  name="edit"
+                  size={25}
+                />
+              </View>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                <ListDetails details={users[0].detalhes} />
+              </ScrollView>
+              <AppText style={styles.title}>Cetáceos Favoritos</AppText>
+              <Carousel data={favorites} />
+              <AppText style={styles.title}>Visitados</AppText>
+            </View>
+          </ScrollView>
+        </View>
+      </Screen>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: defaultStyles.colors.primary },
   imageContainer: {
     alignItems: "center",
     justifyContent: "center",
@@ -155,7 +157,7 @@ const styles = StyleSheet.create({
   icon: {
     position: "absolute",
     right: 15,
-    top: Constants.statusBarHeight + 15,
+    top: 15,
   },
   profileContainer: {
     borderTopLeftRadius: 20,

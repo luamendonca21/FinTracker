@@ -24,7 +24,7 @@ const BoxItem = ({ item, onPress }) => {
         styles.container,
         pressed
           ? {
-              borderColor: defaultStyles.colors.thirdly,
+              borderColor: defaultStyles.colors.secondary,
               borderWidth: 1,
             }
           : "",

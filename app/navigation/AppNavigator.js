@@ -23,7 +23,6 @@ const tabBar = [
     label: "Espécies",
     icon: "format-list-bulleted",
     iconFocused: "format-list-bulleted",
-
     component: CetaceansNavigator,
   },
   {
@@ -45,7 +44,6 @@ const AppNavigator = () => (
       },
       tabBarStyle: {
         position: "absolute",
-        height: 50,
         borderTopRightRadius: 15,
         borderTopLeftRadius: 15,
         borderColor: defaultStyles.colors.white,

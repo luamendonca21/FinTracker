@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginVertical: 5,
     borderRadius: 15,
-    elevation: 3,
+    elevation: 2,
   },
   itemTitle: {
     position: "absolute",

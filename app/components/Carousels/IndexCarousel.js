@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
 
-import Index from "../../Index";
+import Index from "../Index";
 
-import defaultStyles from "../../../config/styles";
+import defaultStyles from "../../config/styles";
 
 const windowWidth = Dimensions.get("window").width;
 
-const IndexCarousel = ({ children, ...otherProps }) => {
+const IndexCarousel = ({
+  children,
+  color = defaultStyles.colors.primary,
+  ...otherProps
+}) => {
   const [itemActive, setItemActive] = useState(0);
 
   const onchange = (nativeEvent) => {
@@ -21,7 +25,7 @@ const IndexCarousel = ({ children, ...otherProps }) => {
     }
   };
   return (
-    <View style={styles.items}>
+    <View style={[styles.items, { backgroundColor: color }]}>
       <View style={styles.itemsContainer}>
         <ScrollView
           style={styles.itemsContainer}
