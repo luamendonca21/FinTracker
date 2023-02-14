@@ -1,15 +1,14 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import HomeNavigator from "./HomeNavigator";
 import CetaceansNavigator from "./CetaceansNavigator";
 import ProfileNavigator from "./ProfileNavigator";
 
 import defaultStyles from "../config/styles";
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const tabBar = [
   {
@@ -37,23 +36,22 @@ const tabBar = [
 ];
 const AppNavigator = () => (
   <Tab.Navigator
-    initialRouteName="Home"
-    activeColor={defaultStyles.colors.secondary}
-    inactiveColor={defaultStyles.colors.black}
-    labelStyle={{ fontSize: 14, fontWeight: "400" }}
-    barStyle={{
-      position: "absolute",
-      borderTopRightRadius: 25,
-      borderTopLeftRadius: 25,
-      paddingHorizontal: 20,
-      justifyContent: "center",
-      borderColor: defaultStyles.colors.white,
-      backgroundColor: defaultStyles.colors.white,
-      borderColor: defaultStyles.colors.light,
-      borderWidth: 1,
-    }}
+    shifting
     screenOptions={{
       headerShown: false,
+      tabBarLabelStyle: {
+        fontSize: 12,
+        fontWeight: "400",
+      },
+      tabBarStyle: {
+        position: "absolute",
+        height: 50,
+        borderTopRightRadius: 15,
+        borderTopLeftRadius: 15,
+        borderColor: defaultStyles.colors.white,
+        backgroundColor: defaultStyles.colors.white,
+      },
+      tabBarActiveTintColor: defaultStyles.colors.secondary,
     }}
   >
     {tabBar.map((nav, index) => {
@@ -63,6 +61,7 @@ const AppNavigator = () => (
           name={nav.route}
           component={nav.component}
           options={{
+            tabBarShowLabel: false,
             tabBarLabel: nav.label,
             tabBarIcon: ({ color, focused }) => (
               <MaterialCommunityIcons

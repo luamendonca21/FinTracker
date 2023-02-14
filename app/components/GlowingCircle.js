@@ -12,7 +12,7 @@ import AppText from "./AppText";
 
 import defaultStyles from "../config/styles";
 
-const SIZE = 80;
+const SIZE = 70;
 
 const GLOW_INITIAL_SCALE = 1.9; //Scale of the glow
 const GLOW_MINIMUM_SCALE = 1.4;
@@ -61,8 +61,8 @@ const GlowingSun = ({ onPress }) => {
         >
           <MaterialIcons
             name="leaderboard"
-            size={40}
-            color={defaultStyles.colors.secondary}
+            size={42}
+            color={defaultStyles.colors.thirdly}
           />
           <AppText style={styles.text}>Ranking</AppText>
         </View>
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 4, // Right offset to align glow to image
   },
-  text: { fontSize: 8, fontWeight: "bold" },
+  text: { fontSize: 9, fontWeight: "bold" },
 });
 
 export default GlowingSun;
