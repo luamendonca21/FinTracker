@@ -8,11 +8,12 @@ import {
 } from "react-native";
 
 import AppText from "../components/AppText";
-import { FilterInput } from "../components/Inputs";
 import { Carousel } from "../components/Carousels";
 import Screen from "../components/Screen";
-import defaultStyles from "../config/styles";
+import SearchInput from "../components/Inputs/SearchInput";
 import { ListItem, ListItemSeparator } from "../components/Lists";
+
+import defaultStyles from "../config/styles";
 
 const CetaceansScreen = ({ navigation }) => {
   const [cetaceans, setCetaceans] = useState([
@@ -166,6 +167,11 @@ const CetaceansScreen = ({ navigation }) => {
         title={item.name}
         onPress={() => navigation.navigate("CetaceansProfile", { item })}
         style={styles.listSearchItem}
+        chevrons={{
+          name: "chevron-right",
+          size: 30,
+          color: defaultStyles.colors.white,
+        }}
       />
     );
   };
@@ -176,14 +182,21 @@ const CetaceansScreen = ({ navigation }) => {
           <AppText style={styles.welcomeText}>
             Bem-vindo ao fundo do oceano
           </AppText>
-          <FilterInput
+          <SearchInput
+            mainIcon={{
+              name: "search",
+              size: 24,
+              color: defaultStyles.colors.white,
+            }}
+            clearIcon={{
+              name: "close",
+              size: 24,
+              color: defaultStyles.colors.white,
+            }}
             onPress={() => setSearchQuery("")}
             value={searchQuery}
-            clear
             style={styles.filterInput}
             onChangeText={(text) => handleSearch(text)}
-            icon="search"
-            size={24}
             placeholder="Pesquisa por cetáceos..."
           />
           {searchQuery ? (
@@ -214,6 +227,14 @@ const CetaceansScreen = ({ navigation }) => {
             <View style={styles.categoryList}>
               <View style={styles.categoryContainer}>
                 <AppText style={styles.category}>Golfinhos</AppText>
+                <AppText style={styles.seeMore}>
+                  Desliza para ver mais...
+                </AppText>
+                <Carousel data={cetaceans} />
+                {/* <LinkButton color="black" title="See more" /> */}
+              </View>
+              <View style={styles.categoryContainer}>
+                <AppText style={styles.category}>Baleias</AppText>
                 <AppText style={styles.seeMore}>
                   Desliza para ver mais...
                 </AppText>
@@ -270,7 +291,7 @@ const styles = StyleSheet.create({
 
     padding: 10,
   },
-  categoryList: { flex: 1, marginBottom: 60 },
+  categoryList: { flex: 1, marginBottom: 90 },
   category: {
     fontWeight: "700",
     color: defaultStyles.colors.black,

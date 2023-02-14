@@ -6,37 +6,28 @@ import IconButton from "../Buttons/IconButton";
 
 import defaultStyles from "../../config/styles";
 
-const FilterInput = ({
-  icon,
-  clear,
-  style,
-  onChange,
-  onPress,
-  ...otherProps
-}) => {
+const SearchInput = ({ mainIcon, clearIcon, style, ...otherProps }) => {
   return (
     <View style={[styles.container, style]}>
-      {icon && (
+      {mainIcon && (
         <MaterialIcons
-          style={styles.icon}
-          name={icon}
           {...otherProps}
-          color={defaultStyles.colors.white}
+          name={mainIcon.name}
+          color={mainIcon.color}
+          size={mainIcon.size}
         />
       )}
       <TextInput
-        onChange={onChange}
         style={styles.textInput}
         {...otherProps}
         placeholderTextColor={defaultStyles.colors.white}
       ></TextInput>
-      {clear ? (
+      {clearIcon ? (
         <IconButton
-          style={styles.iconButton}
-          onPress={onPress}
-          color={defaultStyles.colors.white}
-          name="close"
-          size={26}
+          {...otherProps}
+          name={clearIcon.name}
+          color={clearIcon.color}
+          size={clearIcon.size}
         />
       ) : (
         ""
@@ -63,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FilterInput;
+export default SearchInput;

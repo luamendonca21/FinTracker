@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  TouchableHighlight,
-} from "react-native";
+import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Animated, {
   useAnimatedStyle,
@@ -14,11 +8,13 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import AppText from "./AppText";
+
 import defaultStyles from "../config/styles";
 
-const SIZE = 60;
+const SIZE = 80;
 
-const GLOW_INITIAL_SCALE = 1.7; //Scale of the glow
+const GLOW_INITIAL_SCALE = 1.9; //Scale of the glow
 const GLOW_MINIMUM_SCALE = 1.4;
 const GLOW_DURATION = 2000;
 
@@ -55,23 +51,21 @@ const GlowingSun = ({ onPress }) => {
         />
       </Animated.View>
       <TouchableHighlight
+        onPress={() => console.log("pressed")}
+        style={styles.circleContainer}
         underlayColor={defaultStyles.colors.light}
-        onPress={onPress}
-        style={{
-          width: SIZE,
-          height: SIZE,
-          elevation: 2,
-          backgroundColor: "white",
-          borderRadius: 100,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
       >
-        <MaterialIcons
-          name="leaderboard"
-          size={32}
-          color={defaultStyles.colors.secondary}
-        />
+        <View
+          underlayColor={defaultStyles.colors.light}
+          style={styles.circleContainer}
+        >
+          <MaterialIcons
+            name="leaderboard"
+            size={40}
+            color={defaultStyles.colors.secondary}
+          />
+          <AppText style={styles.text}>Ranking</AppText>
+        </View>
       </TouchableHighlight>
     </View>
   );
@@ -82,10 +76,18 @@ const styles = StyleSheet.create({
     width: SIZE,
     height: SIZE,
   },
-
   container: {
     alignItems: "center",
     overflow: "visible",
+  },
+  circleContainer: {
+    width: SIZE,
+    height: SIZE,
+    elevation: 1,
+    backgroundColor: "white",
+    borderRadius: 100,
+    justifyContent: "center",
+    alignItems: "center",
   },
   glowContainer: {
     justifyContent: "center",
@@ -96,6 +98,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 4, // Right offset to align glow to image
   },
+  text: { fontSize: 8, fontWeight: "bold" },
 });
 
 export default GlowingSun;

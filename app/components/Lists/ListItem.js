@@ -21,9 +21,9 @@ const ListItem = ({
         <AppText style={[styles.text, style]}>{title}</AppText>
         {chevrons && (
           <MaterialCommunityIcons
-            name="chevron-right"
-            size={30}
-            color={defaultStyles.colors.black}
+            name={chevrons.name}
+            size={chevrons.size}
+            color={chevrons.color}
           />
         )}
       </View>

@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
 import IconButton from "../components/Buttons/IconButton";

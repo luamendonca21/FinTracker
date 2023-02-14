@@ -4,6 +4,8 @@ import { View, StyleSheet, FlatList } from "react-native";
 import { ListItem, ListItemSeparator } from "../../components/Lists";
 import Icon from "../../components/Icon";
 
+import defaultStyles from "../../config/styles";
+
 import { useNavigation } from "@react-navigation/native";
 const ListSettings = ({ menuItems }) => {
   const navigation = useNavigation();
@@ -25,7 +27,11 @@ const ListSettings = ({ menuItems }) => {
             backgroundColor={item.icon.backgroundColor}
           />
         }
-        chevrons={true}
+        chevrons={{
+          name: "chevron-right",
+          size: 30,
+          color: defaultStyles.colors.black,
+        }}
       />
     );
   };

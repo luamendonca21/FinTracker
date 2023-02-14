@@ -4,14 +4,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../../config/styles";
 
 const AppTextInput = ({ icon, secureTextEntry, ...otherProps }) => {
-  const [hiddenPassword, setHiddenPassword] = useState(true);
+  const [hidden, setHidden] = useState(true);
 
   const handlePress = () => {
-    setHiddenPassword(!hiddenPassword);
+    setHidden(!hidden);
   };
 
-  const hidePassword = () => {
-    return hiddenPassword ? ["eye-off", false] : ["eye", true];
+  const hide = () => {
+    return hidden ? ["eye-off", false] : ["eye", true];
   };
 
   return (
@@ -24,7 +24,7 @@ const AppTextInput = ({ icon, secureTextEntry, ...otherProps }) => {
         />
       )}
       <TextInput
-        secureTextEntry={hidePassword()[1]}
+        secureTextEntry={hide()[1]}
         {...otherProps}
         placeholderTextColor={defaultStyles.colors.medium}
         style={[defaultStyles.text, styles.textInput]}
@@ -32,7 +32,7 @@ const AppTextInput = ({ icon, secureTextEntry, ...otherProps }) => {
       {secureTextEntry ? (
         <TouchableOpacity onPress={handlePress}>
           <MaterialCommunityIcons
-            name={hidePassword()[0]}
+            name={hide()[0]}
             {...otherProps}
             color={defaultStyles.colors.black}
           />
