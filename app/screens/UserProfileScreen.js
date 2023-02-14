@@ -1,11 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
 
-import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
-import { Carousel } from "../components/Carousels";
+import { Carousel } from "../components/Carousels/ImageCarousel";
 import IconButton from "../components/Buttons/IconButton";
 import Icon from "../components/Icon";
 import Constants from "expo-constants";
@@ -159,8 +158,8 @@ const styles = StyleSheet.create({
     top: Constants.statusBarHeight + 15,
   },
   profileContainer: {
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     backgroundColor: defaultStyles.colors.white,
     flex: 1,
     marginTop: windowHeight / 3.5,

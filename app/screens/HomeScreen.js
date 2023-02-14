@@ -6,6 +6,7 @@ import { AppButton } from "../components/Buttons";
 import GlowingCircle from "../components/GlowingCircle";
 import Index from "../components/Index";
 import Screen from "../components/Screen";
+import IndexCarousel from "../components/Carousels/CardCarousel/IndexCarousel";
 
 import defaultStyles from "../config/styles";
 
@@ -35,21 +36,8 @@ const shortcuts = [
   },
 ];
 const HomeScreen = ({ navigation }) => {
-  const [shortcutActive, setShortcutActive] = useState(0);
-
   const handlePressShortcut = ({ target }) => {
     navigation.navigate(target);
-  };
-
-  const onchange = (nativeEvent) => {
-    if (nativeEvent) {
-      const slide = Math.ceil(
-        nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
-      );
-      if (slide != shortcutActive) {
-        setShortcutActive(slide);
-      }
-    }
   };
   return (
     <View style={styles.container}>
@@ -65,35 +53,22 @@ const HomeScreen = ({ navigation }) => {
           <GlowingCircle />
         </View>
         <AppText style={{ fontSize: 18 }}>Atalhos</AppText>
-        <View style={styles.shortcuts}>
-          <View style={styles.shortcutsContainer}>
-            <ScrollView
-              style={styles.shortcutsContainer}
-              onScroll={({ nativeEvent }) => onchange(nativeEvent)}
-              horizontal
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-            >
-              {shortcuts.map((item, index) => (
-                <View key={index} style={styles.shortcutsContent}>
-                  <AppText style={styles.shortcutsTitle}>{item.title}</AppText>
-                  <AppText style={styles.shortcutsSubtitle}>
-                    {item.subTitle}
-                  </AppText>
-                  <AppButton
-                    style={styles.button}
-                    color="secondary"
-                    title={item.buttonTitle}
-                    onPress={() => handlePressShortcut(item)}
-                  />
-                </View>
-              ))}
-            </ScrollView>
-          </View>
-          <View style={styles.index}>
-            <Index items={shortcuts} indexSelected={shortcutActive} />
-          </View>
-        </View>
+        <IndexCarousel items={shortcuts}>
+          {shortcuts.map((item, index) => (
+            <View key={index} style={styles.shortcutsContent}>
+              <AppText style={styles.shortcutsTitle}>{item.title}</AppText>
+              <AppText style={styles.shortcutsSubtitle}>
+                {item.subTitle}
+              </AppText>
+              <AppButton
+                style={styles.button}
+                color="secondary"
+                title={item.buttonTitle}
+                onPress={() => handlePressShortcut(item)}
+              />
+            </View>
+          ))}
+        </IndexCarousel>
         <AppText style={styles.title}>Perto de ti</AppText>
       </Screen>
     </View>
@@ -108,20 +83,6 @@ const styles = StyleSheet.create({
   },
   welcome: { flex: 1, fontSize: 22, fontWeight: "bold" },
   title: { fontSize: 18, marginTop: 15, fontWeight: "bold" },
-  shortcuts: {
-    backgroundColor: defaultStyles.colors.primary,
-    width: windowWidth * 0.92,
-    alignSelf: "center",
-    alignItems: "center",
-    height: 215,
-    borderRadius: 20,
-    marginTop: 10,
-    marginBottom: 5,
-  },
-  shortcutsContainer: {
-    width: "100%",
-    height: "85%",
-  },
   shortcutsContent: {
     padding: 20,
     width: windowWidth * 0.92,

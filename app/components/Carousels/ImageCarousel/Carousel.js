@@ -2,7 +2,7 @@ import React from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import CarouselItem from "../Carousels/CarouselItem";
+import CarouselItem from "./CarouselItem";
 
 function Carousel({ data }) {
   const navigation = useNavigation();

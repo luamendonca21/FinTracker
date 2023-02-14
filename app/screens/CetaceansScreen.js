@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 import AppText from "../components/AppText";
-import { Carousel } from "../components/Carousels";
+import { Carousel } from "../components/Carousels/ImageCarousel";
 import Screen from "../components/Screen";
 import SearchInput from "../components/Inputs/SearchInput";
 import { ListItem, ListItemSeparator } from "../components/Lists";

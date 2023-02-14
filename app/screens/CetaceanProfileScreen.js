@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
   },
   image: { width: "100%", height: "100%", resizeMode: "cover" },
   profileContainer: {
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     backgroundColor: defaultStyles.colors.white,
     flex: 1,
     marginTop: windowHeight / 3.5,
