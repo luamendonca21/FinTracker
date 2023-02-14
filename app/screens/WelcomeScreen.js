@@ -1,9 +1,11 @@
 import React from "react";
 import { View, StyleSheet, Image, Dimensions } from "react-native";
+
 import { WavyFooter } from "../components/Waves";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { AppButton, LinkButton } from "../components/Buttons";
+
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -16,6 +18,7 @@ const WelcomeScreen = ({ navigation }) => {
   const handleLogin = () => {
     navigation.navigate("Login");
   };
+
   return (
     <Screen>
       <View style={styles.container}>

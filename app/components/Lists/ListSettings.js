@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+
 import { ListItem, ListItemSeparator } from "../../components/Lists";
 import Icon from "../../components/Icon";
 

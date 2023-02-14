@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
-import Screen from "../components/Screen";
+
 import AppText from "../components/AppText";
-import defaultStyles from "../config/styles";
 import { AppButton } from "../components/Buttons";
+import GlowingCircle from "../components/GlowingCircle";
 import Index from "../components/Index";
-import colors from "../config/colors";
+import Screen from "../components/Screen";
+
+import defaultStyles from "../config/styles";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -34,9 +36,11 @@ const shortcuts = [
 ];
 const HomeScreen = ({ navigation }) => {
   const [shortcutActive, setShortcutActive] = useState(0);
+
   const handlePressShortcut = ({ target }) => {
     navigation.navigate(target);
   };
+
   const onchange = (nativeEvent) => {
     if (nativeEvent) {
       const slide = Math.ceil(
@@ -49,38 +53,49 @@ const HomeScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <AppText style={styles.welcome}>Bem-vinda, Luana!</AppText>
-      <AppText style={{ fontSize: 18 }}>Atalhos</AppText>
-      <View style={styles.shortcuts}>
-        <View style={styles.shortcutsContainer}>
-          <ScrollView
-            style={styles.shortcutsContainer}
-            onScroll={({ nativeEvent }) => onchange(nativeEvent)}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-          >
-            {shortcuts.map((item, index) => (
-              <View key={index} style={styles.shortcutsContent}>
-                <AppText style={styles.shortcutsTitle}>{item.title}</AppText>
-                <AppText style={styles.shortcutsSubtitle}>
-                  {item.subTitle}
-                </AppText>
-                <AppButton
-                  style={styles.button}
-                  color="secondary"
-                  title={item.buttonTitle}
-                  onPress={() => handlePressShortcut(item)}
-                />
-              </View>
-            ))}
-          </ScrollView>
+      <Screen>
+        <View
+          style={{
+            marginBottom: 25,
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <AppText style={styles.welcome}>Bem-vinda, Luana!</AppText>
+          <GlowingCircle />
         </View>
-        <View style={styles.index}>
-          <Index items={shortcuts} indexSelected={shortcutActive} />
+        <AppText style={{ fontSize: 18 }}>Atalhos</AppText>
+        <View style={styles.shortcuts}>
+          <View style={styles.shortcutsContainer}>
+            <ScrollView
+              style={styles.shortcutsContainer}
+              onScroll={({ nativeEvent }) => onchange(nativeEvent)}
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+            >
+              {shortcuts.map((item, index) => (
+                <View key={index} style={styles.shortcutsContent}>
+                  <AppText style={styles.shortcutsTitle}>{item.title}</AppText>
+                  <AppText style={styles.shortcutsSubtitle}>
+                    {item.subTitle}
+                  </AppText>
+                  <AppButton
+                    style={styles.button}
+                    color="secondary"
+                    title={item.buttonTitle}
+                    onPress={() => handlePressShortcut(item)}
+                  />
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+          <View style={styles.index}>
+            <Index items={shortcuts} indexSelected={shortcutActive} />
+          </View>
         </View>
-      </View>
-      <AppText style={styles.title}>Perto de ti</AppText>
+        <AppText style={styles.title}>Perto de ti</AppText>
+      </Screen>
     </View>
   );
 };
@@ -91,11 +106,7 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.white,
     flex: 1,
   },
-  welcome: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 30,
-  },
+  welcome: { flex: 1, fontSize: 22, fontWeight: "bold" },
   title: { fontSize: 18, marginTop: 15, fontWeight: "bold" },
   shortcuts: {
     backgroundColor: defaultStyles.colors.primary,

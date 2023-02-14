@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
+
 import AppText from "./AppText";
+
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import Animated, {
   useAnimatedStyle,

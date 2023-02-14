@@ -29,7 +29,10 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 export default function App() {
   return (
     <>
-      <StatusBar backgroundColor={defaultStyles.colors.medium} />
+      <StatusBar
+        backgroundColor={defaultStyles.colors.transparent}
+        translucent={true}
+      />
 
       <NavigationContainer theme={myTheme}>
         <AppNavigator />

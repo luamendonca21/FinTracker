@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+
 import AppText from "../components/AppText";
 import { AppSecondaryButton } from "../components/Buttons";
 import Index from "../components/Index";
-import { MaterialIcons } from "@expo/vector-icons";
-import { StatusBar } from "expo-status-bar";
+
 import defaultStyles from "../config/styles";
+import Screen from "../components/Screen";
 
 const features = [
   {
@@ -82,73 +84,76 @@ const FeatureScreen = ({ navigation }) => {
   const [index, setIndex] = useState(0);
 
   const handleClick = (index) => {
-    if (index <= 6) {
+    if (index < 6) {
       setIndex(index + 1);
     }
 
     if (index == 6) navigation.goBack();
   };
   return (
-    <>
-      <View style={styles.container}>
-        {index != 4 ? (
-          <MaterialIcons
-            style={styles.icon}
-            name={features[index].icon}
-            color={defaultStyles.colors.thirdly}
-            size={120}
-          />
-        ) : (
-          ""
-        )}
-        {index == 4 ? (
-          <AppText
+    <View style={styles.container}>
+      <Screen>
+        <View style={styles.featuresContainer}>
+          {index != 4 ? (
+            <MaterialIcons
+              style={styles.icon}
+              name={features[index].icon}
+              color={defaultStyles.colors.thirdly}
+              size={120}
+            />
+          ) : (
+            ""
+          )}
+          {index == 4 ? (
+            <AppText
+              style={{
+                fontSize: 50,
+                color: defaultStyles.colors.thirdly,
+                fontWeight: "bold",
+                marginBottom: 20,
+              }}
+            >
+              +5 pontos
+            </AppText>
+          ) : (
+            ""
+          )}
+
+          <View
             style={{
-              fontSize: 50,
-              color: defaultStyles.colors.thirdly,
-              fontWeight: "bold",
-              marginBottom: 20,
+              alignItems: "center",
+              justifyContent: "flex-start",
+
+              width: "100%",
             }}
           >
-            +5 pontos
-          </AppText>
-        ) : (
-          ""
-        )}
-
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "flex-start",
-
-            width: "100%",
-          }}
-        >
-          <AppText style={styles.title}>{features[index].title}</AppText>
-          <AppText style={styles.subTitle}>
-            {features[index].description}
-          </AppText>
-          <Index
-            style={styles.indexContainer}
-            items={features}
-            indexSelected={index}
+            <AppText style={styles.title}>{features[index].title}</AppText>
+            <AppText style={styles.subTitle}>
+              {features[index].description}
+            </AppText>
+            <Index
+              style={styles.indexContainer}
+              items={features}
+              indexSelected={index}
+            />
+          </View>
+        </View>
+        <View style={styles.button}>
+          <AppSecondaryButton
+            title="Seguinte"
+            icon="arrow-right-thin"
+            index={index}
+            onPress={() => handleClick(index)}
           />
         </View>
-      </View>
-      <View style={styles.button}>
-        <AppSecondaryButton
-          title="Seguinte"
-          icon="arrow-right-thin"
-          index={index}
-          onPress={() => handleClick(index)}
-        />
-      </View>
-    </>
+      </Screen>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  container: { flex: 1, backgroundColor: defaultStyles.colors.white },
+  featuresContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",

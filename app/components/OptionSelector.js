@@ -1,15 +1,17 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import defaultStyles from "../config/styles";
+
 import IconButton from "./Buttons/IconButton";
 import AppText from "./AppText";
 
-const OptionSelector = ({ id, title, optionActive, onPress, name, color }) => {
+import defaultStyles from "../config/styles";
+
+const OptionSelector = ({ id, title, optionActive, ...otherProps }) => {
   return (
     <View
       style={[id == optionActive ? styles.optionActive : styles.optionInactive]}
     >
-      <IconButton onPress={onPress} name={name} color={color} size={32} />
+      <IconButton {...otherProps} size={32} />
       <AppText numberOfLines={3} style={{ flex: 1, marginLeft: 4 }}>
         {title}
       </AppText>

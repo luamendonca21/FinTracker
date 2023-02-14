@@ -1,12 +1,13 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import CetaceansScreen from "../screens/CetaceansScreen";
-import UserProfileScreen from "../screens/UserProfileScreen";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HomeNavigator from "./HomeNavigator";
 import CetaceansNavigator from "./CetaceansNavigator";
 import ProfileNavigator from "./ProfileNavigator";
+
 import defaultStyles from "../config/styles";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => (

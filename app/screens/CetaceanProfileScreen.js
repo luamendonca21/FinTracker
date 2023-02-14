@@ -7,12 +7,15 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
 import IconButton from "../components/Buttons/IconButton";
 import BottomSheet from "../components/BottomSheet";
 import OptionSelector from "../components/OptionSelector";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -49,7 +52,7 @@ const CetaceanProfileScreen = ({ route }) => {
   const selectNotificationOptionIcon = (id) => {
     return notificationActive == id
       ? ["check-circle", defaultStyles.colors.white]
-      : ["add-circle-outline", defaultStyles.colors.black];
+      : ["check-circle-outline", defaultStyles.colors.black];
   };
 
   return (

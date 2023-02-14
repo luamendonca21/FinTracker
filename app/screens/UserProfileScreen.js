@@ -1,12 +1,15 @@
 import React from "react";
 import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
+
+import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { ListDetails } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
 import { Carousel } from "../components/Carousels";
 import IconButton from "../components/Buttons/IconButton";
 import Icon from "../components/Icon";
-import Screen from "../components/Screen";
+import Constants from "expo-constants";
+
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -81,7 +84,7 @@ function UserProfileScreen({ navigation }) {
   ];
 
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Icon
           onPress={() => navigation.navigate("Settings")}
@@ -126,11 +129,12 @@ function UserProfileScreen({ navigation }) {
           </View>
         </ScrollView>
       </View>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: { flex: 1 },
   imageContainer: {
     alignItems: "center",
     justifyContent: "center",
@@ -149,7 +153,11 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     aspectRatio: 1,
   },
-  icon: { position: "absolute", right: 15, top: 15 },
+  icon: {
+    position: "absolute",
+    right: 15,
+    top: Constants.statusBarHeight + 15,
+  },
   profileContainer: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,

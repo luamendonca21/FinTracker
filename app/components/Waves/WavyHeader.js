@@ -1,7 +1,6 @@
 import React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Svg, { Path } from "react-native-svg";
-import { StyleSheet } from "react-native";
 
 const WavyHeader = ({ color, customWavePattern, customHeight, style }) => {
   return (

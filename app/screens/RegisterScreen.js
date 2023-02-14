@@ -5,11 +5,14 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
+
 import { WavyHeader } from "../components/Waves";
+
 import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
 import { AppButton } from "../components/Buttons";
+
 import defaultStyles from "../config/styles";
 
 const RegisterScreen = ({ navigation }) => {

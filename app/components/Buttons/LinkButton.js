@@ -1,12 +1,16 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
+
 import AppText from "./../AppText";
+
 import defaultStyles from "../../config/styles";
 
 const AppButton = ({ title, color = "primary", onPress, style }) => {
   return (
     <TouchableOpacity onPress={onPress} style={[style, styles.container]}>
-      <AppText style={[styles.text, { color: defaultStyles.colors[color] }]}>
+      <AppText
+        style={[styles.text, style, { color: defaultStyles.colors[color] }]}
+      >
         {title}
       </AppText>
     </TouchableOpacity>

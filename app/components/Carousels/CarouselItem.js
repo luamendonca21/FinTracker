@@ -1,6 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
+
 import AppText from "./../AppText";
+
 import defaultStyles from "../../config/styles";
 
 function CarouselItem({ item, onPress }) {

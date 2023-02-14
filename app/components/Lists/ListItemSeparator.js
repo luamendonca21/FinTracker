@@ -4,7 +4,7 @@ import defaultStyles from "../../config/styles";
 
 const ListItemSeparator = ({
   color = defaultStyles.colors.transparent,
-  width = "100%",
+  width = "95%",
 }) => {
   return (
     <View

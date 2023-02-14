@@ -1,7 +1,7 @@
 import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
-import Screen from "../components/Screen";
+
 import ListSettings from "../components/Lists/ListSettings";
+
 import defaultStyles from "../config/styles";
 
 const AccountScreen = () => {
@@ -49,7 +49,5 @@ const AccountScreen = () => {
   ];
   return <ListSettings menuItems={menuItems} />;
 };
-
-const styles = StyleSheet.create({});
 
 export default AccountScreen;

@@ -1,8 +1,10 @@
 import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import AppText from "../components/AppText";
+
 import Screen from "../components/Screen";
+import AppText from "../components/AppText";
 import BoxItem from "../components/BoxItem";
+
 const items = [
   {
     id: 0,
@@ -20,15 +22,17 @@ const items = [
   },
 ];
 
-const handlePressItem = ({ target }, navigation) => {
-  navigation.navigate(target);
-};
 const AboutScreen = ({ navigation }) => {
+  const handlePressItem = ({ target }, navigation) => {
+    navigation.navigate(target);
+  };
+
   const renderItem = ({ item }) => {
     return (
       <BoxItem onPress={() => handlePressItem(item, navigation)} item={item} />
     );
   };
+
   return (
     <View style={styles.container}>
       <AppText style={styles.title}>Sobre Fin Tracker</AppText>
@@ -51,6 +55,7 @@ const AboutScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 15,
   },
   title: {

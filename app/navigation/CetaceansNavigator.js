@@ -1,18 +1,18 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import CetaceansScreen from "../screens/CetaceansScreen";
 import CetaceanProfileScreen from "../screens/CetaceanProfileScreen";
 import defaultStyles from "../config/styles";
+
 const Stack = createNativeStackNavigator();
 
 const HomeNavigator = () => (
   <Stack.Navigator
     screenOptions={{
       headerShown: false,
-      headerStyle: { height: 40 },
-
-      headerStyle: { backgroundColor: defaultStyles.colors.primary },
-      headerTintColor: defaultStyles.colors.white,
+      headerStyle: { backgroundColor: defaultStyles.colors.white },
+      headerTintColor: defaultStyles.colors.black,
     }}
   >
     <Stack.Screen name="Cetaceans" component={CetaceansScreen} />

@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView, FlatList } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  FlatList,
+  Dimensions,
+} from "react-native";
+
 import AppText from "../components/AppText";
 import { FilterInput } from "../components/Inputs";
 import { Carousel } from "../components/Carousels";
 import Screen from "../components/Screen";
 import defaultStyles from "../config/styles";
-import { StatusBar } from "react-native";
-import { Dimensions } from "react-native";
 import { ListItem, ListItemSeparator } from "../components/Lists";
-const cetaceans = [];
-const windowHeight = Dimensions.get("window").height;
 
 const CetaceansScreen = ({ navigation }) => {
   const [cetaceans, setCetaceans] = useState([
@@ -139,7 +142,9 @@ const CetaceansScreen = ({ navigation }) => {
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
   ]);
+
   const [searchQuery, setSearchQuery] = useState("");
+
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
@@ -166,61 +171,67 @@ const CetaceansScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <AppText style={styles.welcomeText}>
-          Bem-vindo ao fundo do oceano
-        </AppText>
-        <FilterInput
-          onPress={() => setSearchQuery("")}
-          value={searchQuery}
-          clear
-          style={styles.filterInput}
-          onChangeText={(text) => handleSearch(text)}
-          icon="search"
-          size={24}
-          placeholder="Pesquisa por cetáceos..."
-        />
-        {searchQuery ? (
-          getCetaceansFiltered() != "" ? (
-            <View style={styles.searchBox}>
-              <FlatList
-                nestedScrollEnabled
-                showsVerticalScrollIndicator
-                data={getCetaceansFiltered()}
-                keyExtractor={(item) => item.id}
-                renderItem={renderItem}
-                ItemSeparatorComponent={() => (
-                  <ListItemSeparator
-                    width="95%"
-                    color={defaultStyles.colors.transparent}
-                  />
-                )}
-              />
-            </View>
+      <Screen>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <AppText style={styles.welcomeText}>
+            Bem-vindo ao fundo do oceano
+          </AppText>
+          <FilterInput
+            onPress={() => setSearchQuery("")}
+            value={searchQuery}
+            clear
+            style={styles.filterInput}
+            onChangeText={(text) => handleSearch(text)}
+            icon="search"
+            size={24}
+            placeholder="Pesquisa por cetáceos..."
+          />
+          {searchQuery ? (
+            getCetaceansFiltered() != "" ? (
+              <View style={styles.searchBox}>
+                <FlatList
+                  nestedScrollEnabled
+                  showsVerticalScrollIndicator
+                  data={getCetaceansFiltered()}
+                  keyExtractor={(item) => item.id}
+                  renderItem={renderItem}
+                  ItemSeparatorComponent={() => (
+                    <ListItemSeparator
+                      width="95%"
+                      color={defaultStyles.colors.transparent}
+                    />
+                  )}
+                />
+              </View>
+            ) : (
+              <AppText
+                style={{ marginTop: 10, color: defaultStyles.colors.white }}
+              >
+                Não foram encontrados cetáceos.
+              </AppText>
+            )
           ) : (
-            <AppText
-              style={{ marginTop: 10, color: defaultStyles.colors.white }}
-            >
-              Não foram encontrados cetáceos.
-            </AppText>
-          )
-        ) : (
-          <View style={styles.categoryList}>
-            <View style={styles.categoryContainer}>
-              <AppText style={styles.category}>Golfinhos</AppText>
-              <AppText style={styles.seeMore}>Desliza para ver mais...</AppText>
-              <Carousel data={cetaceans} />
-              {/* <LinkButton color="black" title="See more" /> */}
+            <View style={styles.categoryList}>
+              <View style={styles.categoryContainer}>
+                <AppText style={styles.category}>Golfinhos</AppText>
+                <AppText style={styles.seeMore}>
+                  Desliza para ver mais...
+                </AppText>
+                <Carousel data={cetaceans} />
+                {/* <LinkButton color="black" title="See more" /> */}
+              </View>
+              <View style={styles.categoryContainer}>
+                <AppText style={styles.category}>Baleias</AppText>
+                <AppText style={styles.seeMore}>
+                  Desliza para ver mais...
+                </AppText>
+                <Carousel data={cetaceans} />
+                {/* <LinkButton color="black" title="See more" /> */}
+              </View>
             </View>
-            <View style={styles.categoryContainer}>
-              <AppText style={styles.category}>Baleias</AppText>
-              <AppText style={styles.seeMore}>Desliza para ver mais...</AppText>
-              <Carousel data={cetaceans} />
-              {/* <LinkButton color="black" title="See more" /> */}
-            </View>
-          </View>
-        )}
-      </ScrollView>
+          )}
+        </ScrollView>
+      </Screen>
     </View>
   );
 };

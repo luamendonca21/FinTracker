@@ -1,8 +1,10 @@
 import React from "react";
-import { MaterialIcons } from "@expo/vector-icons";
 import { View, StyleSheet, TextInput } from "react-native";
-import defaultStyles from "../../config/styles";
+import { MaterialIcons } from "@expo/vector-icons";
+
 import IconButton from "../Buttons/IconButton";
+
+import defaultStyles from "../../config/styles";
 
 const FilterInput = ({
   icon,

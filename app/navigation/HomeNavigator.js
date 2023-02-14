@@ -1,21 +1,21 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import HomeScreen from "../screens/HomeScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import FeatureScreen from "../screens/FeatureScreen";
 import AboutScreen from "../screens/AboutScreen";
-import defaultStyles from "../config/styles";
 import AccountScreen from "../screens/AccountScreen";
+
+import defaultStyles from "../config/styles";
+
 const Stack = createNativeStackNavigator();
 
 const HomeNavigator = () => (
   <Stack.Navigator
     screenOptions={{
-      headerStyle: {
-        headerStyle: { height: 40 },
-        backgroundColor: defaultStyles.colors.primary,
-      },
-      headerTintColor: defaultStyles.colors.white,
+      headerStyle: { backgroundColor: defaultStyles.colors.white },
+      headerTintColor: defaultStyles.colors.black,
       animation: "slide_from_right",
     }}
   >
