@@ -62,7 +62,7 @@ const GlowingSun = ({ onPress }) => {
           <MaterialIcons
             name="leaderboard"
             size={42}
-            color={defaultStyles.colors.thirdly}
+            color={defaultStyles.colors.yellow}
           />
           <AppText style={styles.text}>Ranking</AppText>
         </View>

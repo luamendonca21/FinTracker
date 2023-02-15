@@ -169,11 +169,11 @@ const styles = StyleSheet.create({
     color: defaultStyles.colors.primary,
   },
   subTitle: {
-    fontSize: 20,
+    fontSize: 18,
     textAlign: "center",
     lineHeight: 28,
     marginTop: 5,
-    width: "90%",
+    width: "80%",
   },
   indexContainer: {
     marginTop: 20,

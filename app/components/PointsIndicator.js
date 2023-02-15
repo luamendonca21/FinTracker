@@ -4,19 +4,29 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import AppText from "./AppText";
 
-import defaultStyles from "../config/colors";
+import defaultStyles from "../config/styles";
 
-const PointsIndicator = ({ props }) => {
+const PointsIndicator = ({ points }) => {
   return (
     <View style={styles.container}>
       <View style={styles.pointsContainer}>
-        <AppText style={styles.text}>40 pontos</AppText>
+        <AppText style={styles.text}>{points} pontos</AppText>
       </View>
       <View style={styles.starsContainer}>
-        <MaterialIcons name="stars" size={32} color={defaultStyles.thirdly} />
-        <MaterialIcons name="stars" size={32} color={defaultStyles.thirdly} />
-        <MaterialIcons name="stars" size={32} color={defaultStyles.thirdly} />
-        <MaterialIcons name="stars" size={32} color={defaultStyles.thirdly} />
+        {(() => {
+          const stars = [];
+          for (let i = 0; i < Math.floor(points / 20); i++) {
+            stars.push(
+              <MaterialIcons
+                key={i}
+                name="stars"
+                size={32}
+                color={defaultStyles.colors.yellow}
+              />
+            );
+          }
+          return stars;
+        })()}
       </View>
     </View>
   );
@@ -24,15 +34,15 @@ const PointsIndicator = ({ props }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 170,
+    flex: 1,
     height: 80,
     paddingHorizontal: 5,
     justifyContent: "space-between",
     alignItems: "center",
   },
   pointsContainer: {
-    width: "100%",
-    backgroundColor: defaultStyles.thirdly,
+    width: "90%",
+    backgroundColor: defaultStyles.colors.yellow,
     alignItems: "center",
     borderRadius: 30,
     padding: 4,
@@ -44,7 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    color: defaultStyles.white,
+    color: defaultStyles.colors.white,
     fontSize: 22,
     fontWeight: "bold",
   },

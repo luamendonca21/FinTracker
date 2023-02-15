@@ -11,7 +11,7 @@ const OptionSelector = ({ id, title, optionActive, ...otherProps }) => {
     <View
       style={[id == optionActive ? styles.optionActive : styles.optionInactive]}
     >
-      <IconButton {...otherProps} size={32} />
+      <IconButton {...otherProps} size={28} />
       <AppText numberOfLines={3} style={{ flex: 1, marginLeft: 4 }}>
         {title}
       </AppText>

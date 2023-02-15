@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     borderRadius: 20,
     elevation: 2,
-    paddingHorizontal: 6,
+    paddingHorizontal: 2,
   },
   title: {
     fontSize: 18,

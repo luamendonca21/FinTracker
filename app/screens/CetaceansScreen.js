@@ -26,7 +26,6 @@ const CetaceansScreen = ({ navigation }) => {
         comprimento: "3m",
         peso: "650kg",
         localização: "Camâra de Lobos",
-        distância: "4 km",
       },
       imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
       introduction:
@@ -45,7 +44,6 @@ const CetaceansScreen = ({ navigation }) => {
         comprimento: "3m",
         peso: "650kg",
         localização: "Camâra de Lobos",
-        distância: "4 km",
       },
       imageUrl: require("../assets/dolphins/Bottlenose_dolphin.jpg"),
       introduction:
@@ -64,7 +62,6 @@ const CetaceansScreen = ({ navigation }) => {
         comprimento: "3m",
         peso: "650kg",
         localização: "Camâra de Lobos",
-        distância: "4 km",
       },
       imageUrl: require("../assets/dolphins/Common_dolphin.jpg"),
       introduction:
@@ -83,7 +80,6 @@ const CetaceansScreen = ({ navigation }) => {
         comprimento: "3m",
         peso: "650kg",
         localização: "Camâra de Lobos",
-        distância: "4 km",
       },
       imageUrl: require("../assets/dolphins/Frasers_dolphin.jpg"),
       introduction:
@@ -102,7 +98,6 @@ const CetaceansScreen = ({ navigation }) => {
         comprimento: "3m",
         peso: "650kg",
         localização: "Camâra de Lobos",
-        distância: "4 km",
       },
       imageUrl: require("../assets/dolphins/Rissos_Dolphin.jpg"),
       introduction:
@@ -121,7 +116,6 @@ const CetaceansScreen = ({ navigation }) => {
         comprimento: "3m",
         peso: "650kg",
         localização: "Camâra de Lobos",
-        distância: "4 km",
       },
       imageUrl: require("../assets/dolphins/Rough_toothed_dolphin.jpg"),
       introduction:
@@ -140,7 +134,6 @@ const CetaceansScreen = ({ navigation }) => {
         comprimento: "3m",
         peso: "650kg",
         localização: "Camâra de Lobos",
-        distância: "4 km",
       },
       imageUrl: require("../assets/dolphins/Stripped_dolphin.jpg"),
       introduction: "eu",
@@ -183,8 +176,8 @@ const CetaceansScreen = ({ navigation }) => {
     );
   };
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Screen>
           <AppText style={styles.welcomeText}>
             Bem-vindo ao fundo do oceano
@@ -259,8 +252,8 @@ const CetaceansScreen = ({ navigation }) => {
             </View>
           )}
         </Screen>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 

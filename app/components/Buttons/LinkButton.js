@@ -5,9 +5,9 @@ import AppText from "./../AppText";
 
 import defaultStyles from "../../config/styles";
 
-const AppButton = ({ title, color = "primary", onPress, style }) => {
+const LinkButton = ({ color = "primary", style, title, ...otherProps }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={[style, styles.container]}>
+    <TouchableOpacity {...otherProps} style={[style, styles.container]}>
       <AppText
         style={[styles.text, style, { color: defaultStyles.colors[color] }]}
       >
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppButton;
+export default LinkButton;

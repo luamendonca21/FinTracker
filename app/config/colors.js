@@ -10,4 +10,5 @@ export default {
   danger: "#ff5252",
   gray: "#acacac",
   transparent: "rgba(33, 33, 33, 0.1)",
+  yellow: "#fee306",
 };

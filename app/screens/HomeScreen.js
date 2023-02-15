@@ -189,7 +189,9 @@ const HomeScreen = ({ navigation }) => {
                         <AppText>Há 4 min</AppText>
                       </View>
                     </View>
-                    <AppText numberOfLines={1}>{item.name}</AppText>
+                    <AppText style={{ fontWeight: "700" }} numberOfLines={1}>
+                      {item.name}
+                    </AppText>
                   </View>
                 </View>
               ))}

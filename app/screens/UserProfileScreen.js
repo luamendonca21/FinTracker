@@ -104,7 +104,7 @@ function UserProfileScreen({ navigation }) {
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.header}>
               <AppText style={styles.userName}>{users[0].name}</AppText>
-              <PointsIndicator />
+              <PointsIndicator points={60} />
             </View>
             <View style={styles.body}>
               <View style={styles.detailsHeader}>
