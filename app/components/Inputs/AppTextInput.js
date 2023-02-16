@@ -5,6 +5,7 @@ import defaultStyles from "../../config/styles";
 
 const AppTextInput = ({ icon, secureTextEntry, ...otherProps }) => {
   const [hidden, setHidden] = useState(true);
+  const [isFocused, setIsFocused] = useState(false);
 
   const handlePress = () => {
     setHidden(!hidden);
@@ -14,8 +15,23 @@ const AppTextInput = ({ icon, secureTextEntry, ...otherProps }) => {
     return hidden ? ["eye-off", false] : ["eye", true];
   };
 
+  const handleFocused = () => {
+    setIsFocused(true);
+  };
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          borderColor: isFocused
+            ? defaultStyles.colors.primary
+            : defaultStyles.colors.white,
+        },
+      ]}
+    >
       {icon && (
         <MaterialCommunityIcons
           name={icon}
@@ -24,6 +40,8 @@ const AppTextInput = ({ icon, secureTextEntry, ...otherProps }) => {
         />
       )}
       <TextInput
+        onBlur={handleBlur}
+        onFocus={handleFocused}
         secureTextEntry={hide()[1]}
         {...otherProps}
         placeholderTextColor={defaultStyles.colors.medium}
@@ -54,10 +72,9 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 12,
     borderWidth: 0.8,
-    borderColor: defaultStyles.colors.primary,
     elevation: 2,
     shadowColor: defaultStyles.colors.black,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   textInput: { flex: 1, marginLeft: 5 },
 });

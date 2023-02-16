@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
 
 import AppText from "../components/AppText";
-import { ListDetails } from "../components/Lists";
+import { ListDetails, ListItemSeparator } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
 import { Carousel } from "../components/Carousels/ImageCarousel";
 import IconButton from "../components/Buttons/IconButton";
@@ -123,8 +123,9 @@ function UserProfileScreen({ navigation }) {
               >
                 <ListDetails details={users[0].detalhes} />
               </ScrollView>
+              <ListItemSeparator width="100%" style={{ marginVertical: 30 }} />
               <AppText style={styles.title}>Cetáceos Favoritos</AppText>
-              <Carousel data={favorites} />
+              <Carousel style={{ marginBottom: 15 }} data={favorites} />
               <AppText style={styles.title}>Visitados</AppText>
             </View>
           </ScrollView>
@@ -179,7 +180,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "bold",
-    marginTop: 15,
     marginBottom: 5,
   },
   detailsHeader: {
@@ -188,7 +188,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
   },
-  iconButton: { marginLeft: 5, marginBottom: 5, marginTop: 15 },
+  iconButton: {
+    marginLeft: 5,
+  },
   text: {
     fontSize: 16,
     lineHeight: 22,

@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     padding: 12,
-    marginVertical: 10,
     elevation: 2,
   },
   text: { fontSize: 18, fontWeight: "bold", color: defaultStyles.colors.white },

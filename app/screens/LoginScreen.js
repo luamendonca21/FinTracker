@@ -42,7 +42,6 @@ Inicie Sessão!`}</AppText>
               <LinkButton
                 style={styles.forgotPassword}
                 title="Esqueci-me da palavra-passe"
-                color={defaultStyles.colors.black}
               />
               <AppButton
                 style={styles.button}
@@ -61,9 +60,11 @@ const styles = StyleSheet.create({
   text: { fontSize: 26, fontWeight: "700", color: defaultStyles.colors.white },
   container: { padding: 15, flex: 1 },
   formContainer: { marginTop: 180 },
-  forgotPassword: { alignSelf: "flex-end" },
+  forgotPassword: { alignSelf: "flex-end", fontSize: 15 },
   button: {
     width: "100%",
+
+    marginTop: 30,
   },
 });
 

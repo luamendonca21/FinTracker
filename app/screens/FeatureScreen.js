@@ -61,9 +61,9 @@ const FeatureScreen = ({ navigation }) => {
     navigation.getParent().setOptions({
       tabBarStyle: {
         display: "none",
-        height: 60,
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
+        position: "absolute",
+        borderTopRightRadius: 15,
+        borderTopLeftRadius: 15,
         borderColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.white,
       },
@@ -72,9 +72,9 @@ const FeatureScreen = ({ navigation }) => {
       navigation.getParent().setOptions({
         tabBarStyle: {
           display: "flex",
-          height: 60,
-          borderTopRightRadius: 20,
-          borderTopLeftRadius: 20,
+          position: "absolute",
+          borderTopRightRadius: 15,
+          borderTopLeftRadius: 15,
           borderColor: defaultStyles.colors.white,
           backgroundColor: defaultStyles.colors.white,
         },

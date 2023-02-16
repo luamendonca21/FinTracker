@@ -67,6 +67,8 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "100%",
+
+    marginTop: 30,
   },
 });
 

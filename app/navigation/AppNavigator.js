@@ -49,7 +49,7 @@ const AppNavigator = () => (
         borderColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.white,
       },
-      tabBarActiveTintColor: defaultStyles.colors.secondary,
+      tabBarActiveTintColor: defaultStyles.colors.primary,
     }}
   >
     {tabBar.map((nav, index) => {
