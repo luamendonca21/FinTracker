@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -15,6 +15,56 @@ import { AppButton, LinkButton } from "../components/Buttons";
 import defaultStyles from "../config/styles";
 
 const LoginScreen = (props) => {
+  const [inputs, setInputs] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({});
+  const validate = () => {
+    let valid = true;
+    if (!inputs.username) {
+      handleError("Por favor, introduza o nome de utilizador", "username");
+      valid = false;
+    } else {
+      handleError("", "username");
+    }
+
+    if (!inputs.password) {
+      valid = false;
+      handleError("Por favor, introduza uma password", "password");
+    } else {
+      handleError("", "password");
+    }
+
+    if (valid) {
+      login();
+    }
+  };
+  const login = () => {
+    console.log(inputs);
+    setInputs({
+      username: "",
+      password: "",
+    });
+    //navigation.navigate("Register");
+  };
+
+  const handleOnChange = (text, input) => {
+    setInputs((prevState) => ({ ...prevState, [input]: text }));
+    validateInput(text, input);
+  };
+  const validateInput = (text, input) => {
+    let errorMessage = "";
+    if (!text) {
+      errorMessage = "Por favor, preencha este campo";
+    }
+    handleError(errorMessage, input);
+  };
+
+  const handleError = (errorMessage, input) => {
+    setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
+  };
   return (
     <KeyboardAvoidingView>
       <ScrollView>
@@ -29,13 +79,19 @@ const LoginScreen = (props) => {
 Inicie Sessão!`}</AppText>
             <View style={styles.formContainer}>
               <AppTextInput
+                error={errors.username}
+                onChangeText={(text) => handleOnChange(text, "username")}
                 size={25}
                 icon="account-circle"
                 placeholder="Nome de utilizador"
+                value={inputs.username}
               />
               <AppTextInput
+                error={errors.password}
+                onChangeText={(text) => handleOnChange(text, "password")}
                 size={25}
                 icon="lock"
+                value={inputs.password}
                 placeholder="Palavra-passe"
                 secureTextEntry
               />
@@ -46,7 +102,7 @@ Inicie Sessão!`}</AppText>
               <AppButton
                 style={styles.button}
                 title="Iniciar Sessão"
-                onPress={() => console.log("Pressed")}
+                onPress={validate}
               />
             </View>
           </View>
