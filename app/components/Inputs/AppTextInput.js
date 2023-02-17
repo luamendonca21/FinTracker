@@ -48,7 +48,7 @@ const AppTextInput = ({ error, icon, secureTextEntry, ...otherProps }) => {
           {...otherProps}
           onBlur={handleBlur}
           onFocus={handleFocused}
-          secureTextEntry={hide()[1]}
+          secureTextEntry={secureTextEntry ? hide()[1] : false}
           {...otherProps}
           placeholderTextColor={defaultStyles.colors.medium}
           style={[defaultStyles.text, styles.textInput]}
