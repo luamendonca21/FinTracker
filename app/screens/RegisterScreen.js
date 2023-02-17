@@ -61,6 +61,12 @@ const RegisterScreen = ({ navigation }) => {
     }
   };
   const register = () => {
+    console.log(inputs);
+    setInputs({
+      username: "",
+      email: "",
+      password: "",
+    });
     navigation.navigate("Login");
   };
 
@@ -101,13 +107,14 @@ Regista-te!`}</AppText>
                 error={errors.username}
                 onChangeText={(text) => handleOnChange(text, "username")}
                 size={25}
-                onCapita
+                value={inputs.username}
                 icon="account-circle"
                 placeholder="Nome de utilizador"
               />
               <AppTextInput
                 error={errors.email}
                 autoCorrect={false}
+                value={inputs.email}
                 onChangeText={(text) => handleOnChange(text, "email")}
                 autoCapitalize="none"
                 keyboardType="email-address"
@@ -117,6 +124,7 @@ Regista-te!`}</AppText>
               />
 
               <AppTextInput
+                value={inputs.password}
                 error={errors.password}
                 onChangeText={(text) => handleOnChange(text, "password")}
                 size={25}

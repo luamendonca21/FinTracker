@@ -3,6 +3,7 @@ import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../../config/styles";
 import ErrorMessage from "../ErrorMessage";
+import AppText from "../AppText";
 
 const AppTextInput = ({ error, icon, secureTextEntry, ...otherProps }) => {
   const [hidden, setHidden] = useState(true);
@@ -13,7 +14,7 @@ const AppTextInput = ({ error, icon, secureTextEntry, ...otherProps }) => {
   };
 
   const hide = () => {
-    return hidden ? ["eye-off", false] : ["eye", true];
+    return hidden ? ["eye", true] : ["eye-off", false];
   };
 
   const handleFocused = () => {
@@ -44,13 +45,14 @@ const AppTextInput = ({ error, icon, secureTextEntry, ...otherProps }) => {
           />
         )}
         <TextInput
+          {...otherProps}
           onBlur={handleBlur}
           onFocus={handleFocused}
           secureTextEntry={hide()[1]}
           {...otherProps}
           placeholderTextColor={defaultStyles.colors.medium}
           style={[defaultStyles.text, styles.textInput]}
-        ></TextInput>
+        />
         {secureTextEntry ? (
           <TouchableOpacity onPress={handlePress}>
             <MaterialCommunityIcons
