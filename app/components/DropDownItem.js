@@ -58,7 +58,7 @@ const DropDownItem = ({
             onChangeText={handleOnChange}
             autoCorrect={false}
             autoCapitalize="none"
-            keyboardType="numeric"
+            keyboardType={title == "Idade" ? "numeric" : "default"}
             placeholder="Digita aqui..."
           />
         </View>
