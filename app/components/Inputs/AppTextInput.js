@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../../config/styles";
+import ErrorMessage from "../ErrorMessage";
 
-const AppTextInput = ({ icon, secureTextEntry, ...otherProps }) => {
+const AppTextInput = ({ error, icon, secureTextEntry, ...otherProps }) => {
   const [hidden, setHidden] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -22,42 +23,47 @@ const AppTextInput = ({ icon, secureTextEntry, ...otherProps }) => {
     setIsFocused(false);
   };
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          borderColor: isFocused
-            ? defaultStyles.colors.primary
-            : defaultStyles.colors.white,
-        },
-      ]}
-    >
-      {icon && (
-        <MaterialCommunityIcons
-          name={icon}
-          {...otherProps}
-          color={defaultStyles.colors.black}
-        />
-      )}
-      <TextInput
-        onBlur={handleBlur}
-        onFocus={handleFocused}
-        secureTextEntry={hide()[1]}
-        {...otherProps}
-        placeholderTextColor={defaultStyles.colors.medium}
-        style={[defaultStyles.text, styles.textInput]}
-      ></TextInput>
-      {secureTextEntry ? (
-        <TouchableOpacity onPress={handlePress}>
+    <View>
+      <View
+        style={[
+          styles.container,
+          {
+            borderColor: error
+              ? defaultStyles.colors.danger
+              : isFocused
+              ? defaultStyles.colors.primary
+              : defaultStyles.colors.white,
+          },
+        ]}
+      >
+        {icon && (
           <MaterialCommunityIcons
-            name={hide()[0]}
+            name={icon}
             {...otherProps}
             color={defaultStyles.colors.black}
           />
-        </TouchableOpacity>
-      ) : (
-        ""
-      )}
+        )}
+        <TextInput
+          onBlur={handleBlur}
+          onFocus={handleFocused}
+          secureTextEntry={hide()[1]}
+          {...otherProps}
+          placeholderTextColor={defaultStyles.colors.medium}
+          style={[defaultStyles.text, styles.textInput]}
+        ></TextInput>
+        {secureTextEntry ? (
+          <TouchableOpacity onPress={handlePress}>
+            <MaterialCommunityIcons
+              name={hide()[0]}
+              {...otherProps}
+              color={defaultStyles.colors.black}
+            />
+          </TouchableOpacity>
+        ) : (
+          ""
+        )}
+      </View>
+      <ErrorMessage error={error} />
     </View>
   );
 };

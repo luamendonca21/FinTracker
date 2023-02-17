@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   welcomeContainer: {
-    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -113,6 +112,9 @@ const styles = StyleSheet.create({
   },
   registerContainer: {
     width: "100%",
+    height: 80,
+    marginTop: 10,
+    justifyContent: "space-between",
   },
 });
 

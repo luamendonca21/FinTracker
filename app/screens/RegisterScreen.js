@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView,
+  Keyboard,
 } from "react-native";
 
 import { WavyHeader } from "../components/Waves";
@@ -16,8 +17,72 @@ import { AppButton } from "../components/Buttons";
 import defaultStyles from "../config/styles";
 
 const RegisterScreen = ({ navigation }) => {
-  const handleRegister = () => {
+  const [inputs, setInputs] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({});
+  const validate = () => {
+    let valid = true;
+    if (!inputs.username) {
+      handleError("Por favor, introduza o nome de utilizador", "username");
+      valid = false;
+    } else {
+      handleError("", "username");
+    }
+
+    if (!inputs.email) {
+      handleError("Por favor, introduza o email", "email");
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(inputs.email)) {
+      handleError("Por favor, introduza um email válido", "email");
+      valid = false;
+    } else {
+      handleError("", "email");
+    }
+
+    if (!inputs.password) {
+      valid = false;
+      handleError("Por favor, introduza uma password", "password");
+    } else if (inputs.password.length < 6) {
+      handleError(
+        "Por favor, introduza uma password com no mínimo 6 caracteres",
+        "password"
+      );
+      valid = false;
+    } else {
+      handleError("", "password");
+    }
+
+    if (valid) {
+      register();
+    }
+  };
+  const register = () => {
     navigation.navigate("Login");
+  };
+
+  const handleOnChange = (text, input) => {
+    setInputs((prevState) => ({ ...prevState, [input]: text }));
+    validateInput(text, input);
+  };
+  const validateInput = (text, input) => {
+    let errorMessage = "";
+    if (!text) {
+      errorMessage = "Por favor, preencha este campo";
+    } else if (input === "email" && !/\S+@\S+\.\S+/.test(text)) {
+      errorMessage = "Por favor, introduza um email válido";
+    } else if (input === "password" && text.length < 6) {
+      errorMessage =
+        "Por favor, introduza uma password com no mínimo 6 caracteres";
+    }
+    handleError(errorMessage, input);
+  };
+
+  const handleError = (errorMessage, input) => {
+    setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
   return (
     <KeyboardAvoidingView>
@@ -33,22 +98,45 @@ const RegisterScreen = ({ navigation }) => {
 Regista-te!`}</AppText>
             <View style={styles.formContainer}>
               <AppTextInput
+                error={errors.username}
+                onChangeText={(text) => handleOnChange(text, "username")}
                 size={25}
+                onCapita
                 icon="account-circle"
                 placeholder="Nome de utilizador"
               />
-              <AppTextInput size={25} icon="email" placeholder="Email" />
+              <AppTextInput
+                error={errors.email}
+                autoCorrect={false}
+                onChangeText={(text) => handleOnChange(text, "email")}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                size={25}
+                icon="email"
+                placeholder="Email"
+              />
 
               <AppTextInput
+                error={errors.password}
+                onChangeText={(text) => handleOnChange(text, "password")}
                 size={25}
                 icon="lock"
                 placeholder="Palavra-passe"
                 secureTextEntry
               />
               <AppButton
-                style={styles.button}
+                disabled={errors.username || errors.email || errors.password}
+                style={[
+                  styles.button,
+                  {
+                    opacity:
+                      errors.username || errors.email || errors.password
+                        ? 0.5
+                        : 1,
+                  },
+                ]}
                 title="Registar"
-                onPress={handleRegister}
+                onPress={validate}
               />
             </View>
           </View>
