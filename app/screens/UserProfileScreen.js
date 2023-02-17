@@ -97,21 +97,26 @@ function UserProfileScreen({ navigation }) {
 
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [detailsActive, setDetailsActive] = useState([]);
-  const handleDetailItemPress = (id) => {
-    if (!detailsActive.includes(id)) {
-      setDetailsActive([...detailsActive, id]);
+  const handleDetailItemPress = (id, title) => {
+    if (!detailsActive.find((item) => item.id === id)) {
+      setDetailsActive([...detailsActive, { id, title }]);
     } else {
-      setDetailsActive(detailsActive.filter((elemento) => elemento !== id));
+      setDetailsActive(detailsActive.filter((elemento) => elemento.id !== id));
     }
   };
   const selectDetailItemIcon = (id) => {
-    return detailsActive.includes(id)
+    return detailsActive.find((item) => item.id === id)
       ? ["check-circle", defaultStyles.colors.white]
       : ["add-circle-outline", defaultStyles.colors.black];
   };
 
   const handleEditDetailsPress = () => {
     setBottomSheetActive(!isBottomSheetActive);
+  };
+  const handleOnChangeDetail = (text, id) => {
+    let object = detailsActive.find((item) => item.id === id);
+    object.value = text;
+    setDetailsActive([...detailsActive]);
   };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -180,10 +185,11 @@ function UserProfileScreen({ navigation }) {
               {details.map((item, index) => (
                 <DropDownItem
                   key={index}
+                  handleOnChange={(text) => handleOnChangeDetail(text, item.id)}
                   id={item.id}
                   title={item.title}
                   itemsActive={detailsActive}
-                  onPress={() => handleDetailItemPress(item.id)}
+                  onPress={() => handleDetailItemPress(item.id, item.title)}
                   name={selectDetailItemIcon(item.id)[0]}
                   color={selectDetailItemIcon(item.id)[1]}
                 />

@@ -7,7 +7,14 @@ import { AppTextInput } from "./Inputs";
 
 import defaultStyles from "../config/styles";
 import { toggleAnimation } from "../assets/animations/toggleAnimation";
-const DropDownItem = ({ id, title, itemsActive, onPress, ...otherProps }) => {
+const DropDownItem = ({
+  id,
+  handleOnChange,
+  title,
+  itemsActive,
+  onPress,
+  ...otherProps
+}) => {
   const [showContent, setShowContent] = useState(false);
 
   const toggleListItem = () => {
@@ -18,7 +25,7 @@ const DropDownItem = ({ id, title, itemsActive, onPress, ...otherProps }) => {
       style={[
         styles.container,
         {
-          backgroundColor: itemsActive.includes(id)
+          backgroundColor: itemsActive.find((item) => item.id === id)
             ? defaultStyles.colors.secondary
             : defaultStyles.colors.white,
         },
@@ -26,7 +33,9 @@ const DropDownItem = ({ id, title, itemsActive, onPress, ...otherProps }) => {
     >
       <View
         style={[
-          itemsActive.includes(id) ? styles.itemActive : styles.itemInactive,
+          itemsActive.find((item) => item.id === id)
+            ? styles.itemActive
+            : styles.itemInactive,
         ]}
       >
         <IconButton
@@ -39,12 +48,19 @@ const DropDownItem = ({ id, title, itemsActive, onPress, ...otherProps }) => {
           size={28}
         />
         <AppText numberOfLines={3} style={{ flex: 1, marginLeft: 4 }}>
-          {title}
+          {console.log(itemsActive)}
         </AppText>
       </View>
       {showContent && (
         <View style={styles.body}>
-          <AppTextInput style={styles.input}>sd</AppTextInput>
+          <AppTextInput
+            style={styles.input}
+            onChangeText={handleOnChange}
+            autoCorrect={false}
+            autoCapitalize="none"
+            keyboardType="numeric"
+            placeholder="Digita aqui..."
+          />
         </View>
       )}
     </View>
