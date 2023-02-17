@@ -44,8 +44,8 @@ const LoginScreen = (props) => {
   const login = () => {
     console.log(inputs);
     setInputs({
-      username: "",
-      password: "",
+      username: null,
+      password: null,
     });
     //navigation.navigate("Register");
   };

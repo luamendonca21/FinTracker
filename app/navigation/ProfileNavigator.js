@@ -14,6 +14,7 @@ const Stack = createNativeStackNavigator();
 
 const ProfileNavigator = () => (
   <Stack.Navigator
+    initialRouteName="ProfileScreen"
     screenOptions={{
       animation: "slide_from_right",
       headerStyle: { backgroundColor: defaultStyles.colors.white },
@@ -26,7 +27,7 @@ const ProfileNavigator = () => (
       component={UserProfileScreen}
     />
     <Stack.Screen
-      options={{ headerShown: false }}
+      options={{ headerShown: false, animation: "default" }}
       name="CetaceansProfile"
       component={CetaceanProfileScreen}
     />

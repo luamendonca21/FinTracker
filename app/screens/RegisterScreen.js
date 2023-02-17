@@ -63,9 +63,9 @@ const RegisterScreen = ({ navigation }) => {
   const register = () => {
     console.log(inputs);
     setInputs({
-      username: "",
-      email: "",
-      password: "",
+      username: null,
+      email: null,
+      password: null,
     });
     navigation.navigate("Login");
   };

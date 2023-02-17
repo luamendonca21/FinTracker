@@ -1,6 +1,13 @@
-import React from "react";
-import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
-
+import React, { useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import OptionSelector from "../components/OptionSelector";
 import AppText from "../components/AppText";
 import { ListDetails, ListItemSeparator } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
@@ -8,12 +15,18 @@ import { Carousel } from "../components/Carousels/ImageCarousel";
 import IconButton from "../components/Buttons/IconButton";
 import Screen from "../components/Screen";
 import Icon from "../components/Icon";
-
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import BottomSheet from "../components/BottomSheet";
 import defaultStyles from "../config/styles";
+import DropDownItem from "../components/DropDownItem";
 
 const windowHeight = Dimensions.get("window").height;
 
 function UserProfileScreen({ navigation }) {
+  const details = [
+    { id: 1, title: "Idade" },
+    { id: 2, title: "Naturalidade" },
+  ];
   const users = [
     {
       name: "Luana",
@@ -82,61 +95,118 @@ function UserProfileScreen({ navigation }) {
     },
   ];
 
-  return (
-    <View style={styles.container}>
-      <Screen>
-        <View style={styles.imageContainer}>
-          <Icon
-            onPress={() => navigation.navigate("Settings")}
-            style={styles.icon}
-            icon="cog-outline"
-            size={26}
-            iconColor={defaultStyles.colors.black}
-            backgroundColor={defaultStyles.colors.white}
-          />
-          <Image
-            style={styles.image}
-            source={require("../assets/userPicture.jpg")}
-          />
-        </View>
+  const [isBottomSheetActive, setBottomSheetActive] = useState(false);
+  const [detailsActive, setDetailsActive] = useState([]);
+  const handleDetailItemPress = (id) => {
+    if (!detailsActive.includes(id)) {
+      setDetailsActive([...detailsActive, id]);
+    } else {
+      setDetailsActive(detailsActive.filter((elemento) => elemento !== id));
+    }
+  };
+  const selectDetailItemIcon = (id) => {
+    return detailsActive.includes(id)
+      ? ["check-circle", defaultStyles.colors.white]
+      : ["add-circle-outline", defaultStyles.colors.black];
+  };
 
-        <View style={styles.profileContainer}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.header}>
-              <AppText style={styles.userName}>{users[0].name}</AppText>
-              <PointsIndicator points={60} />
-            </View>
-            <View style={styles.body}>
-              <View style={styles.detailsHeader}>
-                <AppText style={styles.title}>Detalhes</AppText>
-                <IconButton
-                  style={styles.iconButton}
-                  onPress={() => console.log("Pressed")}
-                  color={defaultStyles.colors.black}
-                  name="edit"
-                  size={25}
-                />
+  const handleEditDetailsPress = () => {
+    setBottomSheetActive(!isBottomSheetActive);
+  };
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Screen>
+          <View style={styles.imageContainer}>
+            <Icon
+              onPress={() => navigation.navigate("Settings")}
+              style={styles.icon}
+              icon="cog-outline"
+              size={26}
+              iconColor={defaultStyles.colors.black}
+              backgroundColor={defaultStyles.colors.white}
+            />
+            <Image
+              style={styles.image}
+              source={require("../assets/userPicture.jpg")}
+            />
+          </View>
+          <View style={styles.profileContainer}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View style={styles.header}>
+                <AppText style={styles.userName}>{users[0].name}</AppText>
+                <PointsIndicator points={60} />
               </View>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              >
-                <ListDetails details={users[0].detalhes} />
-              </ScrollView>
-              <ListItemSeparator width="100%" style={{ marginVertical: 30 }} />
-              <AppText style={styles.title}>Cetáceos Favoritos</AppText>
-              <Carousel style={{ marginBottom: 15 }} data={favorites} />
-              <AppText style={styles.title}>Visitados</AppText>
-            </View>
-          </ScrollView>
-        </View>
-      </Screen>
-    </View>
+              <View style={styles.body}>
+                <View style={styles.detailsHeader}>
+                  <AppText style={styles.title}>Detalhes</AppText>
+                  <IconButton
+                    style={styles.iconButton}
+                    onPress={handleEditDetailsPress}
+                    color={defaultStyles.colors.black}
+                    name="edit"
+                    size={25}
+                  />
+                </View>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                >
+                  <ListDetails details={users[0].detalhes} />
+                </ScrollView>
+                <ListItemSeparator
+                  width="100%"
+                  style={{ marginVertical: 30 }}
+                />
+                <AppText style={styles.title}>Cetáceos Favoritos</AppText>
+                <Carousel style={{ marginBottom: 15 }} data={favorites} />
+                <AppText style={styles.title}>Visitados</AppText>
+              </View>
+            </ScrollView>
+          </View>
+        </Screen>
+        {isBottomSheetActive ? (
+          <>
+            <TouchableOpacity
+              style={styles.transparentContainer}
+              onPress={() => setBottomSheetActive(false)}
+            ></TouchableOpacity>
+            <BottomSheet
+              maxValue={-700}
+              minValue={-650}
+              initialValue={-700}
+              title="Editar detalhes"
+            >
+              {details.map((item, index) => (
+                <DropDownItem
+                  key={index}
+                  id={item.id}
+                  title={item.title}
+                  itemsActive={detailsActive}
+                  onPress={() => handleDetailItemPress(item.id)}
+                  name={selectDetailItemIcon(item.id)[0]}
+                  color={selectDetailItemIcon(item.id)[1]}
+                />
+              ))}
+            </BottomSheet>
+          </>
+        ) : (
+          ""
+        )}
+      </View>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: defaultStyles.colors.primary },
+  transparentContainer: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    flex: 1,
+    backgroundColor: defaultStyles.colors.transparent,
+  },
   imageContainer: {
     alignItems: "center",
     justifyContent: "center",

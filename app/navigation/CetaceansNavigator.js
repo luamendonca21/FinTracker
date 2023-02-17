@@ -9,6 +9,7 @@ const Stack = createNativeStackNavigator();
 
 const HomeNavigator = () => (
   <Stack.Navigator
+    initialRouteName="Cetaceans"
     screenOptions={{
       headerShown: false,
       headerStyle: { backgroundColor: defaultStyles.colors.white },

@@ -6,10 +6,14 @@ import AppText from "./AppText";
 
 import defaultStyles from "../config/styles";
 
-const OptionSelector = ({ id, title, optionActive, ...otherProps }) => {
+const OptionSelector = ({ id, title, optionsActive, ...otherProps }) => {
   return (
     <View
-      style={[id == optionActive ? styles.optionActive : styles.optionInactive]}
+      style={[
+        optionsActive.includes(id)
+          ? styles.optionActive
+          : styles.optionInactive,
+      ]}
     >
       <IconButton {...otherProps} size={28} />
       <AppText numberOfLines={3} style={{ flex: 1, marginLeft: 4 }}>

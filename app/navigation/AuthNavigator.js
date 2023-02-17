@@ -9,6 +9,7 @@ const Stack = createNativeStackNavigator();
 
 const AuthNavigator = () => (
   <Stack.Navigator
+    initialRouteName="Welcome"
     screenOptions={{
       headerShown: false,
       animation: "slide_from_right",

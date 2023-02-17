@@ -5,7 +5,13 @@ import defaultStyles from "../../config/styles";
 import ErrorMessage from "../ErrorMessage";
 import AppText from "../AppText";
 
-const AppTextInput = ({ error, icon, secureTextEntry, ...otherProps }) => {
+const AppTextInput = ({
+  error,
+  style,
+  icon,
+  secureTextEntry,
+  ...otherProps
+}) => {
   const [hidden, setHidden] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -28,6 +34,7 @@ const AppTextInput = ({ error, icon, secureTextEntry, ...otherProps }) => {
       <View
         style={[
           styles.container,
+          style,
           {
             borderColor: error
               ? defaultStyles.colors.danger

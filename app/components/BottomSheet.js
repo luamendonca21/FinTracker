@@ -13,7 +13,7 @@ import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
-const BottomSheet = ({ children, title }) => {
+const BottomSheet = ({ children, maxValue, minValue, initialValue, title }) => {
   const translateY = useSharedValue(0);
   const context = useSharedValue({ y: 0 });
   const gesture = Gesture.Pan()
@@ -22,16 +22,16 @@ const BottomSheet = ({ children, title }) => {
     })
     .onUpdate((event) => {
       translateY.value = event.translationY + context.value.y;
-      translateY.value = Math.max(translateY.value, -330);
-      translateY.value = Math.min(translateY.value, -290);
+      translateY.value = Math.max(translateY.value, maxValue);
+      translateY.value = Math.min(translateY.value, minValue);
     })
     .onEnd(() => {
-      translateY.value = withSpring(-320, { damping: 15 });
+      translateY.value = withSpring(initialValue, { damping: 15 });
     })
     .onFinalize(() => {});
 
   useEffect(() => {
-    translateY.value = withSpring(-320, { damping: 15 });
+    translateY.value = withSpring(initialValue, { damping: 15 });
   }, []);
   const rBottomSheetStyle = useAnimatedStyle(() => {
     return { transform: [{ translateY: translateY.value }] };

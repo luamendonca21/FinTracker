@@ -28,7 +28,7 @@ const CetaceanProfileScreen = ({ route }) => {
   const { item } = route.params;
   const [isFavorite, setIsFavorite] = useState(false);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
-  const [notificationActive, setNotificationActive] = useState(0);
+  const [notificationsActive, setNotificationsActive] = useState([]);
 
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
@@ -46,10 +46,16 @@ const CetaceanProfileScreen = ({ route }) => {
     return !isBottomSheetActive ? "notifications-none" : "notifications";
   };
   const handleNotificationOptionPress = (id) => {
-    setNotificationActive(id);
+    if (!notificationsActive.includes(id)) {
+      setNotificationsActive([...notificationsActive, id]);
+    } else {
+      setNotificationsActive(
+        notificationsActive.filter((elemento) => elemento !== id)
+      );
+    }
   };
   const selectNotificationOptionIcon = (id) => {
-    return notificationActive == id
+    return notificationsActive.includes(id)
       ? ["check-circle", defaultStyles.colors.white]
       : ["check-circle-outline", defaultStyles.colors.black];
   };
@@ -107,13 +113,18 @@ const CetaceanProfileScreen = ({ route }) => {
               style={styles.transparentContainer}
               onPress={() => setBottomSheetActive(false)}
             ></TouchableOpacity>
-            <BottomSheet title="Notificações">
+            <BottomSheet
+              maxValue={-400}
+              minValue={-350}
+              initialValue={-400}
+              title="Notificações"
+            >
               {notifications.map((item, index) => (
                 <OptionSelector
                   key={index}
                   id={item.id}
                   title={item.title}
-                  optionActive={notificationActive}
+                  optionsActive={notificationsActive}
                   onPress={() => handleNotificationOptionPress(item.id)}
                   name={selectNotificationOptionIcon(item.id)[0]}
                   color={selectNotificationOptionIcon(item.id)[1]}

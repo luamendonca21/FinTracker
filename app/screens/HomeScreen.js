@@ -272,6 +272,7 @@ const styles = StyleSheet.create({
   details: {
     height: 60,
     justifyContent: "space-between",
+    alignItems: "center",
   },
   distance: {
     backgroundColor: defaultStyles.colors.thirdlyLight,
