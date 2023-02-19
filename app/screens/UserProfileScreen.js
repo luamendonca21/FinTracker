@@ -185,6 +185,7 @@ function UserProfileScreen({ navigation }) {
               onPress={() => setBottomSheetActive(false)}
             ></TouchableOpacity>
             <BottomSheet
+              scroll
               maxValue={-windowHeight / 1.5}
               minValue={-windowHeight / 1.6}
               initialValue={-windowHeight / 1.5}

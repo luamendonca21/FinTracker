@@ -17,7 +17,14 @@ import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
-const BottomSheet = ({ children, maxValue, minValue, initialValue, title }) => {
+const BottomSheet = ({
+  children,
+  scroll,
+  maxValue,
+  minValue,
+  initialValue,
+  title,
+}) => {
   const translateY = useSharedValue(0);
   const context = useSharedValue({ y: 0 });
   const gesture = Gesture.Pan()
@@ -45,19 +52,23 @@ const BottomSheet = ({ children, maxValue, minValue, initialValue, title }) => {
       <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
         <View style={styles.line} />
         <AppText style={styles.title}>{title}</AppText>
-        <View
-          style={{
-            padding: "2%",
-            borderRadius: 15,
-            borderWidth: 1,
-            borderColor: defaultStyles.colors.transparent,
-            height: "45%",
-          }}
-        >
-          <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
-            {children}
-          </ScrollView>
-        </View>
+        {scroll ? (
+          <View
+            style={{
+              padding: "2%",
+              borderRadius: 15,
+              borderWidth: 1,
+              borderColor: defaultStyles.colors.transparent,
+              height: "45%",
+            }}
+          >
+            <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
+              {children}
+            </ScrollView>
+          </View>
+        ) : (
+          children
+        )}
       </Animated.View>
     </GestureDetector>
   );
