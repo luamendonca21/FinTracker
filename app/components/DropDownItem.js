@@ -28,16 +28,13 @@ const DropDownItem = ({
           backgroundColor: itemsActive.find((item) => item.id === id)
             ? defaultStyles.colors.secondary
             : defaultStyles.colors.white,
+          marginVertical: itemsActive.find((item) => item.id === id)
+            ? "2%"
+            : "1%",
         },
       ]}
     >
-      <View
-        style={[
-          itemsActive.find((item) => item.id === id)
-            ? styles.itemActive
-            : styles.itemInactive,
-        ]}
-      >
+      <View style={styles.item}>
         <IconButton
           {...otherProps}
           onPress={() => {
@@ -48,7 +45,7 @@ const DropDownItem = ({
           size={28}
         />
         <AppText numberOfLines={3} style={{ flex: 1, marginLeft: 4 }}>
-          {console.log(itemsActive)}
+          {title}
         </AppText>
       </View>
       {showContent && (
@@ -72,31 +69,19 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 20,
     overflow: "hidden",
-    marginVertical: "2%",
   },
   body: {
     paddingHorizontal: "2%",
-    paddingVertical: "2%",
+    paddingVertical: "1%",
   },
-  itemInactive: {
+  item: {
     marginVertical: 5,
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-evenly",
-    paddingVertical: 4,
-    paddingHorizontal: 10,
+    paddingHorizontal: "2%",
   },
 
-  itemActive: {
-    marginVertical: 5,
-    flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "space-evenly",
-    backgroundColor: defaultStyles.colors.secondary,
-    borderRadius: 50,
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-  },
   input: { padding: 2 },
 });
 

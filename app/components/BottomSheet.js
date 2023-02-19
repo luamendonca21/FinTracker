@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
-import { GestureDetector, Gesture } from "react-native-gesture-handler";
+import {
+  GestureDetector,
+  Gesture,
+  ScrollView,
+} from "react-native-gesture-handler";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -41,7 +45,19 @@ const BottomSheet = ({ children, maxValue, minValue, initialValue, title }) => {
       <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
         <View style={styles.line} />
         <AppText style={styles.title}>{title}</AppText>
-        {children}
+        <View
+          style={{
+            padding: "2%",
+            borderRadius: 15,
+            borderWidth: 1,
+            borderColor: defaultStyles.colors.transparent,
+            height: "45%",
+          }}
+        >
+          <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
+            {children}
+          </ScrollView>
+        </View>
       </Animated.View>
     </GestureDetector>
   );

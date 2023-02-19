@@ -25,14 +25,22 @@ const windowHeight = Dimensions.get("window").height;
 function UserProfileScreen({ navigation }) {
   const details = [
     { id: 1, title: "Idade" },
-    { id: 2, title: "Naturalidade" },
+    { id: 2, title: "País" },
+    { id: 3, title: "Profissão" },
+    { id: 4, title: "País" },
+    { id: 5, title: "Idade" },
+    { id: 6, title: "País" },
+    { id: 7, title: "País" },
+    { id: 8, title: "País" },
+    { id: 9, title: "País" },
+    { id: 10, title: "Pasdís" },
   ];
   const users = [
     {
       name: "Luana",
       detalhes: {
         idade: "21",
-        naturalidade: "Madeira",
+        País: "Portugal",
         contaCriadaEm: "28/07/2022",
       },
     },
@@ -177,9 +185,9 @@ function UserProfileScreen({ navigation }) {
               onPress={() => setBottomSheetActive(false)}
             ></TouchableOpacity>
             <BottomSheet
-              maxValue={-700}
-              minValue={-650}
-              initialValue={-700}
+              maxValue={-windowHeight / 1.5}
+              minValue={-windowHeight / 1.6}
+              initialValue={-windowHeight / 1.5}
               title="Editar detalhes"
             >
               {details.map((item, index) => (
