@@ -7,7 +7,9 @@ import { AppTextInput } from "./Inputs";
 
 import defaultStyles from "../config/styles";
 import { toggleAnimation } from "../assets/animations/toggleAnimation";
+import ErrorMessage from "./ErrorMessage";
 const DropDownItem = ({
+  error,
   id,
   handleOnChange,
   title,
@@ -28,44 +30,48 @@ const DropDownItem = ({
     if (isActive()) setShowContent(true);
   }, []);
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: isActive()
-            ? defaultStyles.colors.secondary
-            : defaultStyles.colors.white,
-          marginVertical: isActive() ? "2%" : 0,
-        },
-      ]}
-    >
-      <View style={styles.item}>
-        <IconButton
-          {...otherProps}
-          onPress={() => {
-            onPress();
-            setShowContent(!showContent);
-            toggleListItem();
-          }}
-          size={28}
-        />
-        <AppText numberOfLines={3} style={{ flex: 1, marginLeft: 4 }}>
-          {title}
-        </AppText>
-      </View>
-      {showContent && (
-        <View style={styles.body}>
-          <AppTextInput
-            style={styles.input}
-            onChangeText={handleOnChange}
-            autoCorrect={false}
-            autoCapitalize="none"
-            keyboardType={title == "Idade" ? "numeric" : "default"}
-            placeholder="Digita aqui..."
+    <>
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: isActive()
+              ? defaultStyles.colors.secondary
+              : defaultStyles.colors.white,
+            marginVertical: isActive() ? "2%" : 0,
+            elevation: isActive() ? 2 : 0,
+          },
+        ]}
+      >
+        <View style={styles.item}>
+          <IconButton
+            {...otherProps}
+            onPress={() => {
+              onPress();
+              setShowContent(!showContent);
+              toggleListItem();
+            }}
+            size={28}
           />
+          <AppText numberOfLines={3} style={{ flex: 1, marginLeft: 4 }}>
+            {title}
+          </AppText>
         </View>
-      )}
-    </View>
+        {showContent && (
+          <View style={styles.body}>
+            <AppTextInput
+              style={styles.input}
+              onChangeText={handleOnChange}
+              autoCorrect={false}
+              autoCapitalize="none"
+              keyboardType={title == "Idade" ? "numeric" : "default"}
+              placeholder="Digita aqui..."
+            />
+          </View>
+        )}
+      </View>
+      <ErrorMessage error={error} />
+    </>
   );
 };
 

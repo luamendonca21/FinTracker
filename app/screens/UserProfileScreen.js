@@ -40,52 +40,112 @@ function UserProfileScreen({ navigation }) {
 
   const favorites = [
     {
-      id: 6,
-      name: "Rough toothed Dolphin",
-      details: {
-        scientificName: "Steno bredanensiss",
-        age: "1",
-        length: "3m",
-        weigh: "650kg",
-        location: "Camâra de Lobos",
-      },
-      imageUrl: require("../assets/dolphins/Rough_toothed_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
-    {
-      id: 4,
-      name: "Frasers Dolphin",
-      details: {
-        scientificName: "Lagenodelphis hosei",
-        age: "1",
-        Length: "3m",
-        weigh: "650kg",
-        location: "Camâra de Lobos",
-      },
-      imageUrl: require("../assets/dolphins/Frasers_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
-    {
       id: 1,
       name: "Atlantic spotted Dolphin",
-      details: {
-        scientificName: "Stenella frontalis",
-        age: "1",
-        Length: "3m",
-        weigh: "650kg",
-        location: "Camâra de Lobos",
-      },
+      details: [
+        {
+          id: 1,
+          title: "Nome Científico",
+          value: "Stenella frontalis",
+        },
+        {
+          id: 2,
+          title: "Idade",
+          value: "1",
+        },
+        {
+          id: 3,
+          title: "Comprimento",
+          value: "3m",
+        },
+        {
+          id: 4,
+          title: "Peso",
+          value: "650kg",
+        },
+        {
+          id: 5,
+          title: "Localização",
+          value: "Camâra de Lobos",
+        },
+      ],
       imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+    {
+      id: 3,
+      name: "Common Dolphin",
+      details: [
+        {
+          id: 1,
+          title: "Nome Científico",
+          value: "Delphinus delphis",
+        },
+        {
+          id: 2,
+          title: "Idade",
+          value: "1",
+        },
+        {
+          id: 3,
+          title: "Comprimento",
+          value: "3m",
+        },
+        {
+          id: 4,
+          title: "Peso",
+          value: "650kg",
+        },
+        {
+          id: 5,
+          title: "Localização",
+          value: "Camâra de Lobos",
+        },
+      ],
+      imageUrl: require("../assets/dolphins/Common_dolphin.jpg"),
+      introduction:
+        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
+      history:
+        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
+      migration:
+        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
+    },
+    {
+      id: 6,
+      name: "Rough toothed Dolphin",
+      details: [
+        {
+          id: 1,
+          title: "Nome Científico",
+          value: "Steno bredanensiss",
+        },
+        {
+          id: 2,
+          title: "Idade",
+          value: "1",
+        },
+        {
+          id: 3,
+          title: "Comprimento",
+          value: "3m",
+        },
+        {
+          id: 4,
+          title: "Peso",
+          value: "650kg",
+        },
+        {
+          id: 5,
+          title: "Localização",
+          value: "Camâra de Lobos",
+        },
+      ],
+      imageUrl: require("../assets/dolphins/Rough_toothed_dolphin.jpg"),
       introduction:
         "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
       history:

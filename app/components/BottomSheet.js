@@ -60,7 +60,7 @@ const BottomSheet = ({
           <View
             style={{
               padding: "2%",
-              borderRadius: 15,
+              borderRadius: 20,
               borderWidth: 1,
               borderColor: defaultStyles.colors.transparent,
               height: "45%",

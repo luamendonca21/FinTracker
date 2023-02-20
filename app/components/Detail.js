@@ -18,7 +18,15 @@ const Detail = ({ title, subTitle }) => {
   return (
     <View style={styles.container}>
       <AppText style={styles.title}>{title}</AppText>
-      <AppText style={styles.subTitle}>{subTitle}</AppText>
+      <AppText
+        style={{
+          color: subTitle
+            ? defaultStyles.colors.black
+            : defaultStyles.colors.medium,
+        }}
+      >
+        {subTitle ? subTitle : `Adiciona um ${title.toLowerCase()}`}
+      </AppText>
     </View>
   );
 };
@@ -37,7 +45,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   title: { fontWeight: "bold", color: defaultStyles.colors.primary },
-  subTitle: { color: defaultStyles.colors.black },
 });
 
 export default Detail;
