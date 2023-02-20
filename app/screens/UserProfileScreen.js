@@ -230,7 +230,7 @@ function UserProfileScreen({ navigation }) {
                 )}
                 <ListItemSeparator
                   width="100%"
-                  style={{ marginVertical: 30 }}
+                  style={{ marginVertical: 20 }}
                 />
                 <AppText style={styles.title}>Cetáceos Favoritos</AppText>
                 <Carousel style={{ marginBottom: 15 }} data={favorites} />
