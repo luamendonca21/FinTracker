@@ -21,13 +21,33 @@ const CetaceansScreen = ({ navigation }) => {
     {
       id: 1,
       name: "Atlantic spotted Dolphin",
-      details: {
-        nomeCientífico: "Stenella frontalis",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
+      details: [
+        {
+          id: 1,
+          title: "Nome Científico",
+          value: "Stenella frontalis",
+        },
+        {
+          id: 2,
+          title: "Idade",
+          value: "1",
+        },
+        {
+          id: 3,
+          title: "Comprimento",
+          value: "3m",
+        },
+        {
+          id: 4,
+          title: "Peso",
+          value: "650kg",
+        },
+        {
+          id: 5,
+          title: "Localização",
+          value: "Camâra de Lobos",
+        },
+      ],
       imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
       introduction:
         "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
@@ -39,13 +59,33 @@ const CetaceansScreen = ({ navigation }) => {
     {
       id: 2,
       name: "Bottlenose Dolphin",
-      details: {
-        nomeCientífico: "Tursiops",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
+      details: [
+        {
+          id: 1,
+          title: "Nome Científico",
+          value: "Tursiops",
+        },
+        {
+          id: 2,
+          title: "Idade",
+          value: "1",
+        },
+        {
+          id: 3,
+          title: "Comprimento",
+          value: "3m",
+        },
+        {
+          id: 4,
+          title: "Peso",
+          value: "650kg",
+        },
+        {
+          id: 5,
+          title: "Localização",
+          value: "Camâra de Lobos",
+        },
+      ],
       imageUrl: require("../assets/dolphins/Bottlenose_dolphin.jpg"),
       introduction:
         "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
@@ -57,13 +97,33 @@ const CetaceansScreen = ({ navigation }) => {
     {
       id: 3,
       name: "Common Dolphin",
-      details: {
-        nomeCientífico: "Delphinus delphis",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
+      details: [
+        {
+          id: 1,
+          title: "Nome Científico",
+          value: "Delphinus delphis",
+        },
+        {
+          id: 2,
+          title: "Idade",
+          value: "1",
+        },
+        {
+          id: 3,
+          title: "Comprimento",
+          value: "3m",
+        },
+        {
+          id: 4,
+          title: "Peso",
+          value: "650kg",
+        },
+        {
+          id: 5,
+          title: "Localização",
+          value: "Camâra de Lobos",
+        },
+      ],
       imageUrl: require("../assets/dolphins/Common_dolphin.jpg"),
       introduction:
         "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
@@ -75,13 +135,33 @@ const CetaceansScreen = ({ navigation }) => {
     {
       id: 4,
       name: "Frasers Dolphin",
-      details: {
-        nomeCientífico: "Lagenodelphis hosei",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
+      details: [
+        {
+          id: 1,
+          title: "Nome Científico",
+          value: "Lagenodelphis hosei",
+        },
+        {
+          id: 2,
+          title: "Idade",
+          value: "1",
+        },
+        {
+          id: 3,
+          title: "Comprimento",
+          value: "3m",
+        },
+        {
+          id: 4,
+          title: "Peso",
+          value: "650kg",
+        },
+        {
+          id: 5,
+          title: "Localização",
+          value: "Camâra de Lobos",
+        },
+      ],
       imageUrl: require("../assets/dolphins/Frasers_dolphin.jpg"),
       introduction:
         "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
@@ -93,13 +173,33 @@ const CetaceansScreen = ({ navigation }) => {
     {
       id: 5,
       name: "Risso's Dolphin",
-      details: {
-        nomeCientífico: "Grampus griseuss",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
+      details: [
+        {
+          id: 1,
+          title: "Nome Científico",
+          value: "Grampus griseuss",
+        },
+        {
+          id: 2,
+          title: "Idade",
+          value: "1",
+        },
+        {
+          id: 3,
+          title: "Comprimento",
+          value: "3m",
+        },
+        {
+          id: 4,
+          title: "Peso",
+          value: "650kg",
+        },
+        {
+          id: 5,
+          title: "Localização",
+          value: "Camâra de Lobos",
+        },
+      ],
       imageUrl: require("../assets/dolphins/Rissos_Dolphin.jpg"),
       introduction:
         "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
@@ -111,13 +211,33 @@ const CetaceansScreen = ({ navigation }) => {
     {
       id: 6,
       name: "Rough toothed Dolphin",
-      details: {
-        nomeCientífico: "Steno bredanensiss",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
+      details: [
+        {
+          id: 1,
+          title: "Nome Científico",
+          value: "Steno bredanensiss",
+        },
+        {
+          id: 2,
+          title: "Idade",
+          value: "1",
+        },
+        {
+          id: 3,
+          title: "Comprimento",
+          value: "3m",
+        },
+        {
+          id: 4,
+          title: "Peso",
+          value: "650kg",
+        },
+        {
+          id: 5,
+          title: "Localização",
+          value: "Camâra de Lobos",
+        },
+      ],
       imageUrl: require("../assets/dolphins/Rough_toothed_dolphin.jpg"),
       introduction:
         "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
@@ -129,13 +249,33 @@ const CetaceansScreen = ({ navigation }) => {
     {
       id: 7,
       name: "Stripped Dolphin",
-      details: {
-        nomeCientífico: "Stenella coeruleoalba",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-      },
+      details: [
+        {
+          id: 1,
+          title: "Nome Científico",
+          value: "Stenella coeruleoalba",
+        },
+        {
+          id: 2,
+          title: "Idade",
+          value: "1",
+        },
+        {
+          id: 3,
+          title: "Comprimento",
+          value: "3m",
+        },
+        {
+          id: 4,
+          title: "Peso",
+          value: "650kg",
+        },
+        {
+          id: 5,
+          title: "Localização",
+          value: "Camâra de Lobos",
+        },
+      ],
       imageUrl: require("../assets/dolphins/Stripped_dolphin.jpg"),
       introduction: "eu",
       history:
@@ -161,7 +301,7 @@ const CetaceansScreen = ({ navigation }) => {
           .toLowerCase()
           .trim()
           .includes(searchQuery.toLowerCase().trim()) ||
-        c.details.nomeCientífico
+        c.details[0].title
           .toLowerCase()
           .trim()
           .includes(searchQuery.toLowerCase().trim())
