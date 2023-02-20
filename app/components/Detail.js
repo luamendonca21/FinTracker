@@ -25,7 +25,7 @@ const Detail = ({ title, subTitle }) => {
             : defaultStyles.colors.medium,
         }}
       >
-        {subTitle ? subTitle : `Adiciona um ${title.toLowerCase()}`}
+        {subTitle ? subTitle : `Adicionar ${title.toLowerCase()}`}
       </AppText>
     </View>
   );
