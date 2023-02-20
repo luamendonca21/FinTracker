@@ -6,8 +6,8 @@ import Detail from "../Detail";
 const ListDetails = ({ details }) => {
   return (
     <View style={styles.detailsContainer}>
-      {Object.keys(details).map((item, index) => (
-        <Detail key={index} title={item} subTitle={details[item]} />
+      {details.map((item, index) => (
+        <Detail key={index} title={item["title"]} subTitle={item["value"]} />
       ))}
     </View>
   );
@@ -21,5 +21,7 @@ const styles = StyleSheet.create({
     padding: 1,
   },
 });
+
+//        <Detail key={index} title={item} subTitle={details[item]} />
 
 export default ListDetails;

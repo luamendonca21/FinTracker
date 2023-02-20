@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { View, StyleSheet, Animated, LayoutAnimation } from "react-native";
 
 import IconButton from "./Buttons/IconButton";
@@ -17,20 +17,25 @@ const DropDownItem = ({
 }) => {
   const [showContent, setShowContent] = useState(false);
 
+  const isActive = () => {
+    return itemsActive.find((item) => item.id === id);
+  };
   const toggleListItem = () => {
     LayoutAnimation.configureNext(toggleAnimation);
   };
+
+  useEffect(() => {
+    if (isActive()) setShowContent(true);
+  }, []);
   return (
     <View
       style={[
         styles.container,
         {
-          backgroundColor: itemsActive.find((item) => item.id === id)
+          backgroundColor: isActive()
             ? defaultStyles.colors.secondary
             : defaultStyles.colors.white,
-          marginVertical: itemsActive.find((item) => item.id === id)
-            ? "2%"
-            : "1%",
+          marginVertical: isActive() ? "2%" : 0,
         },
       ]}
     >

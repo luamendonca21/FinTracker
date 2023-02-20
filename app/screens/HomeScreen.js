@@ -205,6 +205,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    paddingBottom: 100,
     padding: 15,
     backgroundColor: defaultStyles.colors.white,
     flex: 1,

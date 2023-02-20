@@ -27,21 +27,13 @@ function UserProfileScreen({ navigation }) {
     { id: 1, title: "Idade" },
     { id: 2, title: "País" },
     { id: 3, title: "Profissão" },
-    { id: 4, title: "País" },
-    { id: 5, title: "Idade" },
-    { id: 6, title: "País" },
-    { id: 7, title: "País" },
-    { id: 8, title: "País" },
-    { id: 9, title: "País" },
-    { id: 10, title: "Pasdís" },
   ];
   const users = [
     {
       name: "Luana",
       detalhes: {
         idade: "21",
-        País: "Portugal",
-        contaCriadaEm: "28/07/2022",
+        país: "Portugal",
       },
     },
   ];
@@ -53,7 +45,7 @@ function UserProfileScreen({ navigation }) {
       details: {
         scientificName: "Steno bredanensiss",
         age: "1",
-        Length: "3m",
+        length: "3m",
         weigh: "650kg",
         location: "Camâra de Lobos",
       },
@@ -105,15 +97,19 @@ function UserProfileScreen({ navigation }) {
 
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [detailsActive, setDetailsActive] = useState([]);
+
+  const isDetailActive = (id) => {
+    return detailsActive.find((item) => item.id === id);
+  };
   const handleDetailItemPress = (id, title) => {
-    if (!detailsActive.find((item) => item.id === id)) {
+    if (!isDetailActive(id)) {
       setDetailsActive([...detailsActive, { id, title }]);
     } else {
       setDetailsActive(detailsActive.filter((elemento) => elemento.id !== id));
     }
   };
   const selectDetailItemIcon = (id) => {
-    return detailsActive.find((item) => item.id === id)
+    return isDetailActive(id)
       ? ["check-circle", defaultStyles.colors.white]
       : ["add-circle-outline", defaultStyles.colors.black];
   };
@@ -122,9 +118,10 @@ function UserProfileScreen({ navigation }) {
     setBottomSheetActive(!isBottomSheetActive);
   };
   const handleOnChangeDetail = (text, id) => {
-    let object = detailsActive.find((item) => item.id === id);
+    let object = isDetailActive(id);
     object.value = text;
     setDetailsActive([...detailsActive]);
+    console.log(detailsActive);
   };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -161,12 +158,16 @@ function UserProfileScreen({ navigation }) {
                     size={25}
                   />
                 </View>
-                <ScrollView
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
-                >
-                  <ListDetails details={users[0].detalhes} />
-                </ScrollView>
+                {detailsActive.length !== 0 ? (
+                  <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                  >
+                    <ListDetails details={detailsActive} />
+                  </ScrollView>
+                ) : (
+                  ""
+                )}
                 <ListItemSeparator
                   width="100%"
                   style={{ marginVertical: 30 }}

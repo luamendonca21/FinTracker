@@ -5,6 +5,7 @@ import {
   ScrollView,
   FlatList,
   Dimensions,
+  LayoutAnimation,
 } from "react-native";
 
 import AppText from "../components/AppText";
@@ -12,8 +13,8 @@ import { Carousel } from "../components/Carousels/ImageCarousel";
 import Screen from "../components/Screen";
 import SearchInput from "../components/Inputs/SearchInput";
 import { ListItem, ListItemSeparator } from "../components/Lists";
-
 import defaultStyles from "../config/styles";
+import { toggleAnimation } from "../assets/animations/toggleAnimation";
 
 const CetaceansScreen = ({ navigation }) => {
   const [cetaceans, setCetaceans] = useState([
@@ -150,13 +151,20 @@ const CetaceansScreen = ({ navigation }) => {
     setSearchQuery(query);
   };
 
+  const toggleListItem = () => {
+    LayoutAnimation.configureNext(toggleAnimation);
+  };
   const getCetaceansFiltered = () => {
     return cetaceans.filter(
       (c) =>
-        c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        c.name
+          .toLowerCase()
+          .trim()
+          .includes(searchQuery.toLowerCase().trim()) ||
         c.details.nomeCientífico
           .toLowerCase()
-          .includes(searchQuery.toLowerCase())
+          .trim()
+          .includes(searchQuery.toLowerCase().trim())
     );
   };
 
@@ -227,14 +235,6 @@ const CetaceansScreen = ({ navigation }) => {
             <View style={styles.categoryList}>
               <View style={styles.categoryContainer}>
                 <AppText style={styles.category}>Golfinhos</AppText>
-                <AppText style={styles.seeMore}>
-                  Desliza para ver mais...
-                </AppText>
-                <Carousel data={cetaceans} />
-                {/* <LinkButton color="black" title="See more" /> */}
-              </View>
-              <View style={styles.categoryContainer}>
-                <AppText style={styles.category}>Baleias</AppText>
                 <AppText style={styles.seeMore}>
                   Desliza para ver mais...
                 </AppText>

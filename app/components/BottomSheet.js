@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  KeyboardAvoidingView,
+} from "react-native";
 import {
   GestureDetector,
   Gesture,
@@ -38,8 +43,7 @@ const BottomSheet = ({
     })
     .onEnd(() => {
       translateY.value = withSpring(initialValue, { damping: 15 });
-    })
-    .onFinalize(() => {});
+    });
 
   useEffect(() => {
     translateY.value = withSpring(initialValue, { damping: 15 });

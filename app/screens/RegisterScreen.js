@@ -4,7 +4,6 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView,
-  Keyboard,
 } from "react-native";
 
 import { WavyHeader } from "../components/Waves";
