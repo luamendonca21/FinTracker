@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HomeNavigator from "./HomeNavigator";
 import CetaceansNavigator from "./CetaceansNavigator";
 import ProfileNavigator from "./ProfileNavigator";
-
+import MapScreen from "../screens/MapScreen";
 import defaultStyles from "../config/styles";
 
 const Tab = createBottomTabNavigator();
@@ -24,6 +24,13 @@ const tabBar = [
     icon: "format-list-bulleted",
     iconFocused: "format-list-bulleted",
     component: CetaceansNavigator,
+  },
+  {
+    route: "Map",
+    label: "Mapa",
+    icon: "map-outline",
+    iconFocused: "map",
+    component: MapScreen,
   },
   {
     route: "Profile",
