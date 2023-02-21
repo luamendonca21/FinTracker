@@ -5,17 +5,10 @@ import AppText from "./../AppText";
 
 import defaultStyles from "../../config/styles";
 
-const AppButton = ({
-  title,
-  color = "primary",
-  onPress,
-  style,
-  ...otherProps
-}) => {
+const AppButton = ({ title, color = "primary", style, ...otherProps }) => {
   return (
     <TouchableOpacity
       {...otherProps}
-      onPress={onPress}
       style={[
         styles.container,
         style,

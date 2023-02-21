@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import AppNavigator from "./app/navigation/AppNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
+
 import defaultStyles from "./app/config/styles";
 import myTheme from "./app/navigation/navigationTheme";
 
