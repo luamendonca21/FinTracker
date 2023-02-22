@@ -27,7 +27,7 @@ const tabBar = [
     component: CetaceansNavigator,
   },
   {
-    route: "Map",
+    route: "MapScreen",
     label: "Mapa",
     icon: "map-outline",
     iconFocused: "map",

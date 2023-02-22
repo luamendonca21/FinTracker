@@ -145,7 +145,7 @@ const MapScreen = ({ navigation }) => {
             top: 5 + Constants.statusBarHeight,
             left: 5,
             right: 5,
-            bottom: 5,
+            bottom: 50,
           }}
           initialRegion={{
             latitude: location ? location.coords.latitude : 32.37166518,
@@ -156,11 +156,13 @@ const MapScreen = ({ navigation }) => {
         >
           {markers.map((item, index) => (
             <Marker
-              onPress={() => navigation.navigate("CetaceanProfile", { item })}
+              onCalloutPress={() =>
+                navigation.navigate("CetaceanProfile", { item })
+              }
               key={index}
               coordinate={{ latitude: item.lat, longitude: item.long }}
-              title={item.title}
-              description={item.description}
+              title={item.name}
+              description="Ver perfil"
             >
               <Image
                 source={require("../icon-sbg.png")}
@@ -180,7 +182,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  map: { width: "100%", height: "95%", position: "absolute", top: 0 },
+  map: { width: "100%", flex: 1 },
 });
 
 export default MapScreen;
