@@ -22,6 +22,11 @@ const DropDownSelector = ({
   const isActive = () => {
     return itemsActive.find((item) => item.id === id);
   };
+  const selectDetailItemIcon = () => {
+    return isActive(id)
+      ? ["check-circle", defaultStyles.colors.white]
+      : ["add-circle-outline", defaultStyles.colors.black];
+  };
   const toggleListItem = () => {
     LayoutAnimation.configureNext(toggleAnimation);
   };
@@ -45,7 +50,8 @@ const DropDownSelector = ({
       >
         <View style={styles.item}>
           <IconButton
-            {...otherProps}
+            name={selectDetailItemIcon()[0]}
+            color={selectDetailItemIcon()[1]}
             onPress={() => {
               onPress();
               setShowContent(!showContent);

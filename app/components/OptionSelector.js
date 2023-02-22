@@ -7,6 +7,11 @@ import AppText from "./AppText";
 import defaultStyles from "../config/styles";
 
 const OptionSelector = ({ id, title, optionsActive, ...otherProps }) => {
+  const selectOptionIcon = () => {
+    return optionsActive.includes(id)
+      ? ["check-circle", defaultStyles.colors.white]
+      : ["check-circle-outline", defaultStyles.colors.black];
+  };
   return (
     <View
       style={[
@@ -15,7 +20,12 @@ const OptionSelector = ({ id, title, optionsActive, ...otherProps }) => {
           : styles.optionInactive,
       ]}
     >
-      <IconButton {...otherProps} size={28} />
+      <IconButton
+        name={selectOptionIcon()[0]}
+        color={selectOptionIcon()[1]}
+        {...otherProps}
+        size={28}
+      />
       <AppText numberOfLines={3} style={{ flex: 1, marginLeft: 4 }}>
         {title}
       </AppText>

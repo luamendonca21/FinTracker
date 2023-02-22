@@ -14,6 +14,7 @@ import { ListDetails } from "../components/Lists";
 import IconButton from "../components/Buttons/IconButton";
 import BottomSheet from "../components/BottomSheet";
 import OptionSelector from "../components/OptionSelector";
+import ListOptions from "../components/Lists/ListOptions";
 
 import defaultStyles from "../config/styles";
 
@@ -26,7 +27,6 @@ const notifications = [
 
 const CetaceanProfileScreen = ({ route }) => {
   const { item } = route.params;
-  console.log(item);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [notificationsActive, setNotificationsActive] = useState([]);
@@ -54,11 +54,6 @@ const CetaceanProfileScreen = ({ route }) => {
         notificationsActive.filter((elemento) => elemento !== id)
       );
     }
-  };
-  const selectNotificationOptionIcon = (id) => {
-    return notificationsActive.includes(id)
-      ? ["check-circle", defaultStyles.colors.white]
-      : ["check-circle-outline", defaultStyles.colors.black];
   };
 
   return (
@@ -120,17 +115,11 @@ const CetaceanProfileScreen = ({ route }) => {
               initialValue={-400}
               title="Notificações"
             >
-              {notifications.map((item, index) => (
-                <OptionSelector
-                  key={index}
-                  id={item.id}
-                  title={item.title}
-                  optionsActive={notificationsActive}
-                  onPress={() => handleNotificationOptionPress(item.id)}
-                  name={selectNotificationOptionIcon(item.id)[0]}
-                  color={selectNotificationOptionIcon(item.id)[1]}
-                />
-              ))}
+              <ListOptions
+                options={notifications}
+                optionsActive={notificationsActive}
+                onPress={(itemId) => handleNotificationOptionPress(itemId)}
+              />
             </BottomSheet>
           </>
         ) : (

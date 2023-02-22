@@ -260,8 +260,6 @@ function UserProfileScreen({ navigation }) {
                   title={item.title}
                   itemsActive={detailsActive}
                   onPress={() => handleDetailItemPress(item.id, item.title)}
-                  name={selectDetailItemIcon(item.id)[0]}
-                  color={selectDetailItemIcon(item.id)[1]}
                 />
               ))}
             </BottomSheet>
