@@ -1,13 +1,14 @@
 import React, { useRef, useEffect, useState } from "react";
 import { View, StyleSheet, Animated, LayoutAnimation } from "react-native";
 
-import IconButton from "./Buttons/IconButton";
+import { IconButton } from "./Buttons";
 import AppText from "./AppText";
 import { AppTextInput } from "./Inputs";
-
-import defaultStyles from "../config/styles";
 import { toggleAnimation } from "../assets/animations/toggleAnimation";
 import ErrorMessage from "./Alerts/ErrorMessage";
+
+import defaultStyles from "../config/styles";
+
 const DropDownSelector = ({
   error,
   id,
@@ -15,14 +16,13 @@ const DropDownSelector = ({
   title,
   itemsActive,
   onPress,
-  ...otherProps
 }) => {
   const [showContent, setShowContent] = useState(false);
 
   const isActive = () => {
     return itemsActive.find((item) => item.id === id);
   };
-  const selectDetailItemIcon = () => {
+  const selectItemIcon = () => {
     return isActive(id)
       ? ["check-circle", defaultStyles.colors.white]
       : ["add-circle-outline", defaultStyles.colors.black];
@@ -50,8 +50,8 @@ const DropDownSelector = ({
       >
         <View style={styles.item}>
           <IconButton
-            name={selectDetailItemIcon()[0]}
-            color={selectDetailItemIcon()[1]}
+            name={selectItemIcon()[0]}
+            color={selectItemIcon()[1]}
             onPress={() => {
               onPress();
               setShowContent(!showContent);

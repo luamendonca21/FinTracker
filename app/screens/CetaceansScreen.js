@@ -278,6 +278,8 @@ const CetaceansScreen = ({ navigation }) => {
     },
   ]);
 
+  // ----------- SEARCH FOR CETACEANS -------------
+
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (query) => {

@@ -7,18 +7,20 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import OptionSelector from "../components/OptionSelector";
+
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import AppText from "../components/AppText";
 import { ListDetails, ListItemSeparator } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
 import { Carousel } from "../components/Carousels/ImageCarousel";
-import IconButton from "../components/Buttons/IconButton";
+import { IconButton } from "../components/Buttons";
 import Screen from "../components/Screen";
 import Icon from "../components/Icon";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "../components/BottomSheet";
-import defaultStyles from "../config/styles";
 import DropDownItem from "../components/DropDownSelector";
+
+import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
@@ -158,9 +160,16 @@ function UserProfileScreen({ navigation }) {
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [detailsActive, setDetailsActive] = useState([]);
 
+  // --------- PROFILE DETAILS -----------
+
+  const handleEditDetailsPress = () => {
+    setBottomSheetActive(!isBottomSheetActive);
+  };
+
   const isDetailActive = (id) => {
     return detailsActive.find((item) => item.id === id);
   };
+
   const handleDetailItemPress = (id, title) => {
     if (!isDetailActive(id)) {
       setDetailsActive([...detailsActive, { id, title }]);
@@ -168,21 +177,14 @@ function UserProfileScreen({ navigation }) {
       setDetailsActive(detailsActive.filter((elemento) => elemento.id !== id));
     }
   };
-  const selectDetailItemIcon = (id) => {
-    return isDetailActive(id)
-      ? ["check-circle", defaultStyles.colors.white]
-      : ["add-circle-outline", defaultStyles.colors.black];
-  };
 
-  const handleEditDetailsPress = () => {
-    setBottomSheetActive(!isBottomSheetActive);
-  };
   const handleOnChangeDetail = (text, id) => {
     let object = isDetailActive(id);
     object.value = text;
     setDetailsActive([...detailsActive]);
     console.log(detailsActive);
   };
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>

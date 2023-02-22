@@ -10,11 +10,9 @@ import {
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import AppText from "../components/AppText";
-import { ListDetails } from "../components/Lists";
-import IconButton from "../components/Buttons/IconButton";
+import { ListDetails, ListOptions } from "../components/Lists";
+import { IconButton } from "../components/Buttons";
 import BottomSheet from "../components/BottomSheet";
-import OptionSelector from "../components/OptionSelector";
-import ListOptions from "../components/Lists/ListOptions";
 
 import defaultStyles from "../config/styles";
 
@@ -31,6 +29,8 @@ const CetaceanProfileScreen = ({ route }) => {
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [notificationsActive, setNotificationsActive] = useState([]);
 
+  // ---------- ADD TO FAVORITES -----------
+
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
   };
@@ -38,6 +38,8 @@ const CetaceanProfileScreen = ({ route }) => {
   const selectFavoriteIcon = () => {
     return isFavorite ? ["favorite", "red"] : ["favorite-outline", "black"];
   };
+
+  // --------- ADD NOTIFICATION ---------------
 
   const handleNotificationPress = () => {
     setBottomSheetActive(!isBottomSheetActive);

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import IconButton from "./Buttons/IconButton";
+import { IconButton } from "./Buttons";
 import AppText from "./AppText";
 
 import defaultStyles from "../config/styles";
