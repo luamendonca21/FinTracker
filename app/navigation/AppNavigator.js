@@ -7,6 +7,7 @@ import CetaceansNavigator from "./CetaceansNavigator";
 import ProfileNavigator from "./ProfileNavigator";
 import MapScreen from "../screens/MapScreen";
 import defaultStyles from "../config/styles";
+import MapNavigator from "./MapNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +31,7 @@ const tabBar = [
     label: "Mapa",
     icon: "map-outline",
     iconFocused: "map",
-    component: MapScreen,
+    component: MapNavigator,
   },
   {
     route: "Profile",

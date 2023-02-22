@@ -26,6 +26,7 @@ const notifications = [
 
 const CetaceanProfileScreen = ({ route }) => {
   const { item } = route.params;
+  console.log(item);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [notificationsActive, setNotificationsActive] = useState([]);

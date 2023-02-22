@@ -7,11 +7,9 @@ import Constants from "expo-constants";
 
 const Notice = ({ text }) => {
   return (
-    text && (
-      <View style={styles.container}>
-        <AppText style={styles.text}>{text}</AppText>
-      </View>
-    )
+    <View style={styles.container}>
+      <AppText style={styles.text}>{text}</AppText>
+    </View>
   );
 };
 
