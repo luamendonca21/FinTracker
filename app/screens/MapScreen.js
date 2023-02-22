@@ -1,21 +1,14 @@
-import React, { useEffect, useState, useRef } from "react";
-import { View, StyleSheet, Image } from "react-native";
-import MapView, { Callout, Marker } from "react-native-maps";
-import Constants from "expo-constants";
-import {
-  requestForegroundPermissionsAsync,
-  getCurrentPositionAsync,
-  watchPositionAsync,
-  LocationAccuracy,
-} from "expo-location";
-import Notice from "../components/Notice";
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
 
-import AppText from "../components/AppText";
+import MapView from "react-native-maps";
+import Constants from "expo-constants";
+
+import MapMarker from "../components/MapMarker";
+import useLocation from "../hooks/useLocation";
 
 const MapScreen = ({ navigation }) => {
-  const [location, setLocation] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
-  const mapRef = useRef(MapView);
+  const { location, errorMsg } = useLocation();
   const [markers, setMarkers] = useState([
     {
       lat: 33.049125,
@@ -103,41 +96,11 @@ const MapScreen = ({ navigation }) => {
     },
   ]);
 
-  const requestLocationPermissions = async () => {
-    const { granted } = await requestForegroundPermissionsAsync();
-    if (!granted) {
-      setErrorMessage("Permissão para aceder à localização recusada.");
-      return;
-    }
-    const currentPosition = await getCurrentPositionAsync();
-    setLocation(currentPosition);
-    console.log("Localização atual=>", currentPosition);
-  };
-  useEffect(() => {
-    requestLocationPermissions();
-  }, []);
-  useEffect(() => {
-    location &&
-      watchPositionAsync(
-        {
-          accuracy: LocationAccuracy.Highest,
-          timeInterval: 1000,
-          distanceInterval: 1,
-        },
-        (response) => {
-          console.log("Nova Localização", response);
-          setLocation(response);
-          mapRef.current?.animateCamera({ pitch: 60, center: response.coords });
-        }
-      );
-  }, []);
-
   return (
     <>
-      {!location && errorMessage && <Notice text={errorMessage} />}
       <View style={styles.container}>
         <MapView
-          ref={mapRef}
+          mapType="satellite"
           showsUserLocation
           showsCompass={false}
           style={styles.map}
@@ -150,25 +113,21 @@ const MapScreen = ({ navigation }) => {
           initialRegion={{
             latitude: location ? location.coords.latitude : 32.37166518,
             longitude: location ? location.coords.longitude : -16.2749989,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
+            latitudeDelta: 1,
+            longitudeDelta: 1,
           }}
         >
           {markers.map((item, index) => (
-            <Marker
+            <MapMarker
+              key={index}
               onCalloutPress={() =>
                 navigation.navigate("CetaceanProfile", { item })
               }
-              key={index}
-              coordinate={{ latitude: item.lat, longitude: item.long }}
-              title={item.name}
+              coords={{ lat: item.lat, long: item.long }}
+              name={item.name}
               description="Ver perfil"
-            >
-              <Image
-                source={require("../icon-sbg.png")}
-                style={{ height: 40, width: 30 }}
-              />
-            </Marker>
+              img={require("../assets/icon-sbg.png")}
+            />
           ))}
         </MapView>
       </View>

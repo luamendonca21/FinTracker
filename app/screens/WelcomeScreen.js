@@ -22,7 +22,7 @@ const WelcomeScreen = ({ navigation }) => {
   return (
     <Screen>
       <View style={styles.container}>
-        <Image style={styles.image} source={require("../icon.jpg")} />
+        <Image style={styles.image} source={require("../assets/icon.jpg")} />
         <AppText style={styles.title}>Fin Tracker</AppText>
       </View>
       <WavyFooter

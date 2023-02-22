@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-import AppText from "./AppText";
+import AppText from "../AppText";
 
-import defaultStyles from "../config/styles";
+import defaultStyles from "../../config/styles";
 
 const Detail = ({ title, subTitle }) => {
   const transform = (string) => {

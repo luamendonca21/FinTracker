@@ -1,9 +1,10 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import AppText from "./AppText";
-import defaultStyles from "../config/styles";
-
 import Constants from "expo-constants";
+
+import AppText from "../AppText";
+
+import defaultStyles from "../../config/styles";
 
 const Notice = ({ text }) => {
   return (
@@ -16,7 +17,7 @@ const Notice = ({ text }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: defaultStyles.colors.danger,
-    height: 50,
+    height: 40,
     width: "95%",
     alignSelf: "center",
     borderRadius: 15,

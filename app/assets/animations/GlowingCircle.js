@@ -8,9 +8,9 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import AppText from "./AppText";
+import AppText from "../../components/AppText";
 
-import defaultStyles from "../config/styles";
+import defaultStyles from "../../config/styles";
 
 const SIZE = 70;
 
@@ -18,7 +18,7 @@ const GLOW_INITIAL_SCALE = 1.9; //Scale of the glow
 const GLOW_MINIMUM_SCALE = 1.4;
 const GLOW_DURATION = 2000;
 
-const GlowingSun = ({ onPress }) => {
+const GlowingSun = ({ ...otherProps }) => {
   const useGlowAnimation = () => {
     return useAnimatedStyle(() => ({
       transform: [
@@ -46,12 +46,12 @@ const GlowingSun = ({ onPress }) => {
     <View style={styles.container}>
       <Animated.View style={[styles.glowContainer, glowAnimation]}>
         <Image
-          source={require("../assets/animations/glow.png")}
+          source={require("../animations/glow.png")}
           style={styles.image}
         />
       </Animated.View>
       <TouchableHighlight
-        onPress={() => console.log("pressed")}
+        {...otherProps}
         style={styles.circleContainer}
         underlayColor={defaultStyles.colors.light}
       >

@@ -7,8 +7,8 @@ import { AppTextInput } from "./Inputs";
 
 import defaultStyles from "../config/styles";
 import { toggleAnimation } from "../assets/animations/toggleAnimation";
-import ErrorMessage from "./ErrorMessage";
-const DropDownItem = ({
+import ErrorMessage from "./Alerts/ErrorMessage";
+const DropDownSelector = ({
   error,
   id,
   handleOnChange,
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
   input: { padding: 2 },
 });
 
-export default DropDownItem;
+export default DropDownSelector;

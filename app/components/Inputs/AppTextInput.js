@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+import { ErrorMessage } from "../Alerts";
+
 import defaultStyles from "../../config/styles";
-import ErrorMessage from "../ErrorMessage";
-import AppText from "../AppText";
 
 const AppTextInput = ({
   error,

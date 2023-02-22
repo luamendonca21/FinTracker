@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { View, StyleSheet, TouchableHighlight } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import AppText from "./AppText";
+import AppText from "../AppText";
 
-import defaultStyles from "../config/styles";
+import defaultStyles from "../../config/styles";
 
 const BoxItem = ({ item, onPress }) => {
   const [pressed, setPressed] = useState(false);

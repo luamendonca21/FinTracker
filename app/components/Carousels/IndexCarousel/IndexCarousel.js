@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
 
-import Index from "../Index";
+import Index from "./Index";
 
-import defaultStyles from "../../config/styles";
+import defaultStyles from "../../../config/styles";
 
 const windowWidth = Dimensions.get("window").width;
 

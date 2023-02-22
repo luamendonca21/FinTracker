@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import Detail from "../Detail";
+import { Detail } from "../Items";
 
 const ListDetails = ({ details }) => {
   return (

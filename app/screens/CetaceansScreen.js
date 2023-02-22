@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  FlatList,
-  Dimensions,
-  LayoutAnimation,
-} from "react-native";
+import { View, StyleSheet, ScrollView, FlatList } from "react-native";
 
 import AppText from "../components/AppText";
 import { Carousel } from "../components/Carousels/ImageCarousel";
 import Screen from "../components/Screen";
-import SearchInput from "../components/Inputs/SearchInput";
+import { SearchInput } from "../components/Inputs";
 import { ListItem, ListItemSeparator } from "../components/Lists";
+
 import defaultStyles from "../config/styles";
-import { toggleAnimation } from "../assets/animations/toggleAnimation";
 
 const CetaceansScreen = ({ navigation }) => {
   const [cetaceans, setCetaceans] = useState([
@@ -291,9 +284,6 @@ const CetaceansScreen = ({ navigation }) => {
     setSearchQuery(query);
   };
 
-  const toggleListItem = () => {
-    LayoutAnimation.configureNext(toggleAnimation);
-  };
   const getCetaceansFiltered = () => {
     return cetaceans.filter(
       (c) =>
@@ -301,7 +291,7 @@ const CetaceansScreen = ({ navigation }) => {
           .toLowerCase()
           .trim()
           .includes(searchQuery.toLowerCase().trim()) ||
-        c.details[0].title
+        c.details[0].value
           .toLowerCase()
           .trim()
           .includes(searchQuery.toLowerCase().trim())
@@ -351,6 +341,7 @@ const CetaceansScreen = ({ navigation }) => {
             getCetaceansFiltered() != "" ? (
               <View style={styles.searchBox}>
                 <FlatList
+                  horizontal={false}
                   nestedScrollEnabled
                   showsVerticalScrollIndicator
                   data={getCetaceansFiltered()}

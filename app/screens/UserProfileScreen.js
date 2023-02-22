@@ -18,7 +18,7 @@ import Icon from "../components/Icon";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "../components/BottomSheet";
 import defaultStyles from "../config/styles";
-import DropDownItem from "../components/DropDownItem";
+import DropDownItem from "../components/DropDownSelector";
 
 const windowHeight = Dimensions.get("window").height;
 

@@ -3,10 +3,9 @@ import { View, StyleSheet, ScrollView, Dimensions, Image } from "react-native";
 
 import AppText from "../components/AppText";
 import { AppButton } from "../components/Buttons";
-import GlowingCircle from "../components/GlowingCircle";
-import Index from "../components/Index";
+import GlowingCircle from "../assets/animations/GlowingCircle";
 import Screen from "../components/Screen";
-import IndexCarousel from "../components/Carousels/IndexCarousel";
+import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
 
 import defaultStyles from "../config/styles";
 
@@ -148,7 +147,7 @@ const HomeScreen = ({ navigation }) => {
             }}
           >
             <AppText style={styles.welcome}>Bem-vinda, Luana!</AppText>
-            <GlowingCircle />
+            <GlowingCircle onPress={() => console.log("Pressed")} />
           </View>
           <AppText style={{ fontSize: 18 }}>Atalhos</AppText>
           <IndexCarousel items={shortcuts}>
