@@ -37,12 +37,13 @@ const RegisterScreen = ({ navigation }) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
   const register = (data) => {
     console.log(data);
-
+    reset();
     navigation.navigate("Login");
   };
 

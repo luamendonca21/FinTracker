@@ -26,12 +26,14 @@ const schema = yup.object({
 const LoginScreen = () => {
   const {
     control,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
   const login = (data) => {
     console.log(data);
+    reset();
     //navigation.navigate("Register");
   };
 
