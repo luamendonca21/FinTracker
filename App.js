@@ -17,7 +17,7 @@ export default function App() {
       />
 
       <NavigationContainer theme={myTheme}>
-        <AppNavigator />
+        <AuthNavigator />
       </NavigationContainer>
     </>
   );

@@ -6,8 +6,11 @@ import {
   ScrollView,
 } from "react-native";
 
-import { WavyHeader } from "../components/Waves";
+import { useForm, Controller } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
+import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
@@ -15,80 +18,34 @@ import { AppButton } from "../components/Buttons";
 
 import defaultStyles from "../config/styles";
 
+const schema = yup.object({
+  username: yup.string().required("Por favor, introduza o nome de utilizador."),
+  email: yup
+    .string()
+    .email("Por favor, introduza um email válido.")
+    .required("Por favor, introduza o email."),
+  password: yup
+    .string()
+    .min(
+      6,
+      "Por favor, introduza uma palavra-passe com no mínimo 6 caracteres."
+    )
+    .required("Por favor, introduza a palavra-passe."),
+});
+
 const RegisterScreen = ({ navigation }) => {
-  const [inputs, setInputs] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
 
-  const [errors, setErrors] = useState({});
-  const validate = () => {
-    let valid = true;
-    if (!inputs.username) {
-      handleError("Por favor, introduza o nome de utilizador", "username");
-      valid = false;
-    } else {
-      handleError("", "username");
-    }
+  const register = (data) => {
+    console.log(data);
 
-    if (!inputs.email) {
-      handleError("Por favor, introduza o email", "email");
-      valid = false;
-    } else if (!/\S+@\S+\.\S+/.test(inputs.email)) {
-      handleError("Por favor, introduza um email válido", "email");
-      valid = false;
-    } else {
-      handleError("", "email");
-    }
-
-    if (!inputs.password) {
-      valid = false;
-      handleError("Por favor, introduza uma password", "password");
-    } else if (inputs.password.length < 6) {
-      handleError(
-        "Por favor, introduza uma password com no mínimo 6 caracteres",
-        "password"
-      );
-      valid = false;
-    } else {
-      handleError("", "password");
-    }
-
-    if (valid) {
-      register();
-    }
-  };
-  const register = () => {
-    console.log(inputs);
-    setInputs({
-      username: null,
-      email: null,
-      password: null,
-    });
     navigation.navigate("Login");
   };
 
-  const handleOnChange = (text, input) => {
-    setInputs((prevState) => ({ ...prevState, [input]: text }));
-    validateInput(text, input);
-  };
-  const validateInput = (text, input) => {
-    let errorMessage = "";
-    if (!text) {
-      errorMessage = "Por favor, preencha este campo";
-    } else if (input === "email" && !/\S+@\S+\.\S+/.test(text)) {
-      errorMessage = "Por favor, introduza um email válido";
-    } else if (input === "password" && text.length < 6) {
-      errorMessage =
-        "Por favor, introduza uma password com no mínimo 6 caracteres";
-    }
-    handleError(errorMessage, input);
-  };
-
-  const handleError = (errorMessage, input) => {
-    setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
-  };
   return (
     <KeyboardAvoidingView>
       <ScrollView>
@@ -102,37 +59,60 @@ const RegisterScreen = ({ navigation }) => {
             <AppText style={styles.text}>{`Olá, 
 Regista-te!`}</AppText>
             <View style={styles.formContainer}>
-              <AppTextInput
-                error={errors.username}
-                onChangeText={(text) => handleOnChange(text, "username")}
-                size={25}
-                value={inputs.username}
-                icon="account-circle"
-                placeholder="Nome de utilizador"
+              <Controller
+                control={control}
+                name="username"
+                render={({ field: { onChange, value } }) => (
+                  <AppTextInput
+                    error={errors.username?.message}
+                    onChangeText={onChange}
+                    size={25}
+                    value={value}
+                    icon="account-circle"
+                    placeholder="Nome de utilizador"
+                  />
+                )}
               />
-              <AppTextInput
-                error={errors.email}
-                autoCorrect={false}
-                value={inputs.email}
-                onChangeText={(text) => handleOnChange(text, "email")}
-                autoCapitalize="none"
-                keyboardType="email-address"
-                size={25}
-                icon="email"
-                placeholder="Email"
+              <Controller
+                control={control}
+                name="email"
+                render={({ field: { onChange, value } }) => (
+                  <AppTextInput
+                    error={errors.email?.message}
+                    onChangeText={onChange}
+                    autoCapitalize="none"
+                    size={25}
+                    autoCorrect={false}
+                    value={value}
+                    keyboardType="email-address"
+                    icon="email"
+                    placeholder="Email"
+                  />
+                )}
               />
-
-              <AppTextInput
-                value={inputs.password}
-                error={errors.password}
-                onChangeText={(text) => handleOnChange(text, "password")}
-                size={25}
-                icon="lock"
-                placeholder="Palavra-passe"
-                secureTextEntry
+              <Controller
+                control={control}
+                name="password"
+                render={({ field: { onChange, value } }) => (
+                  <AppTextInput
+                    error={errors.password?.message}
+                    onChangeText={onChange}
+                    autoCapitalize="none"
+                    size={25}
+                    autoCorrect={false}
+                    value={value}
+                    icon="lock"
+                    placeholder="Palavra-passe"
+                    secureTextEntry
+                  />
+                )}
               />
               <AppButton
-                disabled={errors.username || errors.email || errors.password}
+                disabled={
+                  errors.username || errors.email || errors.password
+                    ? true
+                    : false
+                }
                 style={[
                   styles.button,
                   {
@@ -143,7 +123,7 @@ Regista-te!`}</AppText>
                   },
                 ]}
                 title="Registar"
-                onPress={validate}
+                onPress={handleSubmit(register)}
               />
             </View>
           </View>

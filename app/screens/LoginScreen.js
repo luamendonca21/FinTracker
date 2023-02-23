@@ -6,6 +6,10 @@ import {
   ScrollView,
 } from "react-native";
 
+import { useForm, Controller } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
@@ -14,57 +18,23 @@ import { AppButton, LinkButton } from "../components/Buttons";
 
 import defaultStyles from "../config/styles";
 
-const LoginScreen = (props) => {
-  const [inputs, setInputs] = useState({
-    username: "",
-    password: "",
-  });
+const schema = yup.object({
+  username: yup.string().required("Por favor, introduza o nome de utilizador."),
+  password: yup.string().required("Por favor, introduza a palavra-passe."),
+});
 
-  const [errors, setErrors] = useState({});
-  const validate = () => {
-    let valid = true;
-    if (!inputs.username) {
-      handleError("Por favor, introduza o nome de utilizador", "username");
-      valid = false;
-    } else {
-      handleError("", "username");
-    }
+const LoginScreen = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
 
-    if (!inputs.password) {
-      valid = false;
-      handleError("Por favor, introduza uma password", "password");
-    } else {
-      handleError("", "password");
-    }
-
-    if (valid) {
-      login();
-    }
-  };
-  const login = () => {
-    console.log(inputs);
-    setInputs({
-      username: null,
-      password: null,
-    });
+  const login = (data) => {
+    console.log(data);
     //navigation.navigate("Register");
   };
 
-  const handleOnChange = (text, input) => {
-    setInputs((prevState) => ({ ...prevState, [input]: text }));
-    validateInput(text, input);
-  };
-  const validateInput = (text, input) => {
-    let errorMessage = "";
-    if (!text) {
-      errorMessage = "Por favor, preencha este campo";
-    }
-    handleError(errorMessage, input);
-  };
-
-  const handleError = (errorMessage, input) => {
-    setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
-  };
   return (
     <KeyboardAvoidingView>
       <ScrollView>
@@ -78,31 +48,49 @@ const LoginScreen = (props) => {
             <AppText style={styles.text}>{`Bem-vindo de volta, 
 Inicie Sessão!`}</AppText>
             <View style={styles.formContainer}>
-              <AppTextInput
-                error={errors.username}
-                onChangeText={(text) => handleOnChange(text, "username")}
-                size={25}
-                icon="account-circle"
-                placeholder="Nome de utilizador"
-                value={inputs.username}
+              <Controller
+                name="username"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <AppTextInput
+                    error={errors.username?.message}
+                    onChangeText={onChange}
+                    size={25}
+                    value={value}
+                    icon="account-circle"
+                    placeholder="Nome de utilizador"
+                  />
+                )}
               />
-              <AppTextInput
-                error={errors.password}
-                onChangeText={(text) => handleOnChange(text, "password")}
-                size={25}
-                icon="lock"
-                value={inputs.password}
-                placeholder="Palavra-passe"
-                secureTextEntry
+              <Controller
+                name="password"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <AppTextInput
+                    error={errors.password?.message}
+                    onChangeText={onChange}
+                    size={25}
+                    icon="lock"
+                    value={value}
+                    placeholder="Palavra-passe"
+                    secureTextEntry
+                  />
+                )}
               />
               <LinkButton
                 style={styles.forgotPassword}
                 title="Esqueci-me da palavra-passe"
               />
               <AppButton
-                style={styles.button}
+                disabled={errors.username || errors.password ? true : false}
+                style={[
+                  styles.button,
+                  {
+                    opacity: errors.username || errors.password ? 0.5 : 1,
+                  },
+                ]}
                 title="Iniciar Sessão"
-                onPress={validate}
+                onPress={handleSubmit(login)}
               />
             </View>
           </View>
