@@ -15,15 +15,19 @@ import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
 import { AppButton, LinkButton } from "../components/Buttons";
-
 import defaultStyles from "../config/styles";
+import ApiManager from "../api/ApiManager";
 
 const schema = yup.object({
-  username: yup.string().required("Por favor, introduza o nome de utilizador."),
+  email: yup
+    .string()
+    .email("Por favor, introduza um email válido.")
+    .required("Por favor, introduza o email."),
   password: yup.string().required("Por favor, introduza a palavra-passe."),
 });
 
 const LoginScreen = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     control,
     reset,
@@ -32,6 +36,15 @@ const LoginScreen = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const login = (data) => {
+    setIsLoading(true);
+    ApiManager.post("/auth/login", data)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setIsLoading(false);
     console.log(data);
     reset();
     //navigation.navigate("Register");
@@ -51,16 +64,19 @@ const LoginScreen = () => {
 Inicie Sessão!`}</AppText>
             <View style={styles.formContainer}>
               <Controller
-                name="username"
                 control={control}
+                name="email"
                 render={({ field: { onChange, value } }) => (
                   <AppTextInput
-                    error={errors.username?.message}
+                    error={errors.email?.message}
                     onChangeText={onChange}
+                    autoCapitalize="none"
                     size={25}
+                    autoCorrect={false}
                     value={value}
-                    icon="account-circle"
-                    placeholder="Nome de utilizador"
+                    keyboardType="email-address"
+                    icon="email"
+                    placeholder="Email"
                   />
                 )}
               />

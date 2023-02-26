@@ -5,18 +5,17 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
-
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
+import { ErrorMessage } from "../components/Alerts";
 import { AppButton } from "../components/Buttons";
-
 import defaultStyles from "../config/styles";
+import ApiManager from "../api/ApiManager";
 
 const schema = yup.object({
   username: yup.string().required("Por favor, introduza o nome de utilizador."),
@@ -34,6 +33,8 @@ const schema = yup.object({
 });
 
 const RegisterScreen = ({ navigation }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const {
     control,
     handleSubmit,
@@ -41,10 +42,20 @@ const RegisterScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const register = (data) => {
+  const register = async (data) => {
+    setIsLoading(true);
     console.log(data);
+    ApiManager.post("/auth/register", data)
+      .then((response) => {
+        setError(false);
+        console.log(response);
+        navigation.navigate("Login");
+      })
+      .catch((error) => {
+        setError(error.response.data.msg);
+      });
+    setIsLoading(false);
     reset();
-    navigation.navigate("Login");
   };
 
   return (
@@ -60,6 +71,7 @@ const RegisterScreen = ({ navigation }) => {
             <AppText style={styles.text}>{`Olá, 
 Regista-te!`}</AppText>
             <View style={styles.formContainer}>
+              <ErrorMessage error={error} />
               <Controller
                 control={control}
                 name="username"
