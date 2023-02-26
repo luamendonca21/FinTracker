@@ -16,8 +16,9 @@ import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
 import { AppButton, LinkButton } from "../components/Buttons";
 import defaultStyles from "../config/styles";
-import ApiManager from "../api/ApiManager";
-
+import { ErrorMessage } from "../components/Alerts";
+import loginApi from "../api/login";
+import useAuth from "../auth/useAuth";
 const schema = yup.object({
   email: yup
     .string()
@@ -28,6 +29,8 @@ const schema = yup.object({
 
 const LoginScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const { logIn } = useAuth();
   const {
     control,
     reset,
@@ -37,15 +40,18 @@ const LoginScreen = () => {
 
   const login = (data) => {
     setIsLoading(true);
-    ApiManager.post("/auth/login", data)
+    console.log(data);
+    loginApi
+      .login(data)
       .then((response) => {
-        console.log(response.data);
+        setError(false);
+        console.log(response);
+        logIn(response.token);
       })
       .catch((error) => {
-        console.log(error);
+        setError(error.msg);
       });
     setIsLoading(false);
-    console.log(data);
     reset();
     //navigation.navigate("Register");
   };
@@ -63,6 +69,8 @@ const LoginScreen = () => {
             <AppText style={styles.text}>{`Bem-vindo de volta, 
 Inicie Sessão!`}</AppText>
             <View style={styles.formContainer}>
+              <ErrorMessage error={error} />
+
               <Controller
                 control={control}
                 name="email"

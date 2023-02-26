@@ -35,6 +35,8 @@ const shortcuts = [
   },
 ];
 const HomeScreen = ({ navigation }) => {
+  const { user } = useAuth();
+
   const [closeCetaceans, setCloseCetaceans] = useState([
     {
       id: 1,
@@ -146,7 +148,9 @@ const HomeScreen = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <AppText style={styles.welcome}>Bem-vinda, Luana!</AppText>
+            <AppText style={styles.welcome}>
+              Bem-vinda, {user.username}!
+            </AppText>
             <GlowingCircle onPress={() => console.log("Pressed")} />
           </View>
           <AppText style={{ fontSize: 18 }}>Atalhos</AppText>

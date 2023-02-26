@@ -19,7 +19,7 @@ import Screen from "../components/Screen";
 import Icon from "../components/Icon";
 import BottomSheet from "../components/BottomSheet";
 import DropDownItem from "../components/DropDownSelector";
-
+import useAuth from "../auth/useAuth";
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -30,6 +30,8 @@ function UserProfileScreen({ navigation }) {
     { id: 2, title: "País" },
     { id: 3, title: "Profissão" },
   ];
+  const { user } = useAuth();
+
   const users = [
     {
       name: "Luana",
@@ -206,7 +208,7 @@ function UserProfileScreen({ navigation }) {
           <View style={styles.profileContainer}>
             <ScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.header}>
-                <AppText style={styles.userName}>{users[0].name}</AppText>
+                <AppText style={styles.userName}>{user.username}</AppText>
                 <PointsIndicator points={60} />
               </View>
               <View style={styles.body}>
