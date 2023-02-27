@@ -15,10 +15,13 @@ import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
 import { AppButton, LinkButton } from "../components/Buttons";
-import defaultStyles from "../config/styles";
 import { ErrorMessage } from "../components/Alerts";
+
 import loginApi from "../api/login";
 import useAuth from "../auth/useAuth";
+
+import defaultStyles from "../config/styles";
+
 const schema = yup.object({
   email: yup
     .string()
@@ -30,7 +33,9 @@ const schema = yup.object({
 const LoginScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+
   const { logIn } = useAuth();
+
   const {
     control,
     reset,
@@ -53,7 +58,6 @@ const LoginScreen = () => {
       });
     setIsLoading(false);
     reset();
-    //navigation.navigate("Register");
   };
 
   return (
@@ -93,8 +97,10 @@ Inicie Sessão!`}</AppText>
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <AppTextInput
+                    autoCorrect={false}
                     error={errors.password?.message}
                     onChangeText={onChange}
+                    autoCapitalize="none"
                     size={25}
                     icon="lock"
                     value={value}

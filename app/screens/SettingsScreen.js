@@ -46,6 +46,15 @@ const SettingsScreen = () => {
       },
       target: "About",
     },
+    {
+      id: 5,
+      title: "Terminar sessão",
+      icon: {
+        name: "logout",
+        iconColor: defaultStyles.colors.white,
+        backgroundColor: defaultStyles.colors.primary,
+      },
+    },
   ];
   return <ListSettings menuItems={menuItems} />;
 };

@@ -1,16 +1,23 @@
 import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { ListItem, ListItemSeparator } from "../../components/Lists";
 import Icon from "../../components/Icon";
+import useAuth from "../../auth/useAuth";
 
 import defaultStyles from "../../config/styles";
 
-import { useNavigation } from "@react-navigation/native";
 const ListSettings = ({ menuItems }) => {
+  const { logOut } = useAuth();
   const navigation = useNavigation();
+
   const handlePress = (item) => {
-    navigation.navigate(item.target);
+    if (item.icon.name == "logout") {
+      logOut();
+    } else {
+      navigation.navigate(item.target);
+    }
   };
   const renderItem = ({ item }) => {
     return (

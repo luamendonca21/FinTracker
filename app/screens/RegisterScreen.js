@@ -5,18 +5,21 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
-import axios from "axios";
-import { useForm, Controller, set } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
 import { ErrorMessage } from "../components/Alerts";
 import { AppButton } from "../components/Buttons";
-import defaultStyles from "../config/styles";
+
 import registerApi from "../api/register";
+
+import defaultStyles from "../config/styles";
+
 const schema = yup.object({
   username: yup.string().required("Por favor, introduza o nome de utilizador."),
   email: yup
@@ -35,6 +38,7 @@ const schema = yup.object({
 const RegisterScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+
   const {
     control,
     handleSubmit,

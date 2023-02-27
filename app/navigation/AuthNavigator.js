@@ -15,7 +15,11 @@ const AuthNavigator = () => (
       animation: "slide_from_right",
     }}
   >
-    <Stack.Screen name="Welcome" component={WelcomeScreen} />
+    <Stack.Screen
+      options={{ animation: "none" }}
+      name="Welcome"
+      component={WelcomeScreen}
+    />
     <Stack.Screen name="Register" component={RegisterScreen} />
     <Stack.Screen name="Login" component={LoginScreen} />
   </Stack.Navigator>
