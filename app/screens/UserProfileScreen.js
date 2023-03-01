@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -18,11 +18,11 @@ import { IconButton } from "../components/Buttons";
 import Screen from "../components/Screen";
 import Icon from "../components/Icon";
 import BottomSheet from "../components/BottomSheet";
-import DropDownItem from "../components/DropDownSelector";
+import DropDownSelector from "../components/DropDownSelector";
 import useAuth from "../auth/useAuth";
 import defaultStyles from "../config/styles";
 import Fade from "../components/Fade";
-
+import usersApi from "../api/user";
 const windowHeight = Dimensions.get("window").height;
 
 function UserProfileScreen({ navigation }) {
@@ -32,16 +32,6 @@ function UserProfileScreen({ navigation }) {
     { id: 3, title: "Profissão" },
   ];
   const { user } = useAuth();
-
-  const users = [
-    {
-      name: "Luana",
-      detalhes: {
-        idade: "21",
-        país: "Portugal",
-      },
-    },
-  ];
 
   const favorites = [
     {
@@ -82,87 +72,25 @@ function UserProfileScreen({ navigation }) {
       migration:
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
-    {
-      id: 3,
-      name: "Common Dolphin",
-      details: [
-        {
-          id: 1,
-          title: "Nome Científico",
-          value: "Delphinus delphis",
-        },
-        {
-          id: 2,
-          title: "Idade",
-          value: "1",
-        },
-        {
-          id: 3,
-          title: "Comprimento",
-          value: "3m",
-        },
-        {
-          id: 4,
-          title: "Peso",
-          value: "650kg",
-        },
-        {
-          id: 5,
-          title: "Localização",
-          value: "Camâra de Lobos",
-        },
-      ],
-      imageUrl: require("../assets/dolphins/Common_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
-    {
-      id: 6,
-      name: "Rough toothed Dolphin",
-      details: [
-        {
-          id: 1,
-          title: "Nome Científico",
-          value: "Steno bredanensiss",
-        },
-        {
-          id: 2,
-          title: "Idade",
-          value: "1",
-        },
-        {
-          id: 3,
-          title: "Comprimento",
-          value: "3m",
-        },
-        {
-          id: 4,
-          title: "Peso",
-          value: "650kg",
-        },
-        {
-          id: 5,
-          title: "Localização",
-          value: "Camâra de Lobos",
-        },
-      ],
-      imageUrl: require("../assets/dolphins/Rough_toothed_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
   ];
 
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [inputs, setInputs] = useState([]);
   const [detailsActive, setDetailsActive] = useState([]);
+
+  useEffect(() => {
+    usersApi
+      .updateDetails(user.id, detailsActive)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  }, [detailsActive]);
+  useEffect(() => {
+    usersApi
+      .getDetails(user.id)
+      .then((response) => setDetailsActive(response.details))
+      .catch((error) => console.log(error));
+  }, []);
 
   // --------- PROFILE DETAILS -----------
 
@@ -172,29 +100,35 @@ function UserProfileScreen({ navigation }) {
   };
 
   const isDetailActive = (id) => {
-    return detailsActive.find((item) => item.id === id);
+    return inputs.find((item) => item.id === id);
   };
 
   const handleDetailItemPress = (id, title) => {
+    let newDetail = { id: id, title: title };
     if (!isDetailActive(id)) {
-      setDetailsActive([...detailsActive, { id, title }]);
+      setInputs([...inputs, newDetail]);
     } else {
-      setDetailsActive(detailsActive.filter((elemento) => elemento.id !== id));
+      setInputs(inputs.filter((elemento) => elemento.id !== id));
     }
   };
 
   const handleOnChangeDetail = (text, id) => {
     let object = isDetailActive(id);
-    object.value = text;
-    setDetailsActive([...detailsActive]);
-    console.log(detailsActive);
+    const index = inputs.indexOf(object);
+    const newObject = { ...object, value: text };
+    setInputs([
+      ...inputs.slice(0, index),
+      newObject,
+      ...inputs.slice(index + 1),
+    ]);
   };
 
   const handleCloseBottomSheet = () => {
+    setDetailsActive(inputs);
     setIsAnimating(false);
     setTimeout(() => {
       setBottomSheetActive(false);
-    }, 400);
+    }, 460);
   };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -262,12 +196,12 @@ function UserProfileScreen({ navigation }) {
               title="Editar detalhes"
             >
               {details.map((item, index) => (
-                <DropDownItem
+                <DropDownSelector
                   key={index}
                   handleOnChange={(text) => handleOnChangeDetail(text, item.id)}
                   id={item.id}
                   title={item.title}
-                  itemsActive={detailsActive}
+                  itemsActive={inputs}
                   onPress={() => handleDetailItemPress(item.id, item.title)}
                 />
               ))}

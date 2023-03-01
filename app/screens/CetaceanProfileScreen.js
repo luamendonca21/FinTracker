@@ -65,7 +65,7 @@ const CetaceanProfileScreen = ({ route }) => {
     setIsAnimating(false);
     setTimeout(() => {
       setBottomSheetActive(false);
-    }, 400);
+    }, 460);
   };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
