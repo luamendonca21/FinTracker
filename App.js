@@ -16,11 +16,6 @@ export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
 
-  const restoreUser = async () => {
-    const user = await authStorage.getUser();
-    if (user) setUser(user);
-  };
-
   useEffect(() => {
     async function restoreUser() {
       try {
@@ -53,9 +48,6 @@ export default function App() {
     return null;
   }
 
-  if (!isReady) {
-    return null;
-  }
   return (
     <>
       <StatusBar

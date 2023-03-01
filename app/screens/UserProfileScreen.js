@@ -245,11 +245,9 @@ function UserProfileScreen({ navigation }) {
         </Screen>
         {isBottomSheetActive ? (
           <>
-            <TouchableOpacity
-              style={styles.transparentContainer}
-              onPress={() => setBottomSheetActive(false)}
-            ></TouchableOpacity>
+            <View style={styles.transparentContainer}></View>
             <BottomSheet
+              onPress={() => setBottomSheetActive(false)}
               scroll
               maxValue={-windowHeight / 1.5}
               minValue={-windowHeight / 1.6}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -19,6 +19,7 @@ import Animated, {
 import AppText from "./AppText";
 
 import defaultStyles from "../config/styles";
+import { LinkButton } from "./Buttons";
 
 const windowHeight = Dimensions.get("window").height;
 
@@ -28,6 +29,7 @@ const BottomSheet = ({
   maxValue,
   minValue,
   initialValue,
+  onPress,
   title,
 }) => {
   const translateY = useSharedValue(0);
@@ -45,6 +47,9 @@ const BottomSheet = ({
       translateY.value = withSpring(initialValue, { damping: 15 });
     });
 
+  const handlePressButton = () => {
+    translateY.value = withSpring(0, { damping: 10 });
+  };
   useEffect(() => {
     translateY.value = withSpring(initialValue, { damping: 15 });
   }, []);
@@ -56,6 +61,17 @@ const BottomSheet = ({
       <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
         <View style={styles.line} />
         <AppText style={styles.title}>{title}</AppText>
+        <LinkButton
+          color="black"
+          style={styles.button}
+          onPress={() => {
+            handlePressButton();
+            setTimeout(() => {
+              onPress();
+            }, 250);
+          }}
+          title="Pronto"
+        />
         {scroll ? (
           <View
             style={{
@@ -103,6 +119,9 @@ const styles = StyleSheet.create({
     marginVertical: 2,
     marginBottom: 10,
     borderRadius: 2,
+  },
+  button: {
+    marginVertical: 5,
   },
 });
 

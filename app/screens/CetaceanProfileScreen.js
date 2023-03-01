@@ -107,11 +107,9 @@ const CetaceanProfileScreen = ({ route }) => {
         </View>
         {isBottomSheetActive ? (
           <>
-            <TouchableOpacity
-              style={styles.transparentContainer}
-              onPress={() => setBottomSheetActive(false)}
-            ></TouchableOpacity>
+            <View style={styles.transparentContainer}></View>
             <BottomSheet
+              onPress={() => setBottomSheetActive(false)}
               maxValue={-400}
               minValue={-350}
               initialValue={-400}
