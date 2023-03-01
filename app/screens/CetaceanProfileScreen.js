@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
+import Fade from "../components/Fade";
 import AppText from "../components/AppText";
 import { ListDetails, ListOptions } from "../components/Lists";
 import { IconButton } from "../components/Buttons";
@@ -27,6 +27,8 @@ const CetaceanProfileScreen = ({ route }) => {
   const { item } = route.params;
   const [isFavorite, setIsFavorite] = useState(false);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
   const [notificationsActive, setNotificationsActive] = useState([]);
 
   // ---------- ADD TO FAVORITES -----------
@@ -43,6 +45,7 @@ const CetaceanProfileScreen = ({ route }) => {
 
   const handleNotificationPress = () => {
     setBottomSheetActive(!isBottomSheetActive);
+    setIsAnimating(true);
   };
 
   const selectNotificationIcon = () => {
@@ -58,6 +61,12 @@ const CetaceanProfileScreen = ({ route }) => {
     }
   };
 
+  const handleCloseBottomSheet = () => {
+    setIsAnimating(false);
+    setTimeout(() => {
+      setBottomSheetActive(false);
+    }, 400);
+  };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -105,11 +114,11 @@ const CetaceanProfileScreen = ({ route }) => {
             </View>
           </ScrollView>
         </View>
-        {isBottomSheetActive ? (
+        {isBottomSheetActive && (
           <>
-            <View style={styles.transparentContainer}></View>
+            <Fade isVisible={isAnimating} />
             <BottomSheet
-              onPress={() => setBottomSheetActive(false)}
+              onPress={handleCloseBottomSheet}
               maxValue={-400}
               minValue={-350}
               initialValue={-400}
@@ -122,8 +131,6 @@ const CetaceanProfileScreen = ({ route }) => {
               />
             </BottomSheet>
           </>
-        ) : (
-          ""
         )}
       </View>
     </GestureHandlerRootView>
@@ -131,13 +138,6 @@ const CetaceanProfileScreen = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  transparentContainer: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    flex: 1,
-    backgroundColor: defaultStyles.colors.transparent,
-  },
   container: {
     flex: 1,
     alignContent: "center",

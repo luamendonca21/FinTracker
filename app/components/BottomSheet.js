@@ -66,9 +66,7 @@ const BottomSheet = ({
           style={styles.button}
           onPress={() => {
             handlePressButton();
-            setTimeout(() => {
-              onPress();
-            }, 250);
+            onPress();
           }}
           title="Pronto"
         />

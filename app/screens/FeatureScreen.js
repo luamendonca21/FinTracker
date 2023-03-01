@@ -94,17 +94,15 @@ const FeatureScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Screen>
         <View style={styles.featuresContainer}>
-          {index != 4 ? (
+          {index != 4 && (
             <MaterialIcons
               style={styles.icon}
               name={features[index].icon}
               color={defaultStyles.colors.thirdly}
               size={120}
             />
-          ) : (
-            ""
           )}
-          {index == 4 ? (
+          {index == 4 && (
             <AppText
               style={{
                 fontSize: 50,
@@ -115,8 +113,6 @@ const FeatureScreen = ({ navigation }) => {
             >
               +5 pontos
             </AppText>
-          ) : (
-            ""
           )}
 
           <View

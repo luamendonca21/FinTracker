@@ -21,6 +21,7 @@ import BottomSheet from "../components/BottomSheet";
 import DropDownItem from "../components/DropDownSelector";
 import useAuth from "../auth/useAuth";
 import defaultStyles from "../config/styles";
+import Fade from "../components/Fade";
 
 const windowHeight = Dimensions.get("window").height;
 
@@ -160,12 +161,14 @@ function UserProfileScreen({ navigation }) {
   ];
 
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [detailsActive, setDetailsActive] = useState([]);
 
   // --------- PROFILE DETAILS -----------
 
   const handleEditDetailsPress = () => {
     setBottomSheetActive(!isBottomSheetActive);
+    setIsAnimating(true);
   };
 
   const isDetailActive = (id) => {
@@ -187,6 +190,12 @@ function UserProfileScreen({ navigation }) {
     console.log(detailsActive);
   };
 
+  const handleCloseBottomSheet = () => {
+    setIsAnimating(false);
+    setTimeout(() => {
+      setBottomSheetActive(false);
+    }, 400);
+  };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -222,15 +231,13 @@ function UserProfileScreen({ navigation }) {
                     size={25}
                   />
                 </View>
-                {detailsActive.length !== 0 ? (
+                {detailsActive.length !== 0 && (
                   <ScrollView
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                   >
                     <ListDetails details={detailsActive} />
                   </ScrollView>
-                ) : (
-                  ""
                 )}
                 <ListItemSeparator
                   width="100%"
@@ -243,11 +250,11 @@ function UserProfileScreen({ navigation }) {
             </ScrollView>
           </View>
         </Screen>
-        {isBottomSheetActive ? (
+        {isBottomSheetActive && (
           <>
-            <View style={styles.transparentContainer}></View>
+            <Fade isVisible={isAnimating} />
             <BottomSheet
-              onPress={() => setBottomSheetActive(false)}
+              onPress={handleCloseBottomSheet}
               scroll
               maxValue={-windowHeight / 1.5}
               minValue={-windowHeight / 1.6}
@@ -266,8 +273,6 @@ function UserProfileScreen({ navigation }) {
               ))}
             </BottomSheet>
           </>
-        ) : (
-          ""
         )}
       </View>
     </GestureHandlerRootView>
