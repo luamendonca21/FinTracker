@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, StyleSheet, Animated } from "react-native";
-import defaultStyles from "../config/styles";
+import defaultStyles from "../../config/styles";
 
 const Fade = ({ isVisible }) => {
   const opacityValue = useRef(new Animated.Value(0)).current;

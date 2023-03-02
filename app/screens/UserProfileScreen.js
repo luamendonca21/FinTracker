@@ -21,7 +21,7 @@ import BottomSheet from "../components/BottomSheet";
 import DropDownSelector from "../components/DropDownSelector";
 import useAuth from "../auth/useAuth";
 import defaultStyles from "../config/styles";
-import Fade from "../components/Fade";
+import Fade from "../assets/animations/Fade";
 import usersApi from "../api/user";
 const windowHeight = Dimensions.get("window").height;
 

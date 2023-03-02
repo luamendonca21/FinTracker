@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Fade from "../components/Fade";
+import Fade from "../assets/animations/Fade";
 import AppText from "../components/AppText";
 import { ListDetails, ListOptions } from "../components/Lists";
 import { IconButton } from "../components/Buttons";
