@@ -16,7 +16,7 @@ export default useLocation = () => {
     }
     const currentPosition = await getCurrentPositionAsync();
     setLocation(currentPosition);
-    console.log("Localização atual=>", currentPosition);
+    console.log("Localização atual =>", currentPosition);
   };
   useEffect(() => {
     requestLocationPermissions();

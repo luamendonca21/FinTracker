@@ -5,8 +5,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HomeNavigator from "./HomeNavigator";
 import CetaceansNavigator from "./CetaceansNavigator";
 import ProfileNavigator from "./ProfileNavigator";
-import defaultStyles from "../config/styles";
 import MapNavigator from "./MapNavigator";
+
+import defaultStyles from "../config/styles";
 
 const Tab = createBottomTabNavigator();
 

@@ -38,7 +38,9 @@ const CetaceanProfileScreen = ({ route }) => {
   };
 
   const selectFavoriteIcon = () => {
-    return isFavorite ? ["favorite", "red"] : ["favorite-outline", "black"];
+    return isFavorite
+      ? ["favorite", "red"]
+      : ["favorite-outline", defaultStyles.colors.black];
   };
 
   // --------- ADD NOTIFICATION ---------------
