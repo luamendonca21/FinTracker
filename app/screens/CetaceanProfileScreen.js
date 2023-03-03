@@ -118,6 +118,7 @@ const CetaceanProfileScreen = ({ route }) => {
           <>
             <Fade isVisible={isAnimating} />
             <BottomSheet
+              closeBottomSheet={handleCloseBottomSheet}
               onPress={handleCloseBottomSheet}
               maxValue={-400}
               minValue={-350}

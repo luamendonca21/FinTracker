@@ -77,15 +77,20 @@ function UserProfileScreen({ navigation }) {
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [inputs, setInputs] = useState([]);
+  const [points, setPoints] = useState(0);
   const [detailsActive, setDetailsActive] = useState([]);
 
   useEffect(() => {
     usersApi
       .updateDetails(user.id, detailsActive)
-      .then((response) => console.log(response))
+      .then((response) => console.log(response.msg))
       .catch((error) => console.log(error));
   }, [detailsActive]);
   useEffect(() => {
+    usersApi
+      .getUser(user.id)
+      .then((response) => setPoints(response.points))
+      .catch((error) => console.log(error));
     usersApi
       .getDetails(user.id)
       .then((response) => setDetailsActive(response.details))
@@ -124,6 +129,12 @@ function UserProfileScreen({ navigation }) {
   };
 
   const handleCloseBottomSheet = () => {
+    setIsAnimating(false);
+    setTimeout(() => {
+      setBottomSheetActive(false);
+    }, 460);
+  };
+  const handleApplyChanges = () => {
     setDetailsActive(inputs);
     setIsAnimating(false);
     setTimeout(() => {
@@ -152,7 +163,7 @@ function UserProfileScreen({ navigation }) {
             <ScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.header}>
                 <AppText style={styles.userName}>{user.username}</AppText>
-                <PointsIndicator points={60} />
+                <PointsIndicator points={points} />
               </View>
               <View style={styles.body}>
                 <View style={styles.detailsHeader}>
@@ -188,7 +199,8 @@ function UserProfileScreen({ navigation }) {
           <>
             <Fade isVisible={isAnimating} />
             <BottomSheet
-              onPress={handleCloseBottomSheet}
+              closeBottomSheet={handleCloseBottomSheet}
+              onPress={handleApplyChanges}
               scroll
               maxValue={-windowHeight / 1.5}
               minValue={-windowHeight / 1.6}

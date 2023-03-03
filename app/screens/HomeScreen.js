@@ -148,9 +148,7 @@ const HomeScreen = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <AppText style={styles.welcome}>
-              Bem-vinda, {user.username}!
-            </AppText>
+            <AppText style={styles.welcome}>Olá, {user.username}!</AppText>
             <GlowingCircle onPress={() => console.log("Pressed")} />
           </View>
           <AppText style={{ fontSize: 18 }}>Atalhos</AppText>

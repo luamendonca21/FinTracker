@@ -17,4 +17,13 @@ const getDetails = async (id) => {
   }
 };
 
-export default { updateDetails, getDetails };
+const getUser = async (id) => {
+  try {
+    const response = await ApiManager.get(`/user/${id}`);
+    return response.data.user;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export default { updateDetails, getDetails, getUser };

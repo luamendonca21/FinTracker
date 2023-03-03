@@ -30,6 +30,7 @@ const BottomSheet = ({
   minValue,
   initialValue,
   onPress,
+  closeBottomSheet,
   title,
 }) => {
   const translateY = useSharedValue(0);
@@ -59,17 +60,34 @@ const BottomSheet = ({
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
-        <View style={styles.line} />
-        <AppText style={styles.title}>{title}</AppText>
-        <LinkButton
-          color="black"
-          style={styles.button}
-          onPress={() => {
-            handlePressButton();
-            onPress();
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
           }}
-          title="Pronto"
-        />
+        >
+          <LinkButton
+            color="medium"
+            style={styles.button}
+            onPress={() => {
+              handlePressButton();
+              closeBottomSheet();
+            }}
+            title="Cancelar"
+          />
+          <View style={styles.line} />
+          <LinkButton
+            color="black"
+            style={styles.button}
+            onPress={() => {
+              handlePressButton();
+              onPress();
+            }}
+            title="Aplicar"
+          />
+        </View>
+        <AppText style={styles.title}>{title}</AppText>
+
         {scroll ? (
           <View
             style={{
@@ -105,7 +123,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    marginBottom: 5,
+    marginVertical: 5,
     fontWeight: "bold",
     textAlign: "center",
   },
@@ -113,13 +131,8 @@ const styles = StyleSheet.create({
     width: 75,
     height: 3,
     backgroundColor: defaultStyles.colors.black,
-    alignSelf: "center",
-    marginVertical: 2,
-    marginBottom: 10,
+    alignSelf: "flex-start",
     borderRadius: 2,
-  },
-  button: {
-    marginVertical: 5,
   },
 });
 
