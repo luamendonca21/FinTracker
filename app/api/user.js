@@ -1,4 +1,5 @@
 import ApiManager from "./ApiManager";
+import authStorage from "../auth/storage";
 
 const updateDetails = async (id, data) => {
   try {
@@ -19,7 +20,12 @@ const getDetails = async (id) => {
 
 const getUser = async (id) => {
   try {
-    const response = await ApiManager.get(`/user/${id}`);
+    const token = await authStorage.getToken();
+    const response = await ApiManager.get(`/user/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data.user;
   } catch (error) {
     throw error.response.data;
