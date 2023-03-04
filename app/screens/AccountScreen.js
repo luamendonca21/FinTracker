@@ -14,7 +14,7 @@ const AccountScreen = () => {
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
-      target: "",
+      target: "Password",
     },
     {
       id: 2,

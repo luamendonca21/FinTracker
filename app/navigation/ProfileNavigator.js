@@ -9,6 +9,7 @@ import FeatureScreen from "../screens/FeatureScreen";
 import AccountScreen from "../screens/AccountScreen";
 
 import defaultStyles from "../config/styles";
+import PasswordScreen from "../screens/PasswordScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,15 @@ const ProfileNavigator = () => (
       }}
       name="Account"
       component={AccountScreen}
+    />
+    <Stack.Screen
+      options={{
+        headerShown: true,
+        headerTitle: "Palavra-passe",
+        animation: "slide_from_right",
+      }}
+      name="Password"
+      component={PasswordScreen}
     />
     <Stack.Screen
       options={{ headerShown: true, headerTitle: "Sobre" }}
