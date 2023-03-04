@@ -10,6 +10,7 @@ import AccountScreen from "../screens/AccountScreen";
 
 import defaultStyles from "../config/styles";
 import PasswordScreen from "../screens/PasswordScreen";
+import DeleteAccountScreen from "../screens/DeleteAccountScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +55,15 @@ const ProfileNavigator = () => (
       }}
       name="Password"
       component={PasswordScreen}
+    />
+    <Stack.Screen
+      options={{
+        headerShown: true,
+        headerTitle: "Eliminar conta",
+        animation: "slide_from_right",
+      }}
+      name="DeleteAccount"
+      component={DeleteAccountScreen}
     />
     <Stack.Screen
       options={{ headerShown: true, headerTitle: "Sobre" }}

@@ -17,7 +17,7 @@ import AppText from "../components/AppText";
 import { AppButton, LinkButton } from "../components/Buttons";
 import { ErrorMessage } from "../components/Alerts";
 
-import loginApi from "../api/login";
+import authApi from "../api/auth";
 import useAuth from "../auth/useAuth";
 
 import defaultStyles from "../config/styles";
@@ -46,7 +46,7 @@ const LoginScreen = () => {
   const login = (data) => {
     setIsLoading(true);
     console.log(data);
-    loginApi
+    authApi
       .login(data)
       .then((response) => {
         setError(false);

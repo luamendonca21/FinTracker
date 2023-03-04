@@ -31,5 +31,12 @@ const getUser = async (id) => {
     throw error.response.data;
   }
 };
-
-export default { updateDetails, getDetails, getUser };
+const updatePassword = async (id, data) => {
+  try {
+    const response = await ApiManager.put(`/user/${id}/password`, data);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+export default { updateDetails, getDetails, getUser, updatePassword };

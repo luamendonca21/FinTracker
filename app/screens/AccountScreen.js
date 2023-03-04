@@ -44,7 +44,7 @@ const AccountScreen = () => {
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
-      target: "",
+      target: "DeleteAccount",
     },
   ];
   return <ListSettings menuItems={menuItems} />;

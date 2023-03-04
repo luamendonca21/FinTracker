@@ -16,7 +16,7 @@ import AppText from "../components/AppText";
 import { ErrorMessage } from "../components/Alerts";
 import { AppButton } from "../components/Buttons";
 
-import registerApi from "../api/register";
+import authApi from "../api/auth";
 
 import defaultStyles from "../config/styles";
 
@@ -49,7 +49,7 @@ const RegisterScreen = ({ navigation }) => {
   const register = async (data) => {
     setIsLoading(true);
     console.log(data);
-    registerApi
+    authApi
       .register(data)
       .then((response) => {
         setError(false);
