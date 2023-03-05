@@ -21,11 +21,7 @@ const getDetails = async (id) => {
 const getUser = async (id) => {
   try {
     const token = await authStorage.getToken();
-    const response = await ApiManager.get(`/user/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await ApiManager.get(`/user/${id}`);
     return response.data.user;
   } catch (error) {
     throw error.response.data;
