@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView, Dimensions, Image } from "react-native";
 
 import AppText from "../components/AppText";
@@ -6,7 +6,7 @@ import { AppButton } from "../components/Buttons";
 import GlowingCircle from "../assets/animations/GlowingCircle";
 import Screen from "../components/Screen";
 import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
-
+import usersApi from "../api/user";
 import defaultStyles from "../config/styles";
 
 const windowWidth = Dimensions.get("window").width;
@@ -35,7 +35,16 @@ const shortcuts = [
   },
 ];
 const HomeScreen = ({ navigation }) => {
+  const [username, setUsername] = useState("");
   const { user } = useAuth();
+  useEffect(() => {
+    usersApi
+      .getUser(user.id)
+      .then((response) => {
+        setUsername(response.username);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   const [closeCetaceans, setCloseCetaceans] = useState([
     {
@@ -148,7 +157,7 @@ const HomeScreen = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <AppText style={styles.welcome}>Olá, {user.username}!</AppText>
+            <AppText style={styles.welcome}>Olá, {username}!</AppText>
             <GlowingCircle onPress={() => console.log("Pressed")} />
           </View>
           <AppText style={{ fontSize: 18 }}>Atalhos</AppText>

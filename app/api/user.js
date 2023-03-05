@@ -20,7 +20,6 @@ const getDetails = async (id) => {
 
 const getUser = async (id) => {
   try {
-    const token = await authStorage.getToken();
     const response = await ApiManager.get(`/user/${id}`);
     return response.data.user;
   } catch (error) {
@@ -35,4 +34,18 @@ const updatePassword = async (id, data) => {
     throw error.response.data;
   }
 };
-export default { updateDetails, getDetails, getUser, updatePassword };
+const updateUsername = async (id, data) => {
+  try {
+    const response = await ApiManager.put(`/user/${id}/username`, data);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+export default {
+  updateDetails,
+  getDetails,
+  getUser,
+  updatePassword,
+  updateUsername,
+};

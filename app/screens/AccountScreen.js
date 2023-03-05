@@ -18,13 +18,13 @@ const AccountScreen = () => {
     },
     {
       id: 2,
-      title: "Nome de perfil",
+      title: "Nome de utilizador",
       icon: {
         name: "pencil",
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
-      target: "",
+      target: "Username",
     },
     {
       id: 3,

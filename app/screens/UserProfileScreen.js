@@ -78,6 +78,7 @@ function UserProfileScreen({ navigation }) {
   const [isAnimating, setIsAnimating] = useState(false);
   const [inputs, setInputs] = useState([]);
   const [points, setPoints] = useState(0);
+  const [username, setUsername] = useState("");
   const [detailsActive, setDetailsActive] = useState([]);
 
   useEffect(() => {
@@ -89,7 +90,10 @@ function UserProfileScreen({ navigation }) {
   useEffect(() => {
     usersApi
       .getUser(user.id)
-      .then((response) => setPoints(response.points))
+      .then((response) => {
+        setPoints(response.points);
+        setUsername(response.username);
+      })
       .catch((error) => console.log(error));
     usersApi
       .getDetails(user.id)
@@ -162,7 +166,7 @@ function UserProfileScreen({ navigation }) {
           <View style={styles.profileContainer}>
             <ScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.header}>
-                <AppText style={styles.userName}>{user.username}</AppText>
+                <AppText style={styles.userName}>{username}</AppText>
                 <PointsIndicator points={points} />
               </View>
               <View style={styles.body}>

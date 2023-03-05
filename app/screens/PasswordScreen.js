@@ -148,7 +148,7 @@ const PasswordScreen = ({ navigation }) => {
                       : 1,
                 },
               ]}
-              title="Alterar palavra-passe"
+              title="Alterar"
               onPress={handleSubmit(changePassword)}
             />
           </View>
