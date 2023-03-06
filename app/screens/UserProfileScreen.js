@@ -23,6 +23,7 @@ import useAuth from "../auth/useAuth";
 import defaultStyles from "../config/styles";
 import Fade from "../assets/animations/Fade";
 import usersApi from "../api/user";
+import ProfileImage from "../components/ProfileImage";
 const windowHeight = Dimensions.get("window").height;
 
 function UserProfileScreen({ navigation }) {
@@ -158,10 +159,7 @@ function UserProfileScreen({ navigation }) {
               iconColor={defaultStyles.colors.black}
               backgroundColor={defaultStyles.colors.white}
             />
-            <Image
-              style={styles.image}
-              source={require("../assets/userPicture.jpg")}
-            />
+            <ProfileImage img={require("../assets/userPicture.jpg")} />
           </View>
           <View style={styles.profileContainer}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -249,13 +247,7 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: defaultStyles.colors.primary,
   },
-  image: {
-    width: "50%",
-    height: "50%",
-    resizeMode: "cover",
-    borderRadius: 100,
-    aspectRatio: 1,
-  },
+
   icon: {
     position: "absolute",
     right: 15,
