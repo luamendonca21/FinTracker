@@ -159,7 +159,7 @@ function UserProfileScreen({ navigation }) {
               iconColor={defaultStyles.colors.black}
               backgroundColor={defaultStyles.colors.white}
             />
-            <ProfileImage img={require("../assets/userPicture.jpg")} />
+            <ProfileImage />
           </View>
           <View style={styles.profileContainer}>
             <ScrollView showsVerticalScrollIndicator={false}>

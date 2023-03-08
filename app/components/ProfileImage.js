@@ -5,7 +5,7 @@ import defaultStyles from "../config/styles";
 import useMedia from "../hooks/useMedia";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const ProfileImage = ({ img }) => {
+const ProfileImage = ({}) => {
   const [image, setImage] = useState(null);
   const requestMediaPermissions = useMedia((imageUri) => setImage(imageUri));
   const handlePress = () => {
@@ -19,8 +19,8 @@ const ProfileImage = ({ img }) => {
         <View style={styles.defaultImage}>
           <MaterialIcons
             name="person"
-            size={60}
-            color={defaultStyles.colors.medium}
+            size={70}
+            color={defaultStyles.colors.transparent}
           />
         </View>
       )}
@@ -51,6 +51,8 @@ const styles = StyleSheet.create({
     right: 60,
   },
   image: {
+    borderWidth: 1,
+    borderColor: defaultStyles.colors.white,
     justifyContent: "center",
     alignItems: "center",
     width: "50%",
@@ -68,6 +70,8 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     aspectRatio: 1,
     backgroundColor: defaultStyles.colors.transparent,
+    borderWidth: 1,
+    borderColor: defaultStyles.colors.white,
   },
 });
 

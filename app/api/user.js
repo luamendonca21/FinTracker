@@ -1,5 +1,4 @@
 import ApiManager from "./ApiManager";
-import authStorage from "../auth/storage";
 
 const updateDetails = async (id, data) => {
   try {
