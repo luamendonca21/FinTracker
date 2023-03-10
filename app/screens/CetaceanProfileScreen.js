@@ -28,8 +28,12 @@ const CetaceanProfileScreen = ({ route }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-
+  const [inputs, setInputs] = useState([]);
   const [notificationsActive, setNotificationsActive] = useState([]);
+
+  const isNotificationActive = (id) => {
+    return inputs.find((item) => item.id === id);
+  };
 
   // ---------- ADD TO FAVORITES -----------
 
@@ -53,17 +57,34 @@ const CetaceanProfileScreen = ({ route }) => {
   const selectNotificationIcon = () => {
     return !isBottomSheetActive ? "notifications-none" : "notifications";
   };
-  const handleNotificationOptionPress = (id) => {
-    if (!notificationsActive.includes(id)) {
-      setNotificationsActive([...notificationsActive, id]);
+  const handleNotificationOptionPress = (id, title) => {
+    let newNotification = { id: id, title: title };
+    if (!isNotificationActive(id)) {
+      setInputs([...inputs, newNotification]);
     } else {
-      setNotificationsActive(
-        notificationsActive.filter((elemento) => elemento !== id)
-      );
+      setInputs(inputs.filter((elemento) => elemento.id !== id));
     }
   };
 
+  const handleOnChangeNotification = (text, id) => {
+    let object = isNotificationActive(id);
+    const index = inputs.indexOf(object);
+    const newObject = { ...object, value: text };
+    setInputs([
+      ...inputs.slice(0, index),
+      newObject,
+      ...inputs.slice(index + 1),
+    ]);
+  };
+
   const handleCloseBottomSheet = () => {
+    setIsAnimating(false);
+    setTimeout(() => {
+      setBottomSheetActive(false);
+    }, 440);
+  };
+  const handleApplyChanges = () => {
+    setNotificationsActive(inputs);
     setIsAnimating(false);
     setTimeout(() => {
       setBottomSheetActive(false);
@@ -75,7 +96,6 @@ const CetaceanProfileScreen = ({ route }) => {
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={item.imageUrl} />
         </View>
-
         <View style={styles.profileContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.profileContent}>
@@ -121,7 +141,7 @@ const CetaceanProfileScreen = ({ route }) => {
             <Fade isVisible={isAnimating} />
             <BottomSheet
               closeBottomSheet={handleCloseBottomSheet}
-              onPress={handleCloseBottomSheet}
+              onPress={handleApplyChanges}
               maxValue={-400}
               minValue={-350}
               initialValue={-400}
@@ -129,8 +149,16 @@ const CetaceanProfileScreen = ({ route }) => {
             >
               <ListOptions
                 options={notifications}
-                optionsActive={notificationsActive}
-                onPress={(itemId) => handleNotificationOptionPress(itemId)}
+                optionsActive={inputs}
+                onPress={(itemId, itemTitle) =>
+                  handleNotificationOptionPress(itemId, itemTitle)
+                }
+                handleDropDownPressed={(itemId, itemTitle) =>
+                  handleNotificationOptionPress(itemId, itemTitle)
+                }
+                handleOnChange={(text, id) =>
+                  handleOnChangeNotification(text, id)
+                }
               />
             </BottomSheet>
           </>

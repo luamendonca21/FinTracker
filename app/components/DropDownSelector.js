@@ -25,6 +25,8 @@ const DropDownSelector = ({
   const selectItemIcon = () => {
     return isActive(id)
       ? ["check-circle", defaultStyles.colors.white]
+      : title == "Quando estiver perto de um local personalizado"
+      ? ["check-circle-outline", defaultStyles.colors.black]
       : ["add-circle-outline", defaultStyles.colors.black];
   };
   const toggleListItem = () => {
@@ -67,7 +69,7 @@ const DropDownSelector = ({
           <View style={styles.body}>
             <AppTextInput
               style={styles.input}
-              onChangeText={handleOnChange}
+              onChangeText={(text) => handleOnChange(text)}
               autoCorrect={false}
               autoCapitalize="none"
               keyboardType={title == "Idade" ? "numeric" : "default"}
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-evenly",
-    paddingHorizontal: "2%",
+    paddingHorizontal: 10,
   },
 
   input: { padding: 2 },

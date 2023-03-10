@@ -7,19 +7,16 @@ import AppText from "./AppText";
 import defaultStyles from "../config/styles";
 
 const OptionSelector = ({ id, title, optionsActive, ...otherProps }) => {
+  const isActive = () => {
+    return optionsActive.find((item) => item.id === id);
+  };
   const selectOptionIcon = () => {
-    return optionsActive.includes(id)
+    return isActive(id)
       ? ["check-circle", defaultStyles.colors.white]
       : ["check-circle-outline", defaultStyles.colors.black];
   };
   return (
-    <View
-      style={[
-        optionsActive.includes(id)
-          ? styles.optionActive
-          : styles.optionInactive,
-      ]}
-    >
+    <View style={[isActive(id) ? styles.optionActive : styles.optionInactive]}>
       <IconButton
         name={selectOptionIcon()[0]}
         color={selectOptionIcon()[1]}
