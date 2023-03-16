@@ -6,7 +6,9 @@ import SettingsScreen from "../screens/SettingsScreen";
 import FeatureScreen from "../screens/FeatureScreen";
 import AboutScreen from "../screens/AboutScreen";
 import AccountScreen from "../screens/AccountScreen";
-
+import PasswordScreen from "../screens/PasswordScreen";
+import DeleteAccountScreen from "../screens/DeleteAccountScreen";
+import UsernameScreen from "../screens/UsernameScreen";
 import defaultStyles from "../config/styles";
 
 const Stack = createNativeStackNavigator();
@@ -44,6 +46,33 @@ const HomeNavigator = () => (
       options={{ headerTitle: "Conta" }}
       name="Account"
       component={AccountScreen}
+    />
+    <Stack.Screen
+      options={{
+        headerShown: true,
+        headerTitle: "Palavra-passe",
+        animation: "slide_from_right",
+      }}
+      name="Password"
+      component={PasswordScreen}
+    />
+    <Stack.Screen
+      options={{
+        headerShown: true,
+        headerTitle: "Eliminar conta",
+        animation: "slide_from_right",
+      }}
+      name="DeleteAccount"
+      component={DeleteAccountScreen}
+    />
+    <Stack.Screen
+      options={{
+        headerShown: true,
+        headerTitle: "Nome de utilizador",
+        animation: "slide_from_right",
+      }}
+      name="Username"
+      component={UsernameScreen}
     />
   </Stack.Navigator>
 );

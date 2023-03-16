@@ -24,7 +24,7 @@ const ListOptions = ({
         id={item.id}
         title={item.title}
         optionsActive={optionsActive}
-        onPress={() => onPress(item.id, item.title)}
+        onPress={() => onPress(item.id, item.title, item.category)}
       />
     )
   );
