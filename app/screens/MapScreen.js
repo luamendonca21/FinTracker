@@ -187,6 +187,7 @@ const MapScreen = ({ navigation }) => {
           <>
             <Fade isVisible={isAnimating} />
             <BottomSheet
+              scroll
               closeBottomSheet={handleCloseBottomSheet}
               onPress={handleApplyChanges}
               maxValue={-windowHeight / 1.5}
@@ -198,7 +199,7 @@ const MapScreen = ({ navigation }) => {
                 new Set(filters.map((filter) => filter.category))
               ).map((category) => (
                 <View key={category} style={styles.categoryTitle}>
-                  <AppText>{category}</AppText>
+                  <AppText style={styles.categoryTitle}>{category}</AppText>
                   <ListOptions
                     options={filters.filter(
                       (filter) => filter.category === category

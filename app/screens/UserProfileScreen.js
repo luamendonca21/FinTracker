@@ -24,6 +24,7 @@ import defaultStyles from "../config/styles";
 import Fade from "../assets/animations/Fade";
 import usersApi from "../api/user";
 import ProfileImage from "../components/ProfileImage";
+import ActivityIndicator from "../components/ActivityIndicator";
 const windowHeight = Dimensions.get("window").height;
 
 function UserProfileScreen({ navigation }) {
@@ -76,6 +77,7 @@ function UserProfileScreen({ navigation }) {
   ];
 
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [inputs, setInputs] = useState([]);
   const [points, setPoints] = useState(0);
@@ -83,19 +85,27 @@ function UserProfileScreen({ navigation }) {
   const [detailsActive, setDetailsActive] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     usersApi
       .updateDetails(user.id, detailsActive)
       .then((response) => console.log(response.msg))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [detailsActive]);
   useEffect(() => {
+    setIsLoading(true);
     usersApi
       .getUser(user.id)
       .then((response) => {
         setPoints(response.points);
         setUsername(response.username);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setIsLoading(false);
+      });
     usersApi
       .getDetails(user.id)
       .then((response) => setDetailsActive(response.details))
@@ -147,83 +157,88 @@ function UserProfileScreen({ navigation }) {
     }, 460);
   };
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Screen>
-          <View style={styles.imageContainer}>
-            <Icon
-              onPress={() => navigation.navigate("Settings")}
-              style={styles.icon}
-              icon="cog-outline"
-              size={26}
-              iconColor={defaultStyles.colors.black}
-              backgroundColor={defaultStyles.colors.white}
-            />
-            <ProfileImage />
-          </View>
-          <View style={styles.profileContainer}>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <View style={styles.header}>
-                <AppText style={styles.userName}>{username}</AppText>
-                <PointsIndicator points={points} />
-              </View>
-              <View style={styles.body}>
-                <View style={styles.detailsHeader}>
-                  <AppText style={styles.title}>Detalhes</AppText>
-                  <IconButton
-                    style={styles.iconButton}
-                    onPress={handleEditDetailsPress}
-                    color={defaultStyles.colors.black}
-                    name="edit"
-                    size={25}
-                  />
+    <>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ActivityIndicator visible={isLoading} />
+        <View style={styles.container}>
+          <Screen>
+            <View style={styles.imageContainer}>
+              <Icon
+                onPress={() => navigation.navigate("Settings")}
+                style={styles.icon}
+                icon="cog-outline"
+                size={26}
+                iconColor={defaultStyles.colors.black}
+                backgroundColor={defaultStyles.colors.white}
+              />
+              <ProfileImage />
+            </View>
+            <View style={styles.profileContainer}>
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={styles.header}>
+                  <AppText style={styles.userName}>{username}</AppText>
+                  <PointsIndicator points={points} />
                 </View>
-                {detailsActive.length !== 0 && (
-                  <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                  >
-                    <ListDetails details={detailsActive} />
-                  </ScrollView>
-                )}
-                <ListItemSeparator
-                  width="100%"
-                  style={{ marginVertical: 20 }}
-                />
-                <AppText style={styles.title}>Cetáceos Favoritos</AppText>
-                <Carousel style={{ marginBottom: 15 }} data={favorites} />
-                <AppText style={styles.title}>Visitados</AppText>
-              </View>
-            </ScrollView>
-          </View>
-        </Screen>
-        {isBottomSheetActive && (
-          <>
-            <Fade isVisible={isAnimating} />
-            <BottomSheet
-              closeBottomSheet={handleCloseBottomSheet}
-              onPress={handleApplyChanges}
-              scroll
-              maxValue={-windowHeight / 1.5}
-              minValue={-windowHeight / 1.6}
-              initialValue={-windowHeight / 1.5}
-              title="Editar detalhes"
-            >
-              {details.map((item, index) => (
-                <DropDownSelector
-                  key={index}
-                  handleOnChange={(text) => handleOnChangeDetail(text, item.id)}
-                  id={item.id}
-                  title={item.title}
-                  itemsActive={inputs}
-                  onPress={() => handleDetailItemPress(item.id, item.title)}
-                />
-              ))}
-            </BottomSheet>
-          </>
-        )}
-      </View>
-    </GestureHandlerRootView>
+                <View style={styles.body}>
+                  <View style={styles.detailsHeader}>
+                    <AppText style={styles.title}>Detalhes</AppText>
+                    <IconButton
+                      style={styles.iconButton}
+                      onPress={handleEditDetailsPress}
+                      color={defaultStyles.colors.black}
+                      name="edit"
+                      size={25}
+                    />
+                  </View>
+                  {detailsActive.length !== 0 && (
+                    <ScrollView
+                      horizontal={true}
+                      showsHorizontalScrollIndicator={false}
+                    >
+                      <ListDetails details={detailsActive} />
+                    </ScrollView>
+                  )}
+                  <ListItemSeparator
+                    width="100%"
+                    style={{ marginVertical: 20 }}
+                  />
+                  <AppText style={styles.title}>Cetáceos Favoritos</AppText>
+                  <Carousel style={{ marginBottom: 15 }} data={favorites} />
+                  <AppText style={styles.title}>Visitados</AppText>
+                </View>
+              </ScrollView>
+            </View>
+          </Screen>
+          {isBottomSheetActive && (
+            <>
+              <Fade isVisible={isAnimating} />
+              <BottomSheet
+                closeBottomSheet={handleCloseBottomSheet}
+                onPress={handleApplyChanges}
+                scroll
+                maxValue={-windowHeight / 1.5}
+                minValue={-windowHeight / 1.6}
+                initialValue={-windowHeight / 1.5}
+                title="Editar detalhes"
+              >
+                {details.map((item, index) => (
+                  <DropDownSelector
+                    key={index}
+                    handleOnChange={(text) =>
+                      handleOnChangeDetail(text, item.id)
+                    }
+                    id={item.id}
+                    title={item.title}
+                    itemsActive={inputs}
+                    onPress={() => handleDetailItemPress(item.id, item.title)}
+                  />
+                ))}
+              </BottomSheet>
+            </>
+          )}
+        </View>
+      </GestureHandlerRootView>
+    </>
   );
 }
 

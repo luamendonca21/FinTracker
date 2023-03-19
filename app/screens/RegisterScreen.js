@@ -8,6 +8,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import ActivityIndicator from "../components/ActivityIndicator";
 
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
@@ -58,96 +59,101 @@ const RegisterScreen = ({ navigation }) => {
       })
       .catch((error) => {
         setError(error.msg);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        reset();
       });
-    setIsLoading(false);
-    reset();
   };
 
   return (
-    <KeyboardAvoidingView>
-      <ScrollView>
-        <WavyHeader
-          customHeight={160}
-          color={defaultStyles.colors.primary}
-          customWavePattern="M0,128L48,117.3C96,107,192,85,288,85.3C384,85,480,107,576,149.3C672,192,768,256,864,277.3C960,299,1056,277,1152,245.3C1248,213,1344,171,1392,149.3L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-        />
-        <Screen>
-          <View style={styles.container}>
-            <AppText style={styles.text}>{`Olá, 
+    <>
+      <ActivityIndicator visible={isLoading} />
+      <KeyboardAvoidingView>
+        <ScrollView>
+          <WavyHeader
+            customHeight={160}
+            color={defaultStyles.colors.primary}
+            customWavePattern="M0,128L48,117.3C96,107,192,85,288,85.3C384,85,480,107,576,149.3C672,192,768,256,864,277.3C960,299,1056,277,1152,245.3C1248,213,1344,171,1392,149.3L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+          />
+          <Screen>
+            <View style={styles.container}>
+              <AppText style={styles.text}>{`Olá, 
 Regista-te!`}</AppText>
-            <View style={styles.formContainer}>
-              <ErrorMessage error={error} />
-              <Controller
-                control={control}
-                name="username"
-                render={({ field: { onChange, value } }) => (
-                  <AppTextInput
-                    error={errors.username?.message}
-                    onChangeText={onChange}
-                    size={25}
-                    value={value}
-                    icon="account-circle"
-                    placeholder="Nome de utilizador"
-                  />
-                )}
-              />
-              <Controller
-                control={control}
-                name="email"
-                render={({ field: { onChange, value } }) => (
-                  <AppTextInput
-                    error={errors.email?.message}
-                    onChangeText={onChange}
-                    autoCapitalize="none"
-                    size={25}
-                    autoCorrect={false}
-                    value={value}
-                    keyboardType="email-address"
-                    icon="email"
-                    placeholder="Email"
-                  />
-                )}
-              />
-              <Controller
-                control={control}
-                name="password"
-                render={({ field: { onChange, value } }) => (
-                  <AppTextInput
-                    error={errors.password?.message}
-                    onChangeText={onChange}
-                    autoCapitalize="none"
-                    size={25}
-                    autoCorrect={false}
-                    value={value}
-                    icon="lock"
-                    placeholder="Palavra-passe"
-                    secureTextEntry
-                  />
-                )}
-              />
-              <AppButton
-                disabled={
-                  errors.username || errors.email || errors.password
-                    ? true
-                    : false
-                }
-                style={[
-                  styles.button,
-                  {
-                    opacity:
-                      errors.username || errors.email || errors.password
-                        ? 0.5
-                        : 1,
-                  },
-                ]}
-                title="Registar"
-                onPress={handleSubmit(register)}
-              />
+              <View style={styles.formContainer}>
+                <ErrorMessage error={error} />
+                <Controller
+                  control={control}
+                  name="username"
+                  render={({ field: { onChange, value } }) => (
+                    <AppTextInput
+                      error={errors.username?.message}
+                      onChangeText={onChange}
+                      size={25}
+                      value={value}
+                      icon="account-circle"
+                      placeholder="Nome de utilizador"
+                    />
+                  )}
+                />
+                <Controller
+                  control={control}
+                  name="email"
+                  render={({ field: { onChange, value } }) => (
+                    <AppTextInput
+                      error={errors.email?.message}
+                      onChangeText={onChange}
+                      autoCapitalize="none"
+                      size={25}
+                      autoCorrect={false}
+                      value={value}
+                      keyboardType="email-address"
+                      icon="email"
+                      placeholder="Email"
+                    />
+                  )}
+                />
+                <Controller
+                  control={control}
+                  name="password"
+                  render={({ field: { onChange, value } }) => (
+                    <AppTextInput
+                      error={errors.password?.message}
+                      onChangeText={onChange}
+                      autoCapitalize="none"
+                      size={25}
+                      autoCorrect={false}
+                      value={value}
+                      icon="lock"
+                      placeholder="Palavra-passe"
+                      secureTextEntry
+                    />
+                  )}
+                />
+                <AppButton
+                  disabled={
+                    errors.username || errors.email || errors.password
+                      ? true
+                      : false
+                  }
+                  style={[
+                    styles.button,
+                    {
+                      opacity:
+                        errors.username || errors.email || errors.password
+                          ? 0.5
+                          : 1,
+                    },
+                  ]}
+                  title="Registar"
+                  onPress={handleSubmit(register)}
+                />
+              </View>
             </View>
-          </View>
-        </Screen>
-      </ScrollView>
-    </KeyboardAvoidingView>
+          </Screen>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </>
   );
 };
 
