@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   StyleSheet,
@@ -8,48 +8,48 @@ import {
 
 import AppText from "../components/AppText";
 import { AppButton } from "../components/Buttons";
+import ActivityIndicator from "../components/ActivityIndicator";
 
 import useAuth from "../auth/useAuth";
 import authApi from "../api/auth";
+import useApi from "../hooks/useApi";
 
 import defaultStyles from "../config/styles";
 
-const DeleteAccountScreen = ({ navigation }) => {
-  const [isLoading, setIsLoading] = useState(false);
+const DeleteAccountScreen = ({}) => {
+  const [accountApi, isLoading, error] = useApi(authApi.deleteAccount);
   const { user, logOut } = useAuth();
 
-  const deleteAccount = (data) => {
-    setIsLoading(true);
-    authApi
-      .deleteAccount(user.id)
+  const deleteAccount = () => {
+    accountApi(user.id)
       .then((response) => {
         console.log(response);
         logOut();
       })
-      .catch((error) => {
-        console.log(error);
-      });
-    setIsLoading(false);
+      .catch((error) => console.log(error));
   };
 
   return (
-    <KeyboardAvoidingView>
-      <ScrollView>
-        <View style={styles.container}>
-          <AppText style={styles.text}>
-            Tens a certeza de que queres eliminar esta conta? Irás perder todos
-            os teus dados pessoais.
-          </AppText>
+    <>
+      <ActivityIndicator visible={isLoading} />
+      <KeyboardAvoidingView>
+        <ScrollView>
+          <View style={styles.container}>
+            <AppText style={styles.text}>
+              Tens a certeza de que queres eliminar esta conta? Irás perder
+              todos os teus dados pessoais.
+            </AppText>
 
-          <AppButton
-            color="danger"
-            style={styles.button}
-            title="Eliminar"
-            onPress={deleteAccount}
-          />
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+            <AppButton
+              color="danger"
+              style={styles.button}
+              title="Eliminar"
+              onPress={deleteAccount}
+            />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </>
   );
 };
 

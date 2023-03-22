@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  ScrollView,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -19,12 +12,16 @@ import Screen from "../components/Screen";
 import Icon from "../components/Icon";
 import BottomSheet from "../components/BottomSheet";
 import DropDownSelector from "../components/DropDownSelector";
-import useAuth from "../auth/useAuth";
-import defaultStyles from "../config/styles";
 import Fade from "../assets/animations/Fade";
-import usersApi from "../api/user";
 import ProfileImage from "../components/ProfileImage";
 import ActivityIndicator from "../components/ActivityIndicator";
+
+import useAuth from "../auth/useAuth";
+import usersApi from "../api/user";
+import useApi from "../hooks/useApi";
+
+import defaultStyles from "../config/styles";
+
 const windowHeight = Dimensions.get("window").height;
 
 function UserProfileScreen({ navigation }) {
@@ -77,39 +74,47 @@ function UserProfileScreen({ navigation }) {
   ];
 
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [inputs, setInputs] = useState([]);
   const [points, setPoints] = useState(0);
   const [username, setUsername] = useState("");
   const [detailsActive, setDetailsActive] = useState([]);
 
+  const [updateUserDetailsApi, isLoadingDetailsUpdate, errorUpdateDetails] =
+    useApi(usersApi.updateDetails);
+  const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
+  const [getUserDetailsApi, isLoadingDetails, errorGetDetails] = useApi(
+    usersApi.getDetails
+  );
+
   useEffect(() => {
-    setIsLoading(true);
-    usersApi
-      .updateDetails(user.id, detailsActive)
-      .then((response) => console.log(response.msg))
-      .catch((error) => console.log(error))
-      .finally(() => {
-        setIsLoading(false);
+    updateUserDetailsApi(user.id, detailsActive)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }, [detailsActive]);
+
   useEffect(() => {
-    setIsLoading(true);
-    usersApi
-      .getUser(user.id)
+    getUserApi(user.id)
       .then((response) => {
+        console.log(response);
         setPoints(response.points);
         setUsername(response.username);
       })
-      .catch((error) => console.log(error))
-      .finally(() => {
-        setIsLoading(false);
+      .catch((error) => {
+        console.log(error);
       });
-    usersApi
-      .getDetails(user.id)
-      .then((response) => setDetailsActive(response.details))
-      .catch((error) => console.log(error));
+    getUserDetailsApi(user.id)
+      .then((response) => {
+        console.log(response);
+        setDetailsActive(response.details);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   // --------- PROFILE DETAILS -----------
@@ -159,7 +164,9 @@ function UserProfileScreen({ navigation }) {
   return (
     <>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <ActivityIndicator visible={isLoading} />
+        <ActivityIndicator
+          visible={isLoadingDetails || isLoadingDetailsUpdate || isLoadingUser}
+        />
         <View style={styles.container}>
           <Screen>
             <View style={styles.imageContainer}>

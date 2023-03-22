@@ -8,6 +8,7 @@ import Screen from "../components/Screen";
 import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
 import usersApi from "../api/user";
 import defaultStyles from "../config/styles";
+import ActivityIndicator from "../components/ActivityIndicator";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -36,6 +37,7 @@ const shortcuts = [
 ];
 const HomeScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
   useEffect(() => {
     usersApi
@@ -188,7 +190,9 @@ const HomeScreen = ({ navigation }) => {
                         <Image
                           style={styles.carouselImage}
                           source={item.imageUrl}
+                          onLoadEnd={() => setIsLoading(false)}
                         />
+                        <ActivityIndicator visible={isLoading} />
                       </View>
                       <View style={styles.details}>
                         <View style={styles.distance}>

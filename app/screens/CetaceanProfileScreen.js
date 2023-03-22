@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  ScrollView,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
+
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import Fade from "../assets/animations/Fade";
 import AppText from "../components/AppText";
 import { ListDetails, ListOptions } from "../components/Lists";

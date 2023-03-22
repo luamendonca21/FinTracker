@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
-import AppText from "../components/AppText";
-import MapView, { Callout } from "react-native-maps";
-import Constants from "expo-constants";
+
+import MapView from "react-native-maps";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Constants from "expo-constants";
+
+import AppText from "../components/AppText";
 import Icon from "../components/Icon";
 import MapMarker from "../components/MapMarker";
-import useLocation from "../hooks/useLocation";
-import defaultStyles from "../config/styles";
 import Fade from "../assets/animations/Fade";
 import BottomSheet from "../components/BottomSheet";
 import { ListOptions } from "../components/Lists";
+
+import useLocation from "../hooks/useLocation";
+
+import defaultStyles from "../config/styles";
+
 const windowHeight = Dimensions.get("window").height;
 
 const MapScreen = ({ navigation }) => {
@@ -135,7 +140,7 @@ const MapScreen = ({ navigation }) => {
     }, 460);
   };
   const handleApplyChanges = () => {
-    console.log(inputs);
+    setFiltersActive(inputs);
     setIsAnimating(false);
     setTimeout(() => {
       setBottomSheetActive(false);

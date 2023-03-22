@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   StyleSheet,
@@ -19,6 +19,7 @@ import { ErrorMessage } from "../components/Alerts";
 
 import authApi from "../api/auth";
 import useAuth from "../auth/useAuth";
+import useApi from "../hooks/useApi";
 
 import defaultStyles from "../config/styles";
 import ActivityIndicator from "../components/ActivityIndicator";
@@ -32,10 +33,9 @@ const schema = yup.object({
 });
 
 const LoginScreen = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-
   const { logIn } = useAuth();
+
+  const [loginApi, isLoading, error] = useApi(authApi.login);
 
   const {
     control,
@@ -45,20 +45,16 @@ const LoginScreen = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const login = (data) => {
-    setIsLoading(true);
     console.log(data);
-    authApi
-      .login(data)
+    loginApi(data)
       .then((response) => {
-        setError(false);
         console.log(response);
         logIn(response.token);
       })
       .catch((error) => {
-        setError(error.msg);
+        console.log(error);
       })
       .finally(() => {
-        setIsLoading(false);
         reset();
       });
   };

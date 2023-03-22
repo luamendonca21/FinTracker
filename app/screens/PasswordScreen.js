@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   StyleSheet,
@@ -10,12 +10,13 @@ import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
 import { AppButton } from "../components/Buttons";
 import { ErrorMessage } from "../components/Alerts";
+import ActivityIndicator from "../components/ActivityIndicator";
 
+import useApi from "../hooks/useApi";
 import useAuth from "../auth/useAuth";
 import usersApi from "../api/user";
 
@@ -40,9 +41,8 @@ const schema = yup.object({
     )
     .required("Por favor, introduza a palavra-passe."),
 });
-const PasswordScreen = ({ navigation }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+const PasswordScreen = ({}) => {
+  const [updateUserPassApi, isLoading, error] = useApi(usersApi.updatePassword);
   const { user, logOut } = useAuth();
 
   const {
@@ -53,108 +53,108 @@ const PasswordScreen = ({ navigation }) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const changePassword = (data) => {
-    setIsLoading(true);
-    console.log(data);
-    usersApi
-      .updatePassword(user.id, data)
+    updateUserPassApi(user.id, data)
       .then((response) => {
-        setError(false);
         console.log(response);
         logOut();
       })
       .catch((error) => {
-        setError(error.msg);
+        console.log(error);
+      })
+      .finally(() => {
+        reset();
       });
-    setIsLoading(false);
-    reset();
   };
 
   return (
-    <KeyboardAvoidingView>
-      <ScrollView>
-        <View style={styles.container}>
-          <AppText style={styles.text}>
-            Define uma nova palavra-passe para a sua conta, para poderes iniciar
-            sessão e aceder a todas as funcionalidades.
-          </AppText>
-          <View style={styles.formContainer}>
-            <ErrorMessage error={error} />
+    <>
+      <ActivityIndicator visible={isLoading} />
+      <KeyboardAvoidingView>
+        <ScrollView>
+          <View style={styles.container}>
+            <AppText style={styles.text}>
+              Define uma nova palavra-passe para a sua conta, para poderes
+              iniciar sessão e aceder a todas as funcionalidades.
+            </AppText>
+            <View style={styles.formContainer}>
+              <ErrorMessage error={error} />
 
-            <Controller
-              control={control}
-              name="currentPassword"
-              render={({ field: { onChange, value } }) => (
-                <AppTextInput
-                  autoCorrect={false}
-                  error={errors.currentPassword?.message}
-                  onChangeText={onChange}
-                  autoCapitalize="none"
-                  size={25}
-                  value={value}
-                  placeholder="Palavra-passe atual"
-                  secureTextEntry
-                />
-              )}
-            />
-            <Controller
-              name="newPassword"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <AppTextInput
-                  autoCorrect={false}
-                  error={errors.newPassword?.message}
-                  onChangeText={onChange}
-                  autoCapitalize="none"
-                  size={25}
-                  value={value}
-                  placeholder="Nova palavra-passe"
-                  secureTextEntry
-                />
-              )}
-            />
-            <Controller
-              name="newPasswordConfirmation"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <AppTextInput
-                  autoCorrect={false}
-                  error={errors.newPasswordConfirmation?.message}
-                  onChangeText={onChange}
-                  autoCapitalize="none"
-                  size={25}
-                  value={value}
-                  placeholder="Confirmar palavra-passe"
-                  secureTextEntry
-                />
-              )}
-            />
-            <AppButton
-              color="secondary"
-              disabled={
-                errors.currentPassword ||
-                errors.currentPasswordConfirmation ||
-                errors.newPassword
-                  ? true
-                  : false
-              }
-              style={[
-                styles.button,
-                {
-                  opacity:
-                    errors.currentPassword ||
-                    errors.currentPasswordConfirmation ||
-                    errors.newPassword
-                      ? 0.5
-                      : 1,
-                },
-              ]}
-              title="Alterar"
-              onPress={handleSubmit(changePassword)}
-            />
+              <Controller
+                control={control}
+                name="currentPassword"
+                render={({ field: { onChange, value } }) => (
+                  <AppTextInput
+                    autoCorrect={false}
+                    error={errors.currentPassword?.message}
+                    onChangeText={onChange}
+                    autoCapitalize="none"
+                    size={25}
+                    value={value}
+                    placeholder="Palavra-passe atual"
+                    secureTextEntry
+                  />
+                )}
+              />
+              <Controller
+                name="newPassword"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <AppTextInput
+                    autoCorrect={false}
+                    error={errors.newPassword?.message}
+                    onChangeText={onChange}
+                    autoCapitalize="none"
+                    size={25}
+                    value={value}
+                    placeholder="Nova palavra-passe"
+                    secureTextEntry
+                  />
+                )}
+              />
+              <Controller
+                name="newPasswordConfirmation"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <AppTextInput
+                    autoCorrect={false}
+                    error={errors.newPasswordConfirmation?.message}
+                    onChangeText={onChange}
+                    autoCapitalize="none"
+                    size={25}
+                    value={value}
+                    placeholder="Confirmar palavra-passe"
+                    secureTextEntry
+                  />
+                )}
+              />
+              <AppButton
+                color="secondary"
+                disabled={
+                  errors.currentPassword ||
+                  errors.currentPasswordConfirmation ||
+                  errors.newPassword
+                    ? true
+                    : false
+                }
+                style={[
+                  styles.button,
+                  {
+                    opacity:
+                      errors.currentPassword ||
+                      errors.currentPasswordConfirmation ||
+                      errors.newPassword
+                        ? 0.5
+                        : 1,
+                  },
+                ]}
+                title="Alterar"
+                onPress={handleSubmit(changePassword)}
+              />
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   StyleSheet,
@@ -8,7 +8,6 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ActivityIndicator from "../components/ActivityIndicator";
 
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
@@ -16,8 +15,10 @@ import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
 import { ErrorMessage } from "../components/Alerts";
 import { AppButton } from "../components/Buttons";
+import ActivityIndicator from "../components/ActivityIndicator";
 
 import authApi from "../api/auth";
+import useApi from "../hooks/useApi";
 
 import defaultStyles from "../config/styles";
 
@@ -37,9 +38,6 @@ const schema = yup.object({
 });
 
 const RegisterScreen = ({ navigation }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-
   const {
     control,
     handleSubmit,
@@ -47,21 +45,19 @@ const RegisterScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  const [registerApi, isLoading, error] = useApi(authApi.register);
+
   const register = async (data) => {
-    setIsLoading(true);
     console.log(data);
-    authApi
-      .register(data)
+    registerApi(data)
       .then((response) => {
-        setError(false);
         console.log(response);
         navigation.navigate("Login");
       })
       .catch((error) => {
-        setError(error.msg);
+        console.log(error);
       })
       .finally(() => {
-        setIsLoading(false);
         reset();
       });
   };
