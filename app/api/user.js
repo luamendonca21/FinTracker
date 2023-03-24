@@ -41,10 +41,19 @@ const updateUsername = async (id, data) => {
     throw error.response.data;
   }
 };
+const forgotPassword = async (data) => {
+  try {
+    const response = await ApiManager.post(`/user/forgotPassword`, data);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 export default {
   updateDetails,
   getDetails,
   getUser,
   updatePassword,
   updateUsername,
+  forgotPassword,
 };

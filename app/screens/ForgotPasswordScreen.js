@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
-
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,45 +13,36 @@ import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
-import { AppButton, LinkButton } from "../components/Buttons";
 import { ErrorMessage } from "../components/Alerts";
-import useApi from "../hooks/useApi";
-import authApi from "../api/auth";
+import { AppButton } from "../components/Buttons";
+import ActivityIndicator from "../components/ActivityIndicator";
 import usersApi from "../api/user";
-import useAuth from "../auth/useAuth";
+import useApi from "../hooks/useApi";
 
 import defaultStyles from "../config/styles";
-import ActivityIndicator from "../components/ActivityIndicator";
 
 const schema = yup.object({
   email: yup
     .string()
     .email("Por favor, introduza um email válido.")
     .required("Por favor, introduza o email."),
-  password: yup.string().required("Por favor, introduza a palavra-passe."),
 });
 
-const LoginScreen = ({ navigation }) => {
-  const { logIn } = useAuth();
-
-  const [loginApi, isLoading, error] = useApi(authApi.login);
-
-  const handleForgotPassword = () => {
-    navigation.navigate("ForgotPassword");
-  };
+const ForgotPasswordScreen = ({}) => {
   const {
     control,
-    reset,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const login = (data) => {
+  const [forgetPasswordApi, isLoading, error] = useApi(usersApi.forgotPassword);
+
+  const send = async (data) => {
     console.log(data);
-    loginApi(data)
+    forgetPasswordApi(data)
       .then((response) => {
         console.log(response);
-        logIn(response.token);
       })
       .catch((error) => {
         console.log(error);
@@ -74,11 +64,17 @@ const LoginScreen = ({ navigation }) => {
           />
           <Screen>
             <View style={styles.container}>
-              <AppText style={styles.text}>{`Bem-vindo de volta, 
-Inicie Sessão!`}</AppText>
+              <AppText
+                style={styles.text}
+              >{`Alteração de palavra-passe`}</AppText>
+              <AppText
+                style={[styles.text, { fontSize: 16, fontWeight: "500" }]}
+              >
+                Introduza o email associado à sua conta e enviaremos um email
+                com as instruções necessárias para alterar a sua palavra-passe.
+              </AppText>
               <View style={styles.formContainer}>
                 <ErrorMessage error={error} />
-
                 <Controller
                   control={control}
                   name="email"
@@ -96,38 +92,17 @@ Inicie Sessão!`}</AppText>
                     />
                   )}
                 />
-                <Controller
-                  name="password"
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <AppTextInput
-                      autoCorrect={false}
-                      error={errors.password?.message}
-                      onChangeText={onChange}
-                      autoCapitalize="none"
-                      size={25}
-                      icon="lock"
-                      value={value}
-                      placeholder="Palavra-passe"
-                      secureTextEntry
-                    />
-                  )}
-                />
-                <LinkButton
-                  style={styles.forgotPassword}
-                  title="Esqueci-me da palavra-passe"
-                  onPress={handleForgotPassword}
-                />
+
                 <AppButton
-                  disabled={errors.username || errors.password ? true : false}
+                  disabled={errors.email ? true : false}
                   style={[
                     styles.button,
                     {
-                      opacity: errors.username || errors.password ? 0.5 : 1,
+                      opacity: errors.email ? 0.5 : 1,
                     },
                   ]}
-                  title="Iniciar Sessão"
-                  onPress={handleSubmit(login)}
+                  title="Enviar"
+                  onPress={handleSubmit(send)}
                 />
               </View>
             </View>
@@ -142,7 +117,9 @@ const styles = StyleSheet.create({
   text: { fontSize: 26, fontWeight: "700", color: defaultStyles.colors.white },
   container: { padding: 15, flex: 1 },
   formContainer: { marginTop: 180 },
-  forgotPassword: { alignSelf: "flex-end", fontSize: 15 },
+  forgotPassword: {
+    textAlign: "right",
+  },
   button: {
     width: "100%",
 
@@ -150,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default ForgotPasswordScreen;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, FlatList } from "react-native";
 
 import AppText from "../components/AppText";
@@ -6,10 +6,11 @@ import { Carousel } from "../components/Carousels/ImageCarousel";
 import Screen from "../components/Screen";
 import { SearchInput } from "../components/Inputs";
 import { ListItem, ListItemSeparator } from "../components/Lists";
-
 import defaultStyles from "../config/styles";
+import movebank from "../api/movebank";
 
 const CetaceansScreen = ({ navigation }) => {
+  const [individuals, setIndividuals] = useState([]);
   const [cetaceans, setCetaceans] = useState([
     {
       id: 1,
@@ -277,7 +278,17 @@ const CetaceansScreen = ({ navigation }) => {
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
   ]);
-
+  /* const print = () => {
+    console.log(individuals);
+  };
+  useEffect(() => {
+    const fetchIndividuals = async () => {
+      const individuals = await movebank.getIndividualsByStudy(886013997);
+      setIndividuals(individuals);
+    };
+    fetchIndividuals();
+    print();
+  }, []); */
   // ----------- SEARCH FOR CETACEANS -------------
 
   const [searchQuery, setSearchQuery] = useState("");
