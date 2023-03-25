@@ -11,4 +11,5 @@ export default {
   gray: "#acacac",
   transparent: "rgba(33, 33, 33, 0.1)",
   yellow: "#fee306",
+  success: "#4BB543",
 };

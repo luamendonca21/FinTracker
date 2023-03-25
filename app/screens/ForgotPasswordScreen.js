@@ -36,7 +36,9 @@ const ForgotPasswordScreen = ({}) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const [forgetPasswordApi, isLoading, error] = useApi(usersApi.forgotPassword);
+  const [forgetPasswordApi, isLoading, error, msg] = useApi(
+    usersApi.forgotPassword
+  );
 
   const send = async (data) => {
     console.log(data);
@@ -66,7 +68,7 @@ const ForgotPasswordScreen = ({}) => {
             <View style={styles.container}>
               <AppText
                 style={styles.text}
-              >{`Alteração de palavra-passe`}</AppText>
+              >{`Recuperação de palavra-passe`}</AppText>
               <AppText
                 style={[styles.text, { fontSize: 16, fontWeight: "500" }]}
               >
@@ -74,7 +76,7 @@ const ForgotPasswordScreen = ({}) => {
                 com as instruções necessárias para alterar a sua palavra-passe.
               </AppText>
               <View style={styles.formContainer}>
-                <ErrorMessage error={error} />
+                <ErrorMessage error={error} msg={msg} />
                 <Controller
                   control={control}
                   name="email"
@@ -114,7 +116,7 @@ const ForgotPasswordScreen = ({}) => {
 };
 
 const styles = StyleSheet.create({
-  text: { fontSize: 26, fontWeight: "700", color: defaultStyles.colors.white },
+  text: { fontSize: 24, fontWeight: "700", color: defaultStyles.colors.white },
   container: { padding: 15, flex: 1 },
   formContainer: { marginTop: 180 },
   forgotPassword: {
