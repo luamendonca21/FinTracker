@@ -8,13 +8,13 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import isEmail from "validator/lib/isEmail";
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
 import { ErrorMessage } from "../components/Alerts";
-import { AppButton } from "../components/Buttons";
+import { AppButton, LinkButton } from "../components/Buttons";
 import ActivityIndicator from "../components/ActivityIndicator";
 
 import authApi from "../api/auth";
@@ -26,8 +26,13 @@ const schema = yup.object({
   username: yup.string().required("Por favor, introduza o nome de utilizador."),
   email: yup
     .string()
-    .email("Por favor, introduza um email válido.")
-    .required("Por favor, introduza o email."),
+    .required("Por favor, introduza o email.")
+    .test(
+      "is-valid",
+      (message) => `Por favor, introduza um ${message.path} válido. `,
+      (value) =>
+        value ? isEmail(value) : new yup.ValidationError("Invalid value")
+    ),
   password: yup
     .string()
     .min(
@@ -45,6 +50,9 @@ const RegisterScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  const handleLoginPress = () => {
+    navigation.navigate("Login");
+  };
   const [registerApi, isLoading, error] = useApi(authApi.register);
 
   const register = async (data) => {
@@ -144,6 +152,16 @@ Regista-te!`}</AppText>
                   title="Registar"
                   onPress={handleSubmit(register)}
                 />
+                <View style={styles.login}>
+                  <AppText style={{ paddingHorizontal: 2 }}>
+                    Já tem uma conta criada?
+                  </AppText>
+                  <LinkButton
+                    onPress={handleLoginPress}
+                    style={{ paddingHorizontal: 2 }}
+                    title="Iniciar Sessão"
+                  />
+                </View>
               </View>
             </View>
           </Screen>
@@ -164,6 +182,13 @@ const styles = StyleSheet.create({
     width: "100%",
 
     marginTop: 30,
+  },
+  login: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 5,
+    justifyContent: "center",
+    flexDirection: "row",
   },
 });
 

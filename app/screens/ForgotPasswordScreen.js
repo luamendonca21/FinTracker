@@ -14,7 +14,7 @@ import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
 import { ErrorMessage } from "../components/Alerts";
-import { AppButton } from "../components/Buttons";
+import { AppButton, LinkButton } from "../components/Buttons";
 import ActivityIndicator from "../components/ActivityIndicator";
 import usersApi from "../api/user";
 import useApi from "../hooks/useApi";
@@ -28,7 +28,7 @@ const schema = yup.object({
     .required("Por favor, introduza o email."),
 });
 
-const ForgotPasswordScreen = ({}) => {
+const ForgotPasswordScreen = ({ navigation }) => {
   const {
     control,
     handleSubmit,
@@ -36,6 +36,9 @@ const ForgotPasswordScreen = ({}) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  const handleLoginPress = () => {
+    navigation.navigate("Login");
+  };
   const [forgetPasswordApi, isLoading, error, msg] = useApi(
     usersApi.forgotPassword
   );
@@ -106,6 +109,11 @@ const ForgotPasswordScreen = ({}) => {
                   title="Enviar"
                   onPress={handleSubmit(send)}
                 />
+                <LinkButton
+                  title="Iniciar Sessão"
+                  onPress={handleLoginPress}
+                  style={styles.login}
+                />
               </View>
             </View>
           </Screen>
@@ -126,6 +134,9 @@ const styles = StyleSheet.create({
     width: "100%",
 
     marginTop: 30,
+  },
+  login: {
+    marginTop: 5,
   },
 });
 

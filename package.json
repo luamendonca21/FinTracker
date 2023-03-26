@@ -40,6 +40,7 @@
     "react-native-screens": "~3.15.0",
     "react-native-svg": "12.3.0",
     "ua-parser-js": "0.7.33",
+    "validator": "^13.9.0",
     "yup": "^1.0.0"
   },
   "devDependencies": {

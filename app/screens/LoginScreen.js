@@ -18,8 +18,8 @@ import { AppButton, LinkButton } from "../components/Buttons";
 import { ErrorMessage } from "../components/Alerts";
 import useApi from "../hooks/useApi";
 import authApi from "../api/auth";
-import usersApi from "../api/user";
 import useAuth from "../auth/useAuth";
+import isEmail from "validator/lib/isEmail";
 
 import defaultStyles from "../config/styles";
 import ActivityIndicator from "../components/ActivityIndicator";
@@ -27,7 +27,12 @@ import ActivityIndicator from "../components/ActivityIndicator";
 const schema = yup.object({
   email: yup
     .string()
-    .email("Por favor, introduza um email válido.")
+    .test(
+      "is-valid",
+      (message) => `Por favor, introduza um ${message.path} válido. `,
+      (value) =>
+        value ? isEmail(value) : new yup.ValidationError("Invalid value")
+    )
     .required("Por favor, introduza o email."),
   password: yup.string().required("Por favor, introduza a palavra-passe."),
 });
@@ -47,6 +52,9 @@ const LoginScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  const handleRegisterPress = () => {
+    navigation.navigate("Register");
+  };
   const login = (data) => {
     console.log(data);
     loginApi(data)
@@ -78,7 +86,6 @@ const LoginScreen = ({ navigation }) => {
 Inicie Sessão!`}</AppText>
               <View style={styles.formContainer}>
                 <ErrorMessage error={error} />
-
                 <Controller
                   control={control}
                   name="email"
@@ -129,6 +136,16 @@ Inicie Sessão!`}</AppText>
                   title="Iniciar Sessão"
                   onPress={handleSubmit(login)}
                 />
+                <View style={styles.register}>
+                  <AppText style={{ paddingHorizontal: 2 }}>
+                    Ainda não tem uma conta criada?
+                  </AppText>
+                  <LinkButton
+                    onPress={handleRegisterPress}
+                    style={{ paddingHorizontal: 2 }}
+                    title="Registar"
+                  />
+                </View>
               </View>
             </View>
           </Screen>
@@ -147,6 +164,13 @@ const styles = StyleSheet.create({
     width: "100%",
 
     marginTop: 30,
+  },
+  register: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 5,
+    justifyContent: "center",
+    flexDirection: "row",
   },
 });
 
