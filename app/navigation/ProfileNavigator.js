@@ -1,5 +1,9 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from "@react-navigation/stack";
 
 import CetaceanProfileScreen from "../screens/CetaceanProfileScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
@@ -12,15 +16,15 @@ import defaultStyles from "../config/styles";
 import PasswordScreen from "../screens/PasswordScreen";
 import DeleteAccountScreen from "../screens/DeleteAccountScreen";
 import UsernameScreen from "../screens/UsernameScreen";
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const ProfileNavigator = () => (
   <Stack.Navigator
     initialRouteName="ProfileScreen"
     screenOptions={{
-      animation: "slide_from_right",
       headerStyle: { backgroundColor: defaultStyles.colors.white },
       headerTintColor: defaultStyles.colors.black,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     }}
   >
     <Stack.Screen
@@ -42,7 +46,6 @@ const ProfileNavigator = () => (
       options={{
         headerShown: true,
         headerTitle: "Conta",
-        animation: "slide_from_right",
       }}
       name="Account"
       component={AccountScreen}
@@ -51,7 +54,6 @@ const ProfileNavigator = () => (
       options={{
         headerShown: true,
         headerTitle: "Palavra-passe",
-        animation: "slide_from_right",
       }}
       name="Password"
       component={PasswordScreen}
@@ -60,7 +62,6 @@ const ProfileNavigator = () => (
       options={{
         headerShown: true,
         headerTitle: "Eliminar conta",
-        animation: "slide_from_right",
       }}
       name="DeleteAccount"
       component={DeleteAccountScreen}
@@ -69,7 +70,6 @@ const ProfileNavigator = () => (
       options={{
         headerShown: true,
         headerTitle: "Nome de utilizador",
-        animation: "slide_from_right",
       }}
       name="Username"
       component={UsernameScreen}

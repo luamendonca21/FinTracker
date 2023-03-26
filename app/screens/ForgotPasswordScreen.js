@@ -113,6 +113,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
                   title="Iniciar Sessão"
                   onPress={handleLoginPress}
                   style={styles.login}
+                  color="secondary"
                 />
               </View>
             </View>

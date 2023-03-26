@@ -160,6 +160,7 @@ Regista-te!`}</AppText>
                     onPress={handleLoginPress}
                     style={{ paddingHorizontal: 2 }}
                     title="Iniciar Sessão"
+                    color="secondary"
                   />
                 </View>
               </View>

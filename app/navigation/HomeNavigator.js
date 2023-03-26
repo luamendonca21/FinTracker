@@ -1,5 +1,8 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from "@react-navigation/stack";
 
 import HomeScreen from "../screens/HomeScreen";
 import SettingsScreen from "../screens/SettingsScreen";
@@ -11,7 +14,7 @@ import DeleteAccountScreen from "../screens/DeleteAccountScreen";
 import UsernameScreen from "../screens/UsernameScreen";
 import defaultStyles from "../config/styles";
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const HomeNavigator = () => (
   <Stack.Navigator
@@ -19,7 +22,7 @@ const HomeNavigator = () => (
     screenOptions={{
       headerStyle: { backgroundColor: defaultStyles.colors.white },
       headerTintColor: defaultStyles.colors.black,
-      animation: "slide_from_right",
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     }}
   >
     <Stack.Screen
@@ -51,7 +54,6 @@ const HomeNavigator = () => (
       options={{
         headerShown: true,
         headerTitle: "Palavra-passe",
-        animation: "slide_from_right",
       }}
       name="Password"
       component={PasswordScreen}
@@ -60,7 +62,6 @@ const HomeNavigator = () => (
       options={{
         headerShown: true,
         headerTitle: "Eliminar conta",
-        animation: "slide_from_right",
       }}
       name="DeleteAccount"
       component={DeleteAccountScreen}
@@ -69,7 +70,6 @@ const HomeNavigator = () => (
       options={{
         headerShown: true,
         headerTitle: "Nome de utilizador",
-        animation: "slide_from_right",
       }}
       name="Username"
       component={UsernameScreen}

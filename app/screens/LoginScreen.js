@@ -124,6 +124,7 @@ Inicie Sessão!`}</AppText>
                   style={styles.forgotPassword}
                   title="Esqueci-me da palavra-passe"
                   onPress={handleForgotPassword}
+                  color="secondary"
                 />
                 <AppButton
                   disabled={errors.username || errors.password ? true : false}
@@ -144,6 +145,7 @@ Inicie Sessão!`}</AppText>
                     onPress={handleRegisterPress}
                     style={{ paddingHorizontal: 2 }}
                     title="Registar"
+                    color="secondary"
                   />
                 </View>
               </View>

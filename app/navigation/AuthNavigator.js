@@ -1,22 +1,27 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from "@react-navigation/stack";
 
 import WelcomeScreen from "../screens/WelcomeScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import LoginScreen from "../screens/LoginScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
   <Stack.Navigator
     initialRouteName="Welcome"
     screenOptions={{
       headerShown: false,
-      animation: "slide_from_right",
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     }}
   >
     <Stack.Screen
-      options={{ animation: "none" }}
+      options={{
+        cardStyleInterpolator: CardStyleInterpolators.for,
+      }}
       name="Welcome"
       component={WelcomeScreen}
     />

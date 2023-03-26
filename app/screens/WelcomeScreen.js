@@ -53,6 +53,7 @@ const WelcomeScreen = ({ navigation }) => {
               onPress={handleLogin}
               style={{ paddingHorizontal: 2 }}
               title="Iniciar Sessão"
+              color="secondary"
             />
           </View>
         </View>
