@@ -16,8 +16,10 @@ import AppText from "../components/AppText";
 import { ErrorMessage } from "../components/Alerts";
 import { AppButton, LinkButton } from "../components/Buttons";
 import ActivityIndicator from "../components/ActivityIndicator";
+
 import usersApi from "../api/user";
 import useApi from "../hooks/useApi";
+import routes from "../navigation/routes";
 
 import defaultStyles from "../config/styles";
 
@@ -37,7 +39,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const handleLoginPress = () => {
-    navigation.navigate("Login");
+    navigation.navigate(routes.LOGIN);
   };
   const [forgetPasswordApi, isLoading, error, msg] = useApi(
     usersApi.forgotPassword

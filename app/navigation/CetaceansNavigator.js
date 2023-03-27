@@ -9,14 +9,14 @@ const Stack = createStackNavigator();
 
 const HomeNavigator = () => (
   <Stack.Navigator
-    initialRouteName="Cetaceans"
+    initialRouteName="CetaceansScreen"
     screenOptions={{
       headerShown: false,
       headerStyle: { backgroundColor: defaultStyles.colors.white },
       headerTintColor: defaultStyles.colors.black,
     }}
   >
-    <Stack.Screen name="Cetaceans" component={CetaceansScreen} />
+    <Stack.Screen name="CetaceansScreen" component={CetaceansScreen} />
     <Stack.Screen name="CetaceansProfile" component={CetaceanProfileScreen} />
   </Stack.Navigator>
 );

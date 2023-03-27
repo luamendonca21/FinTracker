@@ -20,14 +20,14 @@ const tabBar = [
     component: HomeNavigator,
   },
   {
-    route: "Species",
+    route: "Cetaceans",
     label: "Espécies",
     icon: "format-list-bulleted",
     iconFocused: "format-list-bulleted",
     component: CetaceansNavigator,
   },
   {
-    route: "MapScreen",
+    route: "Map",
     label: "Mapa",
     icon: "map-outline",
     iconFocused: "map",

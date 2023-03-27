@@ -5,10 +5,12 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
+
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import isEmail from "validator/lib/isEmail";
+
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
@@ -19,6 +21,7 @@ import ActivityIndicator from "../components/ActivityIndicator";
 
 import authApi from "../api/auth";
 import useApi from "../hooks/useApi";
+import routes from "../navigation/routes";
 
 import defaultStyles from "../config/styles";
 
@@ -51,7 +54,7 @@ const RegisterScreen = ({ navigation }) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const handleLoginPress = () => {
-    navigation.navigate("Login");
+    navigation.navigate(routes.LOGIN);
   };
   const [registerApi, isLoading, error] = useApi(authApi.register);
 
@@ -60,7 +63,7 @@ const RegisterScreen = ({ navigation }) => {
     registerApi(data)
       .then((response) => {
         console.log(response);
-        navigation.navigate("Login");
+        navigation.navigate(routes.LOGIN);
       })
       .catch((error) => {
         console.log(error);

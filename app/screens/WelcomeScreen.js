@@ -6,17 +6,19 @@ import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { AppButton, LinkButton } from "../components/Buttons";
 
+import routes from "../navigation/routes";
+
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
 const WelcomeScreen = ({ navigation }) => {
   const handlePressRegister = () => {
-    navigation.navigate("Register");
+    navigation.navigate(routes.REGISTER);
   };
 
   const handleLogin = () => {
-    navigation.navigate("Login");
+    navigation.navigate(routes.LOGIN);
   };
 
   return (

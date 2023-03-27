@@ -6,8 +6,11 @@ import { Carousel } from "../components/Carousels/ImageCarousel";
 import Screen from "../components/Screen";
 import { SearchInput } from "../components/Inputs";
 import { ListItem, ListItemSeparator } from "../components/Lists";
-import defaultStyles from "../config/styles";
+
 import movebank from "../api/movebank";
+import routes from "../navigation/routes";
+
+import defaultStyles from "../config/styles";
 
 const CetaceansScreen = ({ navigation }) => {
   const [individuals, setIndividuals] = useState([]);
@@ -316,7 +319,7 @@ const CetaceansScreen = ({ navigation }) => {
       <ListItem
         underlayColor={defaultStyles.colors.transparent}
         title={item.name}
-        onPress={() => navigation.navigate("CetaceansProfile", { item })}
+        onPress={() => navigation.navigate(routes.CETACEAN_PROFILE, { item })}
         style={styles.listSearchItem}
         chevrons={{
           name: "chevron-right",

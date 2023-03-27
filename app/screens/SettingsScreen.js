@@ -2,6 +2,8 @@ import React from "react";
 
 import ListSettings from "../components/Lists/ListSettings";
 
+import routes from "../navigation/routes";
+
 import defaultStyles from "../config/styles";
 
 const SettingsScreen = () => {
@@ -14,7 +16,7 @@ const SettingsScreen = () => {
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
-      target: "Account",
+      target: routes.ACCOUNT,
     },
     {
       id: 2,
@@ -44,7 +46,7 @@ const SettingsScreen = () => {
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
-      target: "About",
+      target: routes.ABOUT,
     },
     {
       id: 5,

@@ -2,20 +2,21 @@ import React, { useState, useRef, useEffect } from "react";
 import { View, StyleSheet, Animated } from "react-native";
 import defaultStyles from "../../config/styles";
 
+const DURATION = 500;
 const Fade = ({ isVisible }) => {
   const opacityValue = useRef(new Animated.Value(0)).current;
 
   const fadeInAnimation = useRef(
     Animated.timing(opacityValue, {
       toValue: 0.4,
-      duration: 500,
+      duration: DURATION,
       useNativeDriver: true,
     })
   ).current;
   const fadeOutAnimation = useRef(
     Animated.timing(opacityValue, {
       toValue: 0,
-      duration: 500,
+      duration: DURATION,
       useNativeDriver: true,
     })
   ).current;

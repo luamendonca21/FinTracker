@@ -19,6 +19,7 @@ import ActivityIndicator from "../components/ActivityIndicator";
 import useAuth from "../auth/useAuth";
 import usersApi from "../api/user";
 import useApi from "../hooks/useApi";
+import routes from "../navigation/routes";
 
 import defaultStyles from "../config/styles";
 
@@ -171,7 +172,7 @@ function UserProfileScreen({ navigation }) {
           <Screen>
             <View style={styles.imageContainer}>
               <Icon
-                onPress={() => navigation.navigate("Settings")}
+                onPress={() => navigation.navigate(routes.SETTINGS)}
                 style={styles.icon}
                 icon="cog-outline"
                 size={26}

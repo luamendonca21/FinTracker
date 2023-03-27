@@ -9,6 +9,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import isEmail from "validator/lib/isEmail";
 
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
@@ -16,13 +17,14 @@ import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
 import { AppButton, LinkButton } from "../components/Buttons";
 import { ErrorMessage } from "../components/Alerts";
+import ActivityIndicator from "../components/ActivityIndicator";
+
 import useApi from "../hooks/useApi";
 import authApi from "../api/auth";
 import useAuth from "../auth/useAuth";
-import isEmail from "validator/lib/isEmail";
+import routes from "../navigation/routes";
 
 import defaultStyles from "../config/styles";
-import ActivityIndicator from "../components/ActivityIndicator";
 
 const schema = yup.object({
   email: yup
@@ -43,7 +45,7 @@ const LoginScreen = ({ navigation }) => {
   const [loginApi, isLoading, error] = useApi(authApi.login);
 
   const handleForgotPassword = () => {
-    navigation.navigate("ForgotPassword");
+    navigation.navigate(routes.FORGOT_PASSWORD);
   };
   const {
     control,
@@ -53,7 +55,7 @@ const LoginScreen = ({ navigation }) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const handleRegisterPress = () => {
-    navigation.navigate("Register");
+    navigation.navigate(routes.REGISTER);
   };
   const login = (data) => {
     console.log(data);

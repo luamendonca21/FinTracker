@@ -6,9 +6,12 @@ import { AppButton } from "../components/Buttons";
 import GlowingCircle from "../assets/animations/GlowingCircle";
 import Screen from "../components/Screen";
 import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
-import usersApi from "../api/user";
 import defaultStyles from "../config/styles";
 import ActivityIndicator from "../components/ActivityIndicator";
+
+import useApi from "../hooks/useApi";
+import usersApi from "../api/user";
+import routes from "../navigation/routes";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -18,34 +21,39 @@ const shortcuts = [
     title: "Cetáceos favoritos",
     subTitle: "Visualiza os teus cetáceos favoritos.",
     buttonTitle: "Ir para favoritos",
-    target: "Profile",
+    target: routes.USER_PROFILE,
   },
   {
     id: 1,
     title: "Funcionalidades",
     subTitle: "Descobre o que podes fazer.",
     buttonTitle: "Ir para funcionalidades",
-    target: "Features",
+    target: routes.FEATURE,
   },
   {
     id: 2,
     title: "Definições",
     subTitle: "Personaliza as tuas definições.",
     buttonTitle: "Ir para definições",
-    target: "Settings",
+    target: routes.SETTINGS,
   },
 ];
 const HomeScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
+
+  const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
+
   useEffect(() => {
-    usersApi
-      .getUser(user.id)
+    getUserApi(user.id)
       .then((response) => {
+        console.log(response);
         setUsername(response.username);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   const [closeCetaceans, setCloseCetaceans] = useState([
@@ -149,71 +157,77 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate(target);
   };
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
-        <Screen>
-          <View
-            style={{
-              marginBottom: 25,
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <AppText style={styles.welcome}>Olá, {username}!</AppText>
-            <GlowingCircle onPress={() => console.log("Pressed")} />
-          </View>
-          <AppText style={{ fontSize: 18 }}>Atalhos</AppText>
-          <IndexCarousel items={shortcuts}>
-            {shortcuts.map((item, index) => (
-              <View key={index} style={styles.shortcutsContent}>
-                <AppText style={styles.shortcutsTitle}>{item.title}</AppText>
-                <AppText style={styles.shortcutsSubtitle}>
-                  {item.subTitle}
-                </AppText>
-                <AppButton
-                  style={styles.button}
-                  color="secondary"
-                  title={item.buttonTitle}
-                  onPress={() => handlePressShortcut(item)}
-                />
-              </View>
-            ))}
-          </IndexCarousel>
-          <AppText style={styles.title}>Perto de ti</AppText>
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View style={styles.carouselContainer}>
-              {closeCetaceans.map((item, index) => (
-                <View key={index} style={styles.carouselItem}>
-                  <View style={styles.carouselContent}>
-                    <View style={styles.headerContainer}>
-                      <View style={styles.imageContainer}>
-                        <Image
-                          style={styles.carouselImage}
-                          source={item.imageUrl}
-                          onLoadEnd={() => setIsLoading(false)}
-                        />
-                        <ActivityIndicator visible={isLoading} />
-                      </View>
-                      <View style={styles.details}>
-                        <View style={styles.distance}>
-                          <AppText style={styles.distanceText}>
-                            {item.details.distância}
-                          </AppText>
-                        </View>
-                        <AppText>Há 4 min</AppText>
-                      </View>
-                    </View>
-                    <AppText style={{ fontWeight: "700" }} numberOfLines={1}>
-                      {item.name}
-                    </AppText>
-                  </View>
+    <>
+      <ActivityIndicator visible={isLoadingUser} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <Screen>
+            <View
+              style={{
+                marginBottom: 25,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <AppText style={styles.welcome}>Olá, {username}!</AppText>
+              <GlowingCircle onPress={() => console.log("Pressed")} />
+            </View>
+            <AppText style={{ fontSize: 18 }}>Atalhos</AppText>
+            <IndexCarousel items={shortcuts}>
+              {shortcuts.map((item, index) => (
+                <View key={index} style={styles.shortcutsContent}>
+                  <AppText style={styles.shortcutsTitle}>{item.title}</AppText>
+                  <AppText style={styles.shortcutsSubtitle}>
+                    {item.subTitle}
+                  </AppText>
+                  <AppButton
+                    style={styles.button}
+                    color="secondary"
+                    title={item.buttonTitle}
+                    onPress={() => handlePressShortcut(item)}
+                  />
                 </View>
               ))}
-            </View>
-          </ScrollView>
-        </Screen>
-      </View>
-    </ScrollView>
+            </IndexCarousel>
+            <AppText style={styles.title}>Perto de ti</AppText>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              <View style={styles.carouselContainer}>
+                {closeCetaceans.map((item, index) => (
+                  <View key={index} style={styles.carouselItem}>
+                    <View style={styles.carouselContent}>
+                      <View style={styles.headerContainer}>
+                        <View style={styles.imageContainer}>
+                          <Image
+                            style={styles.carouselImage}
+                            source={item.imageUrl}
+                            onLoadEnd={() => setIsLoading(false)}
+                          />
+                          <ActivityIndicator visible={isLoading} />
+                        </View>
+                        <View style={styles.details}>
+                          <View style={styles.distance}>
+                            <AppText style={styles.distanceText}>
+                              {item.details.distância}
+                            </AppText>
+                          </View>
+                          <AppText>Há 4 min</AppText>
+                        </View>
+                      </View>
+                      <AppText style={{ fontWeight: "700" }} numberOfLines={1}>
+                        {item.name}
+                      </AppText>
+                    </View>
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
+          </Screen>
+        </View>
+      </ScrollView>
+    </>
   );
 };
 

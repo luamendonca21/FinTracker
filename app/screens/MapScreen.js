@@ -12,6 +12,7 @@ import Fade from "../assets/animations/Fade";
 import BottomSheet from "../components/BottomSheet";
 import { ListOptions } from "../components/Lists";
 
+import routes from "../navigation/routes";
 import useLocation from "../hooks/useLocation";
 
 import defaultStyles from "../config/styles";
@@ -171,7 +172,7 @@ const MapScreen = ({ navigation }) => {
             <MapMarker
               key={index}
               onCalloutPress={() =>
-                navigation.navigate("CetaceanProfile", { item })
+                navigation.navigate(routes.CETACEAN_PROFILE, { item })
               }
               coords={{ lat: item.lat, long: item.long }}
               name={item.name}

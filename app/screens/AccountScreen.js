@@ -2,6 +2,8 @@ import React from "react";
 
 import ListSettings from "../components/Lists/ListSettings";
 
+import routes from "../navigation/routes";
+
 import defaultStyles from "../config/styles";
 
 const AccountScreen = () => {
@@ -14,7 +16,7 @@ const AccountScreen = () => {
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
-      target: "Password",
+      target: routes.PASSWORD,
     },
     {
       id: 2,
@@ -24,7 +26,7 @@ const AccountScreen = () => {
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
-      target: "Username",
+      target: routes.USERNAME,
     },
     {
       id: 3,
@@ -44,7 +46,7 @@ const AccountScreen = () => {
         iconColor: defaultStyles.colors.white,
         backgroundColor: defaultStyles.colors.primary,
       },
-      target: "DeleteAccount",
+      target: routes.DELETE_ACCOUNT,
     },
   ];
   return <ListSettings menuItems={menuItems} />;

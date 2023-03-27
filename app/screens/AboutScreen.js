@@ -4,20 +4,22 @@ import { View, StyleSheet, FlatList } from "react-native";
 import AppText from "../components/AppText";
 import { BoxItem } from "../components/Items";
 
+import routes from "../navigation/routes";
+
 const items = [
   {
     id: 0,
     title: "Funcionalidades",
     subTitle: "Obtem dicas para explorar as principais funcionalidades",
     icon: "stars",
-    target: "Features",
+    target: routes.FEATURE,
   },
   {
     id: 1,
     title: "Contactos",
     subTitle: "Contacta-nos para qualquer questão",
     icon: "phone",
-    target: "Profile",
+    target: "",
   },
 ];
 

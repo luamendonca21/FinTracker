@@ -1,8 +1,9 @@
 import axios from "axios";
 import authStorage from "../auth/storage";
+import settings from "../config/settings";
 
 const ApiManager = axios.create({
-  baseURL: "http://192.168.1.227:3000",
+  baseURL: settings.apiUrl,
 });
 
 ApiManager.interceptors.request.use(async (config) => {

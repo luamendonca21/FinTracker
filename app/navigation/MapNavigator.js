@@ -17,7 +17,7 @@ const MapNavigator = () => (
   >
     <Stack.Screen
       options={{ headerShown: false }}
-      name="Map"
+      name="MapScreen"
       component={MapScreen}
     />
     <Stack.Screen

@@ -5,9 +5,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 import AppText from "../components/AppText";
 import { AppSecondaryButton } from "../components/Buttons";
 import Index from "../components/Carousels/IndexCarousel/Index";
+import Screen from "../components/Screen";
 
 import defaultStyles from "../config/styles";
-import Screen from "../components/Screen";
 
 const features = [
   {
