@@ -4,6 +4,8 @@ import Icon from "./Icon";
 import defaultStyles from "../config/styles";
 import useMedia from "../hooks/useMedia";
 import { MaterialIcons } from "@expo/vector-icons";
+import settings from "../config/settings";
+
 import useAuth from "../auth/useAuth";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
@@ -21,7 +23,6 @@ const ProfileImage = ({}) => {
 
   const handleUpdatePicture = () => {
     if (image == null) {
-      console.log("hj");
       return;
     }
 
@@ -35,15 +36,17 @@ const ProfileImage = ({}) => {
     return data;
   };
 
-  /*   useEffect(() => {
+  useEffect(() => {
+    const baseURL = settings.apiUrl;
     getPictureApi(user.id)
-      .then((response) => response.blob())
-
       .then((response) => {
-        setImage(URL.createObjectURL(response));
+        const src = `${baseURL}\\${response.src}`;
+        console.log(src);
+        setImage(src);
       })
+
       .catch((error) => console.log(error));
-  }, []); */
+  }, []);
   useEffect(() => {
     const data = handleUpdatePicture();
 

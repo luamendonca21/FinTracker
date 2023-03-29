@@ -1,5 +1,4 @@
 import ApiManager from "./ApiManager";
-
 const updateDetails = async (id, data) => {
   try {
     const response = await ApiManager.put(`/user/${id}/details`, data);
@@ -61,7 +60,7 @@ const addPicture = async (id, data) => {
 };
 const getPicture = async (id) => {
   try {
-    const response = await ApiManager.get(`/user/${id}/picture`);
+    const response = await ApiManager.get(`/${id}/uploads`);
     return response.data;
   } catch (error) {
     throw error.response.data;
