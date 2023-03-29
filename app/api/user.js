@@ -49,11 +49,31 @@ const forgotPassword = async (data) => {
     throw error.response.data;
   }
 };
+const addPicture = async (id, data) => {
+  try {
+    const response = await ApiManager.put(`/user/${id}/picture`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+const getPicture = async (id) => {
+  try {
+    const response = await ApiManager.get(`/user/${id}/picture`);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 export default {
   updateDetails,
   getDetails,
   getUser,
+  getPicture,
   updatePassword,
   updateUsername,
+  addPicture,
   forgotPassword,
 };

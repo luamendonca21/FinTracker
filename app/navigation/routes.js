@@ -12,7 +12,7 @@ export default Object.freeze({
   USERNAME: "Username",
   CETACEAN_PROFILE: "CetaceansProfile",
   WELCOME: "Welcome",
-  REGISTER: "Rgister",
+  REGISTER: "Register",
   LOGIN: "Login",
   FORGOT_PASSWORD: "ForgotPassword",
 });

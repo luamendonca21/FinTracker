@@ -48,7 +48,7 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     getUserApi(user.id)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setUsername(response.username);
       })
       .catch((error) => {

@@ -91,7 +91,7 @@ function UserProfileScreen({ navigation }) {
   useEffect(() => {
     updateUserDetailsApi(user.id, detailsActive)
       .then((response) => {
-        console.log(response);
+        //console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -101,7 +101,7 @@ function UserProfileScreen({ navigation }) {
   useEffect(() => {
     getUserApi(user.id)
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setPoints(response.points);
         setUsername(response.username);
       })
@@ -110,7 +110,7 @@ function UserProfileScreen({ navigation }) {
       });
     getUserDetailsApi(user.id)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setDetailsActive(response.details);
       })
       .catch((error) => {
