@@ -137,7 +137,7 @@ const FeatureScreen = ({ navigation }) => {
         <View style={styles.button}>
           <AppSecondaryButton
             title="Seguinte"
-            icon="arrow-right-thin"
+            icon={{ name: "arrow-right-thin", size: 36 }}
             index={index}
             onPress={() => handleClick(index)}
           />

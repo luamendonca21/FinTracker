@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-
+import Stars from "./Stars";
 import AppText from "./AppText";
 
 import defaultStyles from "../config/styles";
@@ -12,22 +12,7 @@ const PointsIndicator = ({ points }) => {
       <View style={styles.pointsContainer}>
         <AppText style={styles.text}>{points} pontos</AppText>
       </View>
-      <View style={styles.starsContainer}>
-        {(() => {
-          const stars = [];
-          for (let i = 0; i < Math.floor(points / 20); i++) {
-            stars.push(
-              <MaterialIcons
-                key={i}
-                name="stars"
-                size={32}
-                color={defaultStyles.colors.yellow}
-              />
-            );
-          }
-          return stars;
-        })()}
-      </View>
+      <Stars points={points} />
     </View>
   );
 };
@@ -47,11 +32,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     padding: 4,
     elevation: 2,
-  },
-  starsContainer: {
-    flexDirection: "row",
-    alignContent: "center",
-    justifyContent: "center",
   },
   text: {
     color: defaultStyles.colors.white,

@@ -9,6 +9,7 @@ import defaultStyles from "../../config/styles";
 const AppSecondaryButton = ({
   index,
   title,
+  style,
   icon,
   color = "secondary",
   onPress,
@@ -18,19 +19,20 @@ const AppSecondaryButton = ({
       onPress={onPress}
       style={[
         styles.container,
+        style,
         { backgroundColor: defaultStyles.colors[color] },
       ]}
     >
-      {icon && (
-        <MaterialCommunityIcons
-          name={icon}
-          size={36}
-          color={defaultStyles.colors.white}
-        />
-      )}
       <AppText style={styles.text}>
         {icon && index == 6 ? "Fim" : title}
       </AppText>
+      {icon && (
+        <MaterialCommunityIcons
+          name={icon.name}
+          size={icon.size}
+          color={defaultStyles.colors.white}
+        />
+      )}
     </TouchableOpacity>
   );
 };

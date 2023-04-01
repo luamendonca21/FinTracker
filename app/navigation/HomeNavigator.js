@@ -13,6 +13,7 @@ import PasswordScreen from "../screens/PasswordScreen";
 import DeleteAccountScreen from "../screens/DeleteAccountScreen";
 import UsernameScreen from "../screens/UsernameScreen";
 import defaultStyles from "../config/styles";
+import UserProfileScreen from "../screens/UserProfileScreen";
 
 const Stack = createStackNavigator();
 

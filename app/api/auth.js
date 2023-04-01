@@ -6,7 +6,7 @@ const register = async (data) => {
     const response = await ApiManager.post("/auth/register", data);
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw error;
   }
 };
 const login = async (data) => {

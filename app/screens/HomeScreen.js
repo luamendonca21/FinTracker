@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ScrollView, Dimensions, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  Image,
+  FlatList,
+} from "react-native";
 
 import AppText from "../components/AppText";
-import { AppButton } from "../components/Buttons";
+import { AppButton, AppSecondaryButton } from "../components/Buttons";
 import GlowingCircle from "../assets/animations/GlowingCircle";
 import Screen from "../components/Screen";
 import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
 import defaultStyles from "../config/styles";
 import ActivityIndicator from "../components/ActivityIndicator";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
 import routes from "../navigation/routes";
+import Stars from "../components/Stars";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -21,7 +30,7 @@ const shortcuts = [
     title: "Cetáceos favoritos",
     subTitle: "Visualiza os teus cetáceos favoritos.",
     buttonTitle: "Ir para favoritos",
-    target: routes.USER_PROFILE,
+    target: "Profile",
   },
   {
     id: 1,
@@ -42,6 +51,17 @@ const HomeScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
+  const [isRankIncreasing, setIsRankIncreasing] = useState(true);
+  const [users, setUsers] = useState([
+    { id: 1, name: "Luana", points: 40 },
+    { id: 2, name: "Joana", points: 20 },
+    { id: 3, name: "Luna", points: 10 },
+    { id: 4, name: "Julieta", points: 100 },
+    { id: 5, name: "Jorge", points: 50 },
+    { id: 6, name: "Luis", points: 60 },
+    { id: 7, name: "Debora", points: 80 },
+  ]);
+  const [sortedUsers, setSortedUsers] = useState([]);
 
   const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
 
@@ -55,6 +75,27 @@ const HomeScreen = ({ navigation }) => {
         console.log(error);
       });
   }, []);
+
+  useEffect(() => {
+    const sorted = users.sort((a, b) => {
+      if (isRankIncreasing) {
+        return b.points - a.points;
+      } else {
+        return a.points - b.points;
+      }
+    });
+    setSortedUsers(sorted);
+  }, [users, isRankIncreasing]);
+
+  const handleRankOrderPress = () => {
+    setIsRankIncreasing(!isRankIncreasing);
+    const sorted = users
+      .map((user, index) => ({ ...user, index }))
+      .sort((a, b) =>
+        isRankIncreasing ? b.points - a.points : a.points - b.points
+      );
+    setSortedUsers(sorted);
+  };
 
   const [closeCetaceans, setCloseCetaceans] = useState([
     {
@@ -154,7 +195,30 @@ const HomeScreen = ({ navigation }) => {
     },
   ]);
   const handlePressShortcut = ({ target }) => {
+    console.log(sortedUsers);
     navigation.navigate(target);
+  };
+  const renderItem = ({ item, index }) => {
+    return (
+      <View style={styles.rankItem}>
+        <AppText style={styles.rankNo}>{index + 1}</AppText>
+        <View style={{ alignItems: "flex-start" }}>
+          <AppText style={styles.rankItemTitle}>{item.name}</AppText>
+          <Stars points={item.points} />
+        </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+            flexDirection: "row",
+          }}
+        >
+          <AppText style={styles.rankItemSubtitle}>
+            {item.points} pontos
+          </AppText>
+        </View>
+      </View>
+    );
   };
   return (
     <>
@@ -224,6 +288,43 @@ const HomeScreen = ({ navigation }) => {
                 ))}
               </View>
             </ScrollView>
+            <View
+              style={{
+                marginBottom: 10,
+                marginTop: 15,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <MaterialIcons
+                name="leaderboard"
+                size={42}
+                color={defaultStyles.colors.yellow}
+              />
+              <AppText style={[styles.title, { marginLeft: 5, marginTop: 10 }]}>
+                Tabela de liderança
+              </AppText>
+            </View>
+            <AppSecondaryButton
+              onPress={handleRankOrderPress}
+              icon={{
+                name: isRankIncreasing
+                  ? "sort-numeric-descending"
+                  : "sort-numeric-ascending",
+                size: 26,
+              }}
+              title="Ordenar por"
+              style={styles.orderButton}
+            />
+            <FlatList
+              style={styles.rankContainer}
+              showsVerticalScrollIndicator={false}
+              horizontal={false}
+              nestedScrollEnabled
+              data={sortedUsers}
+              keyExtractor={(item) => item.id}
+              renderItem={renderItem}
+            />
           </Screen>
         </View>
       </ScrollView>
@@ -315,6 +416,41 @@ const styles = StyleSheet.create({
     color: defaultStyles.colors.thirdly,
     fontWeight: "bold",
     fontSize: 18,
+  },
+  rankContainer: {
+    height: 350,
+    flex: 1,
+    width: "100%",
+  },
+  rankItem: {
+    padding: 10,
+    alignItems: "center",
+    width: "100%",
+    height: 75,
+    marginVertical: 5,
+    borderRadius: 20,
+    backgroundColor: defaultStyles.colors.white,
+    elevation: 2,
+    flexDirection: "row",
+  },
+  rankItemTitle: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  rankItemSubtitle: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  rankNo: {
+    color: defaultStyles.colors.primary,
+    fontWeight: "bold",
+    marginRight: 10,
+    fontSize: 40,
+  },
+  orderButton: {
+    width: 180,
+    justifyContent: "space-between",
+    paddingVertical: 4,
   },
 });
 
