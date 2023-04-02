@@ -25,6 +25,7 @@ import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
+const PICTURE_SIZE = 250;
 function UserProfileScreen({ navigation }) {
   const details = [
     { id: 1, title: "Idade" },
@@ -179,7 +180,10 @@ function UserProfileScreen({ navigation }) {
                 iconColor={defaultStyles.colors.black}
                 backgroundColor={defaultStyles.colors.white}
               />
-              <ProfileImage />
+              <ProfileImage
+                addIcon={true}
+                size={{ width: PICTURE_SIZE, height: PICTURE_SIZE }}
+              />
             </View>
             <View style={styles.profileContainer}>
               <ScrollView showsVerticalScrollIndicator={false}>

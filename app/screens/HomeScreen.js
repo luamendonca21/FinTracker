@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   StyleSheet,
@@ -16,13 +16,14 @@ import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
 import defaultStyles from "../config/styles";
 import ActivityIndicator from "../components/ActivityIndicator";
 import { MaterialIcons } from "@expo/vector-icons";
-
+import ProfileImage from "../components/ProfileImage";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
 import routes from "../navigation/routes";
 import Stars from "../components/Stars";
 
 const windowWidth = Dimensions.get("window").width;
+const PICTURE_SIZE = 100;
 
 const shortcuts = [
   {
@@ -48,22 +49,18 @@ const shortcuts = [
   },
 ];
 const HomeScreen = ({ navigation }) => {
+  const scrollRef = useRef();
   const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
   const [isRankIncreasing, setIsRankIncreasing] = useState(true);
-  const [users, setUsers] = useState([
-    { id: 1, name: "Luana", points: 40 },
-    { id: 2, name: "Joana", points: 20 },
-    { id: 3, name: "Luna", points: 10 },
-    { id: 4, name: "Julieta", points: 100 },
-    { id: 5, name: "Jorge", points: 50 },
-    { id: 6, name: "Luis", points: 60 },
-    { id: 7, name: "Debora", points: 80 },
-  ]);
+  const [users, setUsers] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
 
   const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
+  const [getUsersApi, isLoadingUsers, errorGetUsers] = useApi(
+    usersApi.getUsers
+  );
 
   useEffect(() => {
     getUserApi(user.id)
@@ -74,6 +71,9 @@ const HomeScreen = ({ navigation }) => {
       .catch((error) => {
         console.log(error);
       });
+    getUsersApi()
+      .then((response) => setUsers(response.users))
+      .catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
@@ -203,7 +203,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.rankItem}>
         <AppText style={styles.rankNo}>{index + 1}</AppText>
         <View style={{ alignItems: "flex-start" }}>
-          <AppText style={styles.rankItemTitle}>{item.name}</AppText>
+          <AppText style={styles.rankItemTitle}>{item.username}</AppText>
           <Stars points={item.points} />
         </View>
         <View
@@ -211,11 +211,16 @@ const HomeScreen = ({ navigation }) => {
             flex: 1,
             justifyContent: "flex-end",
             flexDirection: "row",
+            alignItems: "center",
           }}
         >
           <AppText style={styles.rankItemSubtitle}>
             {item.points} pontos
           </AppText>
+          <ProfileImage
+            userId={item._id}
+            size={{ width: PICTURE_SIZE, height: PICTURE_SIZE }}
+          />
         </View>
       </View>
     );
@@ -223,7 +228,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <>
       <ActivityIndicator visible={isLoadingUser} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} ref={scrollRef}>
         <View style={styles.container}>
           <Screen>
             <View
@@ -234,7 +239,11 @@ const HomeScreen = ({ navigation }) => {
               }}
             >
               <AppText style={styles.welcome}>Olá, {username}!</AppText>
-              <GlowingCircle onPress={() => console.log("Pressed")} />
+              <GlowingCircle
+                onPress={() =>
+                  scrollRef.current.scrollToEnd({ animated: true })
+                }
+              />
             </View>
             <AppText style={{ fontSize: 18 }}>Atalhos</AppText>
             <IndexCarousel items={shortcuts}>
@@ -311,10 +320,11 @@ const HomeScreen = ({ navigation }) => {
                 name: isRankIncreasing
                   ? "sort-numeric-descending"
                   : "sort-numeric-ascending",
-                size: 26,
+                size: 24,
               }}
               title="Ordenar por"
               style={styles.orderButton}
+              styleText={{ fontSize: 16 }}
             />
             <FlatList
               style={styles.rankContainer}
@@ -322,7 +332,7 @@ const HomeScreen = ({ navigation }) => {
               horizontal={false}
               nestedScrollEnabled
               data={sortedUsers}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item._id}
               renderItem={renderItem}
             />
           </Screen>
@@ -334,7 +344,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 100,
+    paddingBottom: 80,
     padding: 15,
     backgroundColor: defaultStyles.colors.white,
     flex: 1,
@@ -424,8 +434,10 @@ const styles = StyleSheet.create({
   },
   rankItem: {
     padding: 10,
+    backgroundColor: "yellow",
+    alignSelf: "center",
     alignItems: "center",
-    width: "100%",
+    width: "98%",
     height: 75,
     marginVertical: 5,
     borderRadius: 20,
@@ -448,9 +460,9 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   orderButton: {
-    width: 180,
+    width: 160,
     justifyContent: "space-between",
-    paddingVertical: 4,
+    paddingVertical: 2,
   },
 });
 

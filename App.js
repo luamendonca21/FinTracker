@@ -11,7 +11,23 @@ import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 
 SplashScreen.preventAutoHideAsync();
+// place at top of app.js
 
+if (__DEV__) {
+  const ignoreWarns = [
+    "VirtualizedLists should never be nested inside plain ScrollViews",
+  ];
+
+  const errorWarn = global.console.error;
+  global.console.error = (...arg) => {
+    for (const error of ignoreWarns) {
+      if (arg[0].startsWith(error)) {
+        return;
+      }
+    }
+    errorWarn(...arg);
+  };
+}
 export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);

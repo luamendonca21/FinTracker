@@ -10,6 +10,7 @@ const AppSecondaryButton = ({
   index,
   title,
   style,
+  styleText,
   icon,
   color = "secondary",
   onPress,
@@ -23,7 +24,7 @@ const AppSecondaryButton = ({
         { backgroundColor: defaultStyles.colors[color] },
       ]}
     >
-      <AppText style={styles.text}>
+      <AppText style={[styles.text, styleText]}>
         {icon && index == 6 ? "Fim" : title}
       </AppText>
       {icon && (

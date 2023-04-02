@@ -66,6 +66,14 @@ const getPicture = async (id) => {
     throw error.response.data;
   }
 };
+const getUsers = async () => {
+  try {
+    const response = await ApiManager.get(`/users`);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 export default {
   updateDetails,
   getDetails,
@@ -75,4 +83,5 @@ export default {
   updateUsername,
   addPicture,
   forgotPassword,
+  getUsers,
 };
