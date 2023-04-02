@@ -328,7 +328,7 @@ const HomeScreen = ({ navigation }) => {
             />
             <FlatList
               style={styles.rankContainer}
-              showsVerticalScrollIndicator={false}
+              showsVerticalScrollIndicator={true}
               horizontal={false}
               nestedScrollEnabled
               data={sortedUsers}
@@ -428,17 +428,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   rankContainer: {
-    height: 350,
+    height: 380,
     flex: 1,
     width: "100%",
   },
   rankItem: {
-    padding: 10,
-    backgroundColor: "yellow",
+    paddingHorizontal: 15,
     alignSelf: "center",
     alignItems: "center",
     width: "98%",
-    height: 75,
     marginVertical: 5,
     borderRadius: 20,
     backgroundColor: defaultStyles.colors.white,
