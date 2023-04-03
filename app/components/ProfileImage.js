@@ -1,26 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
-import Icon from "./Icon";
-import defaultStyles from "../config/styles";
-import useMedia from "../hooks/useMedia";
 import { MaterialIcons } from "@expo/vector-icons";
-import settings from "../config/settings";
 
+import Icon from "./Icon";
+import ActivityIndicator from "./ActivityIndicator";
+
+import useMedia from "../hooks/useMedia";
 import useAuth from "../auth/useAuth";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
-import ActivityIndicator from "./ActivityIndicator";
+
+import settings from "../config/settings";
+import defaultStyles from "../config/styles";
+
 const ProfileImage = ({ addIcon, size, userId }) => {
+  // retrieve the user logged
+  const { user } = useAuth();
+
+  // ----- STATE MANAGEMENT ------
   const [image, setImage] = useState(null);
   const [imageChanged, setImageChanged] = useState(false);
+
+  // ----- MEDIA PERMISSIONS -----
   const requestMediaPermissions = useMedia((imageUri) => setImage(imageUri));
-  const { user } = useAuth();
+
+  // ------ APIS -----
   const [addPictureApi, isLoadingAddPicture, errorAddPicture] = useApi(
     usersApi.addPicture
   );
+
   const [getPictureApi, isLoadingGetPicture, errorGetPicture] = useApi(
     usersApi.getPicture
   );
+
+  // ----- UTILITIES -------
+  const handlePress = () => {
+    requestMediaPermissions();
+    setImageChanged(true);
+  };
 
   const handleUpdatePicture = () => {
     const data = new FormData();
@@ -33,21 +50,21 @@ const ProfileImage = ({ addIcon, size, userId }) => {
     return data;
   };
 
+  // ------ LIFECYCLE HOOKS ------
+
   useEffect(() => {
     const baseURL = settings.apiUrl;
-    console.log(userId);
-    console.log(user);
     const id = userId ? userId : user.id;
+
     getPictureApi(id)
       .then((response) => {
         const src = `${baseURL}\\${response.src}`;
-        console.log(response);
         setImage(src);
         setImageChanged(false);
       })
-
       .catch((error) => console.log(error));
   }, []);
+
   useEffect(() => {
     const data = handleUpdatePicture();
     if (imageChanged)
@@ -55,10 +72,7 @@ const ProfileImage = ({ addIcon, size, userId }) => {
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
   }, [image]);
-  const handlePress = () => {
-    requestMediaPermissions();
-    setImageChanged(true);
-  };
+
   return (
     <>
       <ActivityIndicator visible={isLoadingAddPicture || isLoadingGetPicture} />

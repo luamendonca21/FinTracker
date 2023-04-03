@@ -13,9 +13,11 @@ const AppTextInput = ({
   secureTextEntry,
   ...otherProps
 }) => {
+  // ------- STATE MANAGEMENT ------
   const [hidden, setHidden] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
 
+  // ------ UTILITIES ------
   const handlePress = () => {
     setHidden(!hidden);
   };
@@ -30,6 +32,7 @@ const AppTextInput = ({
   const handleBlur = () => {
     setIsFocused(false);
   };
+
   return (
     <View>
       <View

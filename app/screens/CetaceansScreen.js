@@ -13,6 +13,7 @@ import routes from "../navigation/routes";
 import defaultStyles from "../config/styles";
 
 const CetaceansScreen = ({ navigation }) => {
+  // ------- STATE MANAGEMENT -------
   const [individuals, setIndividuals] = useState([]);
   const [cetaceans, setCetaceans] = useState([
     {
@@ -281,21 +282,9 @@ const CetaceansScreen = ({ navigation }) => {
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
   ]);
-  /* const print = () => {
-    console.log(individuals);
-  };
-  useEffect(() => {
-    const fetchIndividuals = async () => {
-      const individuals = await movebank.getIndividualsByStudy(886013997);
-      setIndividuals(individuals);
-    };
-    fetchIndividuals();
-    print();
-  }, []); */
-  // ----------- SEARCH FOR CETACEANS -------------
-
   const [searchQuery, setSearchQuery] = useState("");
 
+  // ------- UTILITIES ------
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
@@ -329,6 +318,22 @@ const CetaceansScreen = ({ navigation }) => {
       />
     );
   };
+
+  /* const print = () => {
+    console.log(individuals); */
+
+  // -------- LIFECYCLE HOOKS ----------
+  /* 
+  };
+  useEffect(() => {
+    const fetchIndividuals = async () => {
+      const individuals = await movebank.getIndividualsByStudy(886013997);
+      setIndividuals(individuals);
+    };
+    fetchIndividuals();
+    print();
+  }, []); */
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>

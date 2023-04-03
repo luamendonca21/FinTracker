@@ -40,13 +40,9 @@ const schema = yup.object({
 });
 
 const LoginScreen = ({ navigation }) => {
+  // retrieve the user logged
   const { logIn } = useAuth();
 
-  const [loginApi, isLoading, error] = useApi(authApi.login);
-
-  const handleForgotPassword = () => {
-    navigation.navigate(routes.FORGOT_PASSWORD);
-  };
   const {
     control,
     reset,
@@ -54,9 +50,18 @@ const LoginScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  // ------- APIS ------
+  const [loginApi, isLoading, error] = useApi(authApi.login);
+
+  // ------ UTILITIES -------
+  const handleForgotPassword = () => {
+    navigation.navigate(routes.FORGOT_PASSWORD);
+  };
+
   const handleRegisterPress = () => {
     navigation.navigate(routes.REGISTER);
   };
+
   const login = (data) => {
     console.log(data);
     loginApi(data)

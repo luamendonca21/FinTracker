@@ -11,7 +11,6 @@ import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 
 SplashScreen.preventAutoHideAsync();
-// place at top of app.js
 
 if (__DEV__) {
   const ignoreWarns = [
@@ -28,6 +27,7 @@ if (__DEV__) {
     errorWarn(...arg);
   };
 }
+
 export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);

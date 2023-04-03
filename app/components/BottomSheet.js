@@ -35,6 +35,10 @@ const BottomSheet = ({
 }) => {
   const translateY = useSharedValue(0);
   const context = useSharedValue({ y: 0 });
+  const rBottomSheetStyle = useAnimatedStyle(() => {
+    return { transform: [{ translateY: translateY.value }] };
+  });
+
   const gesture = Gesture.Pan()
     .onStart(() => {
       context.value = { y: translateY.value };
@@ -48,15 +52,15 @@ const BottomSheet = ({
       translateY.value = withSpring(initialValue, { damping: 15 });
     });
 
+  // ----- UTILITIES ------
   const handlePressButton = () => {
     translateY.value = withSpring(0, { damping: 10 });
   };
+
+  // ------ LIFECYCLE HOOKS ------
   useEffect(() => {
     translateY.value = withSpring(initialValue, { damping: 15 });
   }, []);
-  const rBottomSheetStyle = useAnimatedStyle(() => {
-    return { transform: [{ translateY: translateY.value }] };
-  });
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>

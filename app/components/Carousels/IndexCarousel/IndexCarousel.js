@@ -12,8 +12,10 @@ const IndexCarousel = ({
   color = defaultStyles.colors.primary,
   ...otherProps
 }) => {
+  // ------ STATE MANAGEMENT ------
   const [itemActive, setItemActive] = useState(0);
 
+  // ----- UTILITIES -------
   const onchange = (nativeEvent) => {
     if (nativeEvent) {
       const slide = Math.ceil(

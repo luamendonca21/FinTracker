@@ -16,14 +16,12 @@ import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
 import defaultStyles from "../config/styles";
 import ActivityIndicator from "../components/ActivityIndicator";
 import { MaterialIcons } from "@expo/vector-icons";
-import ProfileImage from "../components/ProfileImage";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
 import routes from "../navigation/routes";
-import Stars from "../components/Stars";
+import { RankItem } from "../components/Items";
 
 const windowWidth = Dimensions.get("window").width;
-const PICTURE_SIZE = 100;
 
 const shortcuts = [
   {
@@ -50,53 +48,11 @@ const shortcuts = [
 ];
 const HomeScreen = ({ navigation }) => {
   const scrollRef = useRef();
-  const [username, setUsername] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+
+  // retrieve the user logged
   const { user } = useAuth();
-  const [isRankIncreasing, setIsRankIncreasing] = useState(true);
-  const [users, setUsers] = useState([]);
-  const [sortedUsers, setSortedUsers] = useState([]);
 
-  const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
-  const [getUsersApi, isLoadingUsers, errorGetUsers] = useApi(
-    usersApi.getUsers
-  );
-
-  useEffect(() => {
-    getUserApi(user.id)
-      .then((response) => {
-        // console.log(response);
-        setUsername(response.username);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    getUsersApi()
-      .then((response) => setUsers(response.users))
-      .catch((error) => console.log(error));
-  }, []);
-
-  useEffect(() => {
-    const sorted = users.sort((a, b) => {
-      if (isRankIncreasing) {
-        return b.points - a.points;
-      } else {
-        return a.points - b.points;
-      }
-    });
-    setSortedUsers(sorted);
-  }, [users, isRankIncreasing]);
-
-  const handleRankOrderPress = () => {
-    setIsRankIncreasing(!isRankIncreasing);
-    const sorted = users
-      .map((user, index) => ({ ...user, index }))
-      .sort((a, b) =>
-        isRankIncreasing ? b.points - a.points : a.points - b.points
-      );
-    setSortedUsers(sorted);
-  };
-
+  // ------ STATE MANAGEMENT -------
   const [closeCetaceans, setCloseCetaceans] = useState([
     {
       id: 1,
@@ -194,37 +150,63 @@ const HomeScreen = ({ navigation }) => {
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
   ]);
+  const [username, setUsername] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRankIncreasing, setIsRankIncreasing] = useState(true);
+  const [users, setUsers] = useState([]);
+  const [sortedUsers, setSortedUsers] = useState([]);
+
+  // ------- APIS -------
+  const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
+  const [getUsersApi, isLoadingUsers, errorGetUsers] = useApi(
+    usersApi.getUsers
+  );
+
+  // ------- UTILITIES --------
+  const handleRankOrderPress = () => {
+    setIsRankIncreasing(!isRankIncreasing);
+    const sorted = users
+      .map((user, index) => ({ ...user, index }))
+      .sort((a, b) =>
+        isRankIncreasing ? b.points - a.points : a.points - b.points
+      );
+    setSortedUsers(sorted);
+  };
+
   const handlePressShortcut = ({ target }) => {
     console.log(sortedUsers);
     navigation.navigate(target);
   };
+
   const renderItem = ({ item, index }) => {
-    return (
-      <View style={styles.rankItem}>
-        <AppText style={styles.rankNo}>{index + 1}</AppText>
-        <View style={{ alignItems: "flex-start" }}>
-          <AppText style={styles.rankItemTitle}>{item.username}</AppText>
-          <Stars points={item.points} />
-        </View>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-end",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <AppText style={styles.rankItemSubtitle}>
-            {item.points} pontos
-          </AppText>
-          <ProfileImage
-            userId={item._id}
-            size={{ width: PICTURE_SIZE, height: PICTURE_SIZE }}
-          />
-        </View>
-      </View>
-    );
+    return <RankItem item={item} index={index} />;
   };
+
+  // ------ LIFECYCLE HOOKS --------
+  useEffect(() => {
+    getUserApi(user.id)
+      .then((response) => {
+        setUsername(response.username);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    getUsersApi()
+      .then((response) => setUsers(response.users))
+      .catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    const sorted = users.sort((a, b) => {
+      if (isRankIncreasing) {
+        return b.points - a.points;
+      } else {
+        return a.points - b.points;
+      }
+    });
+    setSortedUsers(sorted);
+  }, [users, isRankIncreasing]);
+
   return (
     <>
       <ActivityIndicator visible={isLoadingUser} />
@@ -426,36 +408,6 @@ const styles = StyleSheet.create({
     color: defaultStyles.colors.thirdly,
     fontWeight: "bold",
     fontSize: 18,
-  },
-  rankContainer: {
-    height: 380,
-    flex: 1,
-    width: "100%",
-  },
-  rankItem: {
-    paddingHorizontal: 15,
-    alignSelf: "center",
-    alignItems: "center",
-    width: "98%",
-    marginVertical: 5,
-    borderRadius: 20,
-    backgroundColor: defaultStyles.colors.white,
-    elevation: 2,
-    flexDirection: "row",
-  },
-  rankItemTitle: {
-    fontWeight: "bold",
-    fontSize: 18,
-  },
-  rankItemSubtitle: {
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  rankNo: {
-    color: defaultStyles.colors.primary,
-    fontWeight: "bold",
-    marginRight: 10,
-    fontSize: 40,
   },
   orderButton: {
     width: 160,

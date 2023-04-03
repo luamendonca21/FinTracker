@@ -81,8 +81,11 @@ const FeatureScreen = ({ navigation }) => {
       });
     };
   }, []);
+
+  // ------- STATE MANAGEMENT ------
   const [index, setIndex] = useState(0);
 
+  // ------- UTILITIES -------
   const handleClick = (index) => {
     if (index < 6) {
       setIndex(index + 1);
@@ -90,6 +93,7 @@ const FeatureScreen = ({ navigation }) => {
 
     if (index == 6) navigation.goBack();
   };
+
   return (
     <View style={styles.container}>
       <Screen>

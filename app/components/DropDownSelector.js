@@ -17,11 +17,18 @@ const DropDownSelector = ({
   itemsActive,
   onPress,
 }) => {
+  // ------- STATE MANAGEMENT ------
   const [showContent, setShowContent] = useState(false);
+
+  // ------ UTILITIES ------
+  const toggleListItem = () => {
+    LayoutAnimation.configureNext(toggleAnimation);
+  };
 
   const isActive = () => {
     return itemsActive.find((item) => item.id === id);
   };
+
   const selectItemIcon = () => {
     return isActive(id)
       ? ["check-circle", defaultStyles.colors.white]
@@ -29,13 +36,12 @@ const DropDownSelector = ({
       ? ["check-circle-outline", defaultStyles.colors.black]
       : ["add-circle-outline", defaultStyles.colors.black];
   };
-  const toggleListItem = () => {
-    LayoutAnimation.configureNext(toggleAnimation);
-  };
 
+  // ------- LIFECYCLE HOOKS -------
   useEffect(() => {
     if (isActive()) setShowContent(true);
   }, []);
+
   return (
     <>
       <View

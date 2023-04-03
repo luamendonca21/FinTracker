@@ -27,13 +27,14 @@ const windowHeight = Dimensions.get("window").height;
 
 const PICTURE_SIZE = 250;
 function UserProfileScreen({ navigation }) {
+  // available details for user
   const details = [
     { id: 1, title: "Idade" },
     { id: 2, title: "País" },
     { id: 3, title: "Profissão" },
   ];
-  const { user } = useAuth();
 
+  // hardcoded favorites for now
   const favorites = [
     {
       id: 1,
@@ -75,6 +76,10 @@ function UserProfileScreen({ navigation }) {
     },
   ];
 
+  //retrieve the user logged
+  const { user } = useAuth();
+
+  // ----- STATE MANAGEMENT ------
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [inputs, setInputs] = useState([]);
@@ -82,6 +87,7 @@ function UserProfileScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [detailsActive, setDetailsActive] = useState([]);
 
+  // ------ APIS ------
   const [updateUserDetailsApi, isLoadingDetailsUpdate, errorUpdateDetails] =
     useApi(usersApi.updateDetails);
   const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
@@ -89,38 +95,7 @@ function UserProfileScreen({ navigation }) {
     usersApi.getDetails
   );
 
-  useEffect(() => {
-    updateUserDetailsApi(user.id, detailsActive)
-      .then((response) => {
-        //console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [detailsActive]);
-
-  useEffect(() => {
-    getUserApi(user.id)
-      .then((response) => {
-        //console.log(response);
-        setPoints(response.points);
-        setUsername(response.username);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    getUserDetailsApi(user.id)
-      .then((response) => {
-        // console.log(response);
-        setDetailsActive(response.details);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  // --------- PROFILE DETAILS -----------
-
+  // --------- UTILITIES -----------
   const handleEditDetailsPress = () => {
     setBottomSheetActive(!isBottomSheetActive);
     setIsAnimating(true);
@@ -152,17 +127,52 @@ function UserProfileScreen({ navigation }) {
 
   const handleCloseBottomSheet = () => {
     setIsAnimating(false);
+
+    // only unmount the bottom sheet when the fade out animation finish
     setTimeout(() => {
       setBottomSheetActive(false);
     }, 460);
   };
+
   const handleApplyChanges = () => {
     setDetailsActive(inputs);
     setIsAnimating(false);
+
+    // only unmount the bottom sheet when the fade out animation finish
     setTimeout(() => {
       setBottomSheetActive(false);
     }, 460);
   };
+
+  // ------- LIFECYCLE HOOKS --------
+  useEffect(() => {
+    updateUserDetailsApi(user.id, detailsActive)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [detailsActive]);
+
+  useEffect(() => {
+    getUserApi(user.id)
+      .then((response) => {
+        setPoints(response.points);
+        setUsername(response.username);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    getUserDetailsApi(user.id)
+      .then((response) => {
+        setDetailsActive(response.details);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <>
       <GestureHandlerRootView style={{ flex: 1 }}>

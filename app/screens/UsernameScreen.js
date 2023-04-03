@@ -27,8 +27,6 @@ const schema = yup.object({
   username: yup.string().required("Por favor, introduza o nome de utilizador."),
 });
 const UsernameScreen = ({}) => {
-  const { user } = useAuth();
-
   const {
     control,
     reset,
@@ -36,11 +34,17 @@ const UsernameScreen = ({}) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  // retrieve the user logged
+  const { user } = useAuth();
+
+  // -------- APIS -------
   const [updateUsernameApi, isLoading, error] = useApi(usersApi.updateUsername);
 
+  // ------ UTILITIES -------
   function handleReload() {
     reloadAsync();
   }
+
   const changeUsername = (data) => {
     updateUsernameApi(user.id, data)
       .then((response) => {

@@ -38,12 +38,15 @@ const ForgotPasswordScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const handleLoginPress = () => {
-    navigation.navigate(routes.LOGIN);
-  };
+  // -------- APIS --------
   const [forgetPasswordApi, isLoading, error, msg] = useApi(
     usersApi.forgotPassword
   );
+
+  // ------ UTILITIES --------
+  const handleLoginPress = () => {
+    navigation.navigate(routes.LOGIN);
+  };
 
   const send = async (data) => {
     console.log(data);

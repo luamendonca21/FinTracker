@@ -13,12 +13,14 @@ import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
+// available notifications for user
 const notifications = [
   { id: 1, title: "Quando estiver perto da minha localização" },
   { id: 2, title: "Quando estiver perto de um local personalizado" },
 ];
 
 const CetaceanProfileScreen = ({ route }) => {
+  // ------ STATE MANAGEMENT -------
   const { item } = route.params;
   const [isFavorite, setIsFavorite] = useState(false);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
@@ -26,11 +28,10 @@ const CetaceanProfileScreen = ({ route }) => {
   const [inputs, setInputs] = useState([]);
   const [notificationsActive, setNotificationsActive] = useState([]);
 
+  // ---------- UTILITIES -----------
   const isNotificationActive = (id) => {
     return inputs.find((item) => item.id === id);
   };
-
-  // ---------- ADD TO FAVORITES -----------
 
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
@@ -42,8 +43,6 @@ const CetaceanProfileScreen = ({ route }) => {
       : ["favorite-outline", defaultStyles.colors.black];
   };
 
-  // --------- ADD NOTIFICATION ---------------
-
   const handleNotificationPress = () => {
     setBottomSheetActive(!isBottomSheetActive);
     setIsAnimating(true);
@@ -52,6 +51,7 @@ const CetaceanProfileScreen = ({ route }) => {
   const selectNotificationIcon = () => {
     return !isBottomSheetActive ? "notifications-none" : "notifications";
   };
+
   const handleNotificationOptionPress = (id, title) => {
     let newNotification = { id: id, title: title };
     if (!isNotificationActive(id)) {
@@ -78,6 +78,7 @@ const CetaceanProfileScreen = ({ route }) => {
       setBottomSheetActive(false);
     }, 440);
   };
+
   const handleApplyChanges = () => {
     setNotificationsActive(inputs);
     setIsAnimating(false);

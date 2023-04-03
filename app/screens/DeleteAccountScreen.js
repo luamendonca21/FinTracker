@@ -17,9 +17,13 @@ import useApi from "../hooks/useApi";
 import defaultStyles from "../config/styles";
 
 const DeleteAccountScreen = ({}) => {
-  const [accountApi, isLoading, error] = useApi(authApi.deleteAccount);
+  // retrieve the user logged
   const { user, logOut } = useAuth();
 
+  // ------- APIS -------
+  const [accountApi, isLoading, error] = useApi(authApi.deleteAccount);
+
+  // ------ UTILITIES ------
   const deleteAccount = () => {
     accountApi(user.id)
       .then((response) => {

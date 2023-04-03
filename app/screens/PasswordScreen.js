@@ -42,9 +42,6 @@ const schema = yup.object({
     .required("Por favor, introduza a palavra-passe."),
 });
 const PasswordScreen = ({}) => {
-  const [updateUserPassApi, isLoading, error] = useApi(usersApi.updatePassword);
-  const { user, logOut } = useAuth();
-
   const {
     control,
     reset,
@@ -52,7 +49,15 @@ const PasswordScreen = ({}) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  // retrieve the user logged
+  const { user, logOut } = useAuth();
+
+  // ------- APIS ---------
+  const [updateUserPassApi, isLoading, error] = useApi(usersApi.updatePassword);
+
+  // ------ UTILITIES -------
   const changePassword = (data) => {
+    console.log(data);
     updateUserPassApi(user.id, data)
       .then((response) => {
         console.log(response);
