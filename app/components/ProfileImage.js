@@ -13,7 +13,7 @@ import usersApi from "../api/user";
 import settings from "../config/settings";
 import defaultStyles from "../config/styles";
 
-const ProfileImage = ({ addIcon, size, userId }) => {
+const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
   // retrieve the user logged
   const { user } = useAuth();
 
@@ -32,11 +32,19 @@ const ProfileImage = ({ addIcon, size, userId }) => {
   const [getPictureApi, isLoadingGetPicture, errorGetPicture] = useApi(
     usersApi.getPicture
   );
+  const [deletePictureApi, isLoadingDeletePicture, errorDeletePicture] = useApi(
+    usersApi.deletePicture
+  );
 
   // ----- UTILITIES -------
-  const handlePress = () => {
+  const handleAddImagePress = () => {
     requestMediaPermissions();
     setImageChanged(true);
+  };
+  const handleDeleteImagePress = () => {
+    deletePictureApi(user.id)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
   };
 
   const handleUpdatePicture = () => {
@@ -75,7 +83,11 @@ const ProfileImage = ({ addIcon, size, userId }) => {
 
   return (
     <>
-      <ActivityIndicator visible={isLoadingAddPicture || isLoadingGetPicture} />
+      <ActivityIndicator
+        visible={
+          isLoadingAddPicture || isLoadingGetPicture || isLoadingDeletePicture
+        }
+      />
       <View
         style={[styles.container, { width: size.width, height: size.height }]}
       >
@@ -102,10 +114,20 @@ const ProfileImage = ({ addIcon, size, userId }) => {
         )}
         {addIcon && (
           <Icon
-            onPress={handlePress}
-            style={styles.icon}
+            onPress={handleAddImagePress}
+            style={styles.addIcon}
             icon="camera-plus-outline"
-            size={18}
+            size={16}
+            iconColor={defaultStyles.colors.black}
+            backgroundColor={defaultStyles.colors.white}
+          />
+        )}
+        {deleteIcon && (
+          <Icon
+            onPress={handleDeleteImagePress}
+            style={styles.deleteIcon}
+            icon="delete-outline"
+            size={16}
             iconColor={defaultStyles.colors.black}
             backgroundColor={defaultStyles.colors.white}
           />
@@ -122,10 +144,15 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     alignItems: "center",
   },
-  icon: {
+  addIcon: {
     position: "absolute",
     bottom: 60,
-    right: 60,
+    right: 65,
+  },
+  deleteIcon: {
+    position: "absolute",
+    top: 60,
+    right: 65,
   },
   image: {
     borderWidth: 1,

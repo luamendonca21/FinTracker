@@ -58,6 +58,16 @@ const addPicture = async (id, data) => {
     throw error.response.data;
   }
 };
+const deletePicture = async (id) => {
+  try {
+    const response = await ApiManager.delete(`/user/${id}/picture`, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 const getPicture = async (id) => {
   try {
     const response = await ApiManager.get(`/${id}/uploads`);
@@ -84,4 +94,5 @@ export default {
   addPicture,
   forgotPassword,
   getUsers,
+  deletePicture,
 };
