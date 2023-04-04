@@ -8,7 +8,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import AwesomeAlert from "react-native-awesome-alerts";
+import { Alert } from "../components/Alerts";
 
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
@@ -52,6 +52,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
   const showAlert = () => {
     setIsAlertVisible(true);
   };
+
   const hideAlert = () => {
     setIsAlertVisible(false);
   };
@@ -136,20 +137,14 @@ const ForgotPasswordScreen = ({ navigation }) => {
               </View>
             </View>
           </Screen>
-          <AwesomeAlert
-            show={isAlertVisible}
-            showProgress={false}
+          <Alert
+            showAlert={isAlertVisible}
             title="Aviso"
             message="Email enviado!"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showConfirmButton={true}
+            showConfirmButton
             confirmText="Ok"
             confirmButtonColor={defaultStyles.colors.success}
-            onCancelPressed={() => {
-              hideAlert();
-            }}
-            onConfirmPressed={() => {
+            onConfirm={() => {
               hideAlert();
             }}
           />

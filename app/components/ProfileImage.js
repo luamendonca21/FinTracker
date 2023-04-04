@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import AwesomeAlert from "react-native-awesome-alerts";
-
+import { Alert } from "./Alerts";
 import Icon from "./Icon";
 import ActivityIndicator from "./ActivityIndicator";
 
@@ -145,22 +144,20 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
           />
         )}
       </View>
-      <AwesomeAlert
-        show={isAlertVisible}
-        showProgress={false}
+      <Alert
+        showAlert={isAlertVisible}
         title="Aviso"
         message="Tens a certeza que queres eliminar a foto de perfil?"
-        closeOnTouchOutside={true}
-        closeOnHardwareBackPress={false}
-        showCancelButton={true}
-        showConfirmButton={true}
+        showCancelButton
+        showConfirmButton
         cancelText="Cancelar"
         confirmText="Eliminar"
+        cancelButtonColor={defaultStyles.colors.gray}
         confirmButtonColor={defaultStyles.colors.danger}
-        onCancelPressed={() => {
+        onCancel={() => {
           hideAlert();
         }}
-        onConfirmPressed={() => {
+        onConfirm={() => {
           hideAlert();
           handleDeleteImagePress();
         }}
