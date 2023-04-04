@@ -147,9 +147,7 @@ function UserProfileScreen({ navigation }) {
   // ------- LIFECYCLE HOOKS --------
   useEffect(() => {
     updateUserDetailsApi(user.id, detailsActive)
-      .then((response) => {
-        console.log(response);
-      })
+      .then((response) => {})
       .catch((error) => {
         console.log(error);
       });

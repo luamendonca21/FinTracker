@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
@@ -38,12 +39,23 @@ const ForgotPasswordScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  // ------- STATE MANAGEMENT -------
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
+
   // -------- APIS --------
   const [forgetPasswordApi, isLoading, error, msg] = useApi(
     usersApi.forgotPassword
   );
 
   // ------ UTILITIES --------
+
+  const showAlert = () => {
+    setIsAlertVisible(true);
+  };
+  const hideAlert = () => {
+    setIsAlertVisible(false);
+  };
+
   const handleLoginPress = () => {
     navigation.navigate(routes.LOGIN);
   };
@@ -59,6 +71,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
       })
       .finally(() => {
         reset();
+        showAlert(true);
       });
   };
 
@@ -84,7 +97,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 com as instruções necessárias para alterar a sua palavra-passe.
               </AppText>
               <View style={styles.formContainer}>
-                <ErrorMessage error={error} msg={msg} />
+                <ErrorMessage error={error} />
                 <Controller
                   control={control}
                   name="email"
@@ -123,6 +136,23 @@ const ForgotPasswordScreen = ({ navigation }) => {
               </View>
             </View>
           </Screen>
+          <AwesomeAlert
+            show={isAlertVisible}
+            showProgress={false}
+            title="Aviso"
+            message="Email enviado!"
+            closeOnTouchOutside={true}
+            closeOnHardwareBackPress={false}
+            showConfirmButton={true}
+            confirmText="Ok"
+            confirmButtonColor={defaultStyles.colors.success}
+            onCancelPressed={() => {
+              hideAlert();
+            }}
+            onConfirmPressed={() => {
+              hideAlert();
+            }}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
     </>

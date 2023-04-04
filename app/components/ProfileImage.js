@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 import Icon from "./Icon";
 import ActivityIndicator from "./ActivityIndicator";
@@ -20,6 +21,7 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
   // ----- STATE MANAGEMENT ------
   const [image, setImage] = useState(null);
   const [imageChanged, setImageChanged] = useState(false);
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   // ----- MEDIA PERMISSIONS -----
   const requestMediaPermissions = useMedia((imageUri) => setImage(imageUri));
@@ -43,8 +45,11 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
   };
   const handleDeleteImagePress = () => {
     deletePictureApi(user.id)
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setImage(null));
   };
 
   const handleUpdatePicture = () => {
@@ -58,6 +63,13 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
     return data;
   };
 
+  const showAlert = () => {
+    setIsAlertVisible(true);
+  };
+
+  const hideAlert = () => {
+    setIsAlertVisible(false);
+  };
   // ------ LIFECYCLE HOOKS ------
 
   useEffect(() => {
@@ -124,7 +136,7 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
         )}
         {deleteIcon && (
           <Icon
-            onPress={handleDeleteImagePress}
+            onPress={showAlert}
             style={styles.deleteIcon}
             icon="delete-outline"
             size={16}
@@ -133,6 +145,26 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
           />
         )}
       </View>
+      <AwesomeAlert
+        show={isAlertVisible}
+        showProgress={false}
+        title="Aviso"
+        message="Tens a certeza que queres eliminar a foto de perfil?"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showCancelButton={true}
+        showConfirmButton={true}
+        cancelText="Cancelar"
+        confirmText="Eliminar"
+        confirmButtonColor={defaultStyles.colors.danger}
+        onCancelPressed={() => {
+          hideAlert();
+        }}
+        onConfirmPressed={() => {
+          hideAlert();
+          handleDeleteImagePress();
+        }}
+      />
     </>
   );
 };

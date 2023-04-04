@@ -174,7 +174,6 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const handlePressShortcut = ({ target }) => {
-    console.log(sortedUsers);
     navigation.navigate(target);
   };
 

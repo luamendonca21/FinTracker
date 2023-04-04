@@ -28,7 +28,7 @@ const AccountScreen = () => {
       },
       target: routes.USERNAME,
     },
-    {
+    /* {
       id: 3,
       title: "Foto de perfil",
       icon: {
@@ -37,7 +37,7 @@ const AccountScreen = () => {
         backgroundColor: defaultStyles.colors.primary,
       },
       target: "",
-    },
+    }, */
     {
       id: 4,
       title: "Eliminar conta",
