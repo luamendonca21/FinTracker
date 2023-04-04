@@ -1,10 +1,11 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { StatusBar } from "react-native";
+
 import { NavigationContainer } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
 import AppNavigator from "./app/navigation/AppNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
-
+import { Notice } from "./app/components/Alerts";
 import defaultStyles from "./app/config/styles";
 import myTheme from "./app/navigation/navigationTheme";
 import AuthContext from "./app/auth/context";
@@ -71,6 +72,7 @@ export default function App() {
         translucent={true}
       />
       <AuthContext.Provider value={{ user, setUser }}>
+        <Notice msg="Sem conexão à Internet" />
         <NavigationContainer theme={myTheme}>
           {user ? (
             <AppNavigator onLayout={onLayoutRootView} />

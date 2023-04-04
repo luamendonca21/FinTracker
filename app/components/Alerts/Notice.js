@@ -1,31 +1,66 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { View, StyleSheet, Animated } from "react-native";
 import Constants from "expo-constants";
+import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 
 import AppText from "../AppText";
 
 import defaultStyles from "../../config/styles";
 
-const Notice = ({ text }) => {
-  return (
-    <View style={styles.container}>
-      <AppText style={styles.text}>{text}</AppText>
-    </View>
-  );
+const Notice = ({ msg }) => {
+  const opacity = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    Animated.sequence([
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.delay(2000),
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+  const netInfo = useNetInfo();
+  if (netInfo.type !== "unknown" && !netInfo.isInternetReachable)
+    return (
+      <Animated.View
+        style={[
+          {
+            opacity,
+            transform: [
+              {
+                translateY: opacity.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [-20, 0],
+                }),
+              },
+            ],
+          },
+          styles.container,
+        ]}
+      >
+        <AppText style={styles.text}>{msg}</AppText>
+      </Animated.View>
+    );
 };
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: defaultStyles.colors.danger,
-    height: 40,
     width: "95%",
-    alignSelf: "center",
-    borderRadius: 15,
+    height: 50,
     position: "absolute",
     zIndex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    borderRadius: 15,
+    alignSelf: "center",
     top: 10 + Constants.statusBarHeight,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 1,
   },
   text: {
     color: defaultStyles.colors.white,
