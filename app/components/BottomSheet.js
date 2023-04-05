@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     borderRadius: 2,
   },
+  button: { fontSize: 18 },
 });
 
 export default BottomSheet;

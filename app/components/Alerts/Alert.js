@@ -4,7 +4,8 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import defaultStyles from "../../config/styles";
 const Alert = ({
-  message,
+  error,
+  msg,
   confirmText,
   cancelText,
   title,
@@ -22,7 +23,7 @@ const Alert = ({
       show={showAlert}
       showProgress={false}
       title={title}
-      message={message}
+      message={error ? error : msg ? msg : null}
       messageStyle={styles.text}
       closeOnTouchOutside={true}
       closeOnHardwareBackPress={true}
@@ -31,7 +32,9 @@ const Alert = ({
       cancelText={cancelText}
       confirmText={confirmText}
       cancelButtonColor={cancelButtonColor}
-      confirmButtonColor={confirmButtonColor}
+      confirmButtonColor={
+        error ? defaultStyles.colors.danger : confirmButtonColor
+      }
       onCancelPressed={() => {
         onCancel();
       }}
@@ -50,10 +53,18 @@ const Alert = ({
 
 const styles = StyleSheet.create({
   container: { width: "80%" },
-  buttonText: { fontSize: 18, color: defaultStyles.colors.white },
+  buttonText: {
+    fontSize: 16,
+    color: defaultStyles.colors.white,
+    fontWeight: "bold",
+  },
   buttonContainer: { borderRadius: 50, width: "40%", alignItems: "center" },
-  text: { fontSize: 16, color: defaultStyles.colors.black },
-  title: { fontSize: 18, color: defaultStyles.colors.black },
+  text: { fontSize: 15, color: defaultStyles.colors.black },
+  title: {
+    fontSize: 18,
+    color: defaultStyles.colors.black,
+    fontWeight: "bold",
+  },
 });
 
 export default Alert;

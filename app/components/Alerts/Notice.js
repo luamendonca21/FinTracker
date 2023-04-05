@@ -1,51 +1,24 @@
 import React, { useEffect, useRef } from "react";
 import { View, StyleSheet, Animated } from "react-native";
 import Constants from "expo-constants";
-import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
-
+import { useNetInfo } from "@react-native-community/netinfo";
+import Fade from "../../assets/animations/Fade";
 import AppText from "../AppText";
 
 import defaultStyles from "../../config/styles";
 
-const Notice = ({ msg }) => {
-  const opacity = useRef(new Animated.Value(0)).current;
-  useEffect(() => {
-    Animated.sequence([
-      Animated.timing(opacity, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }),
-      Animated.delay(2000),
-      Animated.timing(opacity, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  }, []);
-  const netInfo = useNetInfo();
-  if (netInfo.type !== "unknown" && !netInfo.isInternetReachable)
-    return (
-      <Animated.View
-        style={[
-          {
-            opacity,
-            transform: [
-              {
-                translateY: opacity.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [-20, 0],
-                }),
-              },
-            ],
-          },
-          styles.container,
-        ]}
-      >
-        <AppText style={styles.text}>{msg}</AppText>
-      </Animated.View>
-    );
+const Notice = ({ isVisible, msg }) => {
+  return (
+    <Fade
+      value={1}
+      duration={300}
+      toast
+      isVisible={isVisible}
+      style={styles.container}
+    >
+      <AppText style={styles.text}>{msg}</AppText>
+    </Fade>
+  );
 };
 
 const styles = StyleSheet.create({

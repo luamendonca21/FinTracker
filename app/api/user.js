@@ -1,7 +1,7 @@
 import ApiManager from "./ApiManager";
-const updateDetails = async (id, data) => {
+const forgotPassword = async (data) => {
   try {
-    const response = await ApiManager.put(`/user/${id}/details`, data);
+    const response = await ApiManager.post(`/user/forgotPassword`, data);
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -24,50 +24,6 @@ const getUser = async (id) => {
     throw error.response.data;
   }
 };
-const updatePassword = async (id, data) => {
-  try {
-    const response = await ApiManager.put(`/user/${id}/password`, data);
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
-};
-const updateUsername = async (id, data) => {
-  try {
-    const response = await ApiManager.put(`/user/${id}/username`, data);
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
-};
-const forgotPassword = async (data) => {
-  try {
-    const response = await ApiManager.post(`/user/forgotPassword`, data);
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
-};
-const addPicture = async (id, data) => {
-  try {
-    const response = await ApiManager.put(`/user/${id}/picture`, data, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
-};
-const deletePicture = async (id) => {
-  try {
-    const response = await ApiManager.delete(`/user/${id}/picture`, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
-};
 const getPicture = async (id) => {
   try {
     const response = await ApiManager.get(`/${id}/uploads`);
@@ -84,15 +40,59 @@ const getUsers = async () => {
     throw error.response.data;
   }
 };
+const updatePassword = async (id, data) => {
+  try {
+    const response = await ApiManager.put(`/user/${id}/password`, data);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+const updateDetails = async (id, data) => {
+  try {
+    const response = await ApiManager.put(`/user/${id}/details`, data);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+const updateUsername = async (id, data) => {
+  try {
+    const response = await ApiManager.put(`/user/${id}/username`, data);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+const addPicture = async (id, data) => {
+  try {
+    const response = await ApiManager.put(`/user/${id}/picture`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+const deletePicture = async (id) => {
+  try {
+    const response = await ApiManager.delete(`/user/${id}/picture`, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 export default {
-  updateDetails,
+  forgotPassword,
   getDetails,
   getUser,
   getPicture,
+  getUsers,
+  updateDetails,
   updatePassword,
   updateUsername,
   addPicture,
-  forgotPassword,
-  getUsers,
   deletePicture,
 };

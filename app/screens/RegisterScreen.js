@@ -54,7 +54,7 @@ const RegisterScreen = ({ navigation }) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   // ------ APIS ------
-  const [registerApi, isLoading, error] = useApi(authApi.register);
+  const [registerApi, isLoading, error, msg] = useApi(authApi.register);
 
   // ------- UTILITIES --------
   const handleLoginPress = () => {

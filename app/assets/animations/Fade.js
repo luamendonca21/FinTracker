@@ -2,21 +2,20 @@ import React, { useState, useRef, useEffect } from "react";
 import { View, StyleSheet, Animated } from "react-native";
 import defaultStyles from "../../config/styles";
 
-const DURATION = 500;
-const Fade = ({ isVisible }) => {
+const Fade = ({ isVisible, style, toast, children, value, duration }) => {
   const opacityValue = useRef(new Animated.Value(0)).current;
 
   const fadeInAnimation = useRef(
     Animated.timing(opacityValue, {
-      toValue: 0.4,
-      duration: DURATION,
+      toValue: value,
+      duration: duration,
       useNativeDriver: true,
     })
   ).current;
   const fadeOutAnimation = useRef(
     Animated.timing(opacityValue, {
       toValue: 0,
-      duration: DURATION,
+      duration: duration,
       useNativeDriver: true,
     })
   ).current;
@@ -30,15 +29,28 @@ const Fade = ({ isVisible }) => {
 
   return (
     <Animated.View
-      style={{
-        position: "absolute",
-        width: "100%",
-        height: "100%",
-        flex: 1,
-        backgroundColor: defaultStyles.colors.black,
-        opacity: opacityValue,
-      }}
-    />
+      style={[
+        {
+          transform: toast && [
+            {
+              translateY: opacityValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: [-20, 0],
+              }),
+            },
+          ],
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          flex: 1,
+          backgroundColor: defaultStyles.colors.black,
+          opacity: opacityValue,
+        },
+        style,
+      ]}
+    >
+      {children}
+    </Animated.View>
   );
 };
 

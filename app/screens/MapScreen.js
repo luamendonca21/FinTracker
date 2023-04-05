@@ -191,7 +191,7 @@ const MapScreen = ({ navigation }) => {
         />
         {isBottomSheetActive && (
           <>
-            <Fade isVisible={isAnimating} />
+            <Fade duration={500} value={0.4} isVisible={isAnimating} />
             <BottomSheet
               scroll
               closeBottomSheet={handleCloseBottomSheet}

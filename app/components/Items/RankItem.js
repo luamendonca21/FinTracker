@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   title: { fontWeight: "bold", fontSize: 18 },
-  subtitle: { fontWeight: "bold", fontSize: 16 },
+  subtitle: { fontWeight: "bold", fontSize: 15 },
   number: {
     color: defaultStyles.colors.primary,
     fontWeight: "bold",

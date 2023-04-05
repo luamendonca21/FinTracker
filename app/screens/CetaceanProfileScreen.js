@@ -134,7 +134,7 @@ const CetaceanProfileScreen = ({ route }) => {
         </View>
         {isBottomSheetActive && (
           <>
-            <Fade isVisible={isAnimating} />
+            <Fade duration={500} value={0.4} isVisible={isAnimating} />
             <BottomSheet
               closeBottomSheet={handleCloseBottomSheet}
               onPress={handleApplyChanges}

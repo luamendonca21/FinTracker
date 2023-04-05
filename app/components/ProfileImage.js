@@ -147,7 +147,7 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
       <Alert
         showAlert={isAlertVisible}
         title="Aviso"
-        message="Tens a certeza que queres eliminar a foto de perfil?"
+        msg="Tens a certeza que queres eliminar a foto de perfil?"
         showCancelButton
         showConfirmButton
         cancelText="Cancelar"

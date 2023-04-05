@@ -67,14 +67,13 @@ const LoginScreen = ({ navigation }) => {
     loginApi(data)
       .then((response) => {
         console.log(response);
+        reset();
         logIn(response.token);
       })
       .catch((error) => {
         console.log(error);
       })
-      .finally(() => {
-        reset();
-      });
+      .finally(() => {});
   };
 
   return (

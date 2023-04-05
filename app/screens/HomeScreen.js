@@ -305,7 +305,7 @@ const HomeScreen = ({ navigation }) => {
               }}
               title="Ordenar por"
               style={styles.orderButton}
-              styleText={{ fontSize: 16 }}
+              styleText={{ fontSize: 15 }}
             />
             <FlatList
               style={styles.rankContainer}

@@ -10,6 +10,7 @@ import defaultStyles from "./app/config/styles";
 import myTheme from "./app/navigation/navigationTheme";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,6 +34,7 @@ export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
 
+  const netInfo = useNetInfo();
   useEffect(() => {
     async function restoreUser() {
       try {
@@ -72,7 +74,12 @@ export default function App() {
         translucent={true}
       />
       <AuthContext.Provider value={{ user, setUser }}>
-        <Notice msg="Sem conexão à Internet" />
+        <Notice
+          isVisible={
+            netInfo.type !== "unknown" && netInfo.isInternetReachable === false
+          }
+          msg="Sem conexão à Internet"
+        />
         <NavigationContainer theme={myTheme}>
           {user ? (
             <AppNavigator onLayout={onLayoutRootView} />

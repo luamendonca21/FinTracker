@@ -92,13 +92,12 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 style={styles.text}
               >{`Recuperação de palavra-passe`}</AppText>
               <AppText
-                style={[styles.text, { fontSize: 16, fontWeight: "500" }]}
+                style={[styles.text, { fontSize: 15, fontWeight: "500" }]}
               >
                 Introduza o email associado à sua conta e enviaremos um email
                 com as instruções necessárias para alterar a sua palavra-passe.
               </AppText>
               <View style={styles.formContainer}>
-                <ErrorMessage error={error} />
                 <Controller
                   control={control}
                   name="email"
@@ -140,7 +139,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
           <Alert
             showAlert={isAlertVisible}
             title="Aviso"
-            message="Email enviado!"
+            error={error}
+            msg={msg}
             showConfirmButton
             confirmText="Ok"
             confirmButtonColor={defaultStyles.colors.success}
@@ -155,7 +155,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  text: { fontSize: 24, fontWeight: "700", color: defaultStyles.colors.white },
+  text: { fontSize: 22, fontWeight: "700", color: defaultStyles.colors.white },
   container: { padding: 15, flex: 1 },
   formContainer: { marginTop: 180 },
   forgotPassword: {

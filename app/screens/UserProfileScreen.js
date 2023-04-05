@@ -232,7 +232,7 @@ function UserProfileScreen({ navigation }) {
           </Screen>
           {isBottomSheetActive && (
             <>
-              <Fade isVisible={isAnimating} />
+              <Fade duration={500} value={0.4} isVisible={isAnimating} />
               <BottomSheet
                 closeBottomSheet={handleCloseBottomSheet}
                 onPress={handleApplyChanges}
@@ -319,11 +319,6 @@ const styles = StyleSheet.create({
   },
   iconButton: {
     marginLeft: 5,
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 22,
-    textAlign: "justify",
   },
 });
 
