@@ -22,7 +22,7 @@ const MapNavigator = () => (
     />
     <Stack.Screen
       options={{ headerShown: false }}
-      name="CetaceanProfile"
+      name="CetaceansProfile"
       component={CetaceanProfileScreen}
     />
   </Stack.Navigator>

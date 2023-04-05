@@ -31,10 +31,11 @@ if (__DEV__) {
 }
 
 export default function App() {
+  const netInfo = useNetInfo();
+
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
 
-  const netInfo = useNetInfo();
   useEffect(() => {
     async function restoreUser() {
       try {
@@ -75,10 +76,15 @@ export default function App() {
       />
       <AuthContext.Provider value={{ user, setUser }}>
         <Notice
+          icon={{ first: "wifi-off", second: "wifi" }}
           isVisible={
             netInfo.type !== "unknown" && netInfo.isInternetReachable === false
           }
-          msg="Sem conexão à Internet"
+          msg={
+            netInfo.type !== "unknown" && netInfo.isInternetReachable === false
+              ? "Sem conexão à Internet"
+              : "Conexão à Internet restaurada"
+          }
         />
         <NavigationContainer theme={myTheme}>
           {user ? (

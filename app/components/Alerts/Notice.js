@@ -1,21 +1,36 @@
-import React, { useEffect, useRef } from "react";
-import { View, StyleSheet, Animated } from "react-native";
+import React from "react";
+import { StyleSheet } from "react-native";
 import Constants from "expo-constants";
-import { useNetInfo } from "@react-native-community/netinfo";
 import Fade from "../../assets/animations/Fade";
 import AppText from "../AppText";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import defaultStyles from "../../config/styles";
 
-const Notice = ({ isVisible, msg }) => {
+const Notice = ({ isVisible, msg, icon }) => {
   return (
     <Fade
       value={1}
-      duration={300}
+      duration={500}
       toast
       isVisible={isVisible}
-      style={styles.container}
+      style={[
+        styles.container,
+        {
+          backgroundColor: isVisible
+            ? defaultStyles.colors.danger
+            : defaultStyles.colors.success,
+        },
+      ]}
     >
+      {icon && (
+        <MaterialCommunityIcons
+          name={isVisible ? icon.first : icon.second}
+          size={25}
+          color={defaultStyles.colors.white}
+          style={styles.icon}
+        />
+      )}
       <AppText style={styles.text}>{msg}</AppText>
     </Fade>
   );
@@ -23,21 +38,23 @@ const Notice = ({ isVisible, msg }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: defaultStyles.colors.danger,
+    flexDirection: "row",
     width: "95%",
     height: 50,
+    justifyContent: "center",
     position: "absolute",
     zIndex: 1,
     borderRadius: 15,
     alignSelf: "center",
     top: 10 + Constants.statusBarHeight,
     alignItems: "center",
-    justifyContent: "center",
     elevation: 1,
   },
   text: {
     color: defaultStyles.colors.white,
+    marginHorizontal: 5,
   },
+  icon: { marginHorizontal: 5 },
 });
 
 export default Notice;

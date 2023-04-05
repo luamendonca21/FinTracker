@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { View, StyleSheet, Animated } from "react-native";
+import React, { useRef, useEffect } from "react";
+import { StyleSheet, Animated } from "react-native";
 import defaultStyles from "../../config/styles";
 
 const Fade = ({ isVisible, style, toast, children, value, duration }) => {
