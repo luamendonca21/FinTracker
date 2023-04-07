@@ -20,7 +20,6 @@ import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
 import routes from "../navigation/routes";
 import { RankItem } from "../components/Items";
-import { Notice } from "../components/Alerts";
 const windowWidth = Dimensions.get("window").width;
 
 const shortcuts = [

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -8,6 +8,8 @@ import AppText from "../components/AppText";
 import { ListDetails, ListOptions } from "../components/Lists";
 import { IconButton } from "../components/Buttons";
 import BottomSheet from "../components/BottomSheet";
+
+import cache from "../utility/cache";
 
 import defaultStyles from "../config/styles";
 
@@ -86,6 +88,31 @@ const CetaceanProfileScreen = ({ route }) => {
       setBottomSheetActive(false);
     }, 460);
   };
+
+  useEffect(() => {
+    const storeNotifications = async () => {
+      try {
+        await cache.store(`notifications${item.name}`, notificationsActive);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    inputs.length != 0 && storeNotifications();
+  }, [notificationsActive]);
+
+  useEffect(() => {
+    const getNotifications = async () => {
+      try {
+        const notifications = await cache.get(`notifications${item.name}`);
+        setNotificationsActive(notifications);
+        console.log(notifications);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getNotifications();
+  }, []);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>

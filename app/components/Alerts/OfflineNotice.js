@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import defaultStyles from "../../config/styles";
 
-const Notice = ({ isVisible, msg, icon }) => {
+const OfflineNotice = ({ isVisible, msg, icon }) => {
   return (
     <Fade
       value={1}
@@ -25,7 +25,7 @@ const Notice = ({ isVisible, msg, icon }) => {
     >
       {icon && (
         <MaterialCommunityIcons
-          name={isVisible ? icon.first : icon.second}
+          name={isVisible ? icon.disconnected : icon.connected}
           size={25}
           color={defaultStyles.colors.white}
           style={styles.icon}
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   icon: { marginHorizontal: 5 },
 });
 
-export default Notice;
+export default OfflineNotice;

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 
 import MapView from "react-native-maps";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Constants from "expo-constants";
-
+import cache from "../utility/cache";
 import AppText from "../components/AppText";
 import Icon from "../components/Icon";
 import MapMarker from "../components/MapMarker";
@@ -147,6 +147,7 @@ const MapScreen = ({ navigation }) => {
       setBottomSheetActive(false);
     }, 460);
   };
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>

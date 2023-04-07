@@ -26,8 +26,8 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
   const requestMediaPermissions = useMedia((imageUri) => setImage(imageUri));
 
   // ------ APIS -----
-  const [addPictureApi, isLoadingAddPicture, errorAddPicture] = useApi(
-    usersApi.addPicture
+  const [updatePictureApi, isLoadingUpdatePicture, errorUpdatePicture] = useApi(
+    usersApi.updatePicture
   );
 
   const [getPictureApi, isLoadingGetPicture, errorGetPicture] = useApi(
@@ -87,7 +87,7 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
   useEffect(() => {
     const data = handleUpdatePicture();
     if (imageChanged)
-      addPictureApi(user.id, data)
+      updatePictureApi(user.id, data)
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
   }, [image]);
@@ -96,7 +96,9 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
     <>
       <ActivityIndicator
         visible={
-          isLoadingAddPicture || isLoadingGetPicture || isLoadingDeletePicture
+          isLoadingUpdatePicture ||
+          isLoadingGetPicture ||
+          isLoadingDeletePicture
         }
       />
       <View

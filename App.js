@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
 import AppNavigator from "./app/navigation/AppNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
-import { Notice } from "./app/components/Alerts";
+import { OfflineNotice } from "./app/components/Alerts";
 import defaultStyles from "./app/config/styles";
 import myTheme from "./app/navigation/navigationTheme";
 import AuthContext from "./app/auth/context";
@@ -36,6 +36,9 @@ export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
 
+  const isInternetNotConnected = () => {
+    return netInfo.type !== "unknown" && netInfo.isInternetReachable === false;
+  };
   useEffect(() => {
     async function restoreUser() {
       try {
@@ -75,13 +78,11 @@ export default function App() {
         translucent={true}
       />
       <AuthContext.Provider value={{ user, setUser }}>
-        <Notice
-          icon={{ first: "wifi-off", second: "wifi" }}
-          isVisible={
-            netInfo.type !== "unknown" && netInfo.isInternetReachable === false
-          }
+        <OfflineNotice
+          icon={{ disconnected: "wifi-off", connected: "wifi" }}
+          isVisible={isInternetNotConnected()}
           msg={
-            netInfo.type !== "unknown" && netInfo.isInternetReachable === false
+            isInternetNotConnected()
               ? "Sem conexão à Internet"
               : "Conexão à Internet restaurada"
           }

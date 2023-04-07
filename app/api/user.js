@@ -64,7 +64,7 @@ const updateUsername = async (id, data) => {
     throw error.response.data;
   }
 };
-const addPicture = async (id, data) => {
+const updatePicture = async (id, data) => {
   try {
     const response = await ApiManager.put(`/user/${id}/picture`, data, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -93,6 +93,6 @@ export default {
   updateDetails,
   updatePassword,
   updateUsername,
-  addPicture,
+  updatePicture,
   deletePicture,
 };
