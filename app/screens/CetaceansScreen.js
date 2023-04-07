@@ -319,20 +319,19 @@ const CetaceansScreen = ({ navigation }) => {
     );
   };
 
-  /* const print = () => {
-    console.log(individuals); */
-
   // -------- LIFECYCLE HOOKS ----------
-  /* 
-  };
+
   useEffect(() => {
     const fetchIndividuals = async () => {
-      const individuals = await movebank.getIndividualsByStudy(886013997);
-      setIndividuals(individuals);
+      try {
+        const individuals = await movebank.getIndividualsByStudy(886013997);
+        console.log(JSON.stringify(individuals, null, "\t"));
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchIndividuals();
-    print();
-  }, []); */
+  }, []);
 
   return (
     <View style={styles.container}>

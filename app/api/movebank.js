@@ -1,5 +1,15 @@
 import axios from "axios";
 import md5 from "md5";
+import { decode, encode } from "base-64";
+
+if (!global.btoa) {
+  global.btoa = encode;
+}
+
+if (!global.atob) {
+  global.atob = decode;
+}
+
 import csv from "csvtojson";
 
 const token = "2622d297-1e90-4d03-8fb0-ef2d4bf2daba";
