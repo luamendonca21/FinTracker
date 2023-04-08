@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
+
+import ActivityIndicator from "../../ActivityIndicator";
+
+import settings from "../../../config/settings";
 
 import AppText from "../../AppText";
 
 import defaultStyles from "../../../config/styles";
 
 function CarouselItem({ item, onPress }) {
+  const baseURL = settings.apiUrl;
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <TouchableHighlight
       style={{ borderRadius: 15 }}
@@ -13,10 +20,16 @@ function CarouselItem({ item, onPress }) {
       onPress={onPress}
     >
       <View style={styles.item}>
-        <Image style={styles.image} source={item.imageUrl} />
+        <Image
+          style={styles.image}
+          source={{ uri: `${baseURL}\\${item.picture.src}` }}
+          onLoadEnd={() => setIsLoading(false)}
+        />
+
         <AppText numberOfLines={2} style={styles.itemTitle}>
           {item.name}
         </AppText>
+        <ActivityIndicator visible={isLoading} />
       </View>
     </TouchableHighlight>
   );

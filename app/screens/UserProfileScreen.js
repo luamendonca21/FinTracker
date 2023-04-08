@@ -224,7 +224,7 @@ function UserProfileScreen({ navigation }) {
                     style={{ marginVertical: 20 }}
                   />
                   <AppText style={styles.title}>Cetáceos Favoritos</AppText>
-                  <Carousel style={{ marginBottom: 15 }} data={favorites} />
+                  {/*                   <Carousel style={{ marginBottom: 15 }} data={favorites} /> */}
                   <AppText style={styles.title}>Visitados</AppText>
                 </View>
               </ScrollView>

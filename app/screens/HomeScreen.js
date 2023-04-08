@@ -207,7 +207,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <>
-      <ActivityIndicator visible={isLoadingUser} />
+      <ActivityIndicator visible={isLoadingUser || isLoadingUsers} />
       <ScrollView showsVerticalScrollIndicator={false} ref={scrollRef}>
         <View style={styles.container}>
           <Screen>

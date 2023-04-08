@@ -3,10 +3,10 @@ import { View, StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
 import defaultStyles from "../config/styles";
 
-const ActivityIndicator = ({ visible = false }) => {
+const ActivityIndicator = ({ style, visible = false }) => {
   if (!visible) return null;
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <LottieView
         autoPlay
         loop
@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.white,
     height: "100%",
     width: "100%",
-    zIndex: 1,
     opacity: 0.8,
+    zIndex: 1,
   },
 });
 

@@ -11,6 +11,8 @@ import BottomSheet from "../components/BottomSheet";
 
 import cache from "../utility/cache";
 
+import settings from "../config/settings";
+
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -22,6 +24,8 @@ const notifications = [
 ];
 
 const CetaceanProfileScreen = ({ route }) => {
+  const baseURL = settings.apiUrl;
+
   // ------ STATE MANAGEMENT -------
   const { item } = route.params;
   const [isFavorite, setIsFavorite] = useState(false);
@@ -117,7 +121,10 @@ const CetaceanProfileScreen = ({ route }) => {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={item.imageUrl} />
+          <Image
+            style={styles.image}
+            source={{ uri: `${baseURL}\\${item.picture.src}` }}
+          />
         </View>
         <View style={styles.profileContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -151,7 +158,11 @@ const CetaceanProfileScreen = ({ route }) => {
                 <ListDetails details={item.details} />
               </ScrollView>
               <AppText style={styles.title}>Introdução</AppText>
-              <AppText style={styles.text}>{item.introduction}.</AppText>
+              <AppText style={styles.text}>{item.introduction}</AppText>
+              <AppText style={styles.title}>Comportamento social</AppText>
+              <AppText style={styles.text}>{item.socialBehavior}</AppText>
+              <AppText style={styles.title}>Caraterísticas físicas</AppText>
+              <AppText style={styles.text}>{item.physic}</AppText>
               <AppText style={styles.title}>História</AppText>
               <AppText style={styles.text}>{item.history}</AppText>
               <AppText style={styles.title}>Rota de migração</AppText>
