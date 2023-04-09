@@ -30,6 +30,7 @@ const MapScreen = ({ navigation }) => {
     { id: 2, title: "Juvenil", category: "Fase da vida" },
     { id: 3, title: "Adulta", category: "Fase da vida" },
     { id: 4, title: " Idosa", category: "Fase da vida" },
+    { id: 5, title: " Orca", category: "Espécies" },
   ];
   const { location, errorMsg } = useLocation();
   const [markers, setMarkers] = useState([
