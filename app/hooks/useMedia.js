@@ -1,15 +1,11 @@
-import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
 
-export default useMedia = (onSelectImage) => {
+export default useMedia = (onSelectImage, onPermissionDenied) => {
   const requestMediaPermissions = async () => {
     const { granted } = await ImagePicker.requestCameraPermissionsAsync();
     if (!granted) {
-      Alert.alert(
-        "Aviso",
-        "Precisas de aceitar a permissão para aceder à galeria."
-      );
+      onPermissionDenied();
       return;
     }
     // No permissions request is necessary for launching the image library

@@ -4,14 +4,15 @@ import { View, StyleSheet, Dimensions } from "react-native";
 import MapView from "react-native-maps";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Constants from "expo-constants";
-import cache from "../utility/cache";
 import AppText from "../components/AppText";
 import Icon from "../components/Icon";
 import MapMarker from "../components/MapMarker";
 import Fade from "../assets/animations/Fade";
 import BottomSheet from "../components/BottomSheet";
 import { ListOptions } from "../components/Lists";
+import ActivityIndicator from "../components/ActivityIndicator";
 
+import movebank from "../api/movebank";
 import routes from "../navigation/routes";
 import useLocation from "../hooks/useLocation";
 
@@ -20,6 +21,9 @@ import defaultStyles from "../config/styles";
 const windowHeight = Dimensions.get("window").height;
 
 const MapScreen = ({ navigation }) => {
+  const [ids, setIds] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+  const [events, setEvents] = useState([]);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [inputs, setInputs] = useState([]);
@@ -149,8 +153,26 @@ const MapScreen = ({ navigation }) => {
     }, 460);
   };
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setIsFetching(true);
+      try {
+        const response = await movebank.getIndividualEvents(886013997);
+        console.log(response);
+        setIsFetching(false);
+      } catch (error) {
+        console.log(error);
+        setIsFetching(false);
+      }
+    };
+
+    // get animals events
+    fetchEvents();
+  }, []);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <ActivityIndicator visible={isFetching} />
       <View style={styles.container}>
         <MapView
           mapType="satellite"

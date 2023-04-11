@@ -138,7 +138,6 @@ const ForgotPasswordScreen = ({ navigation }) => {
           </Screen>
           <Alert
             showAlert={isAlertVisible}
-            title="Aviso"
             error={error}
             msg={msg}
             showConfirmButton

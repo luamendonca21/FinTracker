@@ -18,12 +18,29 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
   const { user } = useAuth();
 
   // ----- STATE MANAGEMENT ------
+  const [alert, setAlert] = useState({
+    title: "",
+    showCancelButton: false,
+    showConfirmButton: false,
+    cancelText: "",
+    confirmText: "",
+  });
   const [image, setImage] = useState(null);
   const [imageChanged, setImageChanged] = useState(false);
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   // ----- MEDIA PERMISSIONS -----
-  const requestMediaPermissions = useMedia((imageUri) => setImage(imageUri));
+  const requestMediaPermissions = useMedia(
+    (imageUri) => setImage(imageUri),
+    () => {
+      showAlert({
+        title: "Precisas de aceitar a permissão para aceder à galeria.",
+        showCancelButton: false,
+        showConfirmButton: true,
+        confirmText: "Ok",
+      });
+    }
+  );
 
   // ------ APIS -----
   const [updatePictureApi, isLoadingUpdatePicture, errorUpdatePicture] = useApi(
@@ -62,7 +79,8 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
     return data;
   };
 
-  const showAlert = () => {
+  const showAlert = (alert) => {
+    setAlert(alert);
     setIsAlertVisible(true);
   };
 
@@ -137,7 +155,15 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
         )}
         {deleteIcon && (
           <Icon
-            onPress={showAlert}
+            onPress={() =>
+              showAlert({
+                title: "Tens a certeza que queres eliminar a foto de perfil?",
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelText: "Cancelar",
+                confirmText: "Eliminar",
+              })
+            }
             style={styles.deleteIcon}
             icon="delete-outline"
             size={16}
@@ -148,12 +174,11 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
       </View>
       <Alert
         showAlert={isAlertVisible}
-        title="Aviso"
-        msg="Tens a certeza que queres eliminar a foto de perfil?"
-        showCancelButton
-        showConfirmButton
-        cancelText="Cancelar"
-        confirmText="Eliminar"
+        msg={alert.title}
+        showCancelButton={alert.showCancelButton}
+        showConfirmButton={alert.showConfirmButton}
+        cancelText={alert.cancelText}
+        confirmText={alert.confirmText}
         cancelButtonColor={defaultStyles.colors.gray}
         confirmButtonColor={defaultStyles.colors.danger}
         onCancel={() => {
@@ -161,7 +186,9 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
         }}
         onConfirm={() => {
           hideAlert();
-          handleDeleteImagePress();
+          if (alert.showCancelButton && alert.showConfirmButton) {
+            handleDeleteImagePress();
+          }
         }}
       />
     </>

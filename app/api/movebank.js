@@ -62,23 +62,17 @@ const getIndividualsByStudy = async (study_id) => {
   return [];
 };
 
-/* const getIndividualEvents = async (
-  study_id,
-  individual_id,
-  sensor_type_id = 653
-) => {
+const getIndividualEvents = async (study_id, sensor_type_id = 653) => {
   const params = {
     entity_type: "event",
     study_id,
-    individual_id,
     sensor_type_id,
-    attributes: "all",
   };
   const events = await callMovebankAPI(params);
   if (events.length > 0) {
     return await csv().fromString(events);
   }
   return [];
-}; */
+};
 
-export default { getIndividualsByStudy };
+export default { getIndividualsByStudy, getIndividualEvents };

@@ -8,7 +8,6 @@ const Alert = ({
   msg,
   confirmText,
   cancelText,
-  title,
   buttonTextStyle,
   showAlert,
   cancelButtonColor,
@@ -22,11 +21,10 @@ const Alert = ({
     <AwesomeAlert
       show={showAlert}
       showProgress={false}
-      title={title}
       message={error ? error : msg ? msg : null}
       messageStyle={styles.text}
-      closeOnTouchOutside={true}
-      closeOnHardwareBackPress={true}
+      closeOnTouchOutside={false}
+      closeOnHardwareBackPress={false}
       showCancelButton={showCancelButton}
       showConfirmButton={showConfirmButton}
       cancelText={cancelText}
@@ -45,7 +43,6 @@ const Alert = ({
       cancelButtonStyle={styles.buttonContainer}
       confirmButtonTextStyle={[styles.buttonText, buttonTextStyle]}
       cancelButtonTextStyle={[styles.buttonText, buttonTextStyle]}
-      titleStyle={styles.title}
       contentContainerStyle={styles.container}
     />
   );
@@ -60,11 +57,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: { borderRadius: 50, width: "40%", alignItems: "center" },
   text: { fontSize: 15, color: defaultStyles.colors.black },
-  title: {
-    fontSize: 18,
-    color: defaultStyles.colors.black,
-    fontWeight: "bold",
-  },
 });
 
 export default Alert;
