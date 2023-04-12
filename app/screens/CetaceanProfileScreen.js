@@ -10,10 +10,13 @@ import { IconButton } from "../components/Buttons";
 import BottomSheet from "../components/BottomSheet";
 
 import cache from "../utility/cache";
-
+import useApi from "../hooks/useApi";
+import usersApi from "../api/user";
+import useAuth from "../auth/useAuth";
 import settings from "../config/settings";
 
 import defaultStyles from "../config/styles";
+import ActivityIndicator from "../components/ActivityIndicator";
 
 const windowHeight = Dimensions.get("window").height;
 
@@ -25,6 +28,7 @@ const notifications = [
 
 const CetaceanProfileScreen = ({ route }) => {
   const baseURL = settings.apiUrl;
+  const { user } = useAuth();
 
   // ------ STATE MANAGEMENT -------
   const { item } = route.params;
@@ -34,6 +38,15 @@ const CetaceanProfileScreen = ({ route }) => {
   const [inputs, setInputs] = useState([]);
   const [notificationsActive, setNotificationsActive] = useState([]);
 
+  // ---------- APIS -----------
+  const [updateFavoriteApi, isLoadingUpdateFavorites, errorUpdate] = useApi(
+    usersApi.updateFavorite
+  );
+  const [deleteFavoriteApi, isLoadingDeleteFavorites, errorDelete] = useApi(
+    usersApi.deleteFavorite
+  );
+  const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
+
   // ---------- UTILITIES -----------
   const isNotificationActive = (id) => {
     return inputs.find((item) => item.id === id);
@@ -41,6 +54,16 @@ const CetaceanProfileScreen = ({ route }) => {
 
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
+    console.log(item.individualId);
+    if (!isFavorite) {
+      updateFavoriteApi(user.id, item.individualId)
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
+    } else {
+      deleteFavoriteApi(user.id, item.individualId)
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
+    }
   };
 
   const selectFavoriteIcon = () => {
@@ -106,6 +129,15 @@ const CetaceanProfileScreen = ({ route }) => {
   }, [notificationsActive]);
 
   useEffect(() => {
+    getUserApi(user.id)
+      .then((response) => {
+        if (response.favorites.includes(item.individualId)) {
+          setIsFavorite(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     const getNotifications = async () => {
       try {
         const notifications = await cache.get(`notifications${item.name}`);
@@ -119,6 +151,7 @@ const CetaceanProfileScreen = ({ route }) => {
   }, []);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <ActivityIndicator visible={isLoadingUser} />
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image

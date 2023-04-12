@@ -10,7 +10,15 @@ const storeCetacean = async (data) => {
 };
 const getAllCetaceans = async () => {
   try {
-    const response = await ApiManager.get(`/cetaceans`);
+    const response = await ApiManager.get(`/allCetaceans`);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+const getById = async (id) => {
+  try {
+    const response = await ApiManager.get(`/cetaceans/${id}`);
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -25,4 +33,4 @@ const deleteAllCetaceans = async () => {
   }
 };
 
-export default { storeCetacean, getAllCetaceans, deleteAllCetaceans };
+export default { storeCetacean, getAllCetaceans, getById, deleteAllCetaceans };

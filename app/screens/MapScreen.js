@@ -157,8 +157,10 @@ const MapScreen = ({ navigation }) => {
     const fetchEvents = async () => {
       setIsFetching(true);
       try {
-        const response = await movebank.getIndividualEvents(886013997);
-        console.log(response);
+        const events = await movebank.getIndividualEvents(886013997);
+        console.log(JSON.stringify(events, null, "\t"));
+
+        setEvents(events);
         setIsFetching(false);
       } catch (error) {
         console.log(error);

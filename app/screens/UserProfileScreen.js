@@ -18,9 +18,9 @@ import ActivityIndicator from "../components/ActivityIndicator";
 
 import useAuth from "../auth/useAuth";
 import usersApi from "../api/user";
+import cetaceansApi from "../api/cetaceans";
 import useApi from "../hooks/useApi";
 import routes from "../navigation/routes";
-
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -34,48 +34,6 @@ function UserProfileScreen({ navigation }) {
     { id: 3, title: "Profissão" },
   ];
 
-  // hardcoded favorites for now
-  const favorites = [
-    {
-      id: 1,
-      name: "Atlantic spotted Dolphin",
-      details: [
-        {
-          id: 1,
-          title: "Nome Científico",
-          value: "Stenella frontalis",
-        },
-        {
-          id: 2,
-          title: "Idade",
-          value: "1",
-        },
-        {
-          id: 3,
-          title: "Comprimento",
-          value: "3m",
-        },
-        {
-          id: 4,
-          title: "Peso",
-          value: "650kg",
-        },
-        {
-          id: 5,
-          title: "Localização",
-          value: "Camâra de Lobos",
-        },
-      ],
-      imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
-  ];
-
   //retrieve the user logged
   const { user } = useAuth();
 
@@ -86,6 +44,8 @@ function UserProfileScreen({ navigation }) {
   const [points, setPoints] = useState(0);
   const [username, setUsername] = useState("");
   const [detailsActive, setDetailsActive] = useState([]);
+  const [favoritesIds, setFavoritesIds] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   // ------ APIS ------
   const [updateUserDetailsApi, isLoadingDetailsUpdate, errorUpdateDetails] =
@@ -93,6 +53,9 @@ function UserProfileScreen({ navigation }) {
   const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
   const [getUserDetailsApi, isLoadingDetails, errorGetDetails] = useApi(
     usersApi.getDetails
+  );
+  const [getCetaceansById, isLoadingCetaceans, errorGetCetaceans] = useApi(
+    cetaceansApi.getById
   );
 
   // --------- UTILITIES -----------
@@ -158,6 +121,7 @@ function UserProfileScreen({ navigation }) {
       .then((response) => {
         setPoints(response.points);
         setUsername(response.username);
+        setFavoritesIds(response.favorites);
       })
       .catch((error) => {
         console.log(error);
@@ -171,11 +135,30 @@ function UserProfileScreen({ navigation }) {
       });
   }, []);
 
+  useEffect(() => {
+    favoritesIds.forEach((value) => {
+      getCetaceansById(value)
+        .then((response) => {
+          const newFavorite = response.cetacean;
+          console.log(response.cetacean);
+          setFavorites((prevFavorites) => [...prevFavorites, newFavorite]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }, [favoritesIds]);
+
   return (
     <>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ActivityIndicator
-          visible={isLoadingDetails || isLoadingDetailsUpdate || isLoadingUser}
+          visible={
+            isLoadingDetails ||
+            isLoadingDetailsUpdate ||
+            isLoadingUser ||
+            isLoadingCetaceans
+          }
         />
         <View style={styles.container}>
           <Screen>
@@ -224,7 +207,13 @@ function UserProfileScreen({ navigation }) {
                     style={{ marginVertical: 20 }}
                   />
                   <AppText style={styles.title}>Cetáceos Favoritos</AppText>
-                  {/*                   <Carousel style={{ marginBottom: 15 }} data={favorites} /> */}
+
+                  {favorites.length != 0 ? (
+                    <Carousel style={{ marginBottom: 15 }} data={favorites} />
+                  ) : (
+                    <AppText>Ainda não foram adicionados favoritos.</AppText>
+                  )}
+
                   <AppText style={styles.title}>Visitados</AppText>
                 </View>
               </ScrollView>

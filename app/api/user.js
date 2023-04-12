@@ -74,11 +74,29 @@ const updatePicture = async (id, data) => {
     throw error;
   }
 };
+const updateFavorite = async (id, data) => {
+  try {
+    const response = await ApiManager.put(`/user/${id}/favorites`, {
+      cetaceanId: data,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+const deleteFavorite = async (id, data) => {
+  try {
+    const response = await ApiManager.put(`/user/${id}/favorites/remove`, {
+      cetaceanToRemove: data,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 const deletePicture = async (id) => {
   try {
-    const response = await ApiManager.delete(`/user/${id}/picture`, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const response = await ApiManager.delete(`/user/${id}/picture`);
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -94,5 +112,7 @@ export default {
   updatePassword,
   updateUsername,
   updatePicture,
+  updateFavorite,
+  deleteFavorite,
   deletePicture,
 };
