@@ -208,11 +208,7 @@ function UserProfileScreen({ navigation }) {
                   />
                   <AppText style={styles.title}>Cetáceos Favoritos</AppText>
 
-                  {favorites.length != 0 ? (
-                    <Carousel style={{ marginBottom: 15 }} data={favorites} />
-                  ) : (
-                    <AppText>Ainda não foram adicionados favoritos.</AppText>
-                  )}
+                  <Carousel style={{ marginBottom: 15 }} data={favorites} />
 
                   <AppText style={styles.title}>Visitados</AppText>
                 </View>

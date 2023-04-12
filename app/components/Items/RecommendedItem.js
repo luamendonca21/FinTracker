@@ -1,0 +1,61 @@
+import React from "react";
+import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
+
+import AppText from "../AppText";
+import settings from "../../config/settings";
+import defaultStyles from "../../config/styles";
+
+const RecommendedItem = ({ item, index, onPress }) => {
+  const baseURL = settings.apiUrl;
+
+  return (
+    <TouchableHighlight
+      style={{ borderRadius: 15 }}
+      underlayColor={defaultStyles.colors.light}
+      onPress={onPress}
+    >
+      <View style={styles.container}>
+        <Image
+          style={styles.image}
+          source={{ uri: `${baseURL}\\${item.picture.src}` }}
+        />
+        <View style={styles.textContainer}>
+          <AppText style={styles.title}>{item.details[1].value}</AppText>
+          <AppText numberOfLines={5} style={styles.subTitle}>
+            {item.individualId} {item.introduction}
+          </AppText>
+        </View>
+      </View>
+    </TouchableHighlight>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    alignSelf: "center",
+    alignItems: "center",
+    width: "98%",
+    marginVertical: 5,
+    borderRadius: 15,
+    backgroundColor: defaultStyles.colors.white,
+    elevation: 2,
+    flexDirection: "row",
+  },
+  image: {
+    width: 100,
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    height: "100%",
+  },
+  textContainer: {
+    padding: 10,
+    width: "98%",
+  },
+  title: { fontSize: 18, fontWeight: "bold" },
+  subTitle: { width: "75%" },
+});
+
+export default RecommendedItem;

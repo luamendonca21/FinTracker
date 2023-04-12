@@ -18,9 +18,15 @@ import ActivityIndicator from "../components/ActivityIndicator";
 import { MaterialIcons } from "@expo/vector-icons";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
+import cetaceansApi from "../api/cetaceans";
 import routes from "../navigation/routes";
 import { RankItem } from "../components/Items";
+import { RecommendedItem } from "../components/Items";
+
+import settings from "../config/settings";
+
 const windowWidth = Dimensions.get("window").width;
+const baseURL = settings.apiUrl;
 
 const shortcuts = [
   {
@@ -154,11 +160,15 @@ const HomeScreen = ({ navigation }) => {
   const [isRankIncreasing, setIsRankIncreasing] = useState(true);
   const [users, setUsers] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
+  const [recommendedCetaceans, setRecommendedCetaceans] = useState([]);
 
   // ------- APIS -------
   const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
   const [getUsersApi, isLoadingUsers, errorGetUsers] = useApi(
     usersApi.getUsers
+  );
+  const [getCetaceansById, isLoadingCetaceans, errorGetCetaceans] = useApi(
+    cetaceansApi.getById
   );
 
   // ------- UTILITIES --------
@@ -171,11 +181,56 @@ const HomeScreen = ({ navigation }) => {
       );
     setSortedUsers(sorted);
   };
+  const orderFavoriteCetaceans = () => {
+    const idCounts = {};
+
+    // Conta as ocorrências de cada ID de animal
+    users.forEach((user) => {
+      user.favorites.forEach((individualId) => {
+        if (idCounts[individualId]) {
+          idCounts[individualId]++;
+        } else {
+          idCounts[individualId] = 1;
+        }
+      });
+    });
+
+    // Ordena os IDs por popularidade (contagem de ocorrências)
+    const sortedIds = Object.keys(idCounts).sort((a, b) => {
+      return idCounts[b] - idCounts[a];
+    });
+
+    console.log("Primeiro", sortedIds);
+    const getCetaceansByIds = async (ids) => {
+      const cetaceans = {};
+      await Promise.all(
+        ids.map((id) =>
+          getCetaceansById(id).then(
+            (response) => (cetaceans[id] = response.cetacean)
+          )
+        )
+      );
+      return ids.map((id) => cetaceans[id]);
+    };
+
+    getCetaceansByIds(sortedIds).then((recommendedCetaceans) => {
+      setRecommendedCetaceans(recommendedCetaceans);
+    });
+  };
 
   const handlePressShortcut = ({ target }) => {
     navigation.navigate(target);
   };
 
+  const renderCetacean = ({ item, index }) => {
+    return (
+      <RecommendedItem
+        onPress={() => navigation.navigate("CetaceansProfile", { item })}
+        item={item}
+        index={index}
+      />
+    );
+  };
   const renderItem = ({ item, index }) => {
     return <RankItem item={item} index={index} />;
   };
@@ -205,6 +260,10 @@ const HomeScreen = ({ navigation }) => {
     setSortedUsers(sorted);
   }, [users, isRankIncreasing]);
 
+  useEffect(() => {
+    users.length != 0 && orderFavoriteCetaceans();
+  }, [users]);
+
   return (
     <>
       <ActivityIndicator visible={isLoadingUser || isLoadingUsers} />
@@ -220,8 +279,13 @@ const HomeScreen = ({ navigation }) => {
             >
               <AppText style={styles.welcome}>Olá, {username}!</AppText>
               <GlowingCircle
-                onPress={() =>
-                  scrollRef.current.scrollToEnd({ animated: true })
+                onPress={
+                  () =>
+                    recommendedCetaceans.forEach((value, index) => {
+                      console.log(value.individualId);
+                    })
+                  /* () =>
+                  scrollRef.current.scrollToEnd({ animated: true }) */
                 }
               />
             </View>
@@ -277,6 +341,25 @@ const HomeScreen = ({ navigation }) => {
                 ))}
               </View>
             </ScrollView>
+            <AppText style={styles.title}>Recomendados</AppText>
+            {recommendedCetaceans.length != 0 ? (
+              <FlatList
+                style={styles.recommendedContainer}
+                showsVerticalScrollIndicator={true}
+                horizontal={false}
+                nestedScrollEnabled
+                data={recommendedCetaceans}
+                keyExtractor={(item) => item.individualId}
+                renderItem={renderCetacean}
+              />
+            ) : (
+              <View style={styles.recommendedContainer}>
+                <ActivityIndicator
+                  style={styles.activityIndicator}
+                  visible={true}
+                />
+              </View>
+            )}
             <View
               style={{
                 marginBottom: 10,
@@ -411,6 +494,21 @@ const styles = StyleSheet.create({
     width: 160,
     justifyContent: "space-between",
     paddingVertical: 2,
+  },
+  rankContainer: {
+    height: 400,
+    flex: 1,
+    width: "100%",
+  },
+  recommendedContainer: {
+    marginTop: 10,
+    width: "100%",
+    height: 400,
+  },
+  activityIndicator: {
+    height: 400,
+    width: "100%",
+    position: "relative",
   },
 });
 

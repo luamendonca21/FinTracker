@@ -190,6 +190,7 @@ const CetaceanProfileScreen = ({ route }) => {
               >
                 <ListDetails details={item.details} />
               </ScrollView>
+              <AppText style={styles.text}>{item.individualId}</AppText>
               <AppText style={styles.title}>Introdução</AppText>
               <AppText style={styles.text}>{item.introduction}</AppText>
               <AppText style={styles.title}>Comportamento social</AppText>

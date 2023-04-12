@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, FlatList } from "react-native";
 
 import AppText from "../components/AppText";
-import { Carousel } from "../components/Carousels/ImageCarousel";
 import Screen from "../components/Screen";
 import { SearchInput } from "../components/Inputs";
 import { ListItem, ListItemSeparator } from "../components/Lists";
 import CategoryCard from "../components/CategoryCard";
 
-import movebank from "../api/movebank";
 import useApi from "../hooks/useApi";
 import cetaceansApi from "../api/cetaceans";
 import routes from "../navigation/routes";
-import info from "../info/cetaceans";
 import defaultStyles from "../config/styles";
 
 const CetaceansScreen = ({ navigation }) => {
@@ -23,12 +20,8 @@ const CetaceansScreen = ({ navigation }) => {
 
   // -------- APIS ----------
 
-  const [storeCetaceanApi, error] = useApi(cetaceansApi.storeCetacean);
   const [getAllCetaceansApi, errorGetAllCetaceans] = useApi(
     cetaceansApi.getAllCetaceans
-  );
-  const [deleteAllCetaceansApi, errorDeleteAllCetaceans] = useApi(
-    cetaceansApi.deleteAllCetaceans
   );
   // ------- UTILITIES ------
   const handleSearch = (query) => {
@@ -67,43 +60,6 @@ const CetaceansScreen = ({ navigation }) => {
 
   const fetchIndividuals = async () => {
     try {
-      // delete from backend
-      deleteAllCetaceansApi()
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error));
-
-      // get the cetaceans from movebank
-      const individuals = await movebank.getIndividualsByStudy(886013997);
-      console.log(JSON.stringify(individuals, null, "\t"));
-
-      // store the cetaceans in backend
-      individuals.forEach((value, index) => {
-        const {
-          details,
-          introduction,
-          socialBehavior,
-          physic,
-          history,
-          migration,
-          name,
-        } = info.find(
-          (animal) => animal.details[1].value === value.taxon_canonical_name
-        );
-        const cetacean = {
-          ...value,
-          details,
-          socialBehavior,
-          physic,
-          name,
-          introduction,
-          history,
-          migration,
-        };
-        storeCetaceanApi(cetacean)
-          .then((response) => console.log(response))
-          .catch((error) => console.log(error));
-      });
-
       // get cetaceans from backend
       getAllCetaceansApi()
         .then((response) => {

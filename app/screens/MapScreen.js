@@ -12,7 +12,7 @@ import BottomSheet from "../components/BottomSheet";
 import { ListOptions } from "../components/Lists";
 import ActivityIndicator from "../components/ActivityIndicator";
 
-import movebank from "../api/movebank";
+import movebank from "../api/movebankApi";
 import routes from "../navigation/routes";
 import useLocation from "../hooks/useLocation";
 

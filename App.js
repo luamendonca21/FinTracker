@@ -10,8 +10,11 @@ import defaultStyles from "./app/config/styles";
 import myTheme from "./app/navigation/navigationTheme";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
+import info from "./app/info/cetaceans";
+import cetaceansApi from "./app/api/cetaceans";
+import useApi from "./app/hooks/useApi";
 import { useNetInfo } from "@react-native-community/netinfo";
-
+import movebankApi from "./app/api/movebankApi";
 SplashScreen.preventAutoHideAsync();
 
 if (__DEV__) {
@@ -36,12 +39,52 @@ export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
 
+  const [storeCetaceanApi, error] = useApi(cetaceansApi.storeCetacean);
+  const [deleteAllCetaceansApi, errorDeleteAllCetaceans] = useApi(
+    cetaceansApi.deleteAllCetaceans
+  );
+
   const isInternetNotConnected = () => {
     return netInfo.type !== "unknown" && netInfo.isInternetReachable === false;
   };
   useEffect(() => {
-    async function restoreUser() {
+    async function fetchData() {
       try {
+        // delete from backend
+        deleteAllCetaceansApi()
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error));
+
+        // get the cetaceans from movebank
+        const individuals = await movebankApi.getIndividualsByStudy(886013997);
+
+        // store the cetaceans in backend
+        individuals.forEach((value, index) => {
+          const {
+            details,
+            introduction,
+            socialBehavior,
+            physic,
+            history,
+            migration,
+            name,
+          } = info.find(
+            (animal) => animal.details[1].value === value.taxon_canonical_name
+          );
+          const cetacean = {
+            ...value,
+            details,
+            socialBehavior,
+            physic,
+            name,
+            introduction,
+            history,
+            migration,
+          };
+          storeCetaceanApi(cetacean)
+            .then()
+            .catch((error) => console.log(error));
+        });
         const user = await authStorage.getUser();
         if (user) {
           setUser(user);
@@ -53,7 +96,7 @@ export default function App() {
         SplashScreen.hideAsync();
       }
     }
-    restoreUser();
+    fetchData();
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
