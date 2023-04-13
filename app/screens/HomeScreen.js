@@ -14,7 +14,7 @@ import GlowingCircle from "../assets/animations/GlowingCircle";
 import Screen from "../components/Screen";
 import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
 import defaultStyles from "../config/styles";
-import ActivityIndicator from "../components/ActivityIndicator";
+import ActivityIndicator from "../components/Loaders/ActivityIndicator";
 import { MaterialIcons } from "@expo/vector-icons";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
@@ -22,7 +22,7 @@ import cetaceansApi from "../api/cetaceans";
 import routes from "../navigation/routes";
 import { RankItem } from "../components/Items";
 import { RecommendedItem } from "../components/Items";
-import Skeleton from "../components/Skeleton";
+import { Skeleton } from "../components/Loaders";
 import settings from "../config/settings";
 
 const windowWidth = Dimensions.get("window").width;

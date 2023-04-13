@@ -15,7 +15,7 @@ import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
 import { AppButton } from "../components/Buttons";
 import { ErrorMessage } from "../components/Alerts";
-import ActivityIndicator from "../components/ActivityIndicator";
+import { ActivityIndicator } from "../components/Loaders";
 
 import useApi from "../hooks/useApi";
 import useAuth from "../auth/useAuth";

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 
-import ActivityIndicator from "../../ActivityIndicator";
-import Skeleton from "../../Skeleton";
+import { Skeleton } from "../../Loaders";
 import settings from "../../../config/settings";
 
 import AppText from "../../AppText";

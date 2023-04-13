@@ -8,7 +8,7 @@ import {
 
 import AppText from "../components/AppText";
 import { AppButton } from "../components/Buttons";
-import ActivityIndicator from "../components/ActivityIndicator";
+import { ActivityIndicator } from "../components/Loaders";
 
 import useAuth from "../auth/useAuth";
 import authApi from "../api/auth";

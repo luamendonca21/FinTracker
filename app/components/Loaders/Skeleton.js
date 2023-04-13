@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { View, StyleSheet, Animated, Dimensions } from "react-native";
-import defaultStyles from "../config/styles";
+import defaultStyles from "../../config/styles";
 const { width } = Dimensions.get("window");
 const Skeleton = ({ visible, style }) => {
   const x = useRef(new Animated.Value(0)).current;

@@ -10,7 +10,7 @@ import MapMarker from "../components/MapMarker";
 import Fade from "../assets/animations/Fade";
 import BottomSheet from "../components/BottomSheet";
 import { ListOptions } from "../components/Lists";
-import ActivityIndicator from "../components/ActivityIndicator";
+import { ActivityIndicator } from "../components/Loaders";
 
 import movebank from "../api/movebankApi";
 import routes from "../navigation/routes";

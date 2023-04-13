@@ -3,8 +3,7 @@ import { View, StyleSheet, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Alert } from "./Alerts";
 import Icon from "./Icon";
-import ActivityIndicator from "./ActivityIndicator";
-import Skeleton from "./Skeleton";
+import { ActivityIndicator, Skeleton } from "./Loaders";
 
 import useMedia from "../hooks/useMedia";
 import useAuth from "../auth/useAuth";
@@ -230,7 +229,6 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     backgroundColor: defaultStyles.colors.transparent,
     borderColor: defaultStyles.colors.white,
-
     borderWidth: 1,
   },
 });

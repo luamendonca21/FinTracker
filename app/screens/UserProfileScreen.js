@@ -14,8 +14,7 @@ import BottomSheet from "../components/BottomSheet";
 import DropDownSelector from "../components/DropDownSelector";
 import Fade from "../assets/animations/Fade";
 import ProfileImage from "../components/ProfileImage";
-import ActivityIndicator from "../components/ActivityIndicator";
-import Skeleton from "../components/Skeleton";
+import { Skeleton } from "../components/Loaders";
 
 import useAuth from "../auth/useAuth";
 import usersApi from "../api/user";

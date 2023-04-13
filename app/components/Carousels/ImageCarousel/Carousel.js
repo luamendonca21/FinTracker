@@ -1,9 +1,8 @@
 import React from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Skeleton from "../../Skeleton";
+import { Skeleton } from "../../Loaders";
 import CarouselItem from "./CarouselItem";
-import ActivityIndicator from "../../ActivityIndicator";
 
 function Carousel({ data, style }) {
   const navigation = useNavigation();

@@ -16,7 +16,6 @@ import useAuth from "../auth/useAuth";
 import settings from "../config/settings";
 
 import defaultStyles from "../config/styles";
-import ActivityIndicator from "../components/ActivityIndicator";
 
 const windowHeight = Dimensions.get("window").height;
 
