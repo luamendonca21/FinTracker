@@ -22,7 +22,7 @@ const RecommendedItem = ({ item, index, onPress }) => {
         <View style={styles.textContainer}>
           <AppText style={styles.title}>{item.details[1].value}</AppText>
           <AppText numberOfLines={5} style={styles.subTitle}>
-            {item.individualId} {item.introduction}
+            {item.introduction}
           </AppText>
         </View>
       </View>

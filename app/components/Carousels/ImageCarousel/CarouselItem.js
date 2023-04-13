@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 
 import ActivityIndicator from "../../ActivityIndicator";
-
+import Skeleton from "../../Skeleton";
 import settings from "../../../config/settings";
 
 import AppText from "../../AppText";
 
 import defaultStyles from "../../../config/styles";
 
-function CarouselItem({ item, onPress }) {
+const CarouselItem = ({ item, onPress }) => {
   const baseURL = settings.apiUrl;
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,15 +25,14 @@ function CarouselItem({ item, onPress }) {
           source={{ uri: `${baseURL}\\${item.picture.src}` }}
           onLoadEnd={() => setIsLoading(false)}
         />
-
         <AppText numberOfLines={2} style={styles.itemTitle}>
           {item.name}
         </AppText>
-        <ActivityIndicator visible={isLoading} />
+        {isLoading && <Skeleton />}
       </View>
     </TouchableHighlight>
   );
-}
+};
 
 const styles = StyleSheet.create({
   item: {

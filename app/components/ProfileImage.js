@@ -4,6 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Alert } from "./Alerts";
 import Icon from "./Icon";
 import ActivityIndicator from "./ActivityIndicator";
+import Skeleton from "./Skeleton";
 
 import useMedia from "../hooks/useMedia";
 import useAuth from "../auth/useAuth";
@@ -110,15 +111,12 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
         .catch((error) => console.log(error));
   }, [image]);
 
-  return (
+  return isLoadingGetPicture || isLoadingDeletePicture ? (
+    <Skeleton style={styles.image} />
+  ) : isLoadingUpdatePicture ? (
+    <ActivityIndicator visible={true} />
+  ) : (
     <>
-      <ActivityIndicator
-        visible={
-          isLoadingUpdatePicture ||
-          isLoadingGetPicture ||
-          isLoadingDeletePicture
-        }
-      />
       <View
         style={[styles.container, { width: size.width, height: size.height }]}
       >

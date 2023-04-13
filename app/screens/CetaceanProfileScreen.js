@@ -151,7 +151,6 @@ const CetaceanProfileScreen = ({ route }) => {
   }, []);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ActivityIndicator visible={isLoadingUser} />
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image

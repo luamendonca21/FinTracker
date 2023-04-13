@@ -45,7 +45,8 @@
     "react-native-wavy-background": "^0.2.0",
     "ua-parser-js": "0.7.33",
     "validator": "^13.9.0",
-    "yup": "^1.0.0"
+    "yup": "^1.0.0",
+    "expo-linear-gradient": "~11.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

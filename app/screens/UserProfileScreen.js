@@ -15,6 +15,7 @@ import DropDownSelector from "../components/DropDownSelector";
 import Fade from "../assets/animations/Fade";
 import ProfileImage from "../components/ProfileImage";
 import ActivityIndicator from "../components/ActivityIndicator";
+import Skeleton from "../components/Skeleton";
 
 import useAuth from "../auth/useAuth";
 import usersApi from "../api/user";
@@ -152,14 +153,8 @@ function UserProfileScreen({ navigation }) {
   return (
     <>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <ActivityIndicator
-          visible={
-            isLoadingDetails ||
-            isLoadingDetailsUpdate ||
-            isLoadingUser ||
-            isLoadingCetaceans
-          }
-        />
+        {/*         <ActivityIndicator visible={isLoadingDetailsUpdate} />
+         */}
         <View style={styles.container}>
           <Screen>
             <View style={styles.imageContainer}>
@@ -180,7 +175,11 @@ function UserProfileScreen({ navigation }) {
             <View style={styles.profileContainer}>
               <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
-                  <AppText style={styles.userName}>{username}</AppText>
+                  {!isLoadingUser ? (
+                    <AppText style={styles.userName}>{username}</AppText>
+                  ) : (
+                    <Skeleton style={styles.userName} />
+                  )}
                   <PointsIndicator points={points} />
                 </View>
                 <View style={styles.body}>
@@ -194,14 +193,17 @@ function UserProfileScreen({ navigation }) {
                       size={25}
                     />
                   </View>
-                  {detailsActive.length !== 0 && (
+                  {isLoadingDetails ? (
+                    <Skeleton style={{ width: "100%", height: 80 }} />
+                  ) : detailsActive.length !== 0 ? (
                     <ScrollView
                       horizontal={true}
                       showsHorizontalScrollIndicator={false}
                     >
                       <ListDetails details={detailsActive} />
                     </ScrollView>
-                  )}
+                  ) : null}
+
                   <ListItemSeparator
                     width="100%"
                     style={{ marginVertical: 20 }}

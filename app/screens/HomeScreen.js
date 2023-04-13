@@ -22,7 +22,7 @@ import cetaceansApi from "../api/cetaceans";
 import routes from "../navigation/routes";
 import { RankItem } from "../components/Items";
 import { RecommendedItem } from "../components/Items";
-
+import Skeleton from "../components/Skeleton";
 import settings from "../config/settings";
 
 const windowWidth = Dimensions.get("window").width;
@@ -266,7 +266,6 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <>
-      <ActivityIndicator visible={isLoadingUser || isLoadingUsers} />
       <ScrollView showsVerticalScrollIndicator={false} ref={scrollRef}>
         <View style={styles.container}>
           <Screen>
@@ -277,15 +276,14 @@ const HomeScreen = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-              <AppText style={styles.welcome}>Olá, {username}!</AppText>
+              {!isLoadingUser ? (
+                <AppText style={styles.welcome}>Olá, {username}!</AppText>
+              ) : (
+                <Skeleton style={styles.welcome} />
+              )}
               <GlowingCircle
-                onPress={
-                  () =>
-                    recommendedCetaceans.forEach((value, index) => {
-                      console.log(value.individualId);
-                    })
-                  /* () =>
-                  scrollRef.current.scrollToEnd({ animated: true }) */
+                onPress={() =>
+                  scrollRef.current.scrollToEnd({ animated: true })
                 }
               />
             </View>
@@ -353,12 +351,7 @@ const HomeScreen = ({ navigation }) => {
                 renderItem={renderCetacean}
               />
             ) : (
-              <View style={styles.recommendedContainer}>
-                <ActivityIndicator
-                  style={styles.activityIndicator}
-                  visible={true}
-                />
-              </View>
+              <Skeleton style={styles.recommendedContainer} />
             )}
             <View
               style={{
@@ -389,15 +382,19 @@ const HomeScreen = ({ navigation }) => {
               style={styles.orderButton}
               styleText={{ fontSize: 15 }}
             />
-            <FlatList
-              style={styles.rankContainer}
-              showsVerticalScrollIndicator={true}
-              horizontal={false}
-              nestedScrollEnabled
-              data={sortedUsers}
-              keyExtractor={(item) => item._id}
-              renderItem={renderItem}
-            />
+            {sortedUsers.length != 0 ? (
+              <FlatList
+                style={styles.rankContainer}
+                showsVerticalScrollIndicator={true}
+                horizontal={false}
+                nestedScrollEnabled
+                data={sortedUsers}
+                keyExtractor={(item) => item._id}
+                renderItem={renderItem}
+              />
+            ) : (
+              <Skeleton style={styles.rankContainer} />
+            )}
           </Screen>
         </View>
       </ScrollView>
@@ -412,7 +409,11 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.white,
     flex: 1,
   },
-  welcome: { flex: 1, fontSize: 22, fontWeight: "bold" },
+  welcome: {
+    flex: 1,
+    fontSize: 22,
+    fontWeight: "bold",
+  },
   title: { fontSize: 18, marginTop: 15, fontWeight: "bold" },
   shortcutsContent: {
     padding: 20,
