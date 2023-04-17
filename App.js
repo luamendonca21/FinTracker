@@ -1,20 +1,25 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { StatusBar } from "react-native";
 
-import { NavigationContainer } from "@react-navigation/native";
+import { useNetInfo } from "@react-native-community/netinfo";
 import * as SplashScreen from "expo-splash-screen";
+
+import { NavigationContainer } from "@react-navigation/native";
 import AppNavigator from "./app/navigation/AppNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import { OfflineNotice } from "./app/components/Alerts";
-import defaultStyles from "./app/config/styles";
-import myTheme from "./app/navigation/navigationTheme";
+
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
+
 import info from "./app/info/cetaceans";
 import cetaceansApi from "./app/api/cetaceans";
 import useApi from "./app/hooks/useApi";
-import { useNetInfo } from "@react-native-community/netinfo";
 import movebankApi from "./app/api/movebankApi";
+
+import myTheme from "./app/navigation/navigationTheme";
+import defaultStyles from "./app/config/styles";
+
 SplashScreen.preventAutoHideAsync();
 
 if (__DEV__) {
@@ -34,32 +39,40 @@ if (__DEV__) {
 }
 
 export default function App() {
-  const netInfo = useNetInfo();
-
+  // ------ STATE MANAGEMENT -------------
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
 
-  const [storeCetaceanApi, error] = useApi(cetaceansApi.storeCetacean);
+  // ------ APIS ------
+  const [storeCetaceanApi, errorStoreCetacean] = useApi(
+    cetaceansApi.storeCetacean
+  );
   const [deleteAllCetaceansApi, errorDeleteAllCetaceans] = useApi(
     cetaceansApi.deleteAllCetaceans
   );
+  /* const [storeEventApi, errorStoreEvent] = useApi(eventsApi.storeEvent);
+  const [deleteAllEventsApi, errorDeleteAllEvents] = useApi(
+    eventsApi.deleteAllEvents
+  ); */
 
+  // ------ UTILITIES --------
   const isInternetNotConnected = () => {
     return netInfo.type !== "unknown" && netInfo.isInternetReachable === false;
   };
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // delete from backend
-        deleteAllCetaceansApi()
-          .then((response) => console.log(response))
-          .catch((error) => console.log(error));
 
-        // get the cetaceans from movebank
-        const individuals = await movebankApi.getIndividualsByStudy(886013997);
+  const fetchAndStoreCetaceans = async () => {
+    try {
+      // delete from backend
+      await deleteAllCetaceansApi()
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
 
-        // store the cetaceans in backend
-        individuals.forEach((value, index) => {
+      // get the cetaceans from movebank
+      const individuals = await movebankApi.getIndividualsByStudy(886013997);
+
+      // store the cetaceans in backend
+      await Promise.all(
+        individuals.map(async (value, index) => {
           const {
             details,
             introduction,
@@ -81,10 +94,46 @@ export default function App() {
             history,
             migration,
           };
-          storeCetaceanApi(cetacean)
-            .then()
+          await storeCetaceanApi(cetacean)
+            .then((response) => console.log(response))
             .catch((error) => console.log(error));
-        });
+        })
+      );
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
+  /* const fetchAndStoreEvents = async () => {
+    try {
+      // delete from backend
+      await deleteAllEventsApi();
+
+      // get the cetaceans from movebank
+      const events = await movebank.getIndividualEvents(886013997);
+
+      // store the cetaceans in backend
+      await Promise.all(
+        events.map(async (value, index) => {
+          const event = {
+            ...value,
+          };
+          await storeEventApi(event);
+        })
+      );
+    } catch (error) {
+      console.warn(error);
+    }
+  }; */
+
+  // ------- LIFECYCLE HOOKS --------
+
+  const netInfo = useNetInfo();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        await fetchAndStoreCetaceans();
         const user = await authStorage.getUser();
         if (user) {
           setUser(user);

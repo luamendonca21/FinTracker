@@ -18,19 +18,17 @@ const SearchInput = ({ mainIcon, clearIcon, style, ...otherProps }) => {
         />
       )}
       <TextInput
-        style={styles.textInput}
+        style={[defaultStyles.text, styles.textInput]}
         {...otherProps}
         placeholderTextColor={defaultStyles.colors.white}
       ></TextInput>
-      {clearIcon ? (
+      {clearIcon && (
         <IconButton
           {...otherProps}
           name={clearIcon.name}
           color={clearIcon.color}
           size={clearIcon.size}
         />
-      ) : (
-        ""
       )}
     </View>
   );

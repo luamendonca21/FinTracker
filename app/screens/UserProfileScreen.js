@@ -152,8 +152,6 @@ function UserProfileScreen({ navigation }) {
   return (
     <>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        {/*         <ActivityIndicator visible={isLoadingDetailsUpdate} />
-         */}
         <View style={styles.container}>
           <Screen>
             <View style={styles.imageContainer}>

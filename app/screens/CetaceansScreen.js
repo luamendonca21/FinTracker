@@ -87,6 +87,7 @@ const CetaceansScreen = ({ navigation }) => {
             <AppText style={styles.welcomeText}>
               Bem-vindo ao fundo do oceano
             </AppText>
+
             <SearchInput
               mainIcon={{
                 name: "search",
@@ -100,28 +101,33 @@ const CetaceansScreen = ({ navigation }) => {
               }}
               onPress={() => setSearchQuery("")}
               value={searchQuery}
-              style={styles.filterInput}
+              style={styles.searchInput}
               onChangeText={(text) => handleSearch(text)}
               placeholder="Pesquisa por cetáceos..."
             />
             {searchQuery ? (
               getCetaceansFiltered() != "" ? (
-                <View style={styles.searchBox}>
-                  <FlatList
-                    horizontal={false}
-                    nestedScrollEnabled
-                    showsVerticalScrollIndicator
-                    data={getCetaceansFiltered()}
-                    keyExtractor={(item) => item._id}
-                    renderItem={renderItem}
-                    ItemSeparatorComponent={() => (
-                      <ListItemSeparator
-                        width="95%"
-                        color={defaultStyles.colors.transparent}
-                      />
-                    )}
-                  />
-                </View>
+                <>
+                  <View style={styles.searchBox}>
+                    <FlatList
+                      horizontal={false}
+                      nestedScrollEnabled
+                      showsVerticalScrollIndicator
+                      data={getCetaceansFiltered()}
+                      keyExtractor={(item) => item._id}
+                      renderItem={renderItem}
+                      ItemSeparatorComponent={() => (
+                        <ListItemSeparator
+                          width="95%"
+                          color={defaultStyles.colors.transparent}
+                        />
+                      )}
+                    />
+                  </View>
+                  <AppText style={styles.searchResults}>
+                    Resultados: {getCetaceansFiltered().length}
+                  </AppText>
+                </>
               ) : (
                 <AppText
                   style={{ marginTop: 10, color: defaultStyles.colors.white }}
@@ -167,14 +173,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
   },
-  filterInput: { marginTop: 30, marginBottom: 5 },
+  searchInput: { marginTop: 30, marginBottom: 5 },
   searchBox: {
     paddingVertical: 12,
     width: "100%",
     backgroundColor: defaultStyles.colors.transparent,
     borderRadius: 20,
     marginTop: 5,
-    maxHeight: 250,
+    maxHeight: 300,
+  },
+  searchResults: {
+    color: defaultStyles.colors.white,
+    fontWeight: "bold",
+    marginTop: 10,
   },
   listSearchItem: { color: defaultStyles.colors.white },
   welcomeText: {

@@ -22,12 +22,10 @@ const BoxItem = ({ item, onPress }) => {
       underlayColor={defaultStyles.colors.white}
       style={[
         styles.container,
-        pressed
-          ? {
-              borderColor: defaultStyles.colors.secondary,
-              borderWidth: 1,
-            }
-          : "",
+        pressed && {
+          borderColor: defaultStyles.colors.secondary,
+          borderWidth: 1,
+        },
       ]}
     >
       <>

@@ -4,6 +4,7 @@ import { View, StyleSheet, Dimensions } from "react-native";
 import MapView from "react-native-maps";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Constants from "expo-constants";
+
 import AppText from "../components/AppText";
 import Icon from "../components/Icon";
 import MapMarker from "../components/MapMarker";
@@ -12,7 +13,9 @@ import BottomSheet from "../components/BottomSheet";
 import { ListOptions } from "../components/Lists";
 import { ActivityIndicator } from "../components/Loaders";
 
-import movebank from "../api/movebankApi";
+import eventsApi from "../api/events";
+import movebankApi from "../api/movebankApi";
+import useApi from "../hooks/useApi";
 import routes from "../navigation/routes";
 import useLocation from "../hooks/useLocation";
 
@@ -21,13 +24,24 @@ import defaultStyles from "../config/styles";
 const windowHeight = Dimensions.get("window").height;
 
 const MapScreen = ({ navigation }) => {
-  const [ids, setIds] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
-  const [events, setEvents] = useState([]);
+  // -------- APIS --------
+  const [storeEventApi, errorStoreEvent] = useApi(eventsApi.storeEvent);
+  const [deleteAllEventsApi, errorDeleteAllEvents] = useApi(
+    eventsApi.deleteAllEvents
+  );
+  const [getAllEventsApi, errorGetAllEvents] = useApi(eventsApi.getAllEvents);
+
+  // -------- STATE MANAGEMENT -------------
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [ids, setIds] = useState([]);
+
   const [inputs, setInputs] = useState([]);
   const [filtersActive, setFiltersActive] = useState([]);
+
+  const [isFetching, setIsFetching] = useState(false);
+
+  const [events, setEvents] = useState([]);
   const filters = [
     { id: 0, title: "Golfinhos", category: "Espécies" },
     { id: 1, title: "Baleias", category: "Espécies" },
@@ -36,7 +50,6 @@ const MapScreen = ({ navigation }) => {
     { id: 4, title: " Idosa", category: "Fase da vida" },
     { id: 5, title: " Orca", category: "Espécies" },
   ];
-  const { location, errorMsg } = useLocation();
   const [markers, setMarkers] = useState([
     {
       lat: 33.049125,
@@ -123,9 +136,12 @@ const MapScreen = ({ navigation }) => {
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
   ]);
+
+  // ------- UTILITIES -------
   const isFilterActive = (id) => {
     return inputs.find((item) => item.id === id);
   };
+
   const handleFilterOptionPress = (id, title, category) => {
     let newfilter = { id: id, title: title, category: category };
     if (!isFilterActive(id)) {
@@ -139,12 +155,14 @@ const MapScreen = ({ navigation }) => {
     setBottomSheetActive(!isBottomSheetActive);
     setIsAnimating(true);
   };
+
   const handleCloseBottomSheet = () => {
     setIsAnimating(false);
     setTimeout(() => {
       setBottomSheetActive(false);
     }, 460);
   };
+
   const handleApplyChanges = () => {
     setFiltersActive(inputs);
     setIsAnimating(false);
@@ -153,19 +171,44 @@ const MapScreen = ({ navigation }) => {
     }, 460);
   };
 
+  // ---------- LIFECYCLE HOOKS ---------
+  const { location, errorMsg } = useLocation();
+
   useEffect(() => {
     const fetchEvents = async () => {
-      setIsFetching(true);
-      try {
-        const events = await movebank.getIndividualEvents(886013997);
-        console.log(JSON.stringify(events, null, "\t"));
+      const events = await movebankApi.getIndividualEvents(886013997);
+      console.log(JSON.stringify(events, null, "\t"));
+      /*  // delete from backend
+      await deleteAllEventsApi()
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+      // get the cetaceans from movebank
+      const events = await movebankApi.getIndividualEvents(886013997);
+      console.log(events.length);
+      console.log(events.filter((event) => event.individual_id !== "").length);
+      // store the cetaceans in backend
+      await Promise.all(
+        events
+          .filter((event) => event.individual_id != "")
+          .map(async (value, index) => {
+            const event = {
+              ...value,
+            };
+            await storeEventApi(event)
+              .then((response) => console.log(response))
+              .catch((error) => console.log(error));
+          })
+      );
 
-        setEvents(events);
-        setIsFetching(false);
-      } catch (error) {
-        console.log(error);
-        setIsFetching(false);
-      }
+      // get cetaceans from backend
+      getAllEventsApi()
+        .then((response) => {
+          console.log(response);
+          setEvents(response.events);
+        })
+        .catch((error) => {
+          console.log(error);
+        });*/
     };
 
     // get animals events
