@@ -69,6 +69,7 @@ export default function App() {
 
       // get the cetaceans from movebank
       const individuals = await movebankApi.getIndividualsByStudy(886013997);
+      console.log(JSON.stringify(individuals, null, "\t"));
 
       // store the cetaceans in backend
       await Promise.all(
@@ -133,7 +134,7 @@ export default function App() {
   useEffect(() => {
     async function fetchData() {
       try {
-        await fetchAndStoreCetaceans();
+        //await fetchAndStoreCetaceans();
         const user = await authStorage.getUser();
         if (user) {
           setUser(user);

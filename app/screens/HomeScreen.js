@@ -24,6 +24,7 @@ import { RankItem } from "../components/Items";
 import { RecommendedItem } from "../components/Items";
 import { Skeleton } from "../components/Loaders";
 import settings from "../config/settings";
+import useLocation from "../hooks/useLocation";
 
 const windowWidth = Dimensions.get("window").width;
 const baseURL = settings.apiUrl;
@@ -263,6 +264,8 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     users.length != 0 && orderFavoriteCetaceans();
   }, [users]);
+
+  const { location, errorMsg } = useLocation();
 
   return (
     <>

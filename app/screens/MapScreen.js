@@ -43,17 +43,17 @@ const MapScreen = ({ navigation }) => {
 
   const [events, setEvents] = useState([]);
   const filters = [
-    { id: 0, title: "Golfinhos", category: "Espécies" },
-    { id: 1, title: "Baleias", category: "Espécies" },
+    { id: 0, title: "Golfinhos", category: "Categoria" },
+    { id: 1, title: "Baleias", category: "Categoria" },
     { id: 2, title: "Juvenil", category: "Fase da vida" },
     { id: 3, title: "Adulta", category: "Fase da vida" },
     { id: 4, title: " Idosa", category: "Fase da vida" },
-    { id: 5, title: " Orca", category: "Espécies" },
+    { id: 5, title: " Orcas", category: "Categoria" },
   ];
   const [markers, setMarkers] = useState([
     {
-      lat: 33.049125,
-      long: -16.3193884,
+      lat: 0.0000128000001,
+      long: 0.0000128000001,
       title: "Cetáceo 1",
       description: "Este cetáceo...",
       id: 1,
@@ -94,8 +94,8 @@ const MapScreen = ({ navigation }) => {
         "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
     },
     {
-      lat: 33.043059,
-      long: -16.3369978,
+      lat: 30.2095737,
+      long: 61.3191795,
       title: "Cetáceo 2",
       description: "Este cetáceo...",
       id: 2,
@@ -152,6 +152,7 @@ const MapScreen = ({ navigation }) => {
   };
 
   const handleFilterPress = () => {
+    console.log("AQUII", events.length);
     setBottomSheetActive(!isBottomSheetActive);
     setIsAnimating(true);
   };
@@ -171,46 +172,56 @@ const MapScreen = ({ navigation }) => {
     }, 460);
   };
 
+  const fetchEvents = async () => {
+    setIsFetching(true);
+
+    // delete from backend
+    await deleteAllEventsApi()
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+    // get the cetaceans from movebank
+    const events = await movebankApi.getIndividualEvents(886013997);
+    console.log(JSON.stringify(events, null, "\t"));
+
+    await Promise.all(
+      events
+        .filter((event) => {
+          const currentYear = new Date().getFullYear(); // Get current year
+
+          const eventYear = parseInt(event.timestamp.substring(0, 4)); // Get event year as integer
+          return (
+            event.individual_id !== "" &&
+            (eventYear === currentYear ||
+              eventYear === currentYear - 1 ||
+              eventYear === currentYear + 1) // Check for current year or last year
+          );
+        })
+        .map(async (value, index) => {
+          const event = {
+            ...value,
+          };
+          await storeEventApi(event)
+            .then((response) => console.log(response))
+            .catch((error) => console.log(error));
+        })
+    );
+
+    // get cetaceans from backend
+    getAllEventsApi()
+      .then((response) => {
+        console.log(response);
+        setEvents(response.events);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => setIsFetching(false));
+  };
+
   // ---------- LIFECYCLE HOOKS ---------
   const { location, errorMsg } = useLocation();
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      const events = await movebankApi.getIndividualEvents(886013997);
-      console.log(JSON.stringify(events, null, "\t"));
-      /*  // delete from backend
-      await deleteAllEventsApi()
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
-      // get the cetaceans from movebank
-      const events = await movebankApi.getIndividualEvents(886013997);
-      console.log(events.length);
-      console.log(events.filter((event) => event.individual_id !== "").length);
-      // store the cetaceans in backend
-      await Promise.all(
-        events
-          .filter((event) => event.individual_id != "")
-          .map(async (value, index) => {
-            const event = {
-              ...value,
-            };
-            await storeEventApi(event)
-              .then((response) => console.log(response))
-              .catch((error) => console.log(error));
-          })
-      );
-
-      // get cetaceans from backend
-      getAllEventsApi()
-        .then((response) => {
-          console.log(response);
-          setEvents(response.events);
-        })
-        .catch((error) => {
-          console.log(error);
-        });*/
-    };
-
     // get animals events
     fetchEvents();
   }, []);
@@ -237,14 +248,17 @@ const MapScreen = ({ navigation }) => {
             longitudeDelta: 1,
           }}
         >
-          {markers.map((item, index) => (
+          {events.map((event, index) => (
             <MapMarker
               key={index}
-              onCalloutPress={() =>
+              /* onCalloutPress={() =>
                 navigation.navigate(routes.CETACEAN_PROFILE, { item })
-              }
-              coords={{ lat: item.lat, long: item.long }}
-              name={item.name}
+              } */
+              coords={{
+                long: event.location.coordinates[0],
+                lat: event.location.coordinates[1],
+              }}
+              //name={item.name}
               description="Ver perfil"
               img={require("../assets/icon-sbg.png")}
             />
