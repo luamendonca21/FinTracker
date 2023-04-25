@@ -19,6 +19,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
 import cetaceansApi from "../api/cetaceans";
+import eventsApi from "../api/events";
+
 import routes from "../navigation/routes";
 import { RankItem } from "../components/Items";
 import { RecommendedItem } from "../components/Items";
@@ -59,117 +61,28 @@ const HomeScreen = ({ navigation }) => {
   const { user } = useAuth();
 
   // ------ STATE MANAGEMENT -------
-  const [closeCetaceans, setCloseCetaceans] = useState([
-    {
-      id: 1,
-      name: "Atlantic spotted Dolphin",
-      details: {
-        nomeCientífico: "Stenella frontalis",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-        distância: "4 km",
-      },
-      imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
-    {
-      id: 2,
-      name: "Bottlenose Dolphin",
-      details: {
-        nomeCientífico: "Tursiops",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-        distância: "4 km",
-      },
-      imageUrl: require("../assets/dolphins/Bottlenose_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
-    {
-      id: 3,
-      name: "Common Dolphin",
-      details: {
-        nomeCientífico: "Delphinus delphis",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-        distância: "4 km",
-      },
-      imageUrl: require("../assets/dolphins/Common_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
-    {
-      id: 4,
-      name: "Frasers Dolphin",
-      details: {
-        nomeCientífico: "Lagenodelphis hosei",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-        distância: "4 km",
-      },
-      imageUrl: require("../assets/dolphins/Frasers_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
-    {
-      id: 5,
-      name: "Risso's Dolphin",
-      details: {
-        nomeCientífico: "Grampus griseuss",
-        idade: "1",
-        comprimento: "3m",
-        peso: "650kg",
-        localização: "Camâra de Lobos",
-        distância: "4 km",
-      },
-      imageUrl: require("../assets/dolphins/Rissos_Dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
-  ]);
   const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isRankIncreasing, setIsRankIncreasing] = useState(true);
   const [users, setUsers] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
+  const [cetaceans, setCetaceans] = useState([]);
   const [recommendedCetaceans, setRecommendedCetaceans] = useState([]);
+  const [closeCetaceans, setCloseCetaceans] = useState([]);
 
   // ------- APIS -------
   const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
   const [getUsersApi, isLoadingUsers, errorGetUsers] = useApi(
     usersApi.getUsers
   );
-  const [getCetaceansById, isLoadingCetaceans, errorGetCetaceans] = useApi(
+
+  const [getAllCetaceansApi, isLoadingAllCetaceans, errorGetAllCetaceans] =
+    useApi(cetaceansApi.getAllCetaceans);
+  const [getCetaceansByIdApi, isLoadingCetaceans, errorGetCetaceans] = useApi(
     cetaceansApi.getById
+  );
+  const [getEventsNearApi, isLoadingEventsNear, errorGetEventsNear] = useApi(
+    eventsApi.getNear
   );
 
   // ------- UTILITIES --------
@@ -201,12 +114,11 @@ const HomeScreen = ({ navigation }) => {
       return idCounts[b] - idCounts[a];
     });
 
-    console.log("Primeiro", sortedIds);
     const getCetaceansByIds = async (ids) => {
       const cetaceans = {};
       await Promise.all(
         ids.map((id) =>
-          getCetaceansById(id).then(
+          getCetaceansByIdApi(id).then(
             (response) => (cetaceans[id] = response.cetacean)
           )
         )
@@ -221,6 +133,16 @@ const HomeScreen = ({ navigation }) => {
 
   const handlePressShortcut = ({ target }) => {
     navigation.navigate(target);
+  };
+
+  const metersToKilometers = (meter) => {
+    return meter / 1000;
+  };
+  const findCetacean = (individualId) => {
+    const item = cetaceans.find(
+      (value, index) => value.individualId == individualId
+    );
+    return item;
   };
 
   const renderCetacean = ({ item, index }) => {
@@ -238,6 +160,14 @@ const HomeScreen = ({ navigation }) => {
 
   // ------ LIFECYCLE HOOKS --------
   useEffect(() => {
+    getAllCetaceansApi()
+      .then((response) => {
+        console.log(response);
+        setCetaceans(response.cetaceans);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     getUserApi(user.id)
       .then((response) => {
         setUsername(response.username);
@@ -250,6 +180,21 @@ const HomeScreen = ({ navigation }) => {
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    const data = {
+      location: {
+        longitude: "0.0000128000001",
+        latitude: "0.0000128000001",
+      },
+    };
+    cetaceans.length != 0 &&
+      getEventsNearApi({
+        long: location.coords.longitude,
+        lat: location.coords.latitude,
+      })
+        .then((response) => setCloseCetaceans(response.events))
+        .catch((error) => console.log(error));
+  }, [cetaceans]);
   useEffect(() => {
     const sorted = users.sort((a, b) => {
       if (isRankIncreasing) {
@@ -308,40 +253,52 @@ const HomeScreen = ({ navigation }) => {
               ))}
             </IndexCarousel>
             <AppText style={styles.title}>Perto de ti</AppText>
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              <View style={styles.carouselContainer}>
-                {closeCetaceans.map((item, index) => (
-                  <View key={index} style={styles.carouselItem}>
-                    <View style={styles.carouselContent}>
-                      <View style={styles.headerContainer}>
-                        <View style={styles.imageContainer}>
-                          <Image
-                            style={styles.carouselImage}
-                            source={item.imageUrl}
-                            onLoadEnd={() => setIsLoading(false)}
-                          />
-                          <ActivityIndicator visible={isLoading} />
-                        </View>
-                        <View style={styles.details}>
-                          <View style={styles.distance}>
-                            <AppText style={styles.distanceText}>
-                              {item.details.distância}
-                            </AppText>
+            {closeCetaceans.length != 0 ? (
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                <View style={styles.carouselContainer}>
+                  {closeCetaceans.map((event, index) => (
+                    <View key={index} style={styles.carouselItem}>
+                      <View style={styles.carouselContent}>
+                        <View style={styles.headerContainer}>
+                          <View style={styles.imageContainer}>
+                            <Image
+                              style={styles.carouselImage}
+                              source={{
+                                uri: `${baseURL}\\${
+                                  findCetacean(event.individualId).picture.src
+                                }`,
+                              }}
+                              onLoadEnd={() => setIsLoading(false)}
+                            />
+                            {/*                           <ActivityIndicator visible={isLoading} />
+                             */}
                           </View>
-                          <AppText>Há 4 min</AppText>
+                          <View style={styles.details}>
+                            <View style={styles.distance}>
+                              <AppText style={styles.distanceText}>
+                                {metersToKilometers(event.dist.calculated)} km
+                              </AppText>
+                            </View>
+                            <AppText>Há 4 min</AppText>
+                          </View>
                         </View>
+                        <AppText
+                          style={{ fontWeight: "700" }}
+                          numberOfLines={1}
+                        >
+                          {findCetacean(event.individualId).details[1].value}
+                        </AppText>
                       </View>
-                      <AppText style={{ fontWeight: "700" }} numberOfLines={1}>
-                        {item.name}
-                      </AppText>
                     </View>
-                  </View>
-                ))}
-              </View>
-            </ScrollView>
+                  ))}
+                </View>
+              </ScrollView>
+            ) : (
+              <Skeleton style={{ height: 170, width: "100%", marginTop: 10 }} />
+            )}
             <AppText style={styles.title}>Recomendados</AppText>
             {recommendedCetaceans.length != 0 ? (
               <FlatList

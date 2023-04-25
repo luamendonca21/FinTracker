@@ -23,9 +23,20 @@ const getAllEvents = async () => {
     throw error.response.data;
   }
 };
+const getNear = async (data) => {
+  console.log("DADOS", data);
+  const { lat, long } = data;
+  try {
+    const response = await ApiManager.get(`/eventsNear/${long}/${lat}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export default {
   storeEvent,
   deleteAllEvents,
   getAllEvents,
+  getNear,
 };
