@@ -13,7 +13,7 @@ import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 
 import info from "./app/info/cetaceans";
-import cetaceansApi from "./app/api/cetaceans";
+import eventsApi from "./app/api/events";
 import useApi from "./app/hooks/useApi";
 import movebankApi from "./app/api/movebankApi";
 
@@ -44,88 +44,53 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
 
   // ------ APIS ------
-  const [storeCetaceanApi, errorStoreCetacean] = useApi(
-    cetaceansApi.storeCetacean
-  );
-  const [deleteAllCetaceansApi, errorDeleteAllCetaceans] = useApi(
-    cetaceansApi.deleteAllCetaceans
-  );
-  /* const [storeEventApi, errorStoreEvent] = useApi(eventsApi.storeEvent);
+
+  const [storeEventApi, errorStoreEvent] = useApi(eventsApi.storeEvent);
   const [deleteAllEventsApi, errorDeleteAllEvents] = useApi(
     eventsApi.deleteAllEvents
-  ); */
+  );
 
   // ------ UTILITIES --------
   const isInternetNotConnected = () => {
     return netInfo.type !== "unknown" && netInfo.isInternetReachable === false;
   };
 
-  const fetchAndStoreCetaceans = async () => {
+  const fetchAndStoreEvents = async () => {
     try {
       // delete from backend
-      await deleteAllCetaceansApi()
+      await deleteAllEventsApi()
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
-
       // get the cetaceans from movebank
-      const individuals = await movebankApi.getIndividualsByStudy(886013997);
-      console.log(JSON.stringify(individuals, null, "\t"));
+      const events = await movebankApi.getIndividualEvents(886013997);
+      console.log(JSON.stringify(events, null, "\t"));
 
-      // store the cetaceans in backend
       await Promise.all(
-        individuals.map(async (value, index) => {
-          const {
-            details,
-            introduction,
-            socialBehavior,
-            physic,
-            history,
-            migration,
-            name,
-          } = info.find(
-            (animal) => animal.details[1].value === value.taxon_canonical_name
-          );
-          const cetacean = {
-            ...value,
-            details,
-            socialBehavior,
-            physic,
-            name,
-            introduction,
-            history,
-            migration,
-          };
-          await storeCetaceanApi(cetacean)
-            .then((response) => console.log(response))
-            .catch((error) => console.log(error));
-        })
+        events
+          .filter((event) => {
+            const currentYear = new Date().getFullYear(); // Get current year
+
+            const eventYear = parseInt(event.timestamp.substring(0, 4)); // Get event year as integer
+            return (
+              event.individual_id !== "" &&
+              (eventYear === currentYear ||
+                eventYear === currentYear - 1 ||
+                eventYear === currentYear + 1) // Check for current year or last year
+            );
+          })
+          .map(async (value, index) => {
+            const event = {
+              ...value,
+            };
+            await storeEventApi(event)
+              .then((response) => console.log(response))
+              .catch((error) => console.log(error));
+          })
       );
     } catch (error) {
       console.warn(error);
     }
   };
-
-  /* const fetchAndStoreEvents = async () => {
-    try {
-      // delete from backend
-      await deleteAllEventsApi();
-
-      // get the cetaceans from movebank
-      const events = await movebank.getIndividualEvents(886013997);
-
-      // store the cetaceans in backend
-      await Promise.all(
-        events.map(async (value, index) => {
-          const event = {
-            ...value,
-          };
-          await storeEventApi(event);
-        })
-      );
-    } catch (error) {
-      console.warn(error);
-    }
-  }; */
 
   // ------- LIFECYCLE HOOKS --------
 
@@ -134,7 +99,7 @@ export default function App() {
   useEffect(() => {
     async function fetchData() {
       try {
-        //await fetchAndStoreCetaceans();
+        await fetchAndStoreEvents();
         const user = await authStorage.getUser();
         if (user) {
           setUser(user);

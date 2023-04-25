@@ -14,7 +14,8 @@ import { ListOptions } from "../components/Lists";
 import { ActivityIndicator } from "../components/Loaders";
 
 import eventsApi from "../api/events";
-import movebankApi from "../api/movebankApi";
+import cetaceansApi from "../api/cetaceans";
+
 import useApi from "../hooks/useApi";
 import routes from "../navigation/routes";
 import useLocation from "../hooks/useLocation";
@@ -24,13 +25,6 @@ import defaultStyles from "../config/styles";
 const windowHeight = Dimensions.get("window").height;
 
 const MapScreen = ({ navigation }) => {
-  // -------- APIS --------
-  const [storeEventApi, errorStoreEvent] = useApi(eventsApi.storeEvent);
-  const [deleteAllEventsApi, errorDeleteAllEvents] = useApi(
-    eventsApi.deleteAllEvents
-  );
-  const [getAllEventsApi, errorGetAllEvents] = useApi(eventsApi.getAllEvents);
-
   // -------- STATE MANAGEMENT -------------
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -38,9 +32,7 @@ const MapScreen = ({ navigation }) => {
 
   const [inputs, setInputs] = useState([]);
   const [filtersActive, setFiltersActive] = useState([]);
-
-  const [isFetching, setIsFetching] = useState(false);
-
+  const [cetaceans, setCetaceans] = useState([]);
   const [events, setEvents] = useState([]);
   const filters = [
     { id: 0, title: "Golfinhos", category: "Categoria" },
@@ -137,6 +129,14 @@ const MapScreen = ({ navigation }) => {
     },
   ]);
 
+  // -------- APIS --------
+  const [getAllCetaceansApi, isLoadingCetaceans, errorGetAllCetaceans] = useApi(
+    cetaceansApi.getAllCetaceans
+  );
+  const [getAllEventsApi, isLoadingEvents, errorGetAllEvents] = useApi(
+    eventsApi.getAllEvents
+  );
+
   // ------- UTILITIES -------
   const isFilterActive = (id) => {
     return inputs.find((item) => item.id === id);
@@ -152,7 +152,6 @@ const MapScreen = ({ navigation }) => {
   };
 
   const handleFilterPress = () => {
-    console.log("AQUII", events.length);
     setBottomSheetActive(!isBottomSheetActive);
     setIsAnimating(true);
   };
@@ -172,40 +171,22 @@ const MapScreen = ({ navigation }) => {
     }, 460);
   };
 
+  const fetchIndividuals = async () => {
+    try {
+      // get cetaceans from backend
+      getAllCetaceansApi()
+        .then((response) => {
+          console.log(response);
+          setCetaceans(response.cetaceans);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const fetchEvents = async () => {
-    setIsFetching(true);
-
-    // delete from backend
-    await deleteAllEventsApi()
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
-    // get the cetaceans from movebank
-    const events = await movebankApi.getIndividualEvents(886013997);
-    console.log(JSON.stringify(events, null, "\t"));
-
-    await Promise.all(
-      events
-        .filter((event) => {
-          const currentYear = new Date().getFullYear(); // Get current year
-
-          const eventYear = parseInt(event.timestamp.substring(0, 4)); // Get event year as integer
-          return (
-            event.individual_id !== "" &&
-            (eventYear === currentYear ||
-              eventYear === currentYear - 1 ||
-              eventYear === currentYear + 1) // Check for current year or last year
-          );
-        })
-        .map(async (value, index) => {
-          const event = {
-            ...value,
-          };
-          await storeEventApi(event)
-            .then((response) => console.log(response))
-            .catch((error) => console.log(error));
-        })
-    );
-
     // get cetaceans from backend
     getAllEventsApi()
       .then((response) => {
@@ -214,21 +195,32 @@ const MapScreen = ({ navigation }) => {
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(() => setIsFetching(false));
+      });
+  };
+
+  const findCetacean = (individualId) => {
+    const item = cetaceans.find(
+      (value, index) => value.individualId == individualId
+    );
+    return item;
+  };
+  const onCalloutPress = (individualId) => {
+    const item = findCetacean(individualId);
+    navigation.navigate(routes.CETACEAN_PROFILE, { item });
   };
 
   // ---------- LIFECYCLE HOOKS ---------
   const { location, errorMsg } = useLocation();
 
   useEffect(() => {
+    fetchIndividuals();
     // get animals events
     fetchEvents();
   }, []);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ActivityIndicator visible={isFetching} />
+      <ActivityIndicator visible={isLoadingCetaceans || isLoadingEvents} />
       <View style={styles.container}>
         <MapView
           mapType="satellite"
@@ -251,14 +243,16 @@ const MapScreen = ({ navigation }) => {
           {events.map((event, index) => (
             <MapMarker
               key={index}
-              /* onCalloutPress={() =>
-                navigation.navigate(routes.CETACEAN_PROFILE, { item })
-              } */
+              onCalloutPress={() => onCalloutPress(event.individualId)}
               coords={{
                 long: event.location.coordinates[0],
                 lat: event.location.coordinates[1],
               }}
-              //name={item.name}
+              name={
+                cetaceans.length != 0
+                  ? findCetacean(event.individualId).details[1].value
+                  : ""
+              }
               description="Ver perfil"
               img={require("../assets/icon-sbg.png")}
             />
