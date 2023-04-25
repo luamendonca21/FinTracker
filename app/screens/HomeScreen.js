@@ -55,6 +55,7 @@ const shortcuts = [
   },
 ];
 const HomeScreen = ({ navigation }) => {
+  const { location, errorMsg } = useLocation();
   const scrollRef = useRef();
 
   // retrieve the user logged
@@ -181,20 +182,15 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    const data = {
-      location: {
-        longitude: "0.0000128000001",
-        latitude: "0.0000128000001",
-      },
-    };
     cetaceans.length != 0 &&
+      location != null &&
       getEventsNearApi({
         long: location.coords.longitude,
         lat: location.coords.latitude,
       })
         .then((response) => setCloseCetaceans(response.events))
         .catch((error) => console.log(error));
-  }, [cetaceans]);
+  }, [cetaceans, location]);
   useEffect(() => {
     const sorted = users.sort((a, b) => {
       if (isRankIncreasing) {
@@ -209,8 +205,6 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     users.length != 0 && orderFavoriteCetaceans();
   }, [users]);
-
-  const { location, errorMsg } = useLocation();
 
   return (
     <>
@@ -296,9 +290,33 @@ const HomeScreen = ({ navigation }) => {
                   ))}
                 </View>
               </ScrollView>
-            ) : (
+            ) : closeCetaceans.length == 0 && errorMsg === null ? (
               <Skeleton style={{ height: 170, width: "100%", marginTop: 10 }} />
-            )}
+            ) : closeCetaceans.length == 0 && errorMsg !== null ? (
+              <View
+                style={{
+                  height: 170,
+                  width: "100%",
+                  marginTop: 10,
+                  backgroundColor: defaultStyles.colors.white,
+                  borderRadius: 15,
+                  elevation: 2,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: 10,
+                }}
+              >
+                <AppText
+                  style={{
+                    fontSize: 16,
+                    textAlign: "center",
+                  }}
+                >
+                  Permita o acesso à localização para saber que cetáceos estão
+                  próximos de si.
+                </AppText>
+              </View>
+            ) : null}
             <AppText style={styles.title}>Recomendados</AppText>
             {recommendedCetaceans.length != 0 ? (
               <FlatList
