@@ -146,6 +146,59 @@ const HomeScreen = ({ navigation }) => {
     return item;
   };
 
+  const getTimeDifference = (dateTime) => {
+    const currentDate = new Date();
+    const dateToCompare = new Date(dateTime);
+    const isFuture = dateToCompare.getTime() > currentDate.getTime();
+    console.log("Event date: ", dateToCompare, ", Futuro: ", isFuture);
+
+    const diff = isFuture
+      ? dateToCompare.getTime() - currentDate.getTime()
+      : currentDate.getTime() - dateToCompare.getTime();
+    const diffInMinutes = Math.floor(diff / (1000 * 60));
+    const diffInHours = Math.floor(diff / (1000 * 60 * 60));
+    const diffInDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const diffInWeeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+
+    const timeDirection = isFuture ? "Daqui a" : "Há";
+
+    if (diffInWeeks > 0) {
+      if (diffInWeeks === 1) {
+        return `${timeDirection} 1 semana`;
+      } else {
+        return `${timeDirection} ${diffInWeeks} semanas`;
+      }
+    } else if (diffInDays > 0) {
+      if (diffInDays === 1) {
+        return `${timeDirection} 1 dia`;
+      } else {
+        const remainingHours = diffInHours % 24;
+        if (remainingHours === 0) {
+          return `${timeDirection} ${diffInDays} dias`;
+        } else {
+          const remainingMinutes = diffInMinutes % 60;
+          if (remainingMinutes === 0) {
+            return `${timeDirection} ${diffInDays} dias e ${remainingHours} horas`;
+          } else {
+            return `${timeDirection} ${diffInDays} dias, ${remainingHours} horas e ${remainingMinutes} minutos`;
+          }
+        }
+      }
+    } else if (diffInHours > 0) {
+      if (diffInHours === 1) {
+        return `${timeDirection} 1 hora`;
+      } else {
+        const remainingMinutes = diffInMinutes % 60;
+        if (remainingMinutes === 0) {
+          return `${timeDirection} ${diffInHours} horas`;
+        } else {
+          return `${timeDirection} ${diffInHours} horas e ${remainingMinutes} minutos`;
+        }
+      }
+    } else {
+      return `${timeDirection} alguns minutos`;
+    }
+  };
   const renderCetacean = ({ item, index }) => {
     return (
       <RecommendedItem
@@ -273,10 +326,15 @@ const HomeScreen = ({ navigation }) => {
                           <View style={styles.details}>
                             <View style={styles.distance}>
                               <AppText style={styles.distanceText}>
-                                {metersToKilometers(event.dist.calculated)} km
+                                {metersToKilometers(
+                                  event.dist.calculated
+                                ).toFixed(2)}{" "}
+                                km
                               </AppText>
                             </View>
-                            <AppText>Há 4 min</AppText>
+                            <AppText>
+                              {getTimeDifference(event.timestamp)}
+                            </AppText>
                           </View>
                         </View>
                         <AppText
@@ -427,7 +485,7 @@ const styles = StyleSheet.create({
   carouselItem: {
     backgroundColor: defaultStyles.colors.white,
     elevation: 2,
-    width: 200,
+    flex: 1,
     height: 170,
     borderRadius: 20,
     marginHorizontal: 5,
@@ -443,7 +501,6 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "flex-start",
   },
   imageContainer: { elevation: 2, borderRadius: 15 },
   carouselImage: {
@@ -452,16 +509,17 @@ const styles = StyleSheet.create({
     height: 120,
   },
   details: {
+    marginLeft: 10,
     height: 60,
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   distance: {
     backgroundColor: defaultStyles.colors.thirdlyLight,
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: 5,
     height: 28,
-    width: 75,
     borderRadius: 50,
   },
   distanceText: {
