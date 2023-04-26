@@ -13,23 +13,26 @@ import { AppButton, AppSecondaryButton } from "../components/Buttons";
 import GlowingCircle from "../assets/animations/GlowingCircle";
 import Screen from "../components/Screen";
 import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
-import defaultStyles from "../config/styles";
-import ActivityIndicator from "../components/Loaders/ActivityIndicator";
 import { MaterialIcons } from "@expo/vector-icons";
+import { RankItem } from "../components/Items";
+import { RecommendedItem } from "../components/Items";
+import { Skeleton } from "../components/Loaders";
+import CloseItem from "../components/Items/CloseItem";
+
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
 import cetaceansApi from "../api/cetaceans";
 import eventsApi from "../api/events";
 
 import routes from "../navigation/routes";
-import { RankItem } from "../components/Items";
-import { RecommendedItem } from "../components/Items";
-import { Skeleton } from "../components/Loaders";
-import settings from "../config/settings";
 import useLocation from "../hooks/useLocation";
+import settings from "../config/settings";
+
+import defaultStyles from "../config/styles";
+
+const baseURL = settings.apiUrl;
 
 const windowWidth = Dimensions.get("window").width;
-const baseURL = settings.apiUrl;
 
 const shortcuts = [
   {
@@ -63,7 +66,6 @@ const HomeScreen = ({ navigation }) => {
 
   // ------ STATE MANAGEMENT -------
   const [username, setUsername] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [isRankIncreasing, setIsRankIncreasing] = useState(true);
   const [users, setUsers] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
@@ -76,7 +78,6 @@ const HomeScreen = ({ navigation }) => {
   const [getUsersApi, isLoadingUsers, errorGetUsers] = useApi(
     usersApi.getUsers
   );
-
   const [getAllCetaceansApi, isLoadingAllCetaceans, errorGetAllCetaceans] =
     useApi(cetaceansApi.getAllCetaceans);
   const [getCetaceansByIdApi, isLoadingCetaceans, errorGetCetaceans] = useApi(
@@ -96,6 +97,7 @@ const HomeScreen = ({ navigation }) => {
       );
     setSortedUsers(sorted);
   };
+
   const orderFavoriteCetaceans = () => {
     const idCounts = {};
 
@@ -136,9 +138,6 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate(target);
   };
 
-  const metersToKilometers = (meter) => {
-    return meter / 1000;
-  };
   const findCetacean = (individualId) => {
     const item = cetaceans.find(
       (value, index) => value.individualId == individualId
@@ -146,59 +145,6 @@ const HomeScreen = ({ navigation }) => {
     return item;
   };
 
-  const getTimeDifference = (dateTime) => {
-    const currentDate = new Date();
-    const dateToCompare = new Date(dateTime);
-    const isFuture = dateToCompare.getTime() > currentDate.getTime();
-    console.log("Event date: ", dateToCompare, ", Futuro: ", isFuture);
-
-    const diff = isFuture
-      ? dateToCompare.getTime() - currentDate.getTime()
-      : currentDate.getTime() - dateToCompare.getTime();
-    const diffInMinutes = Math.floor(diff / (1000 * 60));
-    const diffInHours = Math.floor(diff / (1000 * 60 * 60));
-    const diffInDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const diffInWeeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
-
-    const timeDirection = isFuture ? "Daqui a" : "Há";
-
-    if (diffInWeeks > 0) {
-      if (diffInWeeks === 1) {
-        return `${timeDirection} 1 semana`;
-      } else {
-        return `${timeDirection} ${diffInWeeks} semanas`;
-      }
-    } else if (diffInDays > 0) {
-      if (diffInDays === 1) {
-        return `${timeDirection} 1 dia`;
-      } else {
-        const remainingHours = diffInHours % 24;
-        if (remainingHours === 0) {
-          return `${timeDirection} ${diffInDays} dias`;
-        } else {
-          const remainingMinutes = diffInMinutes % 60;
-          if (remainingMinutes === 0) {
-            return `${timeDirection} ${diffInDays} dias e ${remainingHours} horas`;
-          } else {
-            return `${timeDirection} ${diffInDays} dias, ${remainingHours} horas e ${remainingMinutes} minutos`;
-          }
-        }
-      }
-    } else if (diffInHours > 0) {
-      if (diffInHours === 1) {
-        return `${timeDirection} 1 hora`;
-      } else {
-        const remainingMinutes = diffInMinutes % 60;
-        if (remainingMinutes === 0) {
-          return `${timeDirection} ${diffInHours} horas`;
-        } else {
-          return `${timeDirection} ${diffInHours} horas e ${remainingMinutes} minutos`;
-        }
-      }
-    } else {
-      return `${timeDirection} alguns minutos`;
-    }
-  };
   const renderCetacean = ({ item, index }) => {
     return (
       <RecommendedItem
@@ -212,8 +158,7 @@ const HomeScreen = ({ navigation }) => {
     return <RankItem item={item} index={index} />;
   };
 
-  // ------ LIFECYCLE HOOKS --------
-  useEffect(() => {
+  const getAllCetaceans = () => {
     getAllCetaceansApi()
       .then((response) => {
         console.log(response);
@@ -222,6 +167,9 @@ const HomeScreen = ({ navigation }) => {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const getUser = () => {
     getUserApi(user.id)
       .then((response) => {
         setUsername(response.username);
@@ -229,21 +177,34 @@ const HomeScreen = ({ navigation }) => {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const getUsers = () => {
     getUsersApi()
       .then((response) => setUsers(response.users))
       .catch((error) => console.log(error));
+  };
+
+  const getEventsNear = () => {
+    getEventsNearApi({
+      long: location.coords.longitude,
+      lat: location.coords.latitude,
+    })
+      .then((response) => setCloseCetaceans(response.events))
+      .catch((error) => console.log(error));
+  };
+
+  // ------ LIFECYCLE HOOKS --------
+  useEffect(() => {
+    getAllCetaceans();
+    getUser();
+    getUsers();
   }, []);
 
   useEffect(() => {
-    cetaceans.length != 0 &&
-      location != null &&
-      getEventsNearApi({
-        long: location.coords.longitude,
-        lat: location.coords.latitude,
-      })
-        .then((response) => setCloseCetaceans(response.events))
-        .catch((error) => console.log(error));
+    cetaceans.length != 0 && location != null && getEventsNear();
   }, [cetaceans, location]);
+
   useEffect(() => {
     const sorted = users.sort((a, b) => {
       if (isRankIncreasing) {
@@ -307,44 +268,14 @@ const HomeScreen = ({ navigation }) => {
               >
                 <View style={styles.carouselContainer}>
                   {closeCetaceans.map((event, index) => (
-                    <View key={index} style={styles.carouselItem}>
-                      <View style={styles.carouselContent}>
-                        <View style={styles.headerContainer}>
-                          <View style={styles.imageContainer}>
-                            <Image
-                              style={styles.carouselImage}
-                              source={{
-                                uri: `${baseURL}\\${
-                                  findCetacean(event.individualId).picture.src
-                                }`,
-                              }}
-                              onLoadEnd={() => setIsLoading(false)}
-                            />
-                            {/*                           <ActivityIndicator visible={isLoading} />
-                             */}
-                          </View>
-                          <View style={styles.details}>
-                            <View style={styles.distance}>
-                              <AppText style={styles.distanceText}>
-                                {metersToKilometers(
-                                  event.dist.calculated
-                                ).toFixed(2)}{" "}
-                                km
-                              </AppText>
-                            </View>
-                            <AppText>
-                              {getTimeDifference(event.timestamp)}
-                            </AppText>
-                          </View>
-                        </View>
-                        <AppText
-                          style={{ fontWeight: "700" }}
-                          numberOfLines={1}
-                        >
-                          {findCetacean(event.individualId).details[1].value}
-                        </AppText>
-                      </View>
-                    </View>
+                    <CloseItem
+                      key={index}
+                      event={event}
+                      name={findCetacean(event.individualId).details[1].value}
+                      url={`${baseURL}\\${
+                        findCetacean(event.individualId).picture.src
+                      }`}
+                    />
                   ))}
                 </View>
               </ScrollView>
@@ -482,51 +413,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
   },
-  carouselItem: {
-    backgroundColor: defaultStyles.colors.white,
-    elevation: 2,
-    flex: 1,
-    height: 170,
-    borderRadius: 20,
-    marginHorizontal: 5,
-    marginVertical: 5,
-  },
-  carouselContent: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    padding: 12,
-  },
-  headerContainer: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  imageContainer: { elevation: 2, borderRadius: 15 },
-  carouselImage: {
-    width: 90,
-    borderRadius: 15,
-    height: 120,
-  },
-  details: {
-    marginLeft: 10,
-    height: 60,
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-  },
-  distance: {
-    backgroundColor: defaultStyles.colors.thirdlyLight,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 5,
-    height: 28,
-    borderRadius: 50,
-  },
-  distanceText: {
-    color: defaultStyles.colors.thirdly,
-    fontWeight: "bold",
-    fontSize: 18,
-  },
+
   orderButton: {
     width: 160,
     justifyContent: "space-between",

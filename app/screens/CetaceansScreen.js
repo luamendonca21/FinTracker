@@ -10,6 +10,7 @@ import CategoryCard from "../components/CategoryCard";
 import useApi from "../hooks/useApi";
 import cetaceansApi from "../api/cetaceans";
 import routes from "../navigation/routes";
+
 import defaultStyles from "../config/styles";
 
 const CetaceansScreen = ({ navigation }) => {

@@ -21,6 +21,7 @@ import usersApi from "../api/user";
 import cetaceansApi from "../api/cetaceans";
 import useApi from "../hooks/useApi";
 import routes from "../navigation/routes";
+
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -107,16 +108,15 @@ function UserProfileScreen({ navigation }) {
     }, 460);
   };
 
-  // ------- LIFECYCLE HOOKS --------
-  useEffect(() => {
+  const updateUserDetails = () => {
     updateUserDetailsApi(user.id, detailsActive)
       .then((response) => {})
       .catch((error) => {
         console.log(error);
       });
-  }, [detailsActive]);
+  };
 
-  useEffect(() => {
+  const getUser = () => {
     getUserApi(user.id)
       .then((response) => {
         setPoints(response.points);
@@ -126,6 +126,8 @@ function UserProfileScreen({ navigation }) {
       .catch((error) => {
         console.log(error);
       });
+  };
+  const getUserDetails = () => {
     getUserDetailsApi(user.id)
       .then((response) => {
         setDetailsActive(response.details);
@@ -133,6 +135,15 @@ function UserProfileScreen({ navigation }) {
       .catch((error) => {
         console.log(error);
       });
+  };
+  // ------- LIFECYCLE HOOKS --------
+  useEffect(() => {
+    updateUserDetails();
+  }, [detailsActive]);
+
+  useEffect(() => {
+    getUser();
+    getUserDetails();
   }, []);
 
   useEffect(() => {

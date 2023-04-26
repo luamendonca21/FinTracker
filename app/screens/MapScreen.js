@@ -42,92 +42,6 @@ const MapScreen = ({ navigation }) => {
     { id: 4, title: " Idosa", category: "Fase da vida" },
     { id: 5, title: " Orcas", category: "Categoria" },
   ];
-  const [markers, setMarkers] = useState([
-    {
-      lat: 0.0000128000001,
-      long: 0.0000128000001,
-      title: "Cetáceo 1",
-      description: "Este cetáceo...",
-      id: 1,
-      name: "Atlantic spotted Dolphin",
-      details: [
-        {
-          id: 1,
-          title: "Nome Científico",
-          value: "Stenella frontalis",
-        },
-        {
-          id: 2,
-          title: "Idade",
-          value: "1",
-        },
-        {
-          id: 3,
-          title: "Comprimento",
-          value: "3m",
-        },
-        {
-          id: 4,
-          title: "Peso",
-          value: "650kg",
-        },
-        {
-          id: 5,
-          title: "Localização",
-          value: "Camâra de Lobos",
-        },
-      ],
-      imageUrl: require("../assets/dolphins/Atlantic_spotted_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
-    {
-      lat: 30.2095737,
-      long: 61.3191795,
-      title: "Cetáceo 2",
-      description: "Este cetáceo...",
-      id: 2,
-      name: "Bottlenose Dolphin",
-      details: [
-        {
-          id: 1,
-          title: "Nome Científico",
-          value: "Tursiops",
-        },
-        {
-          id: 2,
-          title: "Idade",
-          value: "1",
-        },
-        {
-          id: 3,
-          title: "Comprimento",
-          value: "3m",
-        },
-        {
-          id: 4,
-          title: "Peso",
-          value: "650kg",
-        },
-        {
-          id: 5,
-          title: "Localização",
-          value: "Camâra de Lobos",
-        },
-      ],
-      imageUrl: require("../assets/dolphins/Bottlenose_dolphin.jpg"),
-      introduction:
-        "They occur in Madeira all year around. Very active and playful at the surface. They often curiously approach boats and leap, bowride and stick their heads out of the water. The population of this species in Madeira consists of two ecotypes; the larger, pelagic offshore type and the smaller, coastal type with the latter community even containing resident groups.",
-      history:
-        "Common bottlenose dolphins get their name from their short, thick snout (or rostrum). They are generally gray in color. They can range from light gray to almost black on top near their dorsal fin and light gray to almost white on their belly.",
-      migration:
-        "Bottlenose dolphins of the United States migrate up and down the Atlantic coast, heading north in the spring, and south again in the autumn.",
-    },
-  ]);
 
   // -------- APIS --------
   const [getAllCetaceansApi, isLoadingCetaceans, errorGetAllCetaceans] = useApi(
@@ -171,6 +85,18 @@ const MapScreen = ({ navigation }) => {
     }, 460);
   };
 
+  const findCetacean = (individualId) => {
+    const item = cetaceans.find(
+      (value, index) => value.individualId == individualId
+    );
+    return item;
+  };
+
+  const onCalloutPress = (individualId) => {
+    const item = findCetacean(individualId);
+    navigation.navigate(routes.CETACEAN_PROFILE, { item });
+  };
+
   const fetchIndividuals = async () => {
     try {
       // get cetaceans from backend
@@ -186,6 +112,7 @@ const MapScreen = ({ navigation }) => {
       console.log(error);
     }
   };
+
   const fetchEvents = async () => {
     // get cetaceans from backend
     getAllEventsApi()
@@ -198,23 +125,11 @@ const MapScreen = ({ navigation }) => {
       });
   };
 
-  const findCetacean = (individualId) => {
-    const item = cetaceans.find(
-      (value, index) => value.individualId == individualId
-    );
-    return item;
-  };
-  const onCalloutPress = (individualId) => {
-    const item = findCetacean(individualId);
-    navigation.navigate(routes.CETACEAN_PROFILE, { item });
-  };
-
   // ---------- LIFECYCLE HOOKS ---------
   const { location, errorMsg } = useLocation();
 
   useEffect(() => {
     fetchIndividuals();
-    // get animals events
     fetchEvents();
   }, []);
 
