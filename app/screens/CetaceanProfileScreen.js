@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Dimensions,
+  FlatList,
+} from "react-native";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -8,8 +15,15 @@ import AppText from "../components/AppText";
 import { ListDetails, ListOptions } from "../components/Lists";
 import { IconButton } from "../components/Buttons";
 import BottomSheet from "../components/BottomSheet";
+import { AppTextInput } from "../components/Inputs";
+import { ListItemSeparator } from "../components/Lists";
+import { Skeleton } from "../components/Loaders";
+import Comment from "../components/Comment";
+import DeleteAction from "../components/DeleteAction";
+import { NoContentCard } from "../components/Alerts";
 
 import cache from "../utility/cache";
+import cetaceansApi from "../api/cetaceans";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
 import useAuth from "../auth/useAuth";
@@ -25,6 +39,16 @@ const notifications = [
   { id: 2, title: "Quando estiver perto de um local personalizado" },
 ];
 
+const commentsFake = [
+  { _id: 1, text: "Que fixe!!" },
+  { _id: 2, text: "Que top, muito bonito" },
+  { _id: 3, text: "Mesmo fixe" },
+  { _id: 4, text: "Que top, muito bonito" },
+  { _id: 5, text: "Top" },
+  { _id: 6, text: "Este eu vi" },
+  { _id: 7, text: "Que fantástico!!" },
+];
+
 const CetaceanProfileScreen = ({ route }) => {
   const baseURL = settings.apiUrl;
   const { user } = useAuth();
@@ -37,6 +61,9 @@ const CetaceanProfileScreen = ({ route }) => {
   const [inputs, setInputs] = useState([]);
   const [notificationsActive, setNotificationsActive] = useState([]);
 
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
+
   // ---------- APIS -----------
   const [updateFavoriteApi, isLoadingUpdateFavorites, errorUpdate] = useApi(
     usersApi.updateFavorite
@@ -46,6 +73,15 @@ const CetaceanProfileScreen = ({ route }) => {
   );
   const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
 
+  const [updateCommentsApi, isLoadingUpdateComments, errorUpdateComments] =
+    useApi(cetaceansApi.updateComments);
+
+  const [getCetaceanById, isLoadingGetCetacean, errorGetCetacean] = useApi(
+    cetaceansApi.getById
+  );
+  const [deleteCommentApi, isLoadingDeleteComment, errorDeleteComment] = useApi(
+    cetaceansApi.deleteComment
+  );
   // ---------- UTILITIES -----------
   const isNotificationActive = (id) => {
     return inputs.find((item) => item.id === id);
@@ -53,14 +89,13 @@ const CetaceanProfileScreen = ({ route }) => {
 
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
-    console.log(item.individualId);
     if (!isFavorite) {
       updateFavoriteApi(user.id, item.individualId)
-        .then((response) => console.log(response))
+        .then()
         .catch((error) => console.log(error));
     } else {
       deleteFavoriteApi(user.id, item.individualId)
-        .then((response) => console.log(response))
+        .then()
         .catch((error) => console.log(error));
     }
   };
@@ -115,19 +150,61 @@ const CetaceanProfileScreen = ({ route }) => {
     }, 460);
   };
 
-  useEffect(() => {
-    const storeNotifications = async () => {
-      try {
-        await cache.store(`notifications${item.name}`, notificationsActive);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const handleComment = (comment) => {
+    setComment(comment);
+  };
 
-    inputs.length != 0 && storeNotifications();
-  }, [notificationsActive]);
+  const handleSubmit = () => {
+    // send to backend
 
-  useEffect(() => {
+    const data = { userId: user.id, text: comment };
+    const id = item.individualId;
+    updateCommentsApi(data, id)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setComment("");
+      });
+  };
+
+  const handleDelete = (commentId) => {
+    console.log("id comentário: ", commentId);
+    console.log("id cetáceo ", item.individualId);
+    deleteCommentApi(commentId, item.individualId)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  };
+
+  const renderComment = ({ item, index }) => {
+    const commentId = item._id;
+    return (
+      <Comment
+        onDelete={() => handleDelete(commentId)}
+        renderRightActions={() => <DeleteAction />}
+        item={item}
+        index={index}
+      />
+    );
+  };
+
+  const storeNotifications = async () => {
+    try {
+      await cache.store(`notifications${item.name}`, notificationsActive);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getNotifications = async () => {
+    try {
+      const notifications = await cache.get(`notifications${item.name}`);
+      setNotificationsActive(notifications);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getUser = () => {
     getUserApi(user.id)
       .then((response) => {
         if (response.favorites.includes(item.individualId)) {
@@ -137,16 +214,22 @@ const CetaceanProfileScreen = ({ route }) => {
       .catch((error) => {
         console.log(error);
       });
-    const getNotifications = async () => {
-      try {
-        const notifications = await cache.get(`notifications${item.name}`);
-        setNotificationsActive(notifications);
-        console.log(notifications);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  };
+
+  const getCetacean = () => {
+    getCetaceanById(item.individualId)
+      .then((response) => setComments(response.cetacean.comments))
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    inputs.length != 0 && storeNotifications();
+  }, [notificationsActive]);
+
+  useEffect(() => {
+    getUser();
     getNotifications();
+    getCetacean();
   }, []);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -189,6 +272,7 @@ const CetaceanProfileScreen = ({ route }) => {
                 <ListDetails details={item.details} />
               </ScrollView>
               <AppText style={styles.text}>{item.individualId}</AppText>
+
               <AppText style={styles.title}>Introdução</AppText>
               <AppText style={styles.text}>{item.introduction}</AppText>
               <AppText style={styles.title}>Comportamento social</AppText>
@@ -199,6 +283,41 @@ const CetaceanProfileScreen = ({ route }) => {
               <AppText style={styles.text}>{item.history}</AppText>
               <AppText style={styles.title}>Rota de migração</AppText>
               <AppText style={styles.text}>{item.migration}</AppText>
+              <AppText style={styles.title}>Comentários</AppText>
+              <AppTextInput
+                style={styles.inputComment}
+                submitIcon
+                submitDisabled={!comment && true}
+                onSubmit={handleSubmit}
+                size={24}
+                value={comment}
+                onChangeText={(text) => handleComment(text)}
+                icon="comment"
+                placeholder="Adicione um comentário..."
+              />
+              {!isLoadingGetCetacean && comments.length != 0 ? (
+                <FlatList
+                  style={styles.commentsBox}
+                  horizontal={false}
+                  nestedScrollEnabled
+                  showsVerticalScrollIndicator
+                  data={comments}
+                  renderItem={renderComment}
+                  ItemSeparatorComponent={() => (
+                    <ListItemSeparator
+                      width="95%"
+                      color={defaultStyles.colors.transparent}
+                    />
+                  )}
+                />
+              ) : isLoadingGetCetacean ? (
+                <Skeleton style={styles.skeletonComments} />
+              ) : !isLoadingGetCetacean && comments.length == 0 ? (
+                <NoContentCard
+                  msg="Ainda não há comentários"
+                  style={styles.noContentCard}
+                />
+              ) : null}
             </View>
           </ScrollView>
         </View>
@@ -303,6 +422,19 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 10,
   },
+  inputComment: { width: "99%", paddingVertical: 8 },
+  commentsBox: {
+    paddingVertical: 5,
+    width: "99%",
+    alignSelf: "center",
+    backgroundColor: defaultStyles.colors.white,
+    elevation: 2,
+    borderRadius: 20,
+    marginTop: 5,
+    maxHeight: 300,
+  },
+  skeletonComments: { height: 200, width: "100%", marginTop: 5 },
+  noContentCard: { height: 200, marginTop: 5 },
 });
 
 export default CetaceanProfileScreen;

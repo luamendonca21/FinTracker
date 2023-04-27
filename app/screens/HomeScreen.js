@@ -4,7 +4,6 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
-  Image,
   FlatList,
 } from "react-native";
 
@@ -14,11 +13,11 @@ import GlowingCircle from "../assets/animations/GlowingCircle";
 import Screen from "../components/Screen";
 import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
 import { MaterialIcons } from "@expo/vector-icons";
-import { RankItem } from "../components/Items";
-import { RecommendedItem } from "../components/Items";
+import { RecommendedItem, CloseItem, RankItem } from "../components/Items";
 import { Skeleton } from "../components/Loaders";
-import CloseItem from "../components/Items/CloseItem";
+import { NoContentCard } from "../components/Alerts";
 
+import useAuth from "../auth/useAuth";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
 import cetaceansApi from "../api/cetaceans";
@@ -88,6 +87,7 @@ const HomeScreen = ({ navigation }) => {
   );
 
   // ------- UTILITIES --------
+
   const handleRankOrderPress = () => {
     setIsRankIncreasing(!isRankIncreasing);
     const sorted = users
@@ -148,9 +148,9 @@ const HomeScreen = ({ navigation }) => {
   const renderCetacean = ({ item, index }) => {
     return (
       <RecommendedItem
+        key={index}
         onPress={() => navigation.navigate("CetaceansProfile", { item })}
         item={item}
-        index={index}
       />
     );
   };
@@ -161,7 +161,6 @@ const HomeScreen = ({ navigation }) => {
   const getAllCetaceans = () => {
     getAllCetaceansApi()
       .then((response) => {
-        console.log(response);
         setCetaceans(response.cetaceans);
       })
       .catch((error) => {
@@ -282,29 +281,11 @@ const HomeScreen = ({ navigation }) => {
             ) : closeCetaceans.length == 0 && errorMsg === null ? (
               <Skeleton style={{ height: 170, width: "100%", marginTop: 10 }} />
             ) : closeCetaceans.length == 0 && errorMsg !== null ? (
-              <View
-                style={{
-                  height: 170,
-                  width: "100%",
-                  marginTop: 10,
-                  backgroundColor: defaultStyles.colors.white,
-                  borderRadius: 15,
-                  elevation: 2,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: 10,
-                }}
-              >
-                <AppText
-                  style={{
-                    fontSize: 16,
-                    textAlign: "center",
-                  }}
-                >
-                  Permita o acesso à localização para saber que cetáceos estão
-                  próximos de si.
-                </AppText>
-              </View>
+              <NoContentCard
+                style={styles.noContentCard}
+                msg="Permita o acesso à localização para saber que cetáceos estão
+               próximos de si."
+              />
             ) : null}
             <AppText style={styles.title}>Recomendados</AppText>
             {recommendedCetaceans.length != 0 ? (
@@ -314,7 +295,7 @@ const HomeScreen = ({ navigation }) => {
                 horizontal={false}
                 nestedScrollEnabled
                 data={recommendedCetaceans}
-                keyExtractor={(item) => item.individualId}
+                keyExtractor={(item) => item._id}
                 renderItem={renderCetacean}
               />
             ) : (
@@ -434,6 +415,7 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "relative",
   },
+  noContentCard: { height: 170, marginTop: 10 },
 });
 
 export default HomeScreen;

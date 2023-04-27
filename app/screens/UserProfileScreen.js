@@ -15,6 +15,7 @@ import DropDownSelector from "../components/DropDownSelector";
 import Fade from "../assets/animations/Fade";
 import ProfileImage from "../components/ProfileImage";
 import { Skeleton } from "../components/Loaders";
+import { NoContentCard } from "../components/Alerts";
 
 import useAuth from "../auth/useAuth";
 import usersApi from "../api/user";
@@ -218,7 +219,17 @@ function UserProfileScreen({ navigation }) {
                   />
                   <AppText style={styles.title}>Cetáceos Favoritos</AppText>
 
-                  <Carousel style={{ marginBottom: 15 }} data={favorites} />
+                  {favorites.length !== 0 ? (
+                    <Carousel style={{ marginBottom: 15 }} data={favorites} />
+                  ) : isLoadingUser || isLoadingCetaceans ? (
+                    <Skeleton style={{ height: 180, width: "100%" }} />
+                  ) : (!isLoadingUser || !isLoadingCetaceans) &&
+                    favorites.length == 0 ? (
+                    <NoContentCard
+                      msg="Ainda não tem favoritos!"
+                      style={styles.noContentCard}
+                    />
+                  ) : null}
 
                   <AppText style={styles.title}>Visitados</AppText>
                 </View>
@@ -315,6 +326,7 @@ const styles = StyleSheet.create({
   iconButton: {
     marginLeft: 5,
   },
+  noContentCard: { height: 180 },
 });
 
 export default UserProfileScreen;

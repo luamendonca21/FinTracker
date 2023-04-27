@@ -13,6 +13,7 @@ import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 
 import info from "./app/info/cetaceans";
+import cetaceansApi from "./app/api/cetaceans";
 import eventsApi from "./app/api/events";
 import useApi from "./app/hooks/useApi";
 import movebankApi from "./app/api/movebankApi";
@@ -45,6 +46,10 @@ export default function App() {
 
   // ------ APIS ------
 
+  const [storeCetaceanApi, error] = useApi(cetaceansApi.storeCetacean);
+  const [deleteAllCetaceansApi, errorDeleteAllCetaceans] = useApi(
+    cetaceansApi.deleteAllCetaceans
+  );
   const [storeEventApi, errorStoreEvent] = useApi(eventsApi.storeEvent);
   const [deleteAllEventsApi, errorDeleteAllEvents] = useApi(
     eventsApi.deleteAllEvents
@@ -55,6 +60,43 @@ export default function App() {
     return netInfo.type !== "unknown" && netInfo.isInternetReachable === false;
   };
 
+  const fetchAndStoreIndividuals = async () => {
+    // delete from backend
+    deleteAllCetaceansApi()
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+
+    // get the cetaceans from movebank
+    const individuals = await movebankApi.getIndividualsByStudy(886013997);
+
+    // store the cetaceans in backend
+    individuals.forEach((value, index) => {
+      const {
+        details,
+        introduction,
+        socialBehavior,
+        physic,
+        history,
+        migration,
+        name,
+      } = info.find(
+        (animal) => animal.details[1].value === value.taxon_canonical_name
+      );
+      const cetacean = {
+        ...value,
+        details,
+        socialBehavior,
+        physic,
+        name,
+        introduction,
+        history,
+        migration,
+      };
+      storeCetaceanApi(cetacean)
+        .then()
+        .catch((error) => console.log(error));
+    });
+  };
   const fetchAndStoreEvents = async () => {
     try {
       // delete from backend
@@ -63,7 +105,7 @@ export default function App() {
         .catch((error) => console.log(error));
       // get the cetaceans from movebank
       const events = await movebankApi.getIndividualEvents(886013997);
-      console.log(JSON.stringify(events, null, "\t"));
+      //console.log(JSON.stringify(events, null, "\t"));
 
       await Promise.all(
         events
@@ -83,7 +125,7 @@ export default function App() {
               ...value,
             };
             await storeEventApi(event)
-              .then((response) => console.log(response))
+              .then()
               .catch((error) => console.log(error));
           })
       );
@@ -99,6 +141,7 @@ export default function App() {
   useEffect(() => {
     async function fetchData() {
       try {
+        //await fetchAndStoreIndividuals();
         await fetchAndStoreEvents();
         const user = await authStorage.getUser();
         if (user) {

@@ -7,6 +7,14 @@ const storeCetacean = async (data) => {
     throw error.response.data;
   }
 };
+const updateComments = async (data, id) => {
+  try {
+    const response = await ApiManager.put(`/comments/${id}`, data);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 const getAllCetaceans = async () => {
   try {
     const response = await ApiManager.get(`/allCetaceans`);
@@ -32,9 +40,19 @@ const deleteAllCetaceans = async () => {
   }
 };
 
+const deleteComment = async (id, cetaceanId) => {
+  try {
+    const response = await ApiManager.delete(`/comments/${cetaceanId}/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 export default {
   storeCetacean,
+  updateComments,
   getAllCetaceans,
   getById,
   deleteAllCetaceans,
+  deleteComment,
 };

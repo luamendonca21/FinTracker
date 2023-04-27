@@ -5,7 +5,7 @@ import AppText from "../AppText";
 import settings from "../../config/settings";
 import defaultStyles from "../../config/styles";
 
-const RecommendedItem = ({ item, index, onPress }) => {
+const RecommendedItem = ({ item, onPress }) => {
   const baseURL = settings.apiUrl;
 
   return (

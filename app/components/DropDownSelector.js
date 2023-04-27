@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
-import { View, StyleSheet, Animated, LayoutAnimation } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, LayoutAnimation } from "react-native";
 
 import { IconButton } from "./Buttons";
 import AppText from "./AppText";

@@ -3,7 +3,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { View, StyleSheet, Animated, Dimensions } from "react-native";
 import defaultStyles from "../../config/styles";
 const { width } = Dimensions.get("window");
-const Skeleton = ({ visible, style }) => {
+const Skeleton = ({ style }) => {
   const x = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     Animated.loop(

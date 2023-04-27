@@ -9,7 +9,10 @@ import defaultStyles from "../../config/styles";
 const AppTextInput = ({
   error,
   style,
+  submitDisabled,
+  submitIcon,
   icon,
+  onSubmit,
   secureTextEntry,
   ...otherProps
 }) => {
@@ -75,6 +78,19 @@ const AppTextInput = ({
         ) : (
           ""
         )}
+        {submitIcon && (
+          <TouchableOpacity
+            style={{ opacity: submitDisabled ? 0.5 : 1 }}
+            disabled={submitDisabled}
+            onPress={onSubmit}
+          >
+            <MaterialCommunityIcons
+              name="send"
+              {...otherProps}
+              color={defaultStyles.colors.secondary}
+            />
+          </TouchableOpacity>
+        )}
       </View>
       <ErrorMessage error={error} />
     </View>
@@ -86,6 +102,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: defaultStyles.colors.white,
     justifyContent: "center",
+    alignItems: "center",
     alignSelf: "center",
     width: "100%",
     borderRadius: 50,

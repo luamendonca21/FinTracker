@@ -3,6 +3,7 @@ import { View, StyleSheet } from "react-native";
 
 import AppText from "./AppText";
 import { Carousel } from "./Carousels/ImageCarousel";
+import { Skeleton } from "./Loaders";
 
 import defaultStyles from "../config/styles";
 
@@ -38,6 +39,10 @@ const styles = StyleSheet.create({
     color: defaultStyles.colors.gray,
     marginHorizontal: 5,
     marginBottom: 5,
+  },
+  skeleton: {
+    height: 180,
+    width: "100%",
   },
 });
 
