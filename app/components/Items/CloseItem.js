@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
-
 import AppText from "../AppText";
 
 import defaultStyles from "../../config/styles";

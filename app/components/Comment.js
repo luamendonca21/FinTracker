@@ -30,7 +30,7 @@ const Comment = ({ item, index, onDelete }) => {
           userId={item.userId}
           size={{ width: PICTURE_SIZE, height: PICTURE_SIZE }}
         />
-        <View style={styles.text}>
+        <View style={styles.textContainer}>
           <AppText style={styles.text}>{item.text}</AppText>
         </View>
         {user.id === item.userId && (
@@ -78,12 +78,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  text: {
+  textContainer: {
+    maxWidth: "60%",
     backgroundColor: defaultStyles.colors.secondary,
     padding: 5,
     borderRadius: 10,
-    color: defaultStyles.colors.white,
   },
+  text: { color: defaultStyles.colors.white },
   delete: {
     flexDirection: "row",
   },

@@ -12,11 +12,14 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import Fade from "../assets/animations/Fade";
 import AppText from "../components/AppText";
-import { ListDetails, ListOptions } from "../components/Lists";
+import {
+  ListDetails,
+  ListOptions,
+  ListItemSeparator,
+} from "../components/Lists";
 import { IconButton } from "../components/Buttons";
 import BottomSheet from "../components/BottomSheet";
 import { AppTextInput } from "../components/Inputs";
-import { ListItemSeparator } from "../components/Lists";
 import { Skeleton } from "../components/Loaders";
 import Comment from "../components/Comment";
 import DeleteAction from "../components/DeleteAction";
@@ -39,21 +42,12 @@ const notifications = [
   { id: 2, title: "Quando estiver perto de um local personalizado" },
 ];
 
-const commentsFake = [
-  { _id: 1, text: "Que fixe!!" },
-  { _id: 2, text: "Que top, muito bonito" },
-  { _id: 3, text: "Mesmo fixe" },
-  { _id: 4, text: "Que top, muito bonito" },
-  { _id: 5, text: "Top" },
-  { _id: 6, text: "Este eu vi" },
-  { _id: 7, text: "Que fantástico!!" },
-];
-
 const CetaceanProfileScreen = ({ route }) => {
   const baseURL = settings.apiUrl;
   const { user } = useAuth();
 
   // ------ STATE MANAGEMENT -------
+  const [state, setState] = useState(0);
   const { item } = route.params;
   const [isFavorite, setIsFavorite] = useState(false);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
@@ -83,6 +77,10 @@ const CetaceanProfileScreen = ({ route }) => {
     cetaceansApi.deleteComment
   );
   // ---------- UTILITIES -----------
+
+  const update = () => {
+    setState((state) => state + 1);
+  };
   const isNotificationActive = (id) => {
     return inputs.find((item) => item.id === id);
   };
@@ -154,7 +152,7 @@ const CetaceanProfileScreen = ({ route }) => {
     setComment(comment);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // send to backend
 
     const data = { userId: user.id, text: comment };
@@ -164,15 +162,17 @@ const CetaceanProfileScreen = ({ route }) => {
       .catch((error) => console.log(error))
       .finally(() => {
         setComment("");
+        update();
       });
   };
 
   const handleDelete = (commentId) => {
-    console.log("id comentário: ", commentId);
-    console.log("id cetáceo ", item.individualId);
     deleteCommentApi(commentId, item.individualId)
       .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => {
+        update();
+      });
   };
 
   const renderComment = ({ item, index }) => {
@@ -231,6 +231,9 @@ const CetaceanProfileScreen = ({ route }) => {
     getNotifications();
     getCetacean();
   }, []);
+  useEffect(() => {
+    getCetacean();
+  }, [state]);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -271,8 +274,8 @@ const CetaceanProfileScreen = ({ route }) => {
               >
                 <ListDetails details={item.details} />
               </ScrollView>
-              <AppText style={styles.text}>{item.individualId}</AppText>
-
+              {/*               <AppText style={styles.text}>{item.individualId}</AppText>
+               */}
               <AppText style={styles.title}>Introdução</AppText>
               <AppText style={styles.text}>{item.introduction}</AppText>
               <AppText style={styles.title}>Comportamento social</AppText>
@@ -290,6 +293,7 @@ const CetaceanProfileScreen = ({ route }) => {
                 submitDisabled={!comment && true}
                 onSubmit={handleSubmit}
                 size={24}
+                maxLength={60}
                 value={comment}
                 onChangeText={(text) => handleComment(text)}
                 icon="comment"

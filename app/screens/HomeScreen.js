@@ -71,7 +71,7 @@ const HomeScreen = ({ navigation }) => {
   const [cetaceans, setCetaceans] = useState([]);
   const [recommendedCetaceans, setRecommendedCetaceans] = useState([]);
   const [closeCetaceans, setCloseCetaceans] = useState([]);
-
+  const [isLoadingRecommended, setIsLoadingRecommmended] = useState([]);
   // ------- APIS -------
   const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
   const [getUsersApi, isLoadingUsers, errorGetUsers] = useApi(
@@ -79,9 +79,7 @@ const HomeScreen = ({ navigation }) => {
   );
   const [getAllCetaceansApi, isLoadingAllCetaceans, errorGetAllCetaceans] =
     useApi(cetaceansApi.getAllCetaceans);
-  const [getCetaceansByIdApi, isLoadingCetaceans, errorGetCetaceans] = useApi(
-    cetaceansApi.getById
-  );
+  const [getCetaceansByIdApi, errorGetCetaceans] = useApi(cetaceansApi.getById);
   const [getEventsNearApi, isLoadingEventsNear, errorGetEventsNear] = useApi(
     eventsApi.getNear
   );
@@ -99,6 +97,8 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const orderFavoriteCetaceans = () => {
+    setIsLoadingRecommmended(true);
+
     const idCounts = {};
 
     // Conta as ocorrências de cada ID de animal
@@ -131,6 +131,7 @@ const HomeScreen = ({ navigation }) => {
 
     getCetaceansByIds(sortedIds).then((recommendedCetaceans) => {
       setRecommendedCetaceans(recommendedCetaceans);
+      setIsLoadingRecommmended(false);
     });
   };
 
@@ -234,7 +235,7 @@ const HomeScreen = ({ navigation }) => {
               {!isLoadingUser ? (
                 <AppText style={styles.welcome}>Olá, {username}!</AppText>
               ) : (
-                <Skeleton style={styles.welcome} />
+                <Skeleton style={styles.skeletonUsername} />
               )}
               <GlowingCircle
                 onPress={() =>
@@ -298,9 +299,15 @@ const HomeScreen = ({ navigation }) => {
                 keyExtractor={(item) => item._id}
                 renderItem={renderCetacean}
               />
-            ) : (
+            ) : isLoadingUsers || isLoadingRecommended ? (
               <Skeleton style={styles.recommendedContainer} />
-            )}
+            ) : (!isLoadingUsers || !isLoadingRecommended) &&
+              recommendedCetaceans.length == 0 ? (
+              <NoContentCard
+                msg="Não há recomendados!"
+                style={styles.noContentCard}
+              />
+            ) : null}
             <View
               style={{
                 marginBottom: 10,
@@ -362,6 +369,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
   },
+  skeletonUsername: { width: "75%", height: 50, alignSelf: "flex-start" },
   title: { fontSize: 18, marginTop: 15, fontWeight: "bold" },
   shortcutsContent: {
     padding: 20,
@@ -408,14 +416,14 @@ const styles = StyleSheet.create({
   recommendedContainer: {
     marginTop: 10,
     width: "100%",
-    height: 400,
+    maxHeight: 400,
   },
   activityIndicator: {
     height: 400,
     width: "100%",
     position: "relative",
   },
-  noContentCard: { height: 170, marginTop: 10 },
+  noContentCard: { height: 150, marginTop: 10 },
 });
 
 export default HomeScreen;

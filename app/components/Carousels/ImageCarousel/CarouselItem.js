@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 
-import { Skeleton } from "../../Loaders";
 import settings from "../../../config/settings";
 
 import AppText from "../../AppText";
@@ -10,7 +9,6 @@ import defaultStyles from "../../../config/styles";
 
 const CarouselItem = ({ item, onPress }) => {
   const baseURL = settings.apiUrl;
-  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <TouchableHighlight
@@ -22,12 +20,10 @@ const CarouselItem = ({ item, onPress }) => {
         <Image
           style={styles.image}
           source={{ uri: `${baseURL}\\${item.picture.src}` }}
-          onLoadEnd={() => setIsLoading(false)}
         />
         <AppText numberOfLines={2} style={styles.itemTitle}>
           {item.name}
         </AppText>
-        {isLoading && <Skeleton />}
       </View>
     </TouchableHighlight>
   );

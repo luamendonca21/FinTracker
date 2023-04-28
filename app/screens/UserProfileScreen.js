@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -61,6 +62,7 @@ function UserProfileScreen({ navigation }) {
   );
 
   // --------- UTILITIES -----------
+
   const handleEditDetailsPress = () => {
     setBottomSheetActive(!isBottomSheetActive);
     setIsAnimating(true);
@@ -138,6 +140,7 @@ function UserProfileScreen({ navigation }) {
       });
   };
   // ------- LIFECYCLE HOOKS --------
+
   useEffect(() => {
     updateUserDetails();
   }, [detailsActive]);
@@ -152,7 +155,6 @@ function UserProfileScreen({ navigation }) {
       getCetaceansById(value)
         .then((response) => {
           const newFavorite = response.cetacean;
-          console.log(response.cetacean);
           setFavorites((prevFavorites) => [...prevFavorites, newFavorite]);
         })
         .catch((error) => {
@@ -220,9 +222,9 @@ function UserProfileScreen({ navigation }) {
                   <AppText style={styles.title}>Cetáceos Favoritos</AppText>
 
                   {favorites.length !== 0 ? (
-                    <Carousel style={{ marginBottom: 15 }} data={favorites} />
+                    <Carousel data={favorites} />
                   ) : isLoadingUser || isLoadingCetaceans ? (
-                    <Skeleton style={{ height: 180, width: "100%" }} />
+                    <Skeleton style={styles.skeletonFavorites} />
                   ) : (!isLoadingUser || !isLoadingCetaceans) &&
                     favorites.length == 0 ? (
                     <NoContentCard
@@ -326,7 +328,15 @@ const styles = StyleSheet.create({
   iconButton: {
     marginLeft: 5,
   },
-  noContentCard: { height: 180 },
+  noContentCard: {
+    height: 180,
+    marginBottom: 15,
+  },
+  skeletonFavorites: {
+    height: 180,
+    marginBottom: 15,
+    width: "100%",
+  },
 });
 
 export default UserProfileScreen;
