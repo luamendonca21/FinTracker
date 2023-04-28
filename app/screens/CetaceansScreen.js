@@ -64,7 +64,6 @@ const CetaceansScreen = ({ navigation }) => {
       // get cetaceans from backend
       getAllCetaceansApi()
         .then((response) => {
-          console.log(response);
           setCetaceans(response.cetaceans);
         })
         .catch((error) => {

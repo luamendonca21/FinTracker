@@ -65,7 +65,6 @@ const RegisterScreen = ({ navigation }) => {
     console.log(data);
     registerApi(data)
       .then((response) => {
-        console.log(response);
         navigation.navigate(routes.LOGIN);
       })
       .catch((error) => {

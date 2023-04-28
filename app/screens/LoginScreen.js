@@ -66,7 +66,6 @@ const LoginScreen = ({ navigation }) => {
     console.log(data);
     loginApi(data)
       .then((response) => {
-        console.log(response);
         reset();
         logIn(response.token);
       })

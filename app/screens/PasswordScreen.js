@@ -60,7 +60,6 @@ const PasswordScreen = ({}) => {
     console.log(data);
     updateUserPassApi(user.id, data)
       .then((response) => {
-        console.log(response);
         logOut();
       })
       .catch((error) => {

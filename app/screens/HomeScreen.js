@@ -409,7 +409,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   rankContainer: {
-    height: 400,
+    maxHeight: 400,
     flex: 1,
     width: "100%",
   },

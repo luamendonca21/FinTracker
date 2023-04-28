@@ -48,7 +48,6 @@ const UsernameScreen = ({}) => {
   const changeUsername = (data) => {
     updateUsernameApi(user.id, data)
       .then((response) => {
-        console.log(response);
         handleReload();
       })
       .catch((error) => console.log(error))

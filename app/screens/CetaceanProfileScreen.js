@@ -17,7 +17,7 @@ import {
   ListOptions,
   ListItemSeparator,
 } from "../components/Lists";
-import { IconButton } from "../components/Buttons";
+import { IconButton, AppSecondaryButton } from "../components/Buttons";
 import BottomSheet from "../components/BottomSheet";
 import { AppTextInput } from "../components/Inputs";
 import { Skeleton } from "../components/Loaders";
@@ -50,6 +50,8 @@ const CetaceanProfileScreen = ({ route }) => {
   const [state, setState] = useState(0);
   const { item } = route.params;
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isCommentsRecente, setIsCommentsRecente] = useState(false);
+
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [inputs, setInputs] = useState([]);
@@ -152,6 +154,11 @@ const CetaceanProfileScreen = ({ route }) => {
     setComment(comment);
   };
 
+  const handleCommentsOrderPress = () => {
+    setIsCommentsRecente(!isCommentsRecente);
+    setComments([...comments.reverse()]);
+  };
+
   const handleSubmit = async () => {
     // send to backend
 
@@ -218,7 +225,9 @@ const CetaceanProfileScreen = ({ route }) => {
 
   const getCetacean = () => {
     getCetaceanById(item.individualId)
-      .then((response) => setComments(response.cetacean.comments))
+      .then((response) => {
+        setComments(response.cetacean.comments);
+      })
       .catch((error) => console.log(error));
   };
 
@@ -287,19 +296,29 @@ const CetaceanProfileScreen = ({ route }) => {
               <AppText style={styles.title}>Rota de migração</AppText>
               <AppText style={styles.text}>{item.migration}</AppText>
               <AppText style={styles.title}>Comentários</AppText>
+              <AppSecondaryButton
+                onPress={handleCommentsOrderPress}
+                title={
+                  isCommentsRecente
+                    ? "Ordenar por antigos"
+                    : "Ordenar por recentes"
+                }
+                style={styles.orderButton}
+                styleText={{ fontSize: 15 }}
+              />
               <AppTextInput
                 style={styles.inputComment}
                 submitIcon
-                submitDisabled={!comment && true}
+                submitDisabled={(!comment || isLoadingUpdateComments) && true}
                 onSubmit={handleSubmit}
-                size={24}
-                maxLength={60}
+                size={25}
+                maxLength={50}
                 value={comment}
                 onChangeText={(text) => handleComment(text)}
                 icon="comment"
                 placeholder="Adicione um comentário..."
               />
-              {!isLoadingGetCetacean && comments.length != 0 ? (
+              {comments.length != 0 ? (
                 <FlatList
                   style={styles.commentsBox}
                   horizontal={false}
@@ -314,7 +333,9 @@ const CetaceanProfileScreen = ({ route }) => {
                     />
                   )}
                 />
-              ) : isLoadingGetCetacean ? (
+              ) : isLoadingGetCetacean ||
+                isLoadingUpdateComments ||
+                isLoadingDeleteComment ? (
                 <Skeleton style={styles.skeletonComments} />
               ) : !isLoadingGetCetacean && comments.length == 0 ? (
                 <NoContentCard
@@ -415,7 +436,10 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 10,
   },
-
+  orderButton: {
+    width: 210,
+    paddingVertical: 2,
+  },
   optionActive: {
     marginVertical: 5,
     flexDirection: "row",

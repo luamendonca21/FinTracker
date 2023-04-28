@@ -61,9 +61,7 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
   };
   const handleDeleteImagePress = () => {
     deletePictureApi(user.id)
-      .then((response) => {
-        console.log(response);
-      })
+      .then((response) => {})
       .catch((error) => console.log(error))
       .finally(() => setImage(null));
   };
@@ -100,13 +98,13 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
         setImageChanged(false);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     const data = handleUpdatePicture();
     if (imageChanged)
       updatePictureApi(user.id, data)
-        .then((response) => console.log(response))
+        .then()
         .catch((error) => console.log(error));
   }, [image]);
 

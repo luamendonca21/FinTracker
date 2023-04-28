@@ -64,9 +64,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
   const send = async (data) => {
     console.log(data);
     forgetPasswordApi(data)
-      .then((response) => {
-        console.log(response);
-      })
+      .then((response) => {})
       .catch((error) => {
         console.log(error);
       })

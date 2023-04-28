@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+import Swipeable from "react-native-gesture-handler/Swipeable";
 import AppText from "./AppText";
+import usersApi from "../api/user";
 import ProfileImage from "./ProfileImage";
 import { Alert } from "./Alerts";
-
+import useApi from "../hooks/useApi";
 import useAuth from "../auth/useAuth";
-
+import { Skeleton } from "./Loaders";
 import defaultStyles from "../config/styles";
 const PICTURE_SIZE = 100;
 
-const Comment = ({ item, index, onDelete }) => {
+const Comment = ({ item, renderRighActions, onDelete }) => {
   const { user } = useAuth();
+  const [commentUsername, setCommentUsername] = useState("");
+
   const [isAlertVisible, setIsAlertVisible] = useState(false);
+
+  const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
 
   const showAlert = () => {
     setIsAlertVisible(true);
@@ -23,15 +28,31 @@ const Comment = ({ item, index, onDelete }) => {
     setIsAlertVisible(false);
   };
 
+  useEffect(() => {
+    getUserApi(item.userId)
+      .then((response) => setCommentUsername(response.username))
+      .catch((error) => console.log(error));
+  }, [item]);
   return (
-    <>
+    <Swipeable renderRightActions={renderRighActions}>
       <View style={styles.container}>
         <ProfileImage
           userId={item.userId}
           size={{ width: PICTURE_SIZE, height: PICTURE_SIZE }}
         />
-        <View style={styles.textContainer}>
-          <AppText style={styles.text}>{item.text}</AppText>
+        <View
+          style={{
+            maxWidth: "60%",
+          }}
+        >
+          {!isLoadingUser ? (
+            <AppText style={styles.username}>{commentUsername}</AppText>
+          ) : (
+            <Skeleton style={[styles.usernameSkeleton]} />
+          )}
+          <View style={styles.textContainer}>
+            <AppText style={styles.text}>{item.text}</AppText>
+          </View>
         </View>
         {user.id === item.userId && (
           <TouchableOpacity
@@ -69,7 +90,7 @@ const Comment = ({ item, index, onDelete }) => {
           onDelete();
         }}
       />
-    </>
+    </Swipeable>
   );
 };
 
@@ -79,7 +100,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textContainer: {
-    maxWidth: "60%",
     backgroundColor: defaultStyles.colors.secondary,
     padding: 5,
     borderRadius: 10,
@@ -87,6 +107,16 @@ const styles = StyleSheet.create({
   text: { color: defaultStyles.colors.white },
   delete: {
     flexDirection: "row",
+  },
+  usernameSkeleton: {
+    height: 30,
+    borderRadius: 10,
+    width: 50,
+    alignSelf: "flex-start",
+  },
+  username: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 
