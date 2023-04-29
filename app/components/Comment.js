@@ -12,7 +12,7 @@ import { Skeleton } from "./Loaders";
 import defaultStyles from "../config/styles";
 const PICTURE_SIZE = 100;
 
-const Comment = ({ item, renderRighActions, onDelete }) => {
+const Comment = ({ item, renderRighActions, disabledDelete, onDelete }) => {
   const { user } = useAuth();
   const [commentUsername, setCommentUsername] = useState("");
 
@@ -56,10 +56,12 @@ const Comment = ({ item, renderRighActions, onDelete }) => {
         </View>
         {user.id === item.userId && (
           <TouchableOpacity
+            disabled={disabledDelete}
             onPress={showAlert}
             style={{
               flex: 1,
               alignItems: "flex-end",
+              opacity: disabledDelete ? 0.5 : 1,
               padding: 10,
             }}
           >

@@ -24,7 +24,7 @@ import usersApi from "../api/user";
 import defaultStyles from "../config/styles";
 
 const schema = yup.object({
-  username: yup.string().required("Por favor, introduza o nome de utilizador."),
+  username: yup.string().required("Por favor, introduz o nome de utilizador."),
 });
 const UsernameScreen = ({}) => {
   const {

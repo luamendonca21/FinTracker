@@ -27,8 +27,8 @@ import defaultStyles from "../config/styles";
 const schema = yup.object({
   email: yup
     .string()
-    .email("Por favor, introduza um email válido.")
-    .required("Por favor, introduza o email."),
+    .email("Por favor, introduz um email válido.")
+    .required("Por favor, introduz o email."),
 });
 
 const ForgotPasswordScreen = ({ navigation }) => {
@@ -62,7 +62,6 @@ const ForgotPasswordScreen = ({ navigation }) => {
   };
 
   const send = async (data) => {
-    console.log(data);
     forgetPasswordApi(data)
       .then((response) => {})
       .catch((error) => {
@@ -92,8 +91,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
               <AppText
                 style={[styles.text, { fontSize: 15, fontWeight: "500" }]}
               >
-                Introduza o email associado à sua conta e enviaremos um email
-                com as instruções necessárias para alterar a sua palavra-passe.
+                Introduz o email associado à tua conta e enviaremos um email com
+                as instruções necessárias para alterar a tua palavra-passe.
               </AppText>
               <View style={styles.formContainer}>
                 <Controller

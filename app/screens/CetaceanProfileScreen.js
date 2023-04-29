@@ -186,6 +186,7 @@ const CetaceanProfileScreen = ({ route }) => {
     const commentId = item._id;
     return (
       <Comment
+        disabledDelete={isLoadingDeleteComment}
         onDelete={() => handleDelete(commentId)}
         renderRightActions={() => <DeleteAction />}
         item={item}
@@ -228,7 +229,10 @@ const CetaceanProfileScreen = ({ route }) => {
       .then((response) => {
         setComments(response.cetacean.comments);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setIsCommentsRecente(false);
+      });
   };
 
   useEffect(() => {
@@ -263,6 +267,7 @@ const CetaceanProfileScreen = ({ route }) => {
                 </View>
                 <View style={styles.headerIcons}>
                   <IconButton
+                    animate
                     onPress={handleFavoritePress}
                     name={selectFavoriteIcon()[0]}
                     color={selectFavoriteIcon()[1]}

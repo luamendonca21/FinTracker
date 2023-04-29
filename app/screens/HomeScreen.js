@@ -284,8 +284,7 @@ const HomeScreen = ({ navigation }) => {
             ) : closeCetaceans.length == 0 && errorMsg !== null ? (
               <NoContentCard
                 style={styles.noContentCard}
-                msg="Permita o acesso à localização para saber que cetáceos estão
-               próximos de si."
+                msg="Permite o acesso à localização para saber que cetáceos estão próximos de ti."
               />
             ) : null}
             <AppText style={styles.title}>Recomendados</AppText>

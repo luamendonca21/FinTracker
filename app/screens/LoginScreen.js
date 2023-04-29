@@ -31,12 +31,12 @@ const schema = yup.object({
     .string()
     .test(
       "is-valid",
-      (message) => `Por favor, introduza um ${message.path} válido. `,
+      (message) => `Por favor, introduz um ${message.path} válido. `,
       (value) =>
         value ? isEmail(value) : new yup.ValidationError("Invalid value")
     )
-    .required("Por favor, introduza o email."),
-  password: yup.string().required("Por favor, introduza a palavra-passe."),
+    .required("Por favor, introduz o email."),
+  password: yup.string().required("Por favor, introduz a palavra-passe."),
 });
 
 const LoginScreen = ({ navigation }) => {
@@ -63,7 +63,6 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const login = (data) => {
-    console.log(data);
     loginApi(data)
       .then((response) => {
         reset();
@@ -88,7 +87,7 @@ const LoginScreen = ({ navigation }) => {
           <Screen>
             <View style={styles.container}>
               <AppText style={styles.text}>{`Bem-vindo de volta, 
-Inicie Sessão!`}</AppText>
+Inicia Sessão!`}</AppText>
               <View style={styles.formContainer}>
                 <ErrorMessage error={error} />
                 <Controller

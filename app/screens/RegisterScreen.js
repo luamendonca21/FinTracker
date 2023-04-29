@@ -26,23 +26,20 @@ import routes from "../navigation/routes";
 import defaultStyles from "../config/styles";
 
 const schema = yup.object({
-  username: yup.string().required("Por favor, introduza o nome de utilizador."),
+  username: yup.string().required("Por favor, introduz o nome de utilizador."),
   email: yup
     .string()
-    .required("Por favor, introduza o email.")
+    .required("Por favor, introduz o email.")
     .test(
       "is-valid",
-      (message) => `Por favor, introduza um ${message.path} válido. `,
+      (message) => `Por favor, introduz um ${message.path} válido. `,
       (value) =>
         value ? isEmail(value) : new yup.ValidationError("Invalid value")
     ),
   password: yup
     .string()
-    .min(
-      6,
-      "Por favor, introduza uma palavra-passe com no mínimo 6 caracteres."
-    )
-    .required("Por favor, introduza a palavra-passe."),
+    .min(6, "Por favor, introduz uma palavra-passe com no mínimo 6 caracteres.")
+    .required("Por favor, introduz a palavra-passe."),
 });
 
 const RegisterScreen = ({ navigation }) => {
@@ -62,7 +59,6 @@ const RegisterScreen = ({ navigation }) => {
   };
 
   const register = async (data) => {
-    console.log(data);
     registerApi(data)
       .then((response) => {
         navigation.navigate(routes.LOGIN);

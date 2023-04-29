@@ -25,21 +25,15 @@ import defaultStyles from "../config/styles";
 const schema = yup.object({
   currentPassword: yup
     .string()
-    .required("Por favor, introduza a palavra-passe."),
+    .required("Por favor, introduz a palavra-passe."),
   newPassword: yup
     .string()
-    .min(
-      6,
-      "Por favor, introduza uma palavra-passe com no mínimo 6 caracteres."
-    )
-    .required("Por favor, introduza a palavra-passe."),
+    .min(6, "Por favor, introduz uma palavra-passe com no mínimo 6 caracteres.")
+    .required("Por favor, introduz a palavra-passe."),
   newPasswordConfirmation: yup
     .string()
-    .min(
-      6,
-      "Por favor, introduza uma palavra-passe com no mínimo 6 caracteres."
-    )
-    .required("Por favor, introduza a palavra-passe."),
+    .min(6, "Por favor, introduz uma palavra-passe com no mínimo 6 caracteres.")
+    .required("Por favor, introduz a palavra-passe."),
 });
 const PasswordScreen = ({}) => {
   const {
@@ -57,7 +51,6 @@ const PasswordScreen = ({}) => {
 
   // ------ UTILITIES -------
   const changePassword = (data) => {
-    console.log(data);
     updateUserPassApi(user.id, data)
       .then((response) => {
         logOut();
@@ -77,7 +70,7 @@ const PasswordScreen = ({}) => {
         <ScrollView>
           <View style={styles.container}>
             <AppText style={styles.text}>
-              Define uma nova palavra-passe para a sua conta, para poderes
+              Define uma nova palavra-passe para a tua conta, para poderes
               iniciar sessão e aceder a todas as funcionalidades.
             </AppText>
             <View style={styles.formContainer}>
