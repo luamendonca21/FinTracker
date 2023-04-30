@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { ErrorMessage } from "../Alerts";
@@ -19,6 +25,22 @@ const AppTextInput = ({
   // ------- STATE MANAGEMENT ------
   const [hidden, setHidden] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
+  const localInputRef = useRef(null);
+
+  const keyboardDidHideCallback = () => {
+    localInputRef.current && localInputRef.current.blur();
+  };
+
+  useEffect(() => {
+    const keyboardDidHideSubscription = Keyboard.addListener(
+      "keyboardDidHide",
+      keyboardDidHideCallback
+    );
+
+    return () => {
+      keyboardDidHideSubscription?.remove();
+    };
+  }, []);
 
   // ------ UTILITIES ------
   const handlePress = () => {
@@ -59,6 +81,7 @@ const AppTextInput = ({
           />
         )}
         <TextInput
+          ref={localInputRef}
           {...otherProps}
           onBlur={handleBlur}
           onFocus={handleFocused}

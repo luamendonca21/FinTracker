@@ -1,28 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, Animated } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-
+import { animateScale } from "../../assets/animations/AnimateScale";
 const IconButton = ({ onPress, style, animate, ...props }) => {
   const [animation] = useState(new Animated.Value(1));
 
   const handlePress = () => {
     if (animate) {
-      Animated.sequence([
-        Animated.timing(animation, {
-          toValue: 1.5,
-          duration: 100,
-          useNativeDriver: true,
-        }),
-        Animated.spring(animation, {
-          toValue: 1,
-          friction: 3,
-          useNativeDriver: true,
-        }),
-      ]).start();
+      animateScale(animation);
     }
     onPress();
   };
-
+  useEffect(() => {
+    if (animate) {
+      animateScale(animation);
+    }
+  }, []);
   const animatedStyle = {
     transform: [{ scale: animation }],
   };

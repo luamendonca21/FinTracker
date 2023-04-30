@@ -265,14 +265,16 @@ const CetaceanProfileScreen = ({ route }) => {
                     {item.name}
                   </AppText>
                 </View>
-                <View style={styles.headerIcons}>
-                  <IconButton
-                    animate
-                    onPress={handleFavoritePress}
-                    name={selectFavoriteIcon()[0]}
-                    color={selectFavoriteIcon()[1]}
-                    size={32}
-                  />
+                <View style={[styles.headerIcons]}>
+                  {!isLoadingUser && (
+                    <IconButton
+                      animate
+                      onPress={handleFavoritePress}
+                      name={selectFavoriteIcon()[0]}
+                      color={selectFavoriteIcon()[1]}
+                      size={32}
+                    />
+                  )}
                   <IconButton
                     onPress={handleNotificationPress}
                     name={selectNotificationIcon()}
@@ -415,7 +417,7 @@ const styles = StyleSheet.create({
   headerIcons: {
     flexDirection: "row",
     width: 70,
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
   },
   cetaceanName: {
     fontSize: 22,
