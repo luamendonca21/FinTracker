@@ -27,6 +27,7 @@ const windowHeight = Dimensions.get("window").height;
 const MapScreen = ({ navigation }) => {
   // -------- STATE MANAGEMENT -------------
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
+  const [isFiltering, setIsFiltering] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [ids, setIds] = useState([]);
 
@@ -35,9 +36,9 @@ const MapScreen = ({ navigation }) => {
   const [cetaceans, setCetaceans] = useState([]);
   const [events, setEvents] = useState([]);
   const filters = [
-    { id: 0, title: "Golfinhos", category: "Categoria" },
-    { id: 1, title: "Baleias", category: "Categoria" },
-    { id: 2, title: "Orcas", category: "Categoria" },
+    { id: 0, title: "Golfinho", category: "Categoria" },
+    { id: 1, title: "Baleia", category: "Categoria" },
+    { id: 2, title: "Orca", category: "Categoria" },
     { id: 3, title: "Menos de 1 ano", category: "Longevidade" },
     { id: 4, title: "1 - 5 anos", category: "Longevidade" },
     { id: 5, title: "6 - 10 anos", category: "Longevidade" },
@@ -52,15 +53,16 @@ const MapScreen = ({ navigation }) => {
     { id: 14, title: "Menos de 0,1 m", category: "Comprimento máximo" },
     { id: 15, title: "0,1 - 0,3 m", category: "Comprimento máximo" },
     { id: 16, title: "0,31 - 0,50 m", category: "Comprimento máximo" },
-    { id: 17, title: "0,51 - 2 m", category: "Comprimento máximo" },
+    { id: 17, title: "0,51 - 1 m", category: "Comprimento máximo" },
     { id: 18, title: "1,01 - 2 m", category: "Comprimento máximo" },
-    { id: 19, title: "Mais de 2 m", category: "Comprimento máximo" },
-    { id: 20, title: "Peixes", category: "Alimentação" },
-    { id: 21, title: "Peixes de grande porte", category: "Alimentação" },
-    { id: 22, title: "Polvos", category: "Alimentação" },
-    { id: 23, title: "Crustáceos", category: "Alimentação" },
-    { id: 24, title: "Lulas", category: "Alimentação" },
-    { id: 25, title: "Tubarões", category: "Alimentação" },
+    { id: 19, title: "2,01 - 5 m", category: "Comprimento máximo" },
+    { id: 20, title: "Mais de 5 m", category: "Comprimento máximo" },
+    { id: 21, title: "Peixes", category: "Alimentação" },
+    { id: 22, title: "Peixes de grande porte", category: "Alimentação" },
+    { id: 23, title: "Polvos", category: "Alimentação" },
+    { id: 24, title: "Crustáceos", category: "Alimentação" },
+    { id: 25, title: "Lulas", category: "Alimentação" },
+    { id: 26, title: "Tubarões", category: "Alimentação" },
   ];
 
   // -------- APIS --------
@@ -112,6 +114,196 @@ const MapScreen = ({ navigation }) => {
     return item;
   };
 
+  const filterCetaceans = () => {
+    let filteredCetaceans = [...cetaceans];
+    // iterate the filters array to perform an action for each filter
+    for (let i = 0; i < filtersActive.length; i++) {
+      // get the filter object for that index
+      let filter = filtersActive[i];
+      filteredCetaceans = filteredCetaceans.filter((cetacean) => {
+        let detail = cetacean.details.find(
+          (detail) => detail.title === filter.category
+        );
+
+        if (filter.category === "Comprimento máximo") {
+          const value = parseFloat(
+            detail.value
+              .replace(/\s/g, "")
+              .replace(/metros/g, "")
+              .replace(",", ".")
+          );
+          switch (filter.title) {
+            case "Menos de 0,1 m":
+              console.log("DETAIL: ", detail, " true or not: ", value < 0.1);
+              return detail && value < 0.1;
+            case "0,1 - 0,3 m":
+              console.log(
+                "DETAIL: ",
+                detail,
+                " true or not: ",
+                value >= 0.1 && value <= 0.3
+              );
+              return detail && value >= 0.1 && value <= 0.3;
+            case "0,31 - 0,50 m":
+              console.log(
+                "DETAIL: ",
+                detail,
+                " true or not: ",
+                value >= 0.31 && value <= 0.5
+              );
+              return detail && value >= 0.31 && value <= 0.5;
+            case "0,51 - 1 m":
+              console.log(
+                "DETAIL: ",
+                detail,
+                " true or not: ",
+                value >= 0.51 && value <= 1
+              );
+              return detail && value >= 0.51 && value <= 1;
+            case "1,01 - 2 m":
+              console.log(
+                "DETAIL: ",
+                detail,
+                " true or not: ",
+                value >= 1.01 && value <= 2
+              );
+              return detail && value >= 1.01 && value <= 2;
+            case "2,01 - 5 m":
+              console.log(
+                "DETAIL: ",
+                detail,
+                " true or not: ",
+                value >= 2.01 && value <= 5
+              );
+              return detail && value >= 2.01 && value <= 5;
+            case "Mais de 5 m":
+              console.log("DETAIL: ", detail, " true or not: ", value > 5);
+              return detail && value > 5;
+            default:
+              return false;
+          }
+        } else if (filter.category === "Alimentação") {
+          const value = detail.value
+            .split(", ")
+            .map((item) => item.toLowerCase());
+          console.log(
+            "DETAIL: ",
+            detail,
+            " true or not: ",
+            value.includes(filter.title.toLowerCase())
+          );
+          return detail && value.includes(filter.title.toLowerCase());
+        } else if (filter.category === "Longevidade") {
+          const value = parseInt(
+            detail.value.replace(/\s/g, "").replace(/anos/g, "")
+          );
+          switch (filter.title) {
+            case "Menos de 1 ano":
+              console.log("DETAIL: ", detail, " true or not: ", value < 1);
+              return detail && value < 1;
+            case "1 - 5 anos":
+              console.log(
+                "DETAIL: ",
+                detail,
+                " true or not: ",
+                value >= 1 && value <= 5
+              );
+              return detail && value >= 1 && value <= 5;
+            case "6 - 10 anos":
+              console.log(
+                "DETAIL: ",
+                detail,
+                " true or not: ",
+                value >= 6 && value <= 10
+              );
+              return detail && value >= 6 && value <= 10;
+            case "11 - 20 anos":
+              console.log(
+                "DETAIL: ",
+                detail,
+                " true or not: ",
+                value >= 11 && value <= 20
+              );
+              return detail && value >= 11 && value <= 20;
+            case "21 - 30 anos":
+              console.log(
+                "DETAIL: ",
+                detail,
+                " true or not: ",
+                value >= 21 && value <= 30
+              );
+              return detail && value >= 21 && value <= 30;
+            case "31 - 40 anos":
+              console.log(
+                "DETAIL: ",
+                detail,
+                " true or not: ",
+                value >= 31 && value <= 40
+              );
+              return detail && value >= 31 && value <= 40;
+            case "41 - 50 anos":
+              console.log(
+                "DETAIL: ",
+                detail,
+                " true or not: ",
+                value >= 41 && value <= 51
+              );
+              return detail && value >= 41 && value <= 51;
+            case "Mais de 50 anos":
+              console.log("DETAIL: ", detail, " true or not: ", value > 50);
+              return detail && value > 50;
+            default:
+              return false;
+          }
+        } else {
+          console.log(
+            "DETAIL: ",
+            detail,
+            " true or not: ",
+            detail.value === filter.title
+          );
+          return detail && detail.value === filter.title;
+        }
+      });
+    }
+    return filteredCetaceans;
+  };
+
+  const filterEvents = () => {
+    //if user didnt apply any filter there are no filters to apply
+    if (filtersActive.length === 0) {
+      console.log("AQUI");
+      fetchEvents();
+      return;
+    }
+
+    const filteredCetaceans = filterCetaceans();
+
+    console.log(
+      "!!!! Cetáceos filtrados:",
+      filteredCetaceans.length,
+      ": ",
+      filteredCetaceans
+    );
+    //correspondend event in events array (with individualIds)
+    const eventsFiltered = events.filter((event) =>
+      filteredCetaceans.some(
+        (cetacean) =>
+          cetacean.individualId === event.individualId &&
+          cetaceans.some(
+            (cetacean) => cetacean.individualId === event.individualId
+          )
+      )
+    );
+    console.log(
+      "!!!! Eventos filtrados:",
+      eventsFiltered.length,
+      ": ",
+      eventsFiltered
+    );
+    //set the events to the events state
+    setEvents(eventsFiltered);
+  };
   const onCalloutPress = (individualId) => {
     const item = findCetacean(individualId);
     navigation.navigate(routes.CETACEAN_PROFILE, { item });
@@ -137,7 +329,7 @@ const MapScreen = ({ navigation }) => {
     // get cetaceans from backend
     getAllEventsApi()
       .then((response) => {
-        console.log(response);
+        console.log("Eventos fetched: ", response);
         setEvents(response.events);
       })
       .catch((error) => {
@@ -154,11 +346,16 @@ const MapScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    console.log(filtersActive);
+    // get the cetaceans filtered from backend and setCetaceans to the response array
+    console.log("Filtros ativos: ", filtersActive);
+
+    filterEvents();
   }, [filtersActive]);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ActivityIndicator visible={isLoadingCetaceans || isLoadingEvents} />
+      <ActivityIndicator
+        visible={isLoadingCetaceans || isLoadingEvents || isFiltering}
+      />
       <View style={styles.container}>
         <MapView
           mapType="satellite"

@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet, TextInput } from "react-native";
+import React, { useRef, useEffect } from "react";
+import { View, StyleSheet, TextInput, Keyboard } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import IconButton from "../Buttons/IconButton";
@@ -7,6 +7,21 @@ import IconButton from "../Buttons/IconButton";
 import defaultStyles from "../../config/styles";
 
 const SearchInput = ({ mainIcon, clearIcon, style, ...otherProps }) => {
+  const localInputRef = useRef(null);
+  const keyboardDidHideCallback = () => {
+    localInputRef.current && localInputRef.current.blur();
+  };
+
+  useEffect(() => {
+    const keyboardDidHideSubscription = Keyboard.addListener(
+      "keyboardDidHide",
+      keyboardDidHideCallback
+    );
+
+    return () => {
+      keyboardDidHideSubscription?.remove();
+    };
+  }, []);
   return (
     <View style={[styles.container, style]}>
       {mainIcon && (
@@ -18,6 +33,7 @@ const SearchInput = ({ mainIcon, clearIcon, style, ...otherProps }) => {
         />
       )}
       <TextInput
+        ref={localInputRef}
         style={[defaultStyles.text, styles.textInput]}
         {...otherProps}
         placeholderTextColor={defaultStyles.colors.white}

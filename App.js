@@ -142,7 +142,7 @@ export default function App() {
     async function fetchData() {
       try {
         //await fetchAndStoreIndividuals();
-        //await fetchAndStoreEvents();
+        await fetchAndStoreEvents();
         const user = await authStorage.getUser();
         if (user) {
           setUser(user);
