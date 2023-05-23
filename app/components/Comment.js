@@ -48,7 +48,7 @@ const Comment = ({ item, renderRighActions, disabledDelete, onDelete }) => {
           {!isLoadingUser ? (
             <AppText style={styles.username}>{commentUsername}</AppText>
           ) : (
-            <Skeleton style={[styles.usernameSkeleton]} />
+            <Skeleton style={styles.usernameSkeleton} />
           )}
           <View style={styles.textContainer}>
             <AppText style={styles.text}>{item.text}</AppText>
@@ -111,9 +111,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   usernameSkeleton: {
-    height: 30,
-    borderRadius: 10,
     width: 50,
+    height: 25,
     alignSelf: "flex-start",
   },
   username: {

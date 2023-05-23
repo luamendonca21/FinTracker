@@ -24,7 +24,8 @@ import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
-const MapScreen = ({ navigation }) => {
+const MapScreen = ({ navigation, route }) => {
+  const cetaceanLocation = route?.params?.cetaceanLocation;
   // -------- STATE MANAGEMENT -------------
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
@@ -369,8 +370,16 @@ const MapScreen = ({ navigation }) => {
             bottom: 50,
           }}
           initialRegion={{
-            latitude: location ? location.coords.latitude : 32.37166518,
-            longitude: location ? location.coords.longitude : -16.2749989,
+            latitude: location
+              ? location.coords.latitude
+              : cetaceanLocation != null
+              ? cetaceanLocation[1]
+              : 32.37166518,
+            longitude: location
+              ? location.coords.longitude
+              : cetaceanLocation != null
+              ? cetaceanLocation[0]
+              : -16.2749989,
             latitudeDelta: 1,
             longitudeDelta: 1,
           }}
@@ -401,6 +410,11 @@ const MapScreen = ({ navigation }) => {
           iconColor={defaultStyles.colors.black}
           backgroundColor={defaultStyles.colors.white}
         />
+        <View style={styles.resultsContainer}>
+          <AppText
+            style={styles.resultsText}
+          >{`${events.length} resultados`}</AppText>
+        </View>
         {isBottomSheetActive && (
           <>
             <Fade duration={500} value={0.4} isVisible={isAnimating} />
@@ -449,6 +463,21 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     marginVertical: 5,
     marginTop: 10,
+  },
+  resultsContainer: {
+    position: "absolute",
+    backgroundColor: defaultStyles.colors.white,
+    top: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    left: 15,
+    borderRadius: 20,
+    height: 40,
+    paddingHorizontal: 20,
+  },
+  resultsText: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

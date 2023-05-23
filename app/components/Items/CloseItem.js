@@ -1,11 +1,23 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  TouchableHighlight,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import AppText from "../AppText";
+
+import routes from "../../navigation/routes";
 
 import defaultStyles from "../../config/styles";
 
 const CloseItem = ({ event, name, url }) => {
   // ------ UTILITIES ---------
+
+  const navigation = useNavigation();
 
   const metersToKilometers = (meter) => {
     return meter / 1000;
@@ -64,8 +76,18 @@ const CloseItem = ({ event, name, url }) => {
     }
   };
 
+  const navigateToMap = () => {
+    navigation.navigate(routes.MAP, {
+      cetaceanLocation: event.location.coordinates,
+    });
+  };
+
   return (
-    <View style={styles.container}>
+    <TouchableHighlight
+      underlayColor={defaultStyles.colors.light}
+      onPress={navigateToMap}
+      style={styles.container}
+    >
       <View style={styles.content}>
         <View style={styles.header}>
           <View style={styles.imageContainer}>
@@ -89,7 +111,7 @@ const CloseItem = ({ event, name, url }) => {
           {name}
         </AppText>
       </View>
-    </View>
+    </TouchableHighlight>
   );
 };
 

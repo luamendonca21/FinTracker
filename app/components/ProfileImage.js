@@ -13,7 +13,13 @@ import usersApi from "../api/user";
 import settings from "../config/settings";
 import defaultStyles from "../config/styles";
 
-const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
+const ProfileImage = ({
+  addIcon,
+  size,
+  deleteIcon,
+  userId,
+  loadingSkeleton,
+}) => {
   // retrieve the user logged
   const { user } = useAuth();
 
@@ -108,7 +114,7 @@ const ProfileImage = ({ addIcon, size, deleteIcon, userId }) => {
         .catch((error) => console.log(error));
   }, [image]);
 
-  return isLoadingGetPicture || isLoadingDeletePicture ? (
+  return (isLoadingGetPicture && loadingSkeleton) || isLoadingDeletePicture ? (
     <Skeleton style={styles.image} />
   ) : isLoadingUpdatePicture ? (
     <ActivityIndicator visible={true} />

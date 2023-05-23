@@ -178,6 +178,7 @@ function UserProfileScreen({ navigation }) {
                 backgroundColor={defaultStyles.colors.white}
               />
               <ProfileImage
+                loadingSkeleton
                 deleteIcon
                 addIcon
                 size={{ width: PICTURE_SIZE, height: PICTURE_SIZE }}
