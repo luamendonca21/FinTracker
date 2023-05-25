@@ -9,9 +9,8 @@ const MapMarker = ({ onCalloutPress, name, coords, img, description }) => {
       coordinate={{ latitude: coords.lat, longitude: coords.long }}
       title={name}
       description={description}
-    >
-      <Image source={img} style={styles.image} />
-    </Marker>
+      icon={img}
+    ></Marker>
   );
 };
 

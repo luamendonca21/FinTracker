@@ -508,6 +508,7 @@ const styles = StyleSheet.create({
     height: 90,
     width: "100%",
     borderRadius: 20,
+    elevation: 2,
   },
   timestampText: {
     fontWeight: "bold",
