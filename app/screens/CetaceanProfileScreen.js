@@ -60,6 +60,9 @@ const CetaceanProfileScreen = ({ route }) => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
 
+  const [timestampStart, setTimestampStart] = useState("");
+  const [timestampEnd, setTimestampEnd] = useState("");
+
   // ---------- APIS -----------
   const [updateFavoriteApi, isLoadingUpdateFavorites, errorUpdate] = useApi(
     usersApi.updateFavorite
@@ -80,6 +83,18 @@ const CetaceanProfileScreen = ({ route }) => {
   );
   // ---------- UTILITIES -----------
 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    const hours = ("0" + date.getHours()).slice(-2);
+    const minutes = ("0" + date.getMinutes()).slice(-2);
+    const seconds = ("0" + date.getSeconds()).slice(-2);
+
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  };
   const update = () => {
     setState((state) => state + 1);
   };
@@ -228,6 +243,8 @@ const CetaceanProfileScreen = ({ route }) => {
     getCetaceanById(item.individualId)
       .then((response) => {
         setComments(response.cetacean.comments);
+        setTimestampStart(response.cetacean.timestamp_start);
+        setTimestampEnd(response.cetacean.timestamp_end);
       })
       .catch((error) => console.log(error))
       .finally(() => {
@@ -290,8 +307,21 @@ const CetaceanProfileScreen = ({ route }) => {
               >
                 <ListDetails details={item.details} />
               </ScrollView>
-              <AppText style={styles.text}>{item.individualId}</AppText>
+              {/* <AppText
+                style={styles.text}
+              >{`IndividualId: ${item.individualId}`}</AppText> */}
+              <AppText style={styles.title}>Monitorização</AppText>
 
+              <View style={styles.timestampContainer}>
+                <AppText>
+                  <AppText style={styles.timestampText}>{`Início: `}</AppText>
+                  <AppText>{formatDate(item.timestamp_start)}</AppText>
+                </AppText>
+                <AppText>
+                  <AppText style={styles.timestampText}>{`Fim: `}</AppText>
+                  <AppText>{formatDate(item.timestamp_end)}</AppText>
+                </AppText>
+              </View>
               <AppText style={styles.title}>Introdução</AppText>
               <AppText style={styles.text}>{item.introduction}</AppText>
               <AppText style={styles.title}>Comportamento social</AppText>
@@ -470,6 +500,18 @@ const styles = StyleSheet.create({
   },
   skeletonComments: { height: 200, width: "100%", marginTop: 5 },
   noContentCard: { height: 200, marginTop: 5 },
+  timestampContainer: {
+    backgroundColor: defaultStyles.colors.secondary,
+    padding: 20,
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    height: 90,
+    width: "100%",
+    borderRadius: 20,
+  },
+  timestampText: {
+    fontWeight: "bold",
+  },
 });
 
 export default CetaceanProfileScreen;
