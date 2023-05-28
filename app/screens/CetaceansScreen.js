@@ -94,11 +94,13 @@ const CetaceansScreen = ({ navigation }) => {
                 size: 24,
                 color: defaultStyles.colors.white,
               }}
-              clearIcon={{
-                name: "close",
-                size: 24,
-                color: defaultStyles.colors.white,
-              }}
+              clearIcon={
+                searchQuery && {
+                  name: "close",
+                  size: 24,
+                  color: defaultStyles.colors.white,
+                }
+              }
               onPress={() => setSearchQuery("")}
               value={searchQuery}
               style={styles.searchInput}

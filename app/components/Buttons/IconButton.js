@@ -7,13 +7,13 @@ const IconButton = ({ onPress, style, animate, ...props }) => {
 
   const handlePress = () => {
     if (animate) {
-      animateScale(animation);
+      animateScale(animation, 1.2);
     }
     onPress();
   };
   useEffect(() => {
     if (animate) {
-      animateScale(animation);
+      animateScale(animation, 1.2);
     }
   }, []);
   const animatedStyle = {

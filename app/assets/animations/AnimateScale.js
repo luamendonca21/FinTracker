@@ -1,9 +1,9 @@
 import { Animated } from "react-native";
 
-export const animateScale = (animation) => {
+export const animateScale = (animation, value) => {
   Animated.sequence([
     Animated.timing(animation, {
-      toValue: 1.2,
+      toValue: value,
       duration: 100,
       useNativeDriver: true,
     }),
