@@ -1,13 +1,14 @@
 import * as React from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Animated as NativeAnimated } from "react-native";
 import Animated, {
   useAnimatedStyle,
   withRepeat,
   withSequence,
   withTiming,
 } from "react-native-reanimated";
-
+import { animateScale } from "./AnimateScale";
 import AppText from "../../components/AppText";
 
 import defaultStyles from "../../config/styles";
@@ -18,7 +19,20 @@ const GLOW_INITIAL_SCALE = 1.9; //Scale of the glow
 const GLOW_MINIMUM_SCALE = 1.4;
 const GLOW_DURATION = 2000;
 
-const GlowingSun = ({ ...otherProps }) => {
+const GlowingSun = ({ onPress, ...otherProps }) => {
+  const [animation] = React.useState(new NativeAnimated.Value(1));
+
+  const animatedStyle = {
+    transform: [{ scale: animation }],
+  };
+
+  const handlePress = () => {
+    animateScale(animation, 1.1);
+    setTimeout(() => {
+      onPress();
+    }, 250);
+  };
+
   const useGlowAnimation = () => {
     return useAnimatedStyle(() => ({
       transform: [
@@ -50,23 +64,26 @@ const GlowingSun = ({ ...otherProps }) => {
           style={styles.image}
         />
       </Animated.View>
-      <TouchableHighlight
-        {...otherProps}
-        style={styles.circleContainer}
-        underlayColor={defaultStyles.colors.light}
-      >
-        <View
-          underlayColor={defaultStyles.colors.light}
+      <NativeAnimated.View style={animatedStyle}>
+        <TouchableHighlight
+          onPress={handlePress}
+          {...otherProps}
           style={styles.circleContainer}
+          underlayColor={defaultStyles.colors.light}
         >
-          <MaterialIcons
-            name="leaderboard"
-            size={42}
-            color={defaultStyles.colors.yellow}
-          />
-          <AppText style={styles.text}>Ranking</AppText>
-        </View>
-      </TouchableHighlight>
+          <View
+            underlayColor={defaultStyles.colors.light}
+            style={styles.circleContainer}
+          >
+            <MaterialIcons
+              name="leaderboard"
+              size={42}
+              color={defaultStyles.colors.yellow}
+            />
+            <AppText style={styles.text}>Ranking</AppText>
+          </View>
+        </TouchableHighlight>
+      </NativeAnimated.View>
     </View>
   );
 };
