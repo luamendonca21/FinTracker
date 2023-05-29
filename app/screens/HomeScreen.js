@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import {
   View,
   StyleSheet,
@@ -6,7 +6,7 @@ import {
   Dimensions,
   FlatList,
 } from "react-native";
-
+import LocationContext from "../providers/LocationProvider";
 import AppText from "../components/AppText";
 import { AppButton, AppSecondaryButton } from "../components/Buttons";
 import GlowingCircle from "../assets/animations/GlowingCircle";
@@ -24,7 +24,6 @@ import cetaceansApi from "../api/cetaceans";
 import eventsApi from "../api/events";
 
 import routes from "../navigation/routes";
-import useLocation from "../hooks/useLocation";
 import settings from "../config/settings";
 
 import defaultStyles from "../config/styles";
@@ -57,7 +56,7 @@ const shortcuts = [
   },
 ];
 const HomeScreen = ({ navigation }) => {
-  const { location, errorMsg } = useLocation();
+  const { location, errorMsg } = useContext(LocationContext);
   const scrollRef = useRef();
 
   // retrieve the user logged

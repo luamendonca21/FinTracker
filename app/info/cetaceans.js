@@ -15,7 +15,7 @@ module.exports = [
       {
         id: 5,
         title: "Comprimento máximo",
-        value: " 2,8 metros",
+        value: "2,8 metros",
       },
       { id: 6, title: "Alimentação", value: "Peixes, lulas, polvos" },
     ],
@@ -46,7 +46,7 @@ module.exports = [
       {
         id: 5,
         title: "Comprimento máximo",
-        value: " 5,5 metros",
+        value: "5,5 metros",
       },
       {
         id: 6,
@@ -81,7 +81,7 @@ module.exports = [
       {
         id: 5,
         title: "Comprimento máximo",
-        value: " 5 metros",
+        value: "5 metros",
       },
       {
         id: 6,
@@ -117,7 +117,7 @@ module.exports = [
       {
         id: 5,
         title: "Comprimento máximo",
-        value: " 18 metros",
+        value: "18 metros",
       },
       {
         id: 6,

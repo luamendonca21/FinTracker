@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { StatusBar } from "react-native";
-
+import { LocationProvider } from "./app/providers/LocationProvider";
 import { useNetInfo } from "@react-native-community/netinfo";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -179,7 +179,7 @@ export default function App() {
         translucent={true}
       />
       <AuthContext.Provider value={{ user, setUser }}>
-        <OfflineNotice
+        {/*  <OfflineNotice
           icon={{ disconnected: "wifi-off", connected: "wifi" }}
           isVisible={isInternetNotConnected()}
           msg={
@@ -187,10 +187,12 @@ export default function App() {
               ? "Sem conexão à Internet"
               : "Conexão à Internet restaurada"
           }
-        />
+        /> */}
         <NavigationContainer theme={myTheme}>
           {user ? (
-            <AppNavigator onLayout={onLayoutRootView} />
+            <LocationProvider>
+              <AppNavigator onLayout={onLayoutRootView} />
+            </LocationProvider>
           ) : (
             <AuthNavigator onLayout={onLayoutRootView} />
           )}

@@ -24,7 +24,6 @@ const getAllEvents = async () => {
   }
 };
 const getNear = async (data) => {
-  console.log("DADOS", data);
   const { lat, long } = data;
   try {
     const response = await ApiManager.get(`/eventsNear/${long}/${lat}`);

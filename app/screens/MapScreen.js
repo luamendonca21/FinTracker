@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 
 import MapView from "react-native-maps";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Constants from "expo-constants";
-
+import LocationContext from "../providers/LocationProvider";
 import AppText from "../components/AppText";
 import Icon from "../components/Icon";
 import MapMarker from "../components/MapMarker";
@@ -12,19 +12,22 @@ import Fade from "../assets/animations/Fade";
 import BottomSheet from "../components/BottomSheet";
 import { ListOptions } from "../components/Lists";
 import { ActivityIndicator } from "../components/Loaders";
-
+import usersApi from "../api/user";
 import eventsApi from "../api/events";
 import cetaceansApi from "../api/cetaceans";
-
+import useAuth from "../auth/useAuth";
 import useApi from "../hooks/useApi";
 import routes from "../navigation/routes";
-import useLocation from "../hooks/useLocation";
 
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
 const MapScreen = ({ navigation, route }) => {
+  const { user } = useAuth();
+
+  // ---------- LIFECYCLE HOOKS ---------
+  const { location } = useContext(LocationContext);
   const cetaceanLocation = route?.params?.cetaceanLocation;
   // -------- STATE MANAGEMENT -------------
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
@@ -33,9 +36,9 @@ const MapScreen = ({ navigation, route }) => {
   const [ids, setIds] = useState([]);
 
   const [inputs, setInputs] = useState([]);
-  const [filtersActive, setFiltersActive] = useState([]);
   const [cetaceans, setCetaceans] = useState([]);
   const [events, setEvents] = useState([]);
+  const [filtersActive, setFiltersActive] = useState([]);
   const filters = [
     { id: 0, title: "Golfinho", category: "Categoria" },
     { id: 1, title: "Baleia", category: "Categoria" },
@@ -70,9 +73,17 @@ const MapScreen = ({ navigation, route }) => {
   const [getAllCetaceansApi, isLoadingCetaceans, errorGetAllCetaceans] = useApi(
     cetaceansApi.getAllCetaceans
   );
+  const [getEventsNearApi, isLoadingEventsNear, errorGetEventsNear] = useApi(
+    eventsApi.getNear
+  );
   const [getAllEventsApi, isLoadingEvents, errorGetAllEvents] = useApi(
     eventsApi.getAllEvents
   );
+  const [updateUserPointsApi, isLoadingUpdatePoints, errorUpdatePoints] =
+    useApi(usersApi.updatePoints);
+
+  const [updateUserVisitedApi, isLoadingUpdateVisited, errorUpdateVisited] =
+    useApi(usersApi.updateVisited);
 
   // ------- UTILITIES -------
   const isFilterActive = (id) => {
@@ -101,6 +112,9 @@ const MapScreen = ({ navigation, route }) => {
   };
 
   const handleApplyChanges = () => {
+    if (inputs.length === 0) {
+      fetchEvents();
+    }
     setFiltersActive(inputs);
     setIsAnimating(false);
     setTimeout(() => {
@@ -113,6 +127,34 @@ const MapScreen = ({ navigation, route }) => {
       (value, index) => value.individualId == individualId
     );
     return item;
+  };
+
+  const checkVisitedCetaceans = () => {
+    const eventsWithin2km = events.filter(
+      (event) => event.dist.calculated / 1000 < 4056
+    );
+    if (eventsWithin2km.length === 0) {
+      return;
+    }
+    const uniqueIndividualIds = [];
+
+    eventsWithin2km.forEach((event) => {
+      if (!uniqueIndividualIds.includes(event.individualId)) {
+        uniqueIndividualIds.push(event.individualId);
+      }
+    });
+
+    visitCetacean(uniqueIndividualIds);
+  };
+
+  const visitCetacean = (cetaceansIds) => {
+    updateUserVisitedApi(user.id, { cetaceansIds })
+      .then((response) => {
+        updateUserPointsApi(user.id, { points: response.pointsReceived })
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
   };
 
   const filterCetaceans = () => {
@@ -270,11 +312,6 @@ const MapScreen = ({ navigation, route }) => {
 
   const filterEvents = () => {
     //if user didnt apply any filter there are no filters to apply
-    if (filtersActive.length === 0) {
-      console.log("AQUI");
-      fetchEvents();
-      return;
-    }
 
     const filteredCetaceans = filterCetaceans();
 
@@ -310,7 +347,6 @@ const MapScreen = ({ navigation, route }) => {
       // get cetaceans from backend
       getAllCetaceansApi()
         .then((response) => {
-          console.log(response);
           setCetaceans(response.cetaceans);
         })
         .catch((error) => {
@@ -321,36 +357,47 @@ const MapScreen = ({ navigation, route }) => {
     }
   };
 
-  const fetchEvents = async () => {
-    // get cetaceans from backend
-    getAllEventsApi()
-      .then((response) => {
-        //console.log("Eventos fetched: ", response);
-        setEvents(response.events);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const fetchEvents = () => {
+    location != null
+      ? getEventsNearApi({
+          long: location.coords.longitude,
+          lat: location.coords.latitude,
+        })
+          .then((response) => setEvents(response.events))
+          .catch((error) => console.log(error))
+      : getAllEventsApi()
+          .then((response) => {
+            //console.log("Eventos fetched: ", response);
+            setEvents(response.events);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
   };
-
-  // ---------- LIFECYCLE HOOKS ---------
-  const { location, errorMsg } = useLocation();
 
   useEffect(() => {
     fetchIndividuals();
-    fetchEvents();
   }, []);
+
+  useEffect(() => {
+    console.log("Map, User Location: ", location);
+    fetchEvents();
+  }, [location]);
+
+  useEffect(() => {
+    location != null && events.length != 0 && checkVisitedCetaceans();
+  }, [events]);
 
   useEffect(() => {
     // get the cetaceans filtered from backend and setCetaceans to the response array
     console.log("Filtros ativos: ", filtersActive);
 
-    filterEvents();
+    filtersActive.length != 0 && filterEvents();
   }, [filtersActive]);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ActivityIndicator
-        visible={isLoadingCetaceans || isLoadingEvents || isFiltering}
+        visible={isLoadingCetaceans || isLoadingEventsNear || isFiltering}
       />
       <View style={styles.container}>
         <MapView
@@ -365,16 +412,18 @@ const MapScreen = ({ navigation, route }) => {
             bottom: 50,
           }}
           initialRegion={{
-            latitude: location
-              ? location.coords.latitude
-              : cetaceanLocation != null
-              ? cetaceanLocation[1]
-              : 32.37166518,
-            longitude: location
-              ? location.coords.longitude
-              : cetaceanLocation != null
-              ? cetaceanLocation[0]
-              : -16.2749989,
+            latitude:
+              cetaceanLocation != null
+                ? cetaceanLocation[1]
+                : location
+                ? location.coords.latitude
+                : 25.2646,
+            longitude:
+              cetaceanLocation != null
+                ? cetaceanLocation[0]
+                : location
+                ? location.coords.longitude
+                : 55.3077,
             latitudeDelta: 1,
             longitudeDelta: 1,
           }}

@@ -64,6 +64,22 @@ const updateUsername = async (id, data) => {
     throw error.response.data;
   }
 };
+const updatePoints = async (id, data) => {
+  try {
+    const response = await ApiManager.put(`/user/${id}/points`, data);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+const updateVisited = async (id, data) => {
+  try {
+    const response = await ApiManager.put(`/user/${id}/visited`, data);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 const updatePicture = async (id, data) => {
   try {
     const response = await ApiManager.put(`/user/${id}/picture`, data, {
@@ -112,6 +128,8 @@ export default {
   updatePassword,
   updateUsername,
   updatePicture,
+  updateVisited,
+  updatePoints,
   updateFavorite,
   deleteFavorite,
   deletePicture,
