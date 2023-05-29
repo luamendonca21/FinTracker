@@ -17,11 +17,13 @@ import eventsApi from "../api/events";
 import cetaceansApi from "../api/cetaceans";
 import useAuth from "../auth/useAuth";
 import useApi from "../hooks/useApi";
+import { RewardAlert } from "../components/Alerts";
 import routes from "../navigation/routes";
 
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
 
 const MapScreen = ({ navigation, route }) => {
   const { user } = useAuth();
@@ -33,6 +35,7 @@ const MapScreen = ({ navigation, route }) => {
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [earnedPoints, setEarnedPoints] = useState(false);
   const [ids, setIds] = useState([]);
 
   const [inputs, setInputs] = useState([]);
@@ -79,8 +82,12 @@ const MapScreen = ({ navigation, route }) => {
   const [getAllEventsApi, isLoadingEvents, errorGetAllEvents] = useApi(
     eventsApi.getAllEvents
   );
-  const [updateUserPointsApi, isLoadingUpdatePoints, errorUpdatePoints] =
-    useApi(usersApi.updatePoints);
+  const [
+    updateUserPointsApi,
+    isLoadingUpdatePoints,
+    errorUpdatePoints,
+    points,
+  ] = useApi(usersApi.updatePoints);
 
   const [updateUserVisitedApi, isLoadingUpdateVisited, errorUpdateVisited] =
     useApi(usersApi.updateVisited);
@@ -131,7 +138,7 @@ const MapScreen = ({ navigation, route }) => {
 
   const checkVisitedCetaceans = () => {
     const eventsWithin2km = events.filter(
-      (event) => event.dist.calculated / 1000 < 4056
+      (event) => event.dist.calculated / 1000 < 2000
     );
     if (eventsWithin2km.length === 0) {
       return;
@@ -151,7 +158,7 @@ const MapScreen = ({ navigation, route }) => {
     updateUserVisitedApi(user.id, { cetaceansIds })
       .then((response) => {
         updateUserPointsApi(user.id, { points: response.pointsReceived })
-          .then((response) => console.log(response))
+          .then((response) => setEarnedPoints(true))
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
@@ -395,103 +402,112 @@ const MapScreen = ({ navigation, route }) => {
     filtersActive.length != 0 && filterEvents();
   }, [filtersActive]);
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <ActivityIndicator
-        visible={isLoadingCetaceans || isLoadingEventsNear || isFiltering}
-      />
-      <View style={styles.container}>
-        <MapView
-          mapType="satellite"
-          showsUserLocation
-          showsCompass={false}
-          style={styles.map}
-          mapPadding={{
-            top: 5 + Constants.statusBarHeight,
-            left: 5,
-            right: 5,
-            bottom: 50,
-          }}
-          initialRegion={{
-            latitude:
-              cetaceanLocation != null
-                ? cetaceanLocation[1]
-                : location
-                ? location.coords.latitude
-                : 25.2646,
-            longitude:
-              cetaceanLocation != null
-                ? cetaceanLocation[0]
-                : location
-                ? location.coords.longitude
-                : 55.3077,
-            latitudeDelta: 1,
-            longitudeDelta: 1,
-          }}
-        >
-          {events.map((event, index) => (
-            <MapMarker
-              key={index}
-              onCalloutPress={() => onCalloutPress(event.individualId)}
-              coords={{
-                long: event.location.coordinates[0],
-                lat: event.location.coordinates[1],
-              }}
-              name={
-                cetaceans.length != 0
-                  ? findCetacean(event.individualId).details[1].value
-                  : ""
-              }
-              description="Ver perfil"
-              img={require("../assets/icon-sbg.png")}
-            />
-          ))}
-        </MapView>
-        <Icon
-          onPress={handleFilterPress}
-          style={styles.icon}
-          icon="filter"
-          size={22}
-          iconColor={defaultStyles.colors.black}
-          backgroundColor={defaultStyles.colors.white}
+    <>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ActivityIndicator
+          visible={isLoadingCetaceans || isLoadingEventsNear || isFiltering}
         />
-        <View style={styles.resultsContainer}>
-          <AppText
-            style={styles.resultsText}
-          >{`${events.length} resultados`}</AppText>
-        </View>
-        {isBottomSheetActive && (
-          <>
-            <Fade duration={500} value={0.4} isVisible={isAnimating} />
-            <BottomSheet
-              scroll
-              closeBottomSheet={handleCloseBottomSheet}
-              onPress={handleApplyChanges}
-              maxValue={-windowHeight / 1.5}
-              minValue={-windowHeight / 1.6}
-              initialValue={-windowHeight / 1.5}
-              title="Filtros"
-            >
-              {Array.from(
-                new Set(filters.map((filter) => filter.category))
-              ).map((category) => (
-                <View key={category} style={styles.categoryTitle}>
-                  <AppText style={styles.categoryTitle}>{category}</AppText>
-                  <ListOptions
-                    options={filters.filter(
-                      (filter) => filter.category === category
-                    )}
-                    optionsActive={inputs}
-                    onPress={(itemId, itemTitle, itemCategory) =>
-                      handleFilterOptionPress(itemId, itemTitle, itemCategory)
-                    }
-                  />
-                </View>
-              ))}
-            </BottomSheet>
-          </>
+        {earnedPoints && (
+          <RewardAlert
+            isVisible={earnedPoints}
+            points={points}
+            onPress={() => setEarnedPoints(false)}
+          />
         )}
-      </View>
-    </GestureHandlerRootView>
+        <View style={styles.container}>
+          <MapView
+            mapType="satellite"
+            showsUserLocation
+            showsCompass={false}
+            style={styles.map}
+            mapPadding={{
+              top: 5 + Constants.statusBarHeight,
+              left: 5,
+              right: 5,
+              bottom: 50,
+            }}
+            initialRegion={{
+              latitude:
+                cetaceanLocation != null
+                  ? cetaceanLocation[1]
+                  : location
+                  ? location.coords.latitude
+                  : 25.2646,
+              longitude:
+                cetaceanLocation != null
+                  ? cetaceanLocation[0]
+                  : location
+                  ? location.coords.longitude
+                  : 55.3077,
+              latitudeDelta: 1,
+              longitudeDelta: 1,
+            }}
+          >
+            {events.map((event, index) => (
+              <MapMarker
+                key={index}
+                onCalloutPress={() => onCalloutPress(event.individualId)}
+                coords={{
+                  long: event.location.coordinates[0],
+                  lat: event.location.coordinates[1],
+                }}
+                name={
+                  cetaceans.length != 0
+                    ? findCetacean(event.individualId).details[1].value
+                    : ""
+                }
+                description="Ver perfil"
+                img={require("../assets/icon-sbg.png")}
+              />
+            ))}
+          </MapView>
+          <Icon
+            onPress={handleFilterPress}
+            style={styles.icon}
+            icon="filter"
+            size={22}
+            iconColor={defaultStyles.colors.black}
+            backgroundColor={defaultStyles.colors.white}
+          />
+          <View style={styles.resultsContainer}>
+            <AppText
+              style={styles.resultsText}
+            >{`${events.length} resultados`}</AppText>
+          </View>
+          {isBottomSheetActive && (
+            <>
+              <Fade duration={500} value={0.4} isVisible={isAnimating} />
+              <BottomSheet
+                scroll
+                closeBottomSheet={handleCloseBottomSheet}
+                onPress={handleApplyChanges}
+                maxValue={-windowHeight / 1.5}
+                minValue={-windowHeight / 1.6}
+                initialValue={-windowHeight / 1.5}
+                title="Filtros"
+              >
+                {Array.from(
+                  new Set(filters.map((filter) => filter.category))
+                ).map((category) => (
+                  <View key={category} style={styles.categoryTitle}>
+                    <AppText style={styles.categoryTitle}>{category}</AppText>
+                    <ListOptions
+                      options={filters.filter(
+                        (filter) => filter.category === category
+                      )}
+                      optionsActive={inputs}
+                      onPress={(itemId, itemTitle, itemCategory) =>
+                        handleFilterOptionPress(itemId, itemTitle, itemCategory)
+                      }
+                    />
+                  </View>
+                ))}
+              </BottomSheet>
+            </>
+          )}
+        </View>
+      </GestureHandlerRootView>
+    </>
   );
 };
 

@@ -48,7 +48,9 @@ function UserProfileScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [detailsActive, setDetailsActive] = useState([]);
   const [favoritesIds, setFavoritesIds] = useState([]);
+  const [visitedIds, setVisitedIds] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [visited, setVisited] = useState([]);
 
   // ------ APIS ------
   const [updateUserDetailsApi, isLoadingDetailsUpdate, errorUpdateDetails] =
@@ -125,6 +127,7 @@ function UserProfileScreen({ navigation }) {
         setPoints(response.points);
         setUsername(response.username);
         setFavoritesIds(response.favorites);
+        setVisitedIds(response.visited);
       })
       .catch((error) => {
         console.log(error);
@@ -162,6 +165,18 @@ function UserProfileScreen({ navigation }) {
         });
     });
   }, [favoritesIds]);
+  useEffect(() => {
+    visitedIds.forEach((value) => {
+      getCetaceansById(value)
+        .then((response) => {
+          const newVisited = response.cetacean;
+          setVisited((prevVisited) => [...prevVisited, newVisited]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }, [visitedIds]);
 
   return (
     <>
@@ -235,6 +250,18 @@ function UserProfileScreen({ navigation }) {
                   ) : null}
 
                   <AppText style={styles.title}>Visitados</AppText>
+
+                  {visited.length !== 0 ? (
+                    <Carousel data={visited} />
+                  ) : isLoadingUser || isLoadingCetaceans ? (
+                    <Skeleton style={styles.skeletonFavorites} />
+                  ) : (!isLoadingUser || !isLoadingCetaceans) &&
+                    visited.length == 0 ? (
+                    <NoContentCard
+                      msg="Ainda não visitou nenhum cetáceo!"
+                      style={styles.noContentCard}
+                    />
+                  ) : null}
                 </View>
               </ScrollView>
             </View>
@@ -314,6 +341,7 @@ const styles = StyleSheet.create({
   },
   body: {
     marginTop: 70,
+    paddingBottom: 90,
   },
   title: {
     fontSize: 18,
