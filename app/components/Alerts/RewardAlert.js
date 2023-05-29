@@ -7,7 +7,7 @@ import defaultStyles from "../../config/styles";
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
 
-const RewardAlert = ({ isVisible, points, onPress }) => {
+const RewardAlert = ({ isVisible, points, onPress, onContinue }) => {
   const opacityValue = useRef(new Animated.Value(0)).current;
   const scaleValue = useRef(new Animated.Value(0)).current;
 
@@ -58,12 +58,12 @@ const RewardAlert = ({ isVisible, points, onPress }) => {
           style={styles.button}
           title="Ir para o perfil do cetáceo"
           styleText={{ fontSize: 15 }}
-          onPress={() => console.log("go to profile Screen")}
+          onPress={onPress}
         />
         <AppText style={{ fontSize: 18 }}>Ou</AppText>
         <LinkButton
           style={styles.linkButton}
-          onPress={onPress}
+          onPress={onContinue}
           title="Continuar"
           color="secondary"
         />

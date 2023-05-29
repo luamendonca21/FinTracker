@@ -138,7 +138,7 @@ const MapScreen = ({ navigation, route }) => {
 
   const checkVisitedCetaceans = () => {
     const eventsWithin2km = events.filter(
-      (event) => event.dist.calculated / 1000 < 2000
+      (event) => event.dist.calculated / 1000 < 5000
     );
     if (eventsWithin2km.length === 0) {
       return;
@@ -411,7 +411,11 @@ const MapScreen = ({ navigation, route }) => {
           <RewardAlert
             isVisible={earnedPoints}
             points={points}
-            onPress={() => setEarnedPoints(false)}
+            onPress={() => {
+              setEarnedPoints(false);
+              navigation.navigate("Profile");
+            }}
+            onContinue={() => setEarnedPoints(false)}
           />
         )}
         <View style={styles.container}>
