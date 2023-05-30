@@ -33,6 +33,7 @@ const MapScreen = ({ navigation, route }) => {
   const { user } = useAuth();
   const { location } = useContext(LocationContext);
   const cetaceanLocation = route?.params?.cetaceanLocation;
+  const delta = route?.params?.delta;
 
   // -------- STATE MANAGEMENT -------------
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
@@ -319,8 +320,8 @@ const MapScreen = ({ navigation, route }) => {
                   : location
                   ? location.coords.longitude
                   : 55.3077,
-              latitudeDelta: 1,
-              longitudeDelta: 1,
+              latitudeDelta: delta ? delta : 1,
+              longitudeDelta: delta ? delta : 1,
             }}
           >
             {events.map((event, index) => (

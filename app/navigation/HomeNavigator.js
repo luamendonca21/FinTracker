@@ -60,7 +60,7 @@ const HomeNavigator = () => (
     />
     <Stack.Screen
       options={{
-        headerTitle: "Sobre",
+        headerTitle: "Sobre Nós",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
       name="About"

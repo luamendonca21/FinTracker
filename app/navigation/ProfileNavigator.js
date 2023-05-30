@@ -76,7 +76,7 @@ const ProfileNavigator = () => (
       component={UsernameScreen}
     />
     <Stack.Screen
-      options={{ headerShown: true, headerTitle: "Sobre" }}
+      options={{ headerShown: true, headerTitle: "Sobre Nós" }}
       name="About"
       component={AboutScreen}
     />

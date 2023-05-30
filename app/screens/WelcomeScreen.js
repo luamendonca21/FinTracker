@@ -24,7 +24,13 @@ const WelcomeScreen = ({ navigation }) => {
   return (
     <Screen>
       <View style={styles.container}>
-        <Image style={styles.image} source={require("../assets/icon.jpg")} />
+        <View style={styles.appIcon}>
+          <Image
+            style={styles.image}
+            resizeMode="contain"
+            source={require("../assets/icon.png")}
+          />
+        </View>
         <AppText style={styles.title}>Fin Tracker</AppText>
       </View>
       <WavyFooter
@@ -67,16 +73,18 @@ const WelcomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginTop: 60,
-    height: "20%",
+    top: 60,
+    width: "100%",
+    position: "absolute",
     justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     marginTop: 15,
     fontSize: 26,
     fontWeight: "bold",
   },
-  image: { width: 120, height: 150, transform: [{ rotate: "-20deg" }] },
+  image: { width: 105, height: 105, aspectRatio: 1 },
   footerContainer: {
     padding: 25,
     alignItems: "center",
@@ -89,6 +97,16 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     backgroundColor: defaultStyles.colors.white,
     borderRadius: 20,
+  },
+  appIcon: {
+    backgroundColor: defaultStyles.colors.white,
+    marginHorizontal: 5,
+    marginVertical: 5,
+    borderRadius: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    elevation: 3,
+    alignItems: "center",
   },
   welcomeContainer: {
     alignItems: "center",

@@ -79,6 +79,7 @@ const CloseItem = ({ event, name, url }) => {
   const navigateToMap = () => {
     navigation.navigate(routes.MAP, {
       cetaceanLocation: event.location.coordinates,
+      delta: 0.01,
     });
   };
 

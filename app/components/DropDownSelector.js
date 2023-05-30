@@ -91,6 +91,8 @@ const DropDownSelector = ({
                   ? "Ex: Fotografia, Música, Desporto"
                   : title == "Hobbies"
                   ? "Ex: Culinária, Corrida, Pesca"
+                  : title == "Quando estiver perto de um local personalizado"
+                  ? "Digite uma localização"
                   : null
               }
             />

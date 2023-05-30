@@ -40,7 +40,7 @@ const SettingsScreen = () => {
     },
     {
       id: 4,
-      title: "Sobre",
+      title: "Sobre Nós",
       icon: {
         name: "information",
         iconColor: defaultStyles.colors.white,

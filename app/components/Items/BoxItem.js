@@ -32,7 +32,7 @@ const BoxItem = ({ item, onPress }) => {
         <MaterialIcons
           name={item.icon}
           size={50}
-          color={defaultStyles.colors.primary}
+          color={defaultStyles.colors.thirdly}
         />
         <View style={styles.itemDescription}>
           <AppText style={styles.title}>{item.title}</AppText>

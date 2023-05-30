@@ -238,8 +238,6 @@ const CetaceanProfileScreen = ({ route }) => {
     getCetaceanById(item.individualId)
       .then((response) => {
         setComments(response.cetacean.comments);
-        setTimestampStart(response.cetacean.timestamp_start);
-        setTimestampEnd(response.cetacean.timestamp_end);
       })
       .catch((error) => console.log(error))
       .finally(() => {
