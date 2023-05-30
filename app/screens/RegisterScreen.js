@@ -9,7 +9,6 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import isEmail from "validator/lib/isEmail";
 
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
@@ -30,11 +29,9 @@ const schema = yup.object({
   email: yup
     .string()
     .required("Por favor, introduz o email.")
-    .test(
-      "is-valid",
-      (message) => `Por favor, introduz um ${message.path} válido. `,
-      (value) =>
-        value ? isEmail(value) : new yup.ValidationError("Invalid value")
+    .matches(
+      /^[\w.%+-]+@hotmail\.com$/,
+      "Por favor, introduz um email válido do Hotmail."
     ),
   password: yup
     .string()
