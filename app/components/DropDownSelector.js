@@ -74,12 +74,25 @@ const DropDownSelector = ({
         {showContent && (
           <View style={styles.body}>
             <AppTextInput
+              maxLength={title == "Idade" ? 2 : 50}
               style={styles.input}
               onChangeText={(text) => handleOnChange(text)}
               autoCorrect={false}
               autoCapitalize="none"
               keyboardType={title == "Idade" ? "numeric" : "default"}
-              placeholder="Digita aqui..."
+              placeholder={
+                title == "Idade"
+                  ? "Digita a tua idade"
+                  : title == "País"
+                  ? "Digita o teu país"
+                  : title == "Profissão"
+                  ? "Digita a tua profissão"
+                  : title == "Interesses"
+                  ? "Ex: Fotografia, Música, Desporto"
+                  : title == "Hobbies"
+                  ? "Ex: Culinária, Corrida, Pesca"
+                  : null
+              }
             />
           </View>
         )}

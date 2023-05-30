@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -35,6 +34,8 @@ function UserProfileScreen({ navigation }) {
     { id: 1, title: "Idade" },
     { id: 2, title: "País" },
     { id: 3, title: "Profissão" },
+    { id: 4, title: "Interesses" },
+    { id: 5, title: "Hobbies" },
   ];
 
   //retrieve the user logged

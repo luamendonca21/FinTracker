@@ -8,13 +8,12 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert } from "../components/Alerts";
 
 import { WavyHeader } from "../components/Waves";
+import { Alert } from "../components/Alerts";
 import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
 import AppText from "../components/AppText";
-import { ErrorMessage } from "../components/Alerts";
 import { AppButton, LinkButton } from "../components/Buttons";
 import ActivityIndicator from "../components/Loaders/ActivityIndicator";
 

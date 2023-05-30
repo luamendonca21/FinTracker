@@ -60,9 +60,6 @@ const CetaceanProfileScreen = ({ route }) => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
 
-  const [timestampStart, setTimestampStart] = useState("");
-  const [timestampEnd, setTimestampEnd] = useState("");
-
   // ---------- APIS -----------
   const [updateFavoriteApi, isLoadingUpdateFavorites, errorUpdate] = useApi(
     usersApi.updateFavorite
@@ -81,8 +78,8 @@ const CetaceanProfileScreen = ({ route }) => {
   const [deleteCommentApi, isLoadingDeleteComment, errorDeleteComment] = useApi(
     cetaceansApi.deleteComment
   );
-  // ---------- UTILITIES -----------
 
+  // ---------- UTILITIES -----------
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
 
@@ -175,8 +172,6 @@ const CetaceanProfileScreen = ({ route }) => {
   };
 
   const handleSubmit = async () => {
-    // send to backend
-
     const data = { userId: user.id, text: comment };
     const id = item.individualId;
     updateCommentsApi(data, id)
@@ -252,6 +247,7 @@ const CetaceanProfileScreen = ({ route }) => {
       });
   };
 
+  // ----------- LIFECYCLE HOOKS ------------
   useEffect(() => {
     inputs.length != 0 && storeNotifications();
   }, [notificationsActive]);
@@ -261,9 +257,11 @@ const CetaceanProfileScreen = ({ route }) => {
     getNotifications();
     getCetacean();
   }, []);
+
   useEffect(() => {
     getCetacean();
   }, [state]);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
