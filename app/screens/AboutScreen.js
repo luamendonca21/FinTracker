@@ -19,7 +19,7 @@ const items = [
     title: "Contactos",
     subTitle: "Contacta-nos para qualquer questão",
     icon: "phone",
-    target: "",
+    target: routes.CONTACTS,
   },
 ];
 

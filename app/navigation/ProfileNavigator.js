@@ -16,6 +16,7 @@ import defaultStyles from "../config/styles";
 import PasswordScreen from "../screens/PasswordScreen";
 import DeleteAccountScreen from "../screens/DeleteAccountScreen";
 import UsernameScreen from "../screens/UsernameScreen";
+import ContactsScreen from "../screens/ContactsScreen";
 const Stack = createStackNavigator();
 
 const ProfileNavigator = () => (
@@ -83,6 +84,11 @@ const ProfileNavigator = () => (
       options={{ headerShown: false }}
       name="Features"
       component={FeatureScreen}
+    />
+    <Stack.Screen
+      options={{ headerShown: true, headerTitle: "Contactos" }}
+      name="Contacts"
+      component={ContactsScreen}
     />
   </Stack.Navigator>
 );

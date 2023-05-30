@@ -15,6 +15,7 @@ import UsernameScreen from "../screens/UsernameScreen";
 import MapScreen from "../screens/MapScreen";
 import defaultStyles from "../config/styles";
 import CetaceanProfileScreen from "../screens/CetaceanProfileScreen";
+import ContactsScreen from "../screens/ContactsScreen";
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,13 @@ const HomeNavigator = () => (
       }}
       name="Features"
       component={FeatureScreen}
+    />
+    <Stack.Screen
+      options={{
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+      name="Contacts"
+      component={ContactsScreen}
     />
     <Stack.Screen
       options={{

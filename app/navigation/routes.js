@@ -15,4 +15,5 @@ export default Object.freeze({
   REGISTER: "Register",
   LOGIN: "Login",
   FORGOT_PASSWORD: "ForgotPassword",
+  CONTACTS: "Contacts",
 });
