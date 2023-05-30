@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Swipeable from "react-native-gesture-handler/Swipeable";
 import AppText from "./AppText";
 import usersApi from "../api/user";
 import ProfileImage from "./ProfileImage";
@@ -12,7 +11,7 @@ import { Skeleton } from "./Loaders";
 import defaultStyles from "../config/styles";
 const PICTURE_SIZE = 100;
 
-const Comment = ({ item, renderRighActions, disabledDelete, onDelete }) => {
+const Comment = ({ item, disabledDelete, onDelete }) => {
   const { user } = useAuth();
   const [commentUsername, setCommentUsername] = useState("");
 
@@ -34,7 +33,7 @@ const Comment = ({ item, renderRighActions, disabledDelete, onDelete }) => {
       .catch((error) => console.log(error));
   }, [item]);
   return (
-    <Swipeable renderRightActions={renderRighActions}>
+    <>
       <View style={styles.container}>
         <ProfileImage
           userId={item.userId}
@@ -92,7 +91,7 @@ const Comment = ({ item, renderRighActions, disabledDelete, onDelete }) => {
           onDelete();
         }}
       />
-    </Swipeable>
+    </>
   );
 };
 

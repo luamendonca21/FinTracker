@@ -7,7 +7,7 @@ const Skeleton = ({ style }) => {
   const x = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     Animated.loop(
-      Animated.timing(x, { toValue: 1, useNativeDriver: true })
+      Animated.timing(x, { toValue: 1, useNativeDriver: true, duration: 1000 })
     ).start();
   }, []);
   return (

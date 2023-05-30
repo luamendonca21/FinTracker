@@ -22,7 +22,6 @@ import BottomSheet from "../components/BottomSheet";
 import { AppTextInput } from "../components/Inputs";
 import { Skeleton } from "../components/Loaders";
 import Comment from "../components/Comment";
-import DeleteAction from "../components/DeleteAction";
 import { NoContentCard } from "../components/Alerts";
 
 import cache from "../utility/cache";
@@ -198,7 +197,6 @@ const CetaceanProfileScreen = ({ route }) => {
       <Comment
         disabledDelete={isLoadingDeleteComment}
         onDelete={() => handleDelete(commentId)}
-        renderRightActions={() => <DeleteAction />}
         item={item}
         index={index}
       />
@@ -329,7 +327,7 @@ const CetaceanProfileScreen = ({ route }) => {
               <AppText style={styles.title}>Rota de migração</AppText>
               <AppText style={styles.text}>{item.migration}</AppText>
               <AppText style={styles.title}>Comentários</AppText>
-              {comments.length != 0 && (
+              {comments.length >= 2 && (
                 <AppSecondaryButton
                   onPress={handleCommentsOrderPress}
                   title={
