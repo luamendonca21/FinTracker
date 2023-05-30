@@ -1,7 +1,7 @@
 module.exports = [
   {
     id: 1,
-    name: "Dolphy1",
+    name: "Golfinho-de-dentes-rugosos",
 
     details: [
       { id: 1, title: "Categoria", value: "Golfinho" },
@@ -33,7 +33,7 @@ module.exports = [
   },
   {
     id: 2,
-    name: "Dolphy2",
+    name: "Baleia-piloto-de-barbatanas-curta",
     details: [
       { id: 1, title: "Categoria", value: "Baleia" },
       {
@@ -68,7 +68,7 @@ module.exports = [
   },
   {
     id: 3,
-    name: "Dolphy3",
+    name: "Orca-falsa",
     details: [
       { id: 1, title: "Categoria", value: "Orca" },
       {
@@ -104,7 +104,7 @@ module.exports = [
 
   {
     id: 4,
-    name: "Dolphy4",
+    name: "Cachalote",
     details: [
       { id: 1, title: "Categoria", value: "Baleia" },
       {

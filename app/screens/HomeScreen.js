@@ -12,7 +12,7 @@ import { AppButton, AppSecondaryButton } from "../components/Buttons";
 import GlowingCircle from "../assets/animations/GlowingCircle";
 import Screen from "../components/Screen";
 import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { RecommendedItem, CloseItem, RankItem } from "../components/Items";
 import { Skeleton } from "../components/Loaders";
 import { NoContentCard } from "../components/Alerts";
@@ -256,6 +256,54 @@ const HomeScreen = ({ navigation }) => {
                     title={item.buttonTitle}
                     onPress={() => handlePressShortcut(item)}
                   />
+                  {item.title == "Cetáceos favoritos" && (
+                    <>
+                      <MaterialIcons
+                        style={{
+                          position: "absolute",
+                          top: 10,
+                          right: 10,
+                        }}
+                        size={120}
+                        name="favorite"
+                        color="red"
+                      />
+                      <MaterialCommunityIcons
+                        style={{
+                          position: "absolute",
+                          top: 60,
+                          right: 30,
+                        }}
+                        size={50}
+                        name="gesture-tap"
+                        color={defaultStyles.colors.white}
+                      />
+                    </>
+                  )}
+                  {item.title == "Definições" && (
+                    <MaterialIcons
+                      style={{
+                        position: "absolute",
+                        top: 10,
+                        right: 10,
+                      }}
+                      size={120}
+                      name="settings"
+                      color={defaultStyles.colors.medium}
+                    />
+                  )}
+                  {item.title == "Funcionalidades" && (
+                    <MaterialIcons
+                      style={{
+                        position: "absolute",
+                        top: 10,
+                        right: 10,
+                      }}
+                      size={120}
+                      name="stars"
+                      color={defaultStyles.colors.thirdly}
+                    />
+                  )}
                 </View>
               ))}
             </IndexCarousel>

@@ -338,7 +338,7 @@ const MapScreen = ({ navigation, route }) => {
                     : ""
                 }
                 description="Ver perfil"
-                img={require("../assets/icon-sbg.png")}
+                img={require("../assets/mapMarker.png")}
               />
             ))}
           </MapView>

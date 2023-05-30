@@ -303,9 +303,9 @@ const CetaceanProfileScreen = ({ route }) => {
               >
                 <ListDetails details={item.details} />
               </ScrollView>
-              <AppText
+              {/* <AppText
                 style={styles.text}
-              >{`IndividualId: ${item.individualId}`}</AppText>
+              >{`IndividualId: ${item.individualId}`}</AppText> */}
               <AppText style={styles.title}>Monitorização</AppText>
 
               <View style={styles.timestampContainer}>
@@ -329,16 +329,18 @@ const CetaceanProfileScreen = ({ route }) => {
               <AppText style={styles.title}>Rota de migração</AppText>
               <AppText style={styles.text}>{item.migration}</AppText>
               <AppText style={styles.title}>Comentários</AppText>
-              <AppSecondaryButton
-                onPress={handleCommentsOrderPress}
-                title={
-                  isCommentsRecente
-                    ? "Ordenar por antigos"
-                    : "Ordenar por recentes"
-                }
-                style={styles.orderButton}
-                styleText={{ fontSize: 15 }}
-              />
+              {comments.length != 0 && (
+                <AppSecondaryButton
+                  onPress={handleCommentsOrderPress}
+                  title={
+                    isCommentsRecente
+                      ? "Ordenar por antigos"
+                      : "Ordenar por recentes"
+                  }
+                  style={styles.orderButton}
+                  styleText={{ fontSize: 15 }}
+                />
+              )}
               <AppTextInput
                 style={styles.inputComment}
                 submitIcon

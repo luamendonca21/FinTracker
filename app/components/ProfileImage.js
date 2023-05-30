@@ -154,7 +154,7 @@ const ProfileImage = ({
             backgroundColor={defaultStyles.colors.white}
           />
         )}
-        {deleteIcon && (
+        {deleteIcon && image !== null && (
           <Icon
             onPress={() =>
               showAlert({

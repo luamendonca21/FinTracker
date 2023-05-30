@@ -14,8 +14,4 @@ const MapMarker = ({ onCalloutPress, name, coords, img, description }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  image: { height: 40, width: 30 },
-});
-
 export default MapMarker;
