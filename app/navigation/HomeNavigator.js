@@ -16,6 +16,7 @@ import MapScreen from "../screens/MapScreen";
 import defaultStyles from "../config/styles";
 import CetaceanProfileScreen from "../screens/CetaceanProfileScreen";
 import ContactsScreen from "../screens/ContactsScreen";
+import CetaceanActivityScreen from "../screens/CetaceanActivityScreen";
 
 const Stack = createStackNavigator();
 
@@ -110,6 +111,13 @@ const HomeNavigator = () => (
       }}
       name="CetaceansProfile"
       component={CetaceanProfileScreen}
+    />
+    <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      name="CetaceanActivityScreen"
+      component={CetaceanActivityScreen}
     />
     <Stack.Screen
       options={{

@@ -1,4 +1,4 @@
-module.exports = [
+const cetaceanFilters = [
   { id: 0, title: "Golfinho", category: "Categoria" },
   { id: 1, title: "Baleia", category: "Categoria" },
   { id: 2, title: "Orca", category: "Categoria" },
@@ -27,3 +27,11 @@ module.exports = [
   { id: 25, title: "Lulas", category: "Alimentação" },
   { id: 26, title: "Tubarões", category: "Alimentação" },
 ];
+
+const activityFilters = [
+  { id: 0, title: "Últimas 24 horas", category: "Atividade" },
+  { id: 1, title: "Última semana", category: "Atividade" },
+  { id: 2, title: "Último mês", category: "Atividade" },
+];
+
+export { cetaceanFilters, activityFilters };

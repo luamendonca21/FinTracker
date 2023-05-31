@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -6,6 +6,8 @@ import {
   ScrollView,
   Dimensions,
   FlatList,
+  TouchableOpacity,
+  TouchableHighlight,
 } from "react-native";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -23,6 +25,7 @@ import { AppTextInput } from "../components/Inputs";
 import { Skeleton } from "../components/Loaders";
 import Comment from "../components/Comment";
 import { NoContentCard } from "../components/Alerts";
+import { Map } from "../components/Map";
 
 import cache from "../utility/cache";
 import cetaceansApi from "../api/cetaceans";
@@ -31,6 +34,8 @@ import usersApi from "../api/user";
 import useAuth from "../auth/useAuth";
 import settings from "../config/settings";
 
+import LocationContext from "../providers/LocationProvider";
+import routes from "../navigation/routes";
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -41,9 +46,10 @@ const notifications = [
   { id: 2, title: "Quando estiver perto de um local personalizado" },
 ];
 
-const CetaceanProfileScreen = ({ route }) => {
+const CetaceanProfileScreen = ({ route, navigation }) => {
   const baseURL = settings.apiUrl;
   const { user } = useAuth();
+  const { location } = useContext(LocationContext);
 
   // ------ STATE MANAGEMENT -------
   const [state, setState] = useState(0);
@@ -327,6 +333,21 @@ const CetaceanProfileScreen = ({ route }) => {
               <AppText style={styles.title}>Rota de migração</AppText>
               <AppText style={styles.text}>{item.migration}</AppText>
               {/* Miniatura do mapa, e caso de pra clicar, levar para o mapa */}
+              <TouchableHighlight
+                style={styles.mapContainer}
+                onPress={() => navigation.navigate(routes.CETACEAN_ACTIVITY)}
+              >
+                <Map
+                  mini
+                  style={styles.map}
+                  initialRegion={{
+                    latitude: location ? location.coords.latitude : 25.2646,
+                    longitude: location ? location.coords.longitude : 55.3077,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                  }}
+                ></Map>
+              </TouchableHighlight>
               <AppText style={styles.title}>Comentários</AppText>
               {comments.length >= 2 && (
                 <AppSecondaryButton
@@ -461,7 +482,6 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     textAlign: "justify",
   },
-
   optionInactive: {
     marginVertical: 5,
     flexDirection: "row",
@@ -509,6 +529,12 @@ const styles = StyleSheet.create({
   },
   timestampText: {
     fontWeight: "bold",
+  },
+  map: { width: "100%", height: 250 },
+  mapContainer: {
+    borderRadius: 15,
+    overflow: "hidden",
+    marginTop: 20,
   },
 });
 

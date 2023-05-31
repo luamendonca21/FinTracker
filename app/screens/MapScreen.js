@@ -1,20 +1,16 @@
 import React, { useEffect, useContext, useState } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 
-import Constants from "expo-constants";
-import MapView from "react-native-maps";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import AppText from "../components/AppText";
 import Icon from "../components/Icon";
-import MapMarker from "../components/MapMarker";
+import { MapMarker, Map } from "../components/Map";
 import Fade from "../assets/animations/Fade";
 import BottomSheet from "../components/BottomSheet";
 import { ListOptions } from "../components/Lists";
 import { ActivityIndicator } from "../components/Loaders";
 import { RewardAlert } from "../components/Alerts";
-
-import LocationContext from "../providers/LocationProvider";
 
 import usersApi from "../api/user";
 import eventsApi from "../api/events";
@@ -22,8 +18,9 @@ import cetaceansApi from "../api/cetaceans";
 import useApi from "../hooks/useApi";
 import useAuth from "../auth/useAuth";
 
-import filters from "../info/mapFilters";
+import { cetaceanFilters as filters } from "../info/mapFilters";
 import routes from "../navigation/routes";
+import LocationContext from "../providers/LocationProvider";
 
 import defaultStyles from "../config/styles";
 
@@ -296,17 +293,8 @@ const MapScreen = ({ navigation, route }) => {
           />
         )}
         <View style={styles.container}>
-          <MapView
-            mapType="satellite"
-            showsUserLocation
-            showsCompass={false}
+          <Map
             style={styles.map}
-            mapPadding={{
-              top: 5 + Constants.statusBarHeight,
-              left: 5,
-              right: 5,
-              bottom: 50,
-            }}
             initialRegion={{
               latitude:
                 cetaceanLocation != null
@@ -341,7 +329,7 @@ const MapScreen = ({ navigation, route }) => {
                 img={require("../assets/mapMarker.png")}
               />
             ))}
-          </MapView>
+          </Map>
           <Icon
             onPress={handleFilterPress}
             style={styles.icon}

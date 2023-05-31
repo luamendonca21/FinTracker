@@ -16,4 +16,5 @@ export default Object.freeze({
   LOGIN: "Login",
   FORGOT_PASSWORD: "ForgotPassword",
   CONTACTS: "Contacts",
+  CETACEAN_ACTIVITY: "CetaceanActivityScreen",
 });

@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import MapScreen from "../screens/MapScreen";
 import CetaceanProfileScreen from "../screens/CetaceanProfileScreen";
-
+import CetaceanActivityScreen from "../screens/CetaceanActivityScreen";
 import defaultStyles from "../config/styles";
 
 const Stack = createStackNavigator();
@@ -24,6 +24,11 @@ const MapNavigator = () => (
       options={{ headerShown: false }}
       name="CetaceansProfile"
       component={CetaceanProfileScreen}
+    />
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name="CetaceanActivityScreen"
+      component={CetaceanActivityScreen}
     />
   </Stack.Navigator>
 );
