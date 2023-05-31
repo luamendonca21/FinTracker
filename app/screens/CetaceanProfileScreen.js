@@ -301,9 +301,9 @@ const CetaceanProfileScreen = ({ route }) => {
               >
                 <ListDetails details={item.details} />
               </ScrollView>
-              {/* <AppText
+              <AppText
                 style={styles.text}
-              >{`IndividualId: ${item.individualId}`}</AppText> */}
+              >{`IndividualId: ${item.individualId}`}</AppText>
               <AppText style={styles.title}>Monitorização</AppText>
 
               <View style={styles.timestampContainer}>
@@ -326,6 +326,7 @@ const CetaceanProfileScreen = ({ route }) => {
               <AppText style={styles.text}>{item.history}</AppText>
               <AppText style={styles.title}>Rota de migração</AppText>
               <AppText style={styles.text}>{item.migration}</AppText>
+              {/* Miniatura do mapa, e caso de pra clicar, levar para o mapa */}
               <AppText style={styles.title}>Comentários</AppText>
               {comments.length >= 2 && (
                 <AppSecondaryButton

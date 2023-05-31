@@ -29,7 +29,7 @@ import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
 
-const MapScreen = ({ navigation, route }) => {
+const CetaceanActivityScreen = ({ navigation, route }) => {
   const { user } = useAuth();
   const { location } = useContext(LocationContext);
   const cetaceanLocation = route?.params?.cetaceanLocation;
@@ -405,21 +405,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     marginTop: 10,
   },
-  resultsContainer: {
-    position: "absolute",
-    backgroundColor: defaultStyles.colors.white,
-    top: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    left: 15,
-    borderRadius: 20,
-    height: 40,
-    paddingHorizontal: 20,
-  },
-  resultsText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
 });
 
-export default MapScreen;
+export default CetaceanActivityScreen;

@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   line: {
     height: "100%",
-    width: "30%",
+    width: "50%",
     backgroundColor: defaultStyles.colors.white,
   },
 });

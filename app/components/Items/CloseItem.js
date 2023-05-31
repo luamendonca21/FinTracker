@@ -7,12 +7,12 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
 import AppText from "../AppText";
 
 import routes from "../../navigation/routes";
 
 import defaultStyles from "../../config/styles";
+import timediff from "timediff";
 
 const CloseItem = ({ event, name, url }) => {
   // ------ UTILITIES ---------
@@ -26,54 +26,31 @@ const CloseItem = ({ event, name, url }) => {
   const getTimeDifference = (dateTime) => {
     const currentDate = new Date();
     const dateToCompare = new Date(dateTime);
-    const isFuture = dateToCompare.getTime() > currentDate.getTime();
+    const result = timediff(currentDate, dateToCompare, "YMWDHmS");
+    const timeDirection = Object.values(result).some((value) => value < 0)
+      ? "Há "
+      : "Daqui a ";
 
-    const diff = isFuture
-      ? dateToCompare.getTime() - currentDate.getTime()
-      : currentDate.getTime() - dateToCompare.getTime();
-    const diffInMinutes = Math.floor(diff / (1000 * 60));
-    const diffInHours = Math.floor(diff / (1000 * 60 * 60));
-    const diffInDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const diffInWeeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+    const formatTimeUnit = (value, unit) => {
+      if (value === 1) {
+        return `${value} ${unit}, `;
+      } else if (value > 1) {
+        return `${value} ${unit == "mês" ? "meses" : `${unit}s`}, `;
+      }
+      return "";
+    };
 
-    const timeDirection = isFuture ? "Daqui a" : "Há";
+    const years = formatTimeUnit(Math.abs(result.years), "ano");
+    const months = formatTimeUnit(Math.abs(result.months), "mês");
+    const weeks = formatTimeUnit(Math.abs(result.weeks), "semana");
+    const days = formatTimeUnit(Math.abs(result.days), "dia");
+    const hours = formatTimeUnit(Math.abs(result.hours), "hora");
+    const minutes = formatTimeUnit(Math.abs(result.minutes), "minuto");
 
-    if (diffInWeeks > 0) {
-      if (diffInWeeks === 1) {
-        return `${timeDirection} 1 semana`;
-      } else {
-        return `${timeDirection} ${diffInWeeks} semanas`;
-      }
-    } else if (diffInDays > 0) {
-      if (diffInDays === 1) {
-        return `${timeDirection} 1 dia`;
-      } else {
-        const remainingHours = diffInHours % 24;
-        if (remainingHours === 0) {
-          return `${timeDirection} ${diffInDays} dias`;
-        } else {
-          const remainingMinutes = diffInMinutes % 60;
-          if (remainingMinutes === 0) {
-            return `${timeDirection} ${diffInDays} dias e ${remainingHours} horas`;
-          } else {
-            return `${timeDirection} ${diffInDays} dias, ${remainingHours} horas e ${remainingMinutes} minutos`;
-          }
-        }
-      }
-    } else if (diffInHours > 0) {
-      if (diffInHours === 1) {
-        return `${timeDirection} 1 hora`;
-      } else {
-        const remainingMinutes = diffInMinutes % 60;
-        if (remainingMinutes === 0) {
-          return `${timeDirection} ${diffInHours} horas`;
-        } else {
-          return `${timeDirection} ${diffInHours} horas e ${remainingMinutes} minutos`;
-        }
-      }
-    } else {
-      return `${timeDirection} alguns minutos`;
-    }
+    return `${timeDirection}${years}${months}${weeks}${days}${hours}${minutes}`.slice(
+      0,
+      -2
+    );
   };
 
   const navigateToMap = () => {
@@ -162,7 +139,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
   },
-  title: { fontWeight: "700" },
+  title: { fontWeight: "700", width: 200 },
 });
 
 export default CloseItem;

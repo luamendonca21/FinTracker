@@ -318,7 +318,7 @@ const HomeScreen = ({ navigation }) => {
                     <CloseItem
                       key={index}
                       event={event}
-                      name={findCetacean(event.individualId).details[1].value}
+                      name={findCetacean(event.individualId).name}
                       url={`${baseURL}\\${
                         findCetacean(event.individualId).picture.src
                       }`}
