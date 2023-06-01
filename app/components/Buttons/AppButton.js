@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TouchableOpacity, StyleSheet, Animated } from "react-native";
 
-import AppText from "./../AppText";
+import AppText from "../Text/AppText";
 import { animateScale } from "../../assets/animations/AnimateScale";
 
 import defaultStyles from "../../config/styles";

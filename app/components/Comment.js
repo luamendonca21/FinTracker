@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AppText from "./AppText";
-import usersApi from "../api/user";
+
+import { AppText } from "./Text";
 import ProfileImage from "./ProfileImage";
 import { Alert } from "./Alerts";
+import { Skeleton } from "./Loaders";
+
+import usersApi from "../api/user";
 import useApi from "../hooks/useApi";
 import useAuth from "../auth/useAuth";
-import { Skeleton } from "./Loaders";
+
 import defaultStyles from "../config/styles";
+
 const PICTURE_SIZE = 100;
 
 const Comment = ({ item, disabledDelete, onDelete }) => {

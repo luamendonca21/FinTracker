@@ -1,9 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import AppText from "./AppText";
+import { AppText } from "./Text";
 import { Carousel } from "./Carousels/ImageCarousel";
-import { Skeleton } from "./Loaders";
 
 import defaultStyles from "../config/styles";
 

@@ -13,7 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { WavyHeader } from "../components/Waves";
 import Screen from "../components/Screen";
 import { AppTextInput } from "../components/Inputs";
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 import { AppButton, LinkButton } from "../components/Buttons";
 import { ErrorMessage } from "../components/Alerts";
 import ActivityIndicator from "../components/Loaders/ActivityIndicator";

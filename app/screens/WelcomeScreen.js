@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, Dimensions } from "react-native";
 
 import { WavyFooter } from "../components/Waves";
 import Screen from "../components/Screen";
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 import { AppButton, LinkButton } from "../components/Buttons";
 
 import routes from "../navigation/routes";

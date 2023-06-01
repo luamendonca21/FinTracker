@@ -1,9 +1,11 @@
 import React from "react";
+
 import { StyleSheet } from "react-native";
-import Constants from "expo-constants";
-import Fade from "../../assets/animations/Fade";
-import AppText from "../AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Constants from "expo-constants";
+
+import Fade from "../../assets/animations/Fade";
+import { AppText } from "../Text";
 
 import defaultStyles from "../../config/styles";
 

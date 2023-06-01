@@ -9,7 +9,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { animateScale } from "./AnimateScale";
-import AppText from "../../components/AppText";
+import { AppText } from "../../components/Text";
 
 import defaultStyles from "../../config/styles";
 

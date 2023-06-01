@@ -1,9 +1,12 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import AppText from "../AppText";
+
+import { AppText } from "../Text";
 import Stars from "../Stars";
 import ProfileImage from "../ProfileImage";
+
 import defaultStyles from "../../config/styles";
+
 const PICTURE_SIZE = 100;
 
 const RankItem = ({ item, index }) => {

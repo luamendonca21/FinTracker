@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+
 import { Alert } from "./Alerts";
 import Icon from "./Icon";
 import { ActivityIndicator, Skeleton } from "./Loaders";

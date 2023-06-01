@@ -1,7 +1,8 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import defaultStyles from "../config/styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+import defaultStyles from "../config/styles";
 
 const DeleteAction = ({ onPress }) => {
   return (

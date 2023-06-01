@@ -6,7 +6,7 @@ import {
   ScrollView,
 } from "react-native";
 
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 import { AppButton } from "../components/Buttons";
 import { ActivityIndicator } from "../components/Loaders";
 

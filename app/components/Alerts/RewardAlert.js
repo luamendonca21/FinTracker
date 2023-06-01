@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { StyleSheet, Dimensions, Animated } from "react-native";
-import AppText from "../AppText";
+
+import { AppText } from "../Text";
 import { LinkButton, AppButton } from "../Buttons";
+
 import defaultStyles from "../../config/styles";
 
 const windowHeight = Dimensions.get("window").height;

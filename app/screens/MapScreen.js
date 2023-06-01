@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions } from "react-native";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 import Icon from "../components/Icon";
 import { MapMarker, Map } from "../components/Map";
 import Fade from "../assets/animations/Fade";

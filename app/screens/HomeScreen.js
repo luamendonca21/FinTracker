@@ -7,7 +7,7 @@ import {
   FlatList,
 } from "react-native";
 import LocationContext from "../providers/LocationProvider";
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 import { AppButton, AppSecondaryButton } from "../components/Buttons";
 import GlowingCircle from "../assets/animations/GlowingCircle";
 import Screen from "../components/Screen";

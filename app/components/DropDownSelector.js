@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, LayoutAnimation } from "react-native";
 
 import { IconButton } from "./Buttons";
-import AppText from "./AppText";
+import { AppText } from "./Text";
 import { AppTextInput } from "./Inputs";
-import { toggleAnimation } from "../assets/animations/toggleAnimation";
 import ErrorMessage from "./Alerts/ErrorMessage";
+
+import { toggleAnimation } from "../assets/animations/toggleAnimation";
 
 import defaultStyles from "../config/styles";
 

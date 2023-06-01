@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, TouchableHighlight } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import AppText from "../AppText";
+import { AppText } from "../Text";
 
 import defaultStyles from "../../config/styles";
 

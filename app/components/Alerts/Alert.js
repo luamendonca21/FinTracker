@@ -1,8 +1,10 @@
-import AwesomeAlert from "react-native-awesome-alerts";
-
 import React from "react";
 import { StyleSheet } from "react-native";
+
+import AwesomeAlert from "react-native-awesome-alerts";
+
 import defaultStyles from "../../config/styles";
+
 const Alert = ({
   error,
   msg,

@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { View, StyleSheet, FlatList, Image, ScrollView } from "react-native";
 
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 import Icon from "../components/Icon";
 import { BoxItem } from "../components/Items";
 import defaultStyles from "../config/styles";

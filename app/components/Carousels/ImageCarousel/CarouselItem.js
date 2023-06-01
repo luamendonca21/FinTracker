@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 
 import settings from "../../../config/settings";
 
-import AppText from "../../AppText";
+import AppText from "../../Text/AppText";
 
 import defaultStyles from "../../../config/styles";
 

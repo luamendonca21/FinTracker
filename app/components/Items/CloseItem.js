@@ -1,13 +1,7 @@
-import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  TouchableHighlight,
-} from "react-native";
+import React from "react";
+import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import AppText from "../AppText";
+import { AppText } from "../Text";
 
 import routes from "../../navigation/routes";
 
@@ -82,7 +76,9 @@ const CloseItem = ({ event, name, url }) => {
                 {metersToKilometers(event.dist.calculated).toFixed(2)} km
               </AppText>
             </View>
-            <AppText>{getTimeDifference(event.timestamp)}</AppText>
+            <AppText style={{ width: 200 }}>
+              {getTimeDifference(event.timestamp)}
+            </AppText>
           </View>
         </View>
         <AppText style={styles.title} numberOfLines={1}>

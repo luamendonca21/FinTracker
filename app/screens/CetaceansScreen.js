@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, FlatList } from "react-native";
 
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 import Screen from "../components/Screen";
 import { SearchInput } from "../components/Inputs";
 import { ListItem, ListItemSeparator } from "../components/Lists";

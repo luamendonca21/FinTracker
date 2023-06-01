@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 import { ListDetails, ListItemSeparator } from "../components/Lists";
 import PointsIndicator from "../components/PointsIndicator";
 import { Carousel } from "../components/Carousels/ImageCarousel";

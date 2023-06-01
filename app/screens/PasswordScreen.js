@@ -11,7 +11,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { AppTextInput } from "../components/Inputs";
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 import { AppButton } from "../components/Buttons";
 import { ErrorMessage } from "../components/Alerts";
 import { ActivityIndicator } from "../components/Loaders";

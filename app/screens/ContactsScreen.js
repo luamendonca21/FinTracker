@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Linking, TouchableHighlight } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 
 import defaultStyles from "../config/styles";
 

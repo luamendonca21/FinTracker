@@ -16,7 +16,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 
-import AppText from "./AppText";
+import AppText from "./Text/AppText";
 
 import defaultStyles from "../config/styles";
 import { LinkButton } from "./Buttons";

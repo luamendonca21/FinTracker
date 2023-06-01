@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+
 import Stars from "./Stars";
-import AppText from "./AppText";
+import { AppText } from "./Text";
 
 import defaultStyles from "../config/styles";
 

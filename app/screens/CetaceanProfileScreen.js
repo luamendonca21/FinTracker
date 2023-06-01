@@ -6,14 +6,13 @@ import {
   ScrollView,
   Dimensions,
   FlatList,
-  TouchableOpacity,
   TouchableHighlight,
 } from "react-native";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import Fade from "../assets/animations/Fade";
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 import {
   ListDetails,
   ListOptions,
@@ -26,6 +25,7 @@ import { Skeleton } from "../components/Loaders";
 import Comment from "../components/Comment";
 import { NoContentCard } from "../components/Alerts";
 import { Map } from "../components/Map";
+import TextSection from "../components/Text/TextSection";
 
 import cache from "../utility/cache";
 import cetaceansApi from "../api/cetaceans";
@@ -307,9 +307,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
               >
                 <ListDetails details={item.details} />
               </ScrollView>
-              <AppText
-                style={styles.text}
-              >{`IndividualId: ${item.individualId}`}</AppText>
+              <AppText>{`IndividualId: ${item.individualId}`}</AppText>
               <AppText style={styles.title}>Monitorização</AppText>
 
               <View style={styles.timestampContainer}>
@@ -322,20 +320,28 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                   <AppText>{formatDate(item.timestamp_end)}</AppText>
                 </AppText>
               </View>
-              <AppText style={styles.title}>Introdução</AppText>
-              <AppText style={styles.text}>{item.introduction}</AppText>
-              <AppText style={styles.title}>Comportamento social</AppText>
-              <AppText style={styles.text}>{item.socialBehavior}</AppText>
-              <AppText style={styles.title}>Caraterísticas físicas</AppText>
-              <AppText style={styles.text}>{item.physic}</AppText>
-              <AppText style={styles.title}>História</AppText>
-              <AppText style={styles.text}>{item.history}</AppText>
-              <AppText style={styles.title}>Rota de migração</AppText>
-              <AppText style={styles.text}>{item.migration}</AppText>
-              {/* Miniatura do mapa, e caso de pra clicar, levar para o mapa */}
+              <TextSection title="Introdução" content={item.introduction} />
+              <TextSection
+                title="Comportamento social"
+                content={item.socialBehavior}
+              />
+              <TextSection
+                title="Caraterísticas físicas"
+                content={item.physic}
+              />
+              <TextSection title="História" content={item.history} />
+              <TextSection title="Rota de migração" content={item.migration} />
+              <TextSection
+                title="Rota de migração"
+                content={item.introduction}
+              />
               <TouchableHighlight
                 style={styles.mapContainer}
-                onPress={() => navigation.navigate(routes.CETACEAN_ACTIVITY)}
+                onPress={() =>
+                  navigation.navigate(routes.CETACEAN_ACTIVITY, {
+                    individualId: item.individualId,
+                  })
+                }
               >
                 <Map
                   mini
@@ -477,10 +483,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 15,
     marginBottom: 5,
-  },
-  text: {
-    lineHeight: 22,
-    textAlign: "justify",
   },
   optionInactive: {
     marginVertical: 5,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import AppText from "../components/AppText";
+import { AppText } from "../components/Text";
 import { AppSecondaryButton } from "../components/Buttons";
 import Index from "../components/Carousels/IndexCarousel/Index";
 import Screen from "../components/Screen";
