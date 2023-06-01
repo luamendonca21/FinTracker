@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 
-import { Map } from "../components/Map";
+import { Map, MapMarker } from "../components/Map";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { AppText } from "../components/Text";
@@ -89,11 +89,12 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
     const orderedEvents = events.sort((a, b) => a.timestamp - b.timestamp);
 
     const extractedCoordinates = orderedEvents.map((event) => ({
-      latitude: event.location.coordinates[0],
-      longitude: event.location.coordinates[1],
+      latitude: event.location.coordinates[1],
+      longitude: event.location.coordinates[0],
       latitudeDelta: 180,
       longitudeDelta: 180,
     }));
+    console.log(extractedCoordinates);
     return extractedCoordinates;
   };
 
@@ -103,7 +104,9 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
     fetchEvents();
   }, []);
 
-  useEffect(() => {}, [events]);
+  useEffect(() => {
+    events.forEach((event) => console.log(event.location));
+  }, [events]);
 
   useEffect(() => {
     console.log(filtersActive);
@@ -127,8 +130,19 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
               coordinates={extractCoordinates()}
               strokeColor={defaultStyles.colors.thirdly}
               strokeWidth={4}
-              lineDashPattern={[1]}
+              lineDashPattern={[10, 20]}
             />
+            {extractCoordinates().length > 0 && (
+              <MapMarker
+                name="Ponto inicial"
+                img={require("../assets/mapMarker.png")}
+                coords={{
+                  lat: extractCoordinates()[0].latitude,
+                  long: extractCoordinates()[0].longitude,
+                }}
+                /* description="Ver perfil" */
+              />
+            )}
           </Map>
           <Icon
             onPress={handleFilterPress}
