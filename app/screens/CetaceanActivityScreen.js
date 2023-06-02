@@ -1,8 +1,9 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 
-import { Map, MapMarker } from "../components/Map";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Polyline } from "react-native-maps";
+import timediff from "timediff";
 
 import { AppText } from "../components/Text";
 import Icon from "../components/Icon";
@@ -10,15 +11,13 @@ import Fade from "../assets/animations/Fade";
 import BottomSheet from "../components/BottomSheet";
 import { ListOptions } from "../components/Lists";
 import { ActivityIndicator } from "../components/Loaders";
-
-import LocationContext from "../providers/LocationProvider";
+import { Map, MapMarker } from "../components/Map";
 
 import useApi from "../hooks/useApi";
 import eventsApi from "../api/events";
-
 import { activityFilters as filters } from "../info/mapFilters";
+
 import defaultStyles from "../config/styles";
-import { Polyline } from "react-native-maps";
 
 const windowHeight = Dimensions.get("window").height;
 
@@ -32,23 +31,25 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
   const [inputs, setInputs] = useState([]);
   const [filtersActive, setFiltersActive] = useState([]);
   const [events, setEvents] = useState([]);
+  const [coordinates, setCoordinates] = useState([]);
 
   // ---------- APIS -----------
   const [getEventsById, isLoadingEventsById, errorGetEventsById] = useApi(
     eventsApi.getEventsById
   );
   // ------- UTILITIES -------
+
   const isFilterActive = (id) => {
     return inputs.find((item) => item.id === id);
   };
-
   const handleFilterOptionPress = (id, title, category) => {
-    let newfilter = { id: id, title: title, category: category };
-    if (!isFilterActive(id)) {
-      setInputs([...inputs, newfilter]);
+    if (isFilterActive(id)) {
+      setInputs([]);
     } else {
-      setInputs(inputs.filter((elemento) => elemento.id !== id));
+      const newFilter = { id, title, category };
+      setInputs([newFilter]);
     }
+    // Substitui a opção anterior pelo novo filtro selecionado
   };
 
   const handleFilterPress = () => {
@@ -85,6 +86,83 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
       });
   };
 
+  const filterEvents = () => {
+    // filtrar-> ultimas 24 horas
+    // ultima semana
+    // ultimo mes
+
+    const currentDate = new Date();
+    console.log("HOJE É DIA -----> ", currentDate);
+    let filteredEvents = [...events];
+    const activeFilter = filtersActive[0];
+
+    switch (activeFilter.title) {
+      case "Últimos 7 dias":
+        const oneWeekAgo = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          currentDate.getDate() - 7
+        );
+        console.log("1 SEMANA ATRAS ----> ", oneWeekAgo);
+
+        filteredEvents = filteredEvents.filter((event) => {
+          const diff = timediff(event.timestamp, oneWeekAgo);
+          return (
+            diff.months == 0 &&
+            diff.years == 0 &&
+            (diff.weeks == -1 || diff.weeks == 0)
+          );
+        });
+        break;
+
+      case "Últimas 4 semanas":
+        const oneMonthAgo = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth() - 1,
+          currentDate.getDate()
+        );
+        console.log("1 MÊS ATRAS ----> ", oneMonthAgo);
+
+        filteredEvents = filteredEvents.filter((event) => {
+          const diff = timediff(event.timestamp, oneMonthAgo);
+          return (diff.months == -1 || diff.months == 0) && diff.years == 0;
+        });
+        break;
+      case "Últimos 12 meses":
+        const oneYearAgo = new Date(
+          currentDate.getFullYear() - 1,
+          currentDate.getMonth(),
+          currentDate.getDate()
+        );
+        console.log("1 ANO ATRAS ----> ", oneYearAgo);
+        filteredEvents = filteredEvents.filter((event) => {
+          const diff = timediff(new Date(event.timestamp), oneYearAgo);
+          return diff.years == -1 || diff.years == 0;
+        });
+        break;
+
+      case "Últimas 24 horas":
+        const twentyFourHoursAgo = new Date(
+          currentDate.getTime() - 24 * 60 * 60 * 1000
+        );
+        console.log("24 HORAS ATRAS ----> ", twentyFourHoursAgo);
+
+        filteredEvents = filteredEvents.filter((event) => {
+          const diff = timediff(event.timestamp, twentyFourHoursAgo);
+          return (
+            (diff.days == -1 || diff.days == 0) &&
+            diff.weeks == 0 &&
+            diff.months == 0 &&
+            diff.years == 0
+          );
+        });
+        break;
+
+      default:
+        break;
+    }
+    setEvents(filteredEvents);
+  };
   const extractCoordinates = () => {
     const orderedEvents = events.sort((a, b) => a.timestamp - b.timestamp);
 
@@ -94,8 +172,7 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
       latitudeDelta: 180,
       longitudeDelta: 180,
     }));
-    console.log(extractedCoordinates);
-    return extractedCoordinates;
+    setCoordinates(extractedCoordinates);
   };
 
   // ---------- LIFECYCLE HOOKS ---------------
@@ -105,11 +182,13 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
   }, []);
 
   useEffect(() => {
-    events.forEach((event) => console.log(event.location));
+    console.log("TAMANHO ----> ", events.length, ":", events);
+    extractCoordinates();
   }, [events]);
 
   useEffect(() => {
-    console.log(filtersActive);
+    console.log("FILTROS ACTIVOS -----> ", filtersActive);
+    filtersActive.length != 0 && filterEvents();
   }, [filtersActive]);
 
   return (
@@ -120,25 +199,27 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
           <Map
             style={styles.map}
             initialRegion={{
-              latitude: 35.6074,
-              longitude: 140.1065,
+              latitude: -13.687117,
+              longitude: -15.590558,
               latitudeDelta: 180,
               longitudeDelta: 180,
             }}
           >
-            <Polyline
-              coordinates={extractCoordinates()}
-              strokeColor={defaultStyles.colors.thirdly}
-              strokeWidth={4}
-              lineDashPattern={[10, 20]}
-            />
-            {extractCoordinates().length > 0 && (
+            {coordinates.length > 0 && (
+              <Polyline
+                coordinates={coordinates}
+                strokeColor={defaultStyles.colors.thirdly}
+                strokeWidth={4}
+                lineDashPattern={[10, 20]}
+              />
+            )}
+            {coordinates.length > 0 && (
               <MapMarker
                 name="Ponto inicial"
                 img={require("../assets/mapMarker.png")}
                 coords={{
-                  lat: extractCoordinates()[0].latitude,
-                  long: extractCoordinates()[0].longitude,
+                  lat: coordinates[0].latitude,
+                  long: coordinates[0].longitude,
                 }}
                 /* description="Ver perfil" */
               />

@@ -30,8 +30,9 @@ const cetaceanFilters = [
 
 const activityFilters = [
   { id: 0, title: "Últimas 24 horas", category: "Atividade" },
-  { id: 1, title: "Última semana", category: "Atividade" },
-  { id: 2, title: "Último mês", category: "Atividade" },
+  { id: 1, title: "Últimos 7 dias", category: "Atividade" },
+  { id: 2, title: "Últimas 4 semanas", category: "Atividade" },
+  { id: 3, title: "Últimos 12 meses", category: "Atividade" },
 ];
 
 export { cetaceanFilters, activityFilters };

@@ -301,15 +301,15 @@ const MapScreen = ({ navigation, route }) => {
                   ? cetaceanLocation[1]
                   : location
                   ? location.coords.latitude
-                  : 25.2646,
+                  : -13.687117,
               longitude:
                 cetaceanLocation != null
                   ? cetaceanLocation[0]
                   : location
                   ? location.coords.longitude
-                  : 55.3077,
-              latitudeDelta: delta ? delta : 1,
-              longitudeDelta: delta ? delta : 1,
+                  : -15.590558,
+              latitudeDelta: delta ? delta : 180,
+              longitudeDelta: delta ? delta : 180,
             }}
           >
             {events.map((event, index) => (

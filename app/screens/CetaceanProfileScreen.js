@@ -331,10 +331,23 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
               />
               <TextSection title="História" content={item.history} />
               <TextSection title="Rota de migração" content={item.migration} />
-              <TextSection
-                title="Rota de migração"
-                content={item.introduction}
-              />
+              <AppText
+                style={{
+                  fontSize: 15,
+                  fontWeight: "bold",
+                  lineHeight: 22,
+                  color: defaultStyles.colors.primary,
+                  marginTop: 10,
+                }}
+              >
+                Descubra a jornada{" "}
+                {item.details[0].value == "Golfinho"
+                  ? `do`
+                  : item.details[0].value == "Baleia"
+                  ? `da`
+                  : `da`}{" "}
+                {item.name}
+              </AppText>
               <TouchableHighlight
                 style={styles.mapContainer}
                 onPress={() =>
@@ -347,10 +360,10 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                   mini
                   style={styles.map}
                   initialRegion={{
-                    latitude: location ? location.coords.latitude : 25.2646,
-                    longitude: location ? location.coords.longitude : 55.3077,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
+                    latitude: -13.687117,
+                    longitude: -15.590558,
+                    latitudeDelta: 180,
+                    longitudeDelta: 180,
                   }}
                 ></Map>
               </TouchableHighlight>
@@ -534,6 +547,7 @@ const styles = StyleSheet.create({
   },
   map: { width: "100%", height: 250 },
   mapContainer: {
+    marginBottom: 10,
     borderRadius: 15,
     overflow: "hidden",
     marginTop: 20,
