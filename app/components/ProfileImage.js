@@ -10,6 +10,7 @@ import useMedia from "../hooks/useMedia";
 import useAuth from "../auth/useAuth";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
+import { firebase } from "../firebaseConfig";
 
 import settings from "../config/settings";
 import defaultStyles from "../config/styles";
@@ -35,6 +36,9 @@ const ProfileImage = ({
   const [image, setImage] = useState(null);
   const [imageChanged, setImageChanged] = useState(false);
   const [isAlertVisible, setIsAlertVisible] = useState(false);
+  const [isLoadingGetPicture, setIsLoadingGetPicture] = useState(false);
+  const [isLoadingUpdatePicture, setIsLoadingUpdatePicture] = useState(false);
+  const [isLoadingDeletePicture, setIsLoadingDeletePicture] = useState(false);
 
   // ----- MEDIA PERMISSIONS -----
   const requestMediaPermissions = useMedia(
@@ -49,41 +53,94 @@ const ProfileImage = ({
     }
   );
 
-  // ------ APIS -----
-  const [updatePictureApi, isLoadingUpdatePicture, errorUpdatePicture] = useApi(
-    usersApi.updatePicture
-  );
-
-  const [getPictureApi, isLoadingGetPicture, errorGetPicture] = useApi(
-    usersApi.getPicture
-  );
-  const [deletePictureApi, isLoadingDeletePicture, errorDeletePicture] = useApi(
-    usersApi.deletePicture
-  );
-
   // ----- UTILITIES -------
   const handleAddImagePress = () => {
     requestMediaPermissions();
     setImageChanged(true);
   };
-  const handleDeleteImagePress = () => {
-    deletePictureApi(user.id)
-      .then((response) => {})
-      .catch((error) => console.log(error))
-      .finally(() => setImage(null));
+  const handleDeleteImagePress = async () => {
+    setIsLoadingDeletePicture(true);
+    const userFolderRef = firebase.storage().ref().child(user.id);
+
+    userFolderRef
+      .listAll()
+      .then((userFiles) => {
+        const deletePromises = userFiles.items.map((fileRef) =>
+          fileRef.delete()
+        );
+        return Promise.all(deletePromises);
+      })
+      .then(() => {
+        console.log("Foto eliminada com sucesso!");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setImage(null);
+        setIsLoadingDeletePicture(false);
+      });
   };
 
-  const handleUpdatePicture = () => {
-    const data = new FormData();
-    data.append("name", "perfil");
-    data.append("file", {
-      uri: image,
-      name: "photo.jpg",
-      type: "image/jpeg",
-    });
-    return data;
+  const handleUpdatePicture = async () => {
+    setIsLoadingUpdatePicture(true);
+    const response = await fetch(image);
+    const blob = await response.blob();
+    const filename = image.substring(image.lastIndexOf("/") + 1);
+    const userFolderRef = firebase.storage().ref().child(user.id);
+
+    // Excluir todos os arquivos dentro da pasta do usuário
+    try {
+      const userFiles = await userFolderRef.listAll();
+      userFiles.items.forEach(async (fileRef) => {
+        await fileRef.delete();
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    // Adicionar a nova foto
+    const newFileRef = userFolderRef.child(filename);
+    try {
+      await newFileRef.put(blob);
+      console.log("Nova foto adicionada com sucesso!");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingUpdatePicture(false);
+      setImageChanged(false);
+    }
   };
 
+  const handleGetPicture = () => {
+    setIsLoadingGetPicture(true);
+    const id = userId ? userId : user.id;
+
+    const storageRef = firebase.storage().ref().child(id);
+    storageRef
+      .listAll()
+      .then((result) => {
+        if (result.items.length > 0) {
+          // Se houver algum arquivo na pasta do usuário, obter o download URL do primeiro arquivo
+          result.items[0].getDownloadURL().then((url) => {
+            setImage(url);
+          });
+        } else {
+          // Se não houver nenhum arquivo na pasta do usuário, você pode definir um valor padrão ou deixar o estado 'image' como null
+          console.log("Não há imagem na pasta do usuário");
+        }
+      })
+      .catch((error) => {
+        console.log(
+          "Erro ao obter a lista de arquivos na pasta do usuário:",
+          error
+        );
+      })
+      .finally(() => {
+        setImageChanged(false);
+        setIsLoadingGetPicture(false);
+      });
+  };
   const showAlert = (alert) => {
     setAlert(alert);
     setIsAlertVisible(true);
@@ -95,24 +152,11 @@ const ProfileImage = ({
   // ------ LIFECYCLE HOOKS ------
 
   useEffect(() => {
-    const baseURL = settings.apiUrl;
-    const id = userId ? userId : user.id;
-
-    getPictureApi(id)
-      .then((response) => {
-        const src = `${baseURL}\\${response.src}`;
-        setImage(src);
-        setImageChanged(false);
-      })
-      .catch((error) => console.log(error));
+    handleGetPicture();
   }, [userId]);
 
   useEffect(() => {
-    const data = handleUpdatePicture();
-    if (imageChanged)
-      updatePictureApi(user.id, data)
-        .then()
-        .catch((error) => console.log(error));
+    if (imageChanged) handleUpdatePicture();
   }, [image]);
 
   return (isLoadingGetPicture && loadingSkeleton) || isLoadingDeletePicture ? (
