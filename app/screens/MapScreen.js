@@ -308,8 +308,8 @@ const MapScreen = ({ navigation, route }) => {
                   : location
                   ? location.coords.longitude
                   : -15.590558,
-              latitudeDelta: delta ? delta : 180,
-              longitudeDelta: delta ? delta : 180,
+              latitudeDelta: delta ? delta : 1,
+              longitudeDelta: delta ? delta : 1,
             }}
           >
             {events.map((event, index) => (

@@ -13,6 +13,7 @@ import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 
 import info from "./app/info/cetaceans";
+import fakeInfo from "./app/info/fakeCetaceans";
 import cetaceansApi from "./app/api/cetaceans";
 import eventsApi from "./app/api/events";
 import useApi from "./app/hooks/useApi";
@@ -20,6 +21,7 @@ import movebankApi from "./app/api/movebankApi";
 
 import myTheme from "./app/navigation/navigationTheme";
 import defaultStyles from "./app/config/styles";
+import fakeCetaceans from "./app/info/fakeCetaceans";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -97,6 +99,36 @@ export default function App() {
         .catch((error) => console.log(error));
     });
   };
+
+  const storeFakeIndividuals = async () => {
+    deleteAllCetaceansApi()
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+
+    fakeCetaceans.forEach((individual, index) => {
+      storeCetaceanApi(individual)
+        .then()
+        .catch((error) => console.log(error));
+    });
+  };
+
+  const storeFakeEvents = async () => {
+    try {
+      // delete from backend
+      await deleteAllEventsApi()
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
+      // get the cetaceans from movebank
+
+      fakeEvents.forEach((event, index) => {
+        storeEventApi(event)
+          .then()
+          .catch((error) => console.log(error));
+      });
+    } catch (error) {
+      console.warn(error);
+    }
+  };
   const fetchAndStoreEvents = async () => {
     try {
       // delete from backend
@@ -141,7 +173,8 @@ export default function App() {
   useEffect(() => {
     async function fetchData() {
       try {
-        //await fetchAndStoreIndividuals();
+        //await storeFakeIndividuals();
+        await fetchAndStoreIndividuals();
         await fetchAndStoreEvents();
         const user = await authStorage.getUser();
         if (user) {

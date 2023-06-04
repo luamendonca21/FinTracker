@@ -91,7 +91,7 @@ module.exports = [
     ],
     imageUrl: require("../assets/dolphins/Common_dolphin.jpg"),
     introduction:
-      "A Orca-falsa, também conhecido como falsa orca, é um cetáceo de tamanho médio que pode medir até 6 metros de comprimento e pesar cerca de 2 toneladas. Possui uma coloração preta ou cinza escura, com uma mancha branca em forma de âncora na barriga.",
+      "A orca-falsa, também conhecido como falsa orca, é um cetáceo de tamanho médio que pode medir até 6 metros de comprimento e pesar cerca de 2 toneladas. Possui uma coloração preta ou cinza escura, com uma mancha branca em forma de âncora na barriga.",
     socialBehavior:
       "Formam grupos de até 30 indivíduos, são ágeis nadadores e realizam acrobacias, além de possuírem um comportamento cooperativo na caça.",
     physic:
@@ -127,7 +127,7 @@ module.exports = [
     ],
     imageUrl: require("../assets/dolphins/Rissos_Dolphin.jpg"),
     introduction:
-      "O cachalote, também conhecido como cachalote, é um dos maiores cetáceos existentes, podendo chegar a medir até 18 metros de comprimento e pesar cerca de 57 toneladas. Possui uma cabeça enorme em relação ao corpo, com um órgão de espermacete que pode representar até 1/3 do peso total do animal. A nadadeira dorsal é pequena e em forma de gancho. Sua coloração é cinza escuro com manchas brancas em forma de diamante na barriga e garganta.",
+      "O Cachalote, também conhecido como cachalote, é um dos maiores cetáceos existentes, podendo chegar a medir até 18 metros de comprimento e pesar cerca de 57 toneladas. Possui uma cabeça enorme em relação ao corpo, com um órgão de espermacete que pode representar até 1/3 do peso total do animal. A nadadeira dorsal é pequena e em forma de gancho. Sua coloração é cinza escuro com manchas brancas em forma de diamante na barriga e garganta.",
     socialBehavior:
       "Vivem em grupos de até 20 indivíduos, com um comportamento hierárquico bem definido, e realizam mergulhos profundos para se alimentar.",
     physic:

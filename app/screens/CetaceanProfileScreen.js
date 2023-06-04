@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -52,12 +52,16 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   const { location } = useContext(LocationContext);
 
   // ------ STATE MANAGEMENT -------
+  const pressDurationRef = useRef(0);
+  const [isPressing, setIsPressing] = useState(false);
+
   const [state, setState] = useState(0);
   const { item } = route.params;
   const [isFavorite, setIsFavorite] = useState(false);
   const [isCommentsRecente, setIsCommentsRecente] = useState(false);
 
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
+
   const [isAnimating, setIsAnimating] = useState(false);
   const [inputs, setInputs] = useState([]);
   const [notificationsActive, setNotificationsActive] = useState([]);
@@ -167,6 +171,27 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
     }, 460);
   };
 
+  const handleMapPress = () => {
+    // calculating the time passed between the press in and the press out
+    const pressDuration = Date.now() - pressDurationRef.current;
+
+    if (pressDuration < 200) {
+      navigation.navigate(routes.CETACEAN_ACTIVITY, {
+        individualId: item.individualId,
+        delta: 180,
+      });
+    }
+  };
+
+  const handleMapPressIn = () => {
+    // setting the time when user pressed the map
+    setIsPressing(true);
+    pressDurationRef.current = Date.now();
+  };
+
+  const handleMapPressOut = () => {
+    setIsPressing(false);
+  };
   const handleComment = (comment) => {
     setComment(comment);
   };
@@ -336,7 +361,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                   fontSize: 15,
                   fontWeight: "bold",
                   lineHeight: 22,
-                  color: defaultStyles.colors.primary,
+                  color: defaultStyles.colors.secondary,
                   marginTop: 10,
                 }}
               >
@@ -349,12 +374,10 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                 {item.name}
               </AppText>
               <TouchableHighlight
+                onPressIn={handleMapPressIn}
+                onPressOut={handleMapPressOut}
                 style={styles.mapContainer}
-                onPress={() =>
-                  navigation.navigate(routes.CETACEAN_ACTIVITY, {
-                    individualId: item.individualId,
-                  })
-                }
+                onPress={handleMapPress}
               >
                 <Map
                   mini
