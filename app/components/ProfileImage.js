@@ -111,7 +111,7 @@ const ProfileImage = ({
     const newFileRef = userFolderRef.child(filename);
     try {
       await newFileRef.put(blob);
-      updatePictureApi(user.id, { src: urlStatic })
+      updatePictureApi(user.id, { url: urlStatic })
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
       console.log("Nova foto adicionada com sucesso!");
@@ -127,7 +127,7 @@ const ProfileImage = ({
     const id = userId ? userId : user.id;
 
     getPictureApi(id)
-      .then((response) => setImage(response.userPictureSrc))
+      .then((response) => setImage(response.userPictureUrl))
       .catch((error) => console.log(error))
       .finally(() => {
         setImageChanged(false);

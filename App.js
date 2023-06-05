@@ -174,7 +174,7 @@ export default function App() {
     async function fetchData() {
       try {
         //await storeFakeIndividuals();
-        await fetchAndStoreIndividuals();
+        //await fetchAndStoreIndividuals();
         await fetchAndStoreEvents();
         const user = await authStorage.getUser();
         if (user) {
