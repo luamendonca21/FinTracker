@@ -36,7 +36,6 @@ const ProfileImage = ({
   const [image, setImage] = useState(null);
   const [imageChanged, setImageChanged] = useState(false);
   const [isAlertVisible, setIsAlertVisible] = useState(false);
-  const [isLoadingGetPicture, setIsLoadingGetPicture] = useState(false);
   const [isLoadingUpdatePicture, setIsLoadingUpdatePicture] = useState(false);
   const [isLoadingDeletePicture, setIsLoadingDeletePicture] = useState(false);
 
@@ -52,6 +51,13 @@ const ProfileImage = ({
       });
     }
   );
+
+  // ------ APIS -----
+  const [updatePictureApi, errorUpdatePicture] = useApi(usersApi.updatePicture);
+  const [getPictureApi, isLoadingGetPicture, errorGetPicture] = useApi(
+    usersApi.getPicture
+  );
+  const [deletePictureApi, errorDeletePicture] = useApi(usersApi.deletePicture);
 
   // ----- UTILITIES -------
   const handleAddImagePress = () => {
@@ -71,7 +77,9 @@ const ProfileImage = ({
         return Promise.all(deletePromises);
       })
       .then(() => {
-        console.log("Foto eliminada com sucesso!");
+        deletePictureApi(user.id)
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error));
       })
       .catch((error) => {
         console.log(error);
@@ -88,7 +96,7 @@ const ProfileImage = ({
     const blob = await response.blob();
     const filename = image.substring(image.lastIndexOf("/") + 1);
     const userFolderRef = firebase.storage().ref().child(user.id);
-
+    const urlStatic = `https://storage.googleapis.com/fintracker-51cdf.appspot.com/${user.id}/${filename}`;
     // Excluir todos os arquivos dentro da pasta do usuário
     try {
       const userFiles = await userFolderRef.listAll();
@@ -103,6 +111,9 @@ const ProfileImage = ({
     const newFileRef = userFolderRef.child(filename);
     try {
       await newFileRef.put(blob);
+      updatePictureApi(user.id, { src: urlStatic })
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
       console.log("Nova foto adicionada com sucesso!");
     } catch (error) {
       console.log(error);
@@ -113,32 +124,13 @@ const ProfileImage = ({
   };
 
   const handleGetPicture = () => {
-    setIsLoadingGetPicture(true);
     const id = userId ? userId : user.id;
 
-    const storageRef = firebase.storage().ref().child(id);
-    storageRef
-      .listAll()
-      .then((result) => {
-        if (result.items.length > 0) {
-          // Se houver algum arquivo na pasta do usuário, obter o download URL do primeiro arquivo
-          result.items[0].getDownloadURL().then((url) => {
-            setImage(url);
-          });
-        } else {
-          // Se não houver nenhum arquivo na pasta do usuário, você pode definir um valor padrão ou deixar o estado 'image' como null
-          console.log("Não há imagem na pasta do usuário");
-        }
-      })
-      .catch((error) => {
-        console.log(
-          "Erro ao obter a lista de arquivos na pasta do usuário:",
-          error
-        );
-      })
+    getPictureApi(id)
+      .then((response) => setImage(response.userPictureSrc))
+      .catch((error) => console.log(error))
       .finally(() => {
         setImageChanged(false);
-        setIsLoadingGetPicture(false);
       });
   };
   const showAlert = (alert) => {

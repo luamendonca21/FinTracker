@@ -26,7 +26,7 @@ const getUser = async (id) => {
 };
 const getPicture = async (id) => {
   try {
-    const response = await ApiManager.get(`/${id}/uploads`);
+    const response = await ApiManager.get(`user/${id}/picture`);
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -81,10 +81,9 @@ const updateVisited = async (id, data) => {
   }
 };
 const updatePicture = async (id, data) => {
+  console.log(data);
   try {
-    const response = await ApiManager.put(`/user/${id}/picture`, data, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const response = await ApiManager.put(`/user/${id}/picture`, data);
     return response.data;
   } catch (error) {
     throw error;
@@ -112,7 +111,7 @@ const deleteFavorite = async (id, data) => {
 };
 const deletePicture = async (id) => {
   try {
-    const response = await ApiManager.delete(`/user/${id}/picture`);
+    const response = await ApiManager.delete(`/user/${id}/deletePicture`);
     return response.data;
   } catch (error) {
     throw error.response.data;
