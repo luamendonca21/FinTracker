@@ -22,6 +22,7 @@ import movebankApi from "./app/api/movebankApi";
 import myTheme from "./app/navigation/navigationTheme";
 import defaultStyles from "./app/config/styles";
 import fakeCetaceans from "./app/info/fakeCetaceans";
+import fakeEvents from "./app/info/fakeEvents";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -173,9 +174,10 @@ export default function App() {
   useEffect(() => {
     async function fetchData() {
       try {
-        //await storeFakeIndividuals();
+        await storeFakeIndividuals();
+        await storeFakeEvents();
         //await fetchAndStoreIndividuals();
-        await fetchAndStoreEvents();
+        //await fetchAndStoreEvents();
         const user = await authStorage.getUser();
         if (user) {
           setUser(user);
