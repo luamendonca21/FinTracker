@@ -152,7 +152,7 @@ Regista-te!`}</AppText>
                 />
                 <View style={styles.login}>
                   <AppText style={{ paddingHorizontal: 2 }}>
-                    Já tem uma conta criada?
+                    Já tens uma conta criada?
                   </AppText>
                   <LinkButton
                     onPress={handleLoginPress}

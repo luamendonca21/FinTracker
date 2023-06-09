@@ -369,7 +369,7 @@ const HomeScreen = ({ navigation }) => {
                 color={defaultStyles.colors.yellow}
               />
               <AppText style={[styles.title, { marginLeft: 5, marginTop: 10 }]}>
-                Tabela de liderança
+                Ranking
               </AppText>
             </View>
             <AppSecondaryButton

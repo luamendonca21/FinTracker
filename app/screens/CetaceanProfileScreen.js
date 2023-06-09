@@ -692,7 +692,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     height: 90,
     width: "100%",
-    borderRadius: 20,
+    borderRadius: 15,
     elevation: 2,
   },
   timestampText: {

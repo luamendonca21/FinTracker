@@ -134,7 +134,7 @@ Inicia Sessão!`}</AppText>
                 />
                 <View style={styles.register}>
                   <AppText style={{ paddingHorizontal: 2 }}>
-                    Ainda não tem uma conta criada?
+                    Ainda não tens uma conta criada?
                   </AppText>
                   <LinkButton
                     onPress={handleRegisterPress}
