@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
 
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { AppText } from "../components/Text";
@@ -16,6 +17,7 @@ import Fade from "../assets/animations/Fade";
 import ProfileImage from "../components/ProfileImage";
 import { Skeleton } from "../components/Loaders";
 import { NoContentCard } from "../components/Alerts";
+import ToolTip from "../components/ToolTip";
 
 import useAuth from "../auth/useAuth";
 import usersApi from "../api/user";
@@ -208,6 +210,28 @@ function UserProfileScreen({ navigation }) {
                   ) : (
                     <Skeleton style={styles.userName} />
                   )}
+                  <ToolTip
+                    containerStyle={{
+                      width: 200,
+                      height: 60,
+                      backgroundColor: defaultStyles.colors.thirdly,
+                      elevation: 2,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    popover={
+                      <AppText>
+                        Ganha 5 pontos a cada cetáceo que visitas.
+                      </AppText>
+                    }
+                    backgroundColor={defaultStyles.colors.thirdly}
+                  >
+                    <MaterialCommunityIcons
+                      style={{ marginLeft: 10, marginTop: 10 }}
+                      name="information-outline"
+                      size={22}
+                    />
+                  </ToolTip>
                   <PointsIndicator points={points} />
                 </View>
                 <View style={styles.body}>
@@ -250,7 +274,9 @@ function UserProfileScreen({ navigation }) {
                     />
                   ) : null}
 
-                  <AppText style={styles.title}>Visitados</AppText>
+                  <AppText style={[styles.title, { marginTop: 10 }]}>
+                    Visitados
+                  </AppText>
 
                   {visited.length !== 0 ? (
                     <Carousel data={visited} />

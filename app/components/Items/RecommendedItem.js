@@ -20,7 +20,9 @@ const RecommendedItem = ({ item, onPress }) => {
           source={{ uri: `${baseURL}\\${item.picture.src}` }}
         />
         <View style={styles.textContainer}>
-          <AppText style={styles.title}>{item.details[1].value}</AppText>
+          <AppText numberOfLines={1} style={styles.title}>
+            {item.name}
+          </AppText>
           <AppText numberOfLines={3} style={styles.subTitle}>
             {item.introduction}
           </AppText>
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: "98%",
   },
-  title: { fontSize: 18, fontWeight: "bold" },
+  title: { fontSize: 18, width: "75%", fontWeight: "bold" },
   subTitle: { width: "75%" },
 });
 

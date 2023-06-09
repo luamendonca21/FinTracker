@@ -3,7 +3,7 @@ import { TouchableOpacity, StyleSheet, Animated } from "react-native";
 
 import AppText from "../Text/AppText";
 import { animateScale } from "../../assets/animations/AnimateScale";
-
+import { LinearGradient } from "expo-linear-gradient";
 import defaultStyles from "../../config/styles";
 
 const AppButton = ({
@@ -28,16 +28,24 @@ const AppButton = ({
   };
   return (
     <Animated.View style={animatedStyle}>
-      <TouchableOpacity
-        onPress={handlePress}
-        {...otherProps}
-        style={[
-          styles.container,
-          style,
-          { backgroundColor: defaultStyles.colors[color] },
-        ]}
-      >
-        <AppText style={styles.text}>{title}</AppText>
+      <TouchableOpacity onPress={handlePress} {...otherProps}>
+        <LinearGradient
+          colors={[
+            defaultStyles.colors[color],
+            color === "primary"
+              ? defaultStyles.colors.secondary
+              : color === "danger"
+              ? defaultStyles.colors.dangerLight
+              : color === "secondary"
+              ? defaultStyles.colors.primary
+              : defaultStyles.colors.white,
+          ]}
+          start={[0, 0]}
+          end={[1, 1]}
+          style={[styles.container, style]}
+        >
+          <AppText style={styles.text}>{title}</AppText>
+        </LinearGradient>
       </TouchableOpacity>
     </Animated.View>
   );
@@ -51,6 +59,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 12,
     elevation: 2,
+  },
+  gradient: {
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 12,
   },
   text: { fontSize: 18, fontWeight: "bold", color: defaultStyles.colors.white },
 });

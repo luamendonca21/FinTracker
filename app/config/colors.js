@@ -9,6 +9,7 @@ export default {
   light: "#f8f4f4",
   secondLight: "#dfdbdb",
   danger: "#ff5252",
+  dangerLight: "#FFCDCD",
   gray: "#acacac",
   transparent: "rgba(33, 33, 33, 0.1)",
   yellow: "#fee306",

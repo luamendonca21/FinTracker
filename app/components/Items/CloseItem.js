@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.thirdlyLight,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     height: 28,
     borderRadius: 50,
   },

@@ -26,6 +26,9 @@ const cetaceanFilters = [
   { id: 24, title: "Crustáceos", category: "Alimentação" },
   { id: 25, title: "Lulas", category: "Alimentação" },
   { id: 26, title: "Tubarões", category: "Alimentação" },
+  { id: 27, title: "Camarões", category: "Alimentação" },
+  { id: 28, title: "Krill", category: "Alimentação" },
+  { id: 29, title: "Peixes pequenos", category: "Alimentação" },
 ];
 
 const activityFilters = [

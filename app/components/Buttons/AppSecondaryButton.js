@@ -1,6 +1,7 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 import AppText from "../Text/AppText";
 
@@ -16,24 +17,24 @@ const AppSecondaryButton = ({
   onPress,
 }) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={[
-        styles.container,
-        style,
-        { backgroundColor: defaultStyles.colors[color] },
-      ]}
-    >
-      <AppText style={[styles.text, styleText]}>
-        {icon && index == 6 ? "Fim" : title}
-      </AppText>
-      {icon && (
-        <MaterialCommunityIcons
-          name={icon.name}
-          size={icon.size}
-          color={defaultStyles.colors.white}
-        />
-      )}
+    <TouchableOpacity onPress={onPress}>
+      <LinearGradient
+        colors={[defaultStyles.colors[color], defaultStyles.colors.primary]}
+        start={[0, 0]}
+        end={[1, 1]}
+        style={[styles.container, style]}
+      >
+        <AppText style={[styles.text, styleText]}>
+          {icon && index == 6 ? "Fim" : title}
+        </AppText>
+        {icon && (
+          <MaterialCommunityIcons
+            name={icon.name}
+            size={icon.size}
+            color={defaultStyles.colors.white}
+          />
+        )}
+      </LinearGradient>
     </TouchableOpacity>
   );
 };

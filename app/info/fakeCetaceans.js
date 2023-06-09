@@ -337,7 +337,7 @@ module.exports = [
         title: "Nome Científico",
         value: "Tursiops",
       },
-      { id: 3, title: "Longevidade", value: "40 a 50 anos" },
+      { id: 3, title: "Longevidade", value: "45 anos" },
       { id: 4, title: "Estado de conservação", value: "Preocupação menor" },
       {
         id: 5,
@@ -411,7 +411,7 @@ module.exports = [
         title: "Nome Científico",
         value: "Megaptera novaeangliae",
       },
-      { id: 3, title: "Longevidade", value: "45 a 50 anos" },
+      { id: 3, title: "Longevidade", value: "47 anos" },
       { id: 4, title: "Estado de conservação", value: "Preocupação menor" },
       {
         id: 5,
@@ -448,7 +448,7 @@ module.exports = [
         title: "Nome Científico",
         value: "Megaptera novaeangliae",
       },
-      { id: 3, title: "Longevidade", value: "45 a 50 anos" },
+      { id: 3, title: "Longevidade", value: "47 anos" },
       { id: 4, title: "Estado de conservação", value: "Preocupação menor" },
       {
         id: 5,
@@ -485,7 +485,7 @@ module.exports = [
         title: "Nome Científico",
         value: "Balaenoptera borealis",
       },
-      { id: 3, title: "Longevidade", value: "50 a 70 anos" },
+      { id: 3, title: "Longevidade", value: "60 anos" },
       { id: 4, title: "Estado de conservação", value: "Vulnerável" },
       {
         id: 5,

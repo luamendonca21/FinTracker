@@ -71,6 +71,7 @@ const HomeScreen = ({ navigation }) => {
   const [recommendedCetaceans, setRecommendedCetaceans] = useState([]);
   const [closeCetaceans, setCloseCetaceans] = useState([]);
   const [isLoadingRecommended, setIsLoadingRecommmended] = useState([]);
+
   // ------- APIS -------
   const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
   const [getUsersApi, isLoadingUsers, errorGetUsers] = useApi(

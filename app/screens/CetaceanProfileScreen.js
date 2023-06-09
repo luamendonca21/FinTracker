@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -8,7 +8,10 @@ import {
   FlatList,
   TouchableHighlight,
 } from "react-native";
+import { LinkButton } from "../components/Buttons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import ToolTip from "../components/ToolTip";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import Fade from "../assets/animations/Fade";
@@ -46,15 +49,46 @@ const notifications = [
   { id: 2, title: "Quando estiver perto de um local personalizado" },
 ];
 
+const toolTips = [
+  {
+    id: 0,
+    title: "Nome Científico",
+    description: "Nome único que identifica a espécie de cetáceo",
+  },
+  {
+    id: 1,
+    title: "Longevidade",
+    description: "Expectativa de vida média da espécie.",
+  },
+  {
+    id: 2,
+    title: "Estado de Conservação",
+    description: "Nível de ameaça enfrentado pela espécie.",
+  },
+  {
+    id: 3,
+    title: "Categoria",
+    description: "Classificação taxonômica da espécie.",
+  },
+  {
+    id: 4,
+    title: "Comprimento Máximo",
+    description: "Tamanho máximo que a espécie pode atingir.",
+  },
+  {
+    id: 5,
+    title: "Alimentação",
+    description: "Tipo de dieta seguida pela espécie.",
+  },
+];
 const CetaceanProfileScreen = ({ route, navigation }) => {
   const baseURL = settings.apiUrl;
   const { user } = useAuth();
-  const { location } = useContext(LocationContext);
 
   // ------ STATE MANAGEMENT -------
   const pressDurationRef = useRef(0);
   const [isPressing, setIsPressing] = useState(false);
-
+  const [toolTipId, setToolTipId] = useState(0);
   const [state, setState] = useState(0);
   const { item } = route.params;
   const [isFavorite, setIsFavorite] = useState(false);
@@ -89,6 +123,14 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   );
 
   // ---------- UTILITIES -----------
+
+  const handleNextToolTip = () => {
+    if (toolTipId <= 4) {
+      setToolTipId(toolTipId + 1);
+    } else if (toolTipId === 5) {
+      setToolTipId(0);
+    }
+  };
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
 
@@ -325,7 +367,55 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                   />
                 </View>
               </View>
-              <AppText style={styles.title}>Detalhes</AppText>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <AppText style={styles.title}>Detalhes</AppText>
+
+                <ToolTip
+                  containerStyle={{
+                    width: 200,
+                    height: 130,
+                    backgroundColor: defaultStyles.colors.thirdly,
+                    elevation: 2,
+                    justifyContent: "center",
+                    alignItems: "flex-start",
+                  }}
+                  popover={
+                    <View
+                      style={{
+                        height: "100%",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <View>
+                        <AppText style={styles.toolTipTitle}>
+                          {toolTips[toolTipId].title}
+                        </AppText>
+                        <AppText style={styles.toolTipDescription}>
+                          {toolTips[toolTipId].description}
+                        </AppText>
+                      </View>
+                      <LinkButton
+                        color="secondary"
+                        style={styles.toolTipNext}
+                        title="Próximo"
+                        onPress={handleNextToolTip}
+                      />
+                    </View>
+                  }
+                  backgroundColor={defaultStyles.colors.thirdly}
+                >
+                  <MaterialCommunityIcons
+                    style={{ marginLeft: 10, marginTop: 10 }}
+                    name="information-outline"
+                    size={22}
+                  />
+                </ToolTip>
+              </View>
               <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -333,7 +423,46 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                 <ListDetails details={item.details} />
               </ScrollView>
               <AppText>{`IndividualId: ${item.individualId}`}</AppText>
-              <AppText style={styles.title}>Monitorização</AppText>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <AppText style={styles.title}>Monitorização</AppText>
+                <ToolTip
+                  containerStyle={{
+                    width: 200,
+                    height: 280,
+                    backgroundColor: defaultStyles.colors.thirdly,
+                    elevation: 2,
+                    justifyContent: "center",
+                    alignItems: "flex-start",
+                  }}
+                  popover={
+                    <View>
+                      <AppText style={styles.toolTipTitle}>
+                        Início da monitorização
+                      </AppText>
+                      <AppText style={styles.toolTipDescription}>
+                        Momento em que o animal começou a ser acompanhado e
+                        registado pelo sensor, mostrando os seus eventos no
+                        mapa.
+                      </AppText>
+                      <AppText style={styles.toolTipTitle}>
+                        Fim da monitorização
+                      </AppText>
+                      <AppText style={styles.toolTipDescription}>
+                        Encerramento do período de monitorização do animal,
+                        indicando que não há mais registos de eventos
+                        disponíveis.
+                      </AppText>
+                    </View>
+                  }
+                  backgroundColor={defaultStyles.colors.thirdly}
+                >
+                  <MaterialCommunityIcons
+                    style={{ marginLeft: 10, marginTop: 10 }}
+                    name="information-outline"
+                    size={22}
+                  />
+                </ToolTip>
+              </View>
 
               <View style={styles.timestampContainer}>
                 <AppText>
@@ -365,7 +494,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                   marginTop: 10,
                 }}
               >
-                Descubra a jornada{" "}
+                Descobre a jornada{" "}
                 {item.details[0].value == "Golfinho"
                   ? `do`
                   : item.details[0].value == "Baleia"
@@ -556,6 +685,7 @@ const styles = StyleSheet.create({
   skeletonComments: { height: 200, width: "100%", marginTop: 5 },
   noContentCard: { height: 200, marginTop: 5 },
   timestampContainer: {
+    marginTop: 5,
     backgroundColor: defaultStyles.colors.secondary,
     padding: 20,
     justifyContent: "space-between",
@@ -575,6 +705,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginTop: 20,
   },
+  toolTipTitle: { fontSize: 15, fontWeight: "bold" },
+  toolTipDescription: { fontSize: 14, marginBottom: 5 },
+  toolTipNext: { alignSelf: "flex-start", fontSize: 16 },
 });
 
 export default CetaceanProfileScreen;
