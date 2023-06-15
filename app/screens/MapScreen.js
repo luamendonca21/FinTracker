@@ -109,7 +109,7 @@ const MapScreen = ({ navigation, route }) => {
 
   const checkVisitedCetaceans = () => {
     const eventsWithin2km = events.filter(
-      (event) => event.dist.calculated / 1000 < 4000
+      (event) => event.dist.calculated / 1000 < 6000
     );
     if (eventsWithin2km.length === 0) {
       return;

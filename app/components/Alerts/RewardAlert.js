@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   description: { fontSize: 18, textAlign: "center" },
-  button: { width: "90%" },
+  button: { width: "100%" },
   linkButton: { fontSize: 18 },
   // Estilos adicionais...
 });
