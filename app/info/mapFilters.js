@@ -22,13 +22,10 @@ const cetaceanFilters = [
   { id: 20, title: "Mais de 5 m", category: "Comprimento máximo" },
   { id: 21, title: "Peixes", category: "Alimentação" },
   { id: 22, title: "Peixes de grande porte", category: "Alimentação" },
-  { id: 23, title: "Polvos", category: "Alimentação" },
-  { id: 24, title: "Crustáceos", category: "Alimentação" },
-  { id: 25, title: "Lulas", category: "Alimentação" },
-  { id: 26, title: "Tubarões", category: "Alimentação" },
-  { id: 27, title: "Camarões", category: "Alimentação" },
-  { id: 28, title: "Krill", category: "Alimentação" },
-  { id: 29, title: "Peixes pequenos", category: "Alimentação" },
+  { id: 23, title: "Peixes pequenos", category: "Alimentação" },
+  { id: 24, title: "Cefalópodes", category: "Alimentação" },
+  { id: 25, title: "Krill", category: "Alimentação" },
+  { id: 26, title: "Crustáceos", category: "Alimentação" },
 ];
 
 const activityFilters = [

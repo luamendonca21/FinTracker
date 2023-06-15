@@ -422,7 +422,8 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
               >
                 <ListDetails details={item.details} />
               </ScrollView>
-              <AppText>{`IndividualId: ${item.individualId}`}</AppText>
+              {/*               <AppText>{`IndividualId: ${item.individualId}`}</AppText>
+               */}
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <AppText style={styles.title}>Monitorização</AppText>
                 <ToolTip
@@ -463,7 +464,6 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                   />
                 </ToolTip>
               </View>
-
               <View style={styles.timestampContainer}>
                 <AppText>
                   <AppText style={styles.timestampText}>{`Início: `}</AppText>
@@ -476,18 +476,22 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
               </View>
               <TextSection title="Introdução" content={item.introduction} />
               <TextSection
-                title="Comportamento social"
-                content={item.socialBehavior}
-              />
-              <TextSection
-                title="Caraterísticas físicas"
+                title="Caraterísticas físicas e Taxonomia"
                 content={item.physic}
               />
+              <TextSection
+                title="Comportamento e Fisiologia"
+                content={item.socialBehavior}
+              />
               <TextSection title="História" content={item.history} />
-              <TextSection title="Rota de migração" content={item.migration} />
+              <TextSection
+                title="Rota de migração"
+                subTitle="Distribuição e Abundância"
+                content={item.migration}
+              />
               <AppText
                 style={{
-                  fontSize: 15,
+                  fontSize: 16,
                   fontWeight: "bold",
                   lineHeight: 22,
                   color: defaultStyles.colors.secondary,
@@ -707,7 +711,7 @@ const styles = StyleSheet.create({
   },
   toolTipTitle: { fontSize: 15, fontWeight: "bold" },
   toolTipDescription: { fontSize: 14, marginBottom: 5 },
-  toolTipNext: { alignSelf: "flex-start", fontSize: 16 },
+  toolTipNext: { alignSelf: "flex-start", fontSize: 18 },
 });
 
 export default CetaceanProfileScreen;
