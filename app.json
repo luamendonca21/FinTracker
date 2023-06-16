@@ -7,7 +7,7 @@
     "icon": "./app/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./app/assets/icon.png",
+      "image": "./app/assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,7 +21,7 @@
     "android": {
       "package": "com.luana.fintracker",
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/icon.png",
+        "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "config": {

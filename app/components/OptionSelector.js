@@ -1,10 +1,10 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { IconButton } from "./Buttons";
 import { AppText } from "./Text";
 import ToolTip from "../components/ToolTip";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import defaultStyles from "../config/styles";
 

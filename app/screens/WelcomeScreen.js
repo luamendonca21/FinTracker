@@ -28,7 +28,7 @@ const WelcomeScreen = ({ navigation }) => {
           <Image
             style={styles.image}
             resizeMode="contain"
-            source={require("../assets/icon.png")}
+            source={require("../assets/imageIcon.png")}
           />
         </View>
         <AppText style={styles.title}>Fin Tracker</AppText>

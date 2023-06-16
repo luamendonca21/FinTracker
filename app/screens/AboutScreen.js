@@ -62,7 +62,7 @@ const AboutScreen = ({ navigation }) => {
             <Image
               style={styles.image}
               resizeMode="contain"
-              source={require("../assets/icon.png")}
+              source={require("../assets/imageIcon.png")}
             />
           </View>
           <AppText style={styles.title}>Sobre Fin Tracker</AppText>
@@ -126,8 +126,6 @@ const AboutScreen = ({ navigation }) => {
             styles.box,
             {
               backgroundColor: defaultStyles.colors.secondary,
-              /*  borderBottomLeftRadius: 20,
-              borderBottomRightRadius: 20, */
             },
           ]}
         >

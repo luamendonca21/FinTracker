@@ -87,10 +87,6 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
   };
 
   const filterEvents = () => {
-    // filtrar-> ultimas 24 horas
-    // ultima semana
-    // ultimo mes
-
     const currentDate = new Date();
     console.log("HOJE É DIA -----> ", currentDate);
     let filteredEvents = [...events];
@@ -182,12 +178,10 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
   }, []);
 
   useEffect(() => {
-    console.log("TAMANHO ----> ", events.length, ":", events);
     extractCoordinates();
   }, [events]);
 
   useEffect(() => {
-    console.log("FILTROS ACTIVOS -----> ", filtersActive);
     filtersActive.length != 0 && filterEvents();
   }, [filtersActive]);
 

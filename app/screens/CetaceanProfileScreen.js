@@ -11,7 +11,6 @@ import {
 import { LinkButton } from "../components/Buttons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import ToolTip from "../components/ToolTip";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import Fade from "../assets/animations/Fade";
@@ -29,6 +28,7 @@ import Comment from "../components/Comment";
 import { NoContentCard } from "../components/Alerts";
 import { Map } from "../components/Map";
 import TextSection from "../components/Text/TextSection";
+import ToolTip from "../components/ToolTip";
 
 import cache from "../utility/cache";
 import cetaceansApi from "../api/cetaceans";
@@ -37,7 +37,6 @@ import usersApi from "../api/user";
 import useAuth from "../auth/useAuth";
 import settings from "../config/settings";
 
-import LocationContext from "../providers/LocationProvider";
 import routes from "../navigation/routes";
 import defaultStyles from "../config/styles";
 
