@@ -9,7 +9,8 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { LinkButton } from "../components/Buttons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import Swiper from "react-native-swiper";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -329,15 +330,43 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   useEffect(() => {
     getCetacean();
   }, [state]);
-
+  const getCetaceanPictures = () => {
+    const pictures = [
+      `${baseURL}\\${item.picture.src}`,
+      `${baseURL}\\${item.picture.src.replace(/\.jpg$/, "")}2.jpg`,
+      `${baseURL}\\${item.picture.src.replace(/\.jpg$/, "")}3.jpg`,
+    ];
+    console.log(pictures);
+    return pictures;
+  };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={{ uri: `${baseURL}\\${item.picture.src}` }}
-          />
+          <Swiper
+            nextButton={
+              <MaterialIcons
+                name="keyboard-arrow-right"
+                color={defaultStyles.colors.medium}
+                size={40}
+              />
+            }
+            prevButton={
+              <MaterialIcons
+                name="keyboard-arrow-left"
+                color={defaultStyles.colors.medium}
+                size={40}
+              />
+            }
+            showsPagination={false}
+            showsButtons={true}
+          >
+            {getCetaceanPictures().map((picture, index) => (
+              <View key={index} style={styles.slide}>
+                <Image style={styles.image} source={{ uri: picture }} />
+              </View>
+            ))}
+          </Swiper>
         </View>
         <View style={styles.profileContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -618,11 +647,19 @@ const styles = StyleSheet.create({
     height: windowHeight / 3,
     position: "absolute",
     top: 0,
-    backgroundColor: defaultStyles.colors.primary,
     left: 0,
     right: 0,
   },
-  image: { width: "100%", height: "100%", resizeMode: "cover" },
+  slide: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
   profileContainer: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
