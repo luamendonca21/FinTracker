@@ -264,6 +264,16 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
       });
   };
 
+  const getCetaceanPictures = () => {
+    const pictures = [
+      `${baseURL}\\${item.picture.src}`,
+      `${baseURL}\\${item.picture.src.replace(/\.jpg$/, "")}2.jpg`,
+      `${baseURL}\\${item.picture.src.replace(/\.jpg$/, "")}3.jpg`,
+    ];
+    console.log(pictures);
+    return pictures;
+  };
+
   const renderComment = ({ item, index }) => {
     const commentId = item._id;
     return (
@@ -330,15 +340,6 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   useEffect(() => {
     getCetacean();
   }, [state]);
-  const getCetaceanPictures = () => {
-    const pictures = [
-      `${baseURL}\\${item.picture.src}`,
-      `${baseURL}\\${item.picture.src.replace(/\.jpg$/, "")}2.jpg`,
-      `${baseURL}\\${item.picture.src.replace(/\.jpg$/, "")}3.jpg`,
-    ];
-    console.log(pictures);
-    return pictures;
-  };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
