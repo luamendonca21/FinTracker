@@ -39,7 +39,10 @@ import settings from "../config/settings";
 
 import routes from "../navigation/routes";
 import cache from "../utils/cache";
-import { formatDate } from "../utils/dateUtils";
+import {
+  formatDate,
+  findObjectInArrayById as isNotificationActive,
+} from "../utils/utils";
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -131,9 +134,6 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   const update = () => {
     setState((state) => state + 1);
   };
-  const isNotificationActive = (id) => {
-    return inputs.find((item) => item.id === id);
-  };
 
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
@@ -165,7 +165,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
 
   const handleNotificationOptionPress = (id, title) => {
     let newNotification = { id: id, title: title };
-    if (!isNotificationActive(id)) {
+    if (!isNotificationActive(inputs, id)) {
       setInputs([...inputs, newNotification]);
     } else {
       setInputs(inputs.filter((elemento) => elemento.id !== id));
@@ -173,7 +173,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   };
 
   const handleOnChangeNotification = (text, id) => {
-    let object = isNotificationActive(id);
+    let object = isNotificationActive(inputs, id);
     const index = inputs.indexOf(object);
     const newObject = { ...object, value: text };
     setInputs([
@@ -320,6 +320,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
     getUser();
     getNotifications();
     getCetacean();
+    console.log("Notificações --> ", notificationsActive);
   }, []);
 
   useEffect(() => {
@@ -399,27 +400,30 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                     alignItems: "flex-start",
                   }}
                   popover={
-                    <View
-                      style={{
-                        height: "100%",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <View>
-                        <AppText style={styles.toolTipTitle}>
-                          {toolTips[toolTipId].title}
-                        </AppText>
-                        <AppText style={styles.toolTipDescription}>
-                          {toolTips[toolTipId].description}
-                        </AppText>
+                    <>
+                      <View
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <View>
+                          <AppText style={styles.toolTipTitle}>
+                            {toolTips[toolTipId].title}
+                          </AppText>
+                          <AppText style={styles.toolTipDescription}>
+                            {toolTips[toolTipId].description}
+                          </AppText>
+                        </View>
+                        <LinkButton
+                          color="secondary"
+                          style={styles.toolTipNext}
+                          title="Próximo"
+                          onPress={handleNextToolTip}
+                        />
                       </View>
-                      <LinkButton
-                        color="secondary"
-                        style={styles.toolTipNext}
-                        title="Próximo"
-                        onPress={handleNextToolTip}
-                      />
-                    </View>
+                    </>
                   }
                   backgroundColor={defaultStyles.colors.thirdly}
                 >
@@ -745,7 +749,7 @@ const styles = StyleSheet.create({
   },
   toolTipTitle: { fontSize: 15, fontWeight: "bold" },
   toolTipDescription: { fontSize: 14, marginBottom: 5 },
-  toolTipNext: { alignSelf: "flex-start", fontSize: 18 },
+  toolTipNext: { alignSelf: "flex-end", fontSize: 18 },
 });
 
 export default CetaceanProfileScreen;

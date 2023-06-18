@@ -39,3 +39,7 @@ export const calculateDateAgo = (units, quantity) => {
       return null;
   }
 };
+
+export const findObjectInArrayById = (items, id) => {
+  return items.find((item) => item.id === id);
+};

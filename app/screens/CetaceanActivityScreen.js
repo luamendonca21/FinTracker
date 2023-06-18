@@ -15,9 +15,12 @@ import { Map, MapMarker } from "../components/Map";
 
 import useApi from "../hooks/useApi";
 import eventsApi from "../api/events";
-import { activityFilters as filters } from "../info/mapFilters";
+import { activityScreenFilters as filters } from "../info/data";
 
-import { calculateDateAgo } from "../utils/dateUtils";
+import {
+  calculateDateAgo,
+  findObjectInArrayById as isFilterActive,
+} from "../utils/utils";
 
 import defaultStyles from "../config/styles";
 
@@ -37,13 +40,11 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
 
   // ---------- APIS -----------
   const [getEventsById, isLoadingEventsById] = useApi(eventsApi.getEventsById);
+
   // ------- UTILITIES -------
 
-  const isFilterActive = (id) => {
-    return inputs.find((item) => item.id === id);
-  };
   const handleFilterOptionPress = (id, title, category) => {
-    if (isFilterActive(id)) {
+    if (isFilterActive(inputs, id)) {
       setInputs([]);
     } else {
       const newFilter = { id, title, category };

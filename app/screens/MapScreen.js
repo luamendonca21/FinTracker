@@ -18,8 +18,9 @@ import cetaceansApi from "../api/cetaceans";
 import useApi from "../hooks/useApi";
 import useAuth from "../auth/useAuth";
 
-import { cetaceanFilters as filters } from "../info/mapFilters";
+import { mapScreenFilters as filters } from "../info/data";
 import routes from "../navigation/routes";
+import { findObjectInArrayById as isFilterActive } from "../utils/utils";
 import LocationContext from "../providers/LocationProvider";
 
 import defaultStyles from "../config/styles";
@@ -54,13 +55,10 @@ const MapScreen = ({ navigation, route }) => {
   const [updateUserVisitedApi] = useApi(usersApi.updateVisited);
 
   // ------- UTILITIES -------
-  const isFilterActive = (id) => {
-    return inputs.find((item) => item.id === id);
-  };
 
   const handleFilterOptionPress = (id, title, category) => {
     let newfilter = { id: id, title: title, category: category };
-    if (!isFilterActive(id)) {
+    if (!isFilterActive(inputs, id)) {
       setInputs([...inputs, newfilter]);
     } else {
       setInputs(inputs.filter((elemento) => elemento.id !== id));

@@ -7,6 +7,7 @@ import { AppTextInput } from "./Inputs";
 import ErrorMessage from "./Alerts/ErrorMessage";
 
 import { toggleAnimation } from "../assets/animations/toggleAnimation";
+import { findObjectInArrayById as isActive } from "../utils/utils";
 
 import defaultStyles from "../config/styles";
 
@@ -26,12 +27,8 @@ const DropDownSelector = ({
     LayoutAnimation.configureNext(toggleAnimation);
   };
 
-  const isActive = () => {
-    return itemsActive.find((item) => item.id === id);
-  };
-
   const selectItemIcon = () => {
-    return isActive(id)
+    return isActive(itemsActive, id)
       ? ["check-circle", defaultStyles.colors.white]
       : title == "Quando estiver perto de um local personalizado"
       ? ["check-circle-outline", defaultStyles.colors.black]
@@ -40,7 +37,7 @@ const DropDownSelector = ({
 
   // ------- LIFECYCLE HOOKS -------
   useEffect(() => {
-    if (isActive()) setShowContent(true);
+    if (isActive(itemsActive, id)) setShowContent(true);
   }, []);
 
   return (
@@ -49,11 +46,11 @@ const DropDownSelector = ({
         style={[
           styles.container,
           {
-            backgroundColor: isActive()
+            backgroundColor: isActive(itemsActive, id)
               ? defaultStyles.colors.secondary
               : defaultStyles.colors.white,
-            marginVertical: isActive() ? "2%" : 0,
-            elevation: isActive() ? 2 : 0,
+            marginVertical: isActive(itemsActive, id) ? "2%" : 0,
+            elevation: isActive(itemsActive, id) ? 2 : 0,
           },
         ]}
       >

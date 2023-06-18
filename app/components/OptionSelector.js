@@ -6,22 +6,25 @@ import { IconButton } from "./Buttons";
 import { AppText } from "./Text";
 import ToolTip from "../components/ToolTip";
 
+import { findObjectInArrayById as isActive } from "../utils/utils";
+
 import defaultStyles from "../config/styles";
 
 const OptionSelector = ({ id, title, optionsActive, ...otherProps }) => {
-  // ----- UTILITIES -----
-  const isActive = () => {
-    return optionsActive.find((item) => item.id === id);
-  };
-
   const selectOptionIcon = () => {
-    return isActive(id)
+    return isActive(optionsActive, id)
       ? ["check-circle", defaultStyles.colors.white]
       : ["check-circle-outline", defaultStyles.colors.black];
   };
 
   return (
-    <View style={[isActive(id) ? styles.optionActive : styles.optionInactive]}>
+    <View
+      style={[
+        isActive(optionsActive, id)
+          ? styles.optionActive
+          : styles.optionInactive,
+      ]}
+    >
       <IconButton
         name={selectOptionIcon()[0]}
         color={selectOptionIcon()[1]}

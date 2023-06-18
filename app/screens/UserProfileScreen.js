@@ -25,6 +25,7 @@ import cetaceansApi from "../api/cetaceans";
 import useApi from "../hooks/useApi";
 import routes from "../navigation/routes";
 
+import { findObjectInArrayById as isDetailActive } from "../utils/utils";
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -73,13 +74,9 @@ function UserProfileScreen({ navigation }) {
     setIsAnimating(true);
   };
 
-  const isDetailActive = (id) => {
-    return inputs.find((item) => item.id === id);
-  };
-
   const handleDetailItemPress = (id, title) => {
     let newDetail = { id: id, title: title };
-    if (!isDetailActive(id)) {
+    if (!isDetailActive(inputs, id)) {
       setInputs([...inputs, newDetail]);
     } else {
       setInputs(inputs.filter((elemento) => elemento.id !== id));
@@ -87,7 +84,7 @@ function UserProfileScreen({ navigation }) {
   };
 
   const handleOnChangeDetail = (text, id) => {
-    let object = isDetailActive(id);
+    let object = isDetailActive(inputs, id);
     const index = inputs.indexOf(object);
     const newObject = { ...object, value: text };
     setInputs([

@@ -1,61 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { AppText } from "../components/Text";
-import { AppSecondaryButton } from "../components/Buttons";
+import { AppSecondaryButton, LinkButton } from "../components/Buttons";
 import Index from "../components/Carousels/IndexCarousel/Index";
 import Screen from "../components/Screen";
 
+import { features } from "../info/data";
 import defaultStyles from "../config/styles";
 
-const features = [
-  {
-    id: 0,
-    title: "Localização GPS",
-    icon: "location-on",
-    description:
-      "Podes seguir os teus cetáceos favoritos num mapa e ver a sua localização.",
-  },
-  {
-    id: 1,
-    title: "Conhecimento",
-    icon: "menu-book",
-    description:
-      "Conheçe os teus cetáceos favoritos, aprendendo sobre a sua vida, história e migração.",
-  },
-  {
-    id: 2,
-    title: "Notificações",
-    icon: "notifications",
-    description:
-      "Podes personalizar as tuas notificações, e definir para ser notificado se algum cetáceo estiver perto de ti ou de um local personalizado.",
-  },
-  {
-    id: 3,
-    icon: "lock-open",
-    title: "Desbloquear o perfil completo do cetáceo",
-    description: "Tem acesso ao perfil completo do cetáceo, visitando-o.",
-  },
-  {
-    id: 4,
-    title: "Ganha pontos",
-    description: "Podes ganhar 5 pontos ao visitar um cetáceo.",
-  },
-  {
-    id: 5,
-    icon: "list",
-    title: "Obter mais cetáceos",
-    description: "Tem acesso a mais 5 cetáceos por cada 20 pontos que ganha.",
-  },
-  {
-    id: 6,
-    icon: "stars",
-    title: "Tabela de liderança",
-    description:
-      "Vê a tua posição na tabela de liderança e compara-te com os outros utilizadores.",
-  },
-];
 const FeatureScreen = ({ navigation }) => {
   useEffect(() => {
     navigation.getParent().setOptions({
@@ -85,27 +39,35 @@ const FeatureScreen = ({ navigation }) => {
   // ------- STATE MANAGEMENT ------
   const [index, setIndex] = useState(0);
 
+  const IconComponent =
+    index !== 2 && index !== 3 ? MaterialIcons : MaterialCommunityIcons;
+
   // ------- UTILITIES -------
-  const handleClick = (index) => {
-    if (index < 6) {
+  const handleClickNext = (index) => {
+    if (index < features.length - 1) {
       setIndex(index + 1);
     }
 
-    if (index == 6) navigation.goBack();
+    if (index == features.length - 1) navigation.goBack();
+  };
+  const handleClickBack = (index) => {
+    if (index == 0) {
+      navigation.goBack();
+    } else {
+      setIndex(index - 1);
+    }
   };
 
   return (
     <View style={styles.container}>
       <Screen>
         <View style={styles.featuresContainer}>
-          {index != 4 && (
-            <MaterialIcons
-              style={styles.icon}
-              name={features[index].icon}
-              color={defaultStyles.colors.thirdly}
-              size={120}
-            />
-          )}
+          <IconComponent
+            style={styles.icon}
+            name={features[index].icon}
+            color={defaultStyles.colors.thirdly}
+            size={120}
+          />
           {index == 4 && (
             <AppText
               style={{
@@ -138,12 +100,18 @@ const FeatureScreen = ({ navigation }) => {
             />
           </View>
         </View>
-        <View style={styles.button}>
+        <View style={styles.buttonsRow}>
+          <LinkButton
+            color="medium"
+            style={styles.prevButton}
+            onPress={() => handleClickBack(index)}
+            title="Anterior"
+          />
           <AppSecondaryButton
             title="Seguinte"
             icon={{ name: "arrow-right-thin", size: 36 }}
             index={index}
-            onPress={() => handleClick(index)}
+            onPress={() => handleClickNext(index)}
           />
         </View>
       </Screen>
@@ -178,11 +146,13 @@ const styles = StyleSheet.create({
   indexContainer: {
     marginTop: 20,
   },
-  button: {
-    alignItems: "flex-end",
-    paddingRight: 30,
-    paddingBottom: 30,
+  buttonsRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 30,
+    paddingVertical: 30,
   },
+  prevButton: { fontSize: 18 },
 });
 
 export default FeatureScreen;

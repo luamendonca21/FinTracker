@@ -4,7 +4,7 @@ import { Marker, Callout } from "react-native-maps";
 
 import { AppText } from "../Text";
 
-import { formatDate } from "../../utils/dateUtils";
+import { formatDate } from "../../utils/utils";
 
 import defaultStyles from "../../config/styles";
 

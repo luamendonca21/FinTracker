@@ -25,7 +25,7 @@ const AppSecondaryButton = ({
         style={[styles.container, style]}
       >
         <AppText style={[styles.text, styleText]}>
-          {icon && index == 6 ? "Fim" : title}
+          {icon && index == 5 ? "Fim" : title}
         </AppText>
         {icon && (
           <MaterialCommunityIcons

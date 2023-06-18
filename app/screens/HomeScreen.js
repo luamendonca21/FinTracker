@@ -23,6 +23,7 @@ import usersApi from "../api/user";
 import cetaceansApi from "../api/cetaceans";
 import eventsApi from "../api/events";
 
+import { homeScreenShortcuts as shortcuts } from "../info/data";
 import routes from "../navigation/routes";
 import settings from "../config/settings";
 
@@ -32,29 +33,6 @@ const baseURL = settings.apiUrl;
 
 const windowWidth = Dimensions.get("window").width;
 
-const shortcuts = [
-  {
-    id: 0,
-    title: "Cetáceos favoritos",
-    subTitle: "Visualiza os teus cetáceos favoritos.",
-    buttonTitle: "Ir para favoritos",
-    target: "Profile",
-  },
-  {
-    id: 1,
-    title: "Funcionalidades",
-    subTitle: "Descobre o que podes fazer.",
-    buttonTitle: "Ir para funcionalidades",
-    target: routes.FEATURE,
-  },
-  {
-    id: 2,
-    title: "Definições",
-    subTitle: "Personaliza as tuas definições.",
-    buttonTitle: "Ir para definições",
-    target: routes.SETTINGS,
-  },
-];
 const HomeScreen = ({ navigation }) => {
   const { location, errorMsg } = useContext(LocationContext);
   const scrollRef = useRef();
@@ -257,54 +235,7 @@ const HomeScreen = ({ navigation }) => {
                     title={item.buttonTitle}
                     onPress={() => handlePressShortcut(item)}
                   />
-                  {item.title == "Cetáceos favoritos" && (
-                    <>
-                      <MaterialIcons
-                        style={{
-                          position: "absolute",
-                          top: 10,
-                          right: 10,
-                        }}
-                        size={120}
-                        name="favorite"
-                        color="red"
-                      />
-                      <MaterialCommunityIcons
-                        style={{
-                          position: "absolute",
-                          top: 60,
-                          right: 30,
-                        }}
-                        size={50}
-                        name="gesture-tap"
-                        color={defaultStyles.colors.white}
-                      />
-                    </>
-                  )}
-                  {item.title == "Definições" && (
-                    <MaterialIcons
-                      style={{
-                        position: "absolute",
-                        top: 10,
-                        right: 10,
-                      }}
-                      size={120}
-                      name="settings"
-                      color={defaultStyles.colors.medium}
-                    />
-                  )}
-                  {item.title == "Funcionalidades" && (
-                    <MaterialIcons
-                      style={{
-                        position: "absolute",
-                        top: 10,
-                        right: 10,
-                      }}
-                      size={120}
-                      name="stars"
-                      color={defaultStyles.colors.thirdly}
-                    />
-                  )}
+                  {item.icons}
                 </View>
               ))}
             </IndexCarousel>
