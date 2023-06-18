@@ -269,6 +269,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
       `${baseURL}\\${item.picture.src}`,
       `${baseURL}\\${item.picture.src.replace(/\.jpg$/, "")}2.jpg`,
       `${baseURL}\\${item.picture.src.replace(/\.jpg$/, "")}3.jpg`,
+      `${baseURL}\\${item.picture.src.replace(/\.jpg$/, "")}4.jpg`,
     ];
     console.log(pictures);
     return pictures;

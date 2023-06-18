@@ -320,12 +320,13 @@ const MapScreen = ({ navigation, route }) => {
                   long: event.location.coordinates[0],
                   lat: event.location.coordinates[1],
                 }}
+                timestamp={event.timestamp}
                 name={
                   cetaceans.length != 0
                     ? findCetacean(event.individualId).name
                     : ""
                 }
-                description="Ver perfil"
+                description={`Ver perfil`}
                 img={require("../assets/mapMarker.png")}
               />
             ))}

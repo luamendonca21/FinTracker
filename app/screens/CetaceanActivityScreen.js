@@ -207,17 +207,18 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
                 lineDashPattern={[10, 20]}
               />
             )}
-            {coordinates.length > 0 && (
-              <MapMarker
-                name="Ponto inicial"
-                img={require("../assets/mapMarker.png")}
-                coords={{
-                  lat: coordinates[0].latitude,
-                  long: coordinates[0].longitude,
-                }}
-                /* description="Ver perfil" */
-              />
-            )}
+            {coordinates.length > 0 &&
+              coordinates.map((event, index) => (
+                <MapMarker
+                  index={index}
+                  key={index}
+                  coords={{
+                    long: event.longitude,
+                    lat: event.latitude,
+                  }}
+                  img={require("../assets/mapMarker.png")}
+                />
+              ))}
           </Map>
           <Icon
             onPress={handleFilterPress}
