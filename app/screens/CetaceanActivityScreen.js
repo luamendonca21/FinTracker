@@ -17,6 +17,8 @@ import useApi from "../hooks/useApi";
 import eventsApi from "../api/events";
 import { activityFilters as filters } from "../info/mapFilters";
 
+import { calculateDateAgo } from "../utils/dateUtils";
+
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -34,9 +36,7 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
   const [coordinates, setCoordinates] = useState([]);
 
   // ---------- APIS -----------
-  const [getEventsById, isLoadingEventsById, errorGetEventsById] = useApi(
-    eventsApi.getEventsById
-  );
+  const [getEventsById, isLoadingEventsById] = useApi(eventsApi.getEventsById);
   // ------- UTILITIES -------
 
   const isFilterActive = (id) => {
@@ -94,11 +94,7 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
 
     switch (activeFilter.title) {
       case "Últimos 7 dias":
-        const oneWeekAgo = new Date(
-          currentDate.getFullYear(),
-          currentDate.getMonth(),
-          currentDate.getDate() - 7
-        );
+        const oneWeekAgo = calculateDateAgo("days", 7);
         console.log("1 SEMANA ATRAS ----> ", oneWeekAgo);
 
         filteredEvents = filteredEvents.filter((event) => {
@@ -112,11 +108,7 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
         break;
 
       case "Últimas 4 semanas":
-        const oneMonthAgo = new Date(
-          currentDate.getFullYear(),
-          currentDate.getMonth() - 1,
-          currentDate.getDate()
-        );
+        const oneMonthAgo = calculateDateAgo("months", 1);
         console.log("1 MÊS ATRAS ----> ", oneMonthAgo);
 
         filteredEvents = filteredEvents.filter((event) => {
@@ -125,11 +117,7 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
         });
         break;
       case "Últimos 12 meses":
-        const oneYearAgo = new Date(
-          currentDate.getFullYear() - 1,
-          currentDate.getMonth(),
-          currentDate.getDate()
-        );
+        const oneYearAgo = calculateDateAgo("years", 1);
         console.log("1 ANO ATRAS ----> ", oneYearAgo);
         filteredEvents = filteredEvents.filter((event) => {
           const diff = timediff(new Date(event.timestamp), oneYearAgo);
@@ -138,9 +126,7 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
         break;
 
       case "Últimas 24 horas":
-        const twentyFourHoursAgo = new Date(
-          currentDate.getTime() - 24 * 60 * 60 * 1000
-        );
+        const twentyFourHoursAgo = calculateDateAgo("hours", 24);
         console.log("24 HORAS ATRAS ----> ", twentyFourHoursAgo);
 
         filteredEvents = filteredEvents.filter((event) => {

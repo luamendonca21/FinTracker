@@ -1,17 +1,19 @@
 import React, { useRef } from "react";
 import { View, StyleSheet, FlatList, Image, ScrollView } from "react-native";
 
-import { AppText } from "../components/Text";
 import Icon from "../components/Icon";
 import { BoxItem } from "../components/Items";
-import defaultStyles from "../config/styles";
+import { TextSection } from "../components/Text";
+
 import routes from "../navigation/routes";
+
+import defaultStyles from "../config/styles";
 
 const items = [
   {
     id: 0,
     title: "Funcionalidades",
-    subTitle: "Obtem dicas para explorar as principais funcionalidades",
+    subTitle: "Obtém dicas para explorar as principais funcionalidades",
     icon: "stars",
     target: routes.FEATURE,
   },
@@ -53,8 +55,6 @@ const AboutScreen = ({ navigation }) => {
             styles.box,
             {
               backgroundColor: defaultStyles.colors.primary,
-              /* borderTopLeftRadius: 20,
-              borderTopRightRadius: 20, */
             },
           ]}
         >
@@ -65,12 +65,15 @@ const AboutScreen = ({ navigation }) => {
               source={require("../assets/imageIcon.png")}
             />
           </View>
-          <AppText style={styles.title}>Sobre Fin Tracker</AppText>
-          <AppText style={styles.subTitle}>
-            Somos uma aplicação móvel que permite ao público em geral explorar
-            as migrações de cetáceos e outros animais marinhos que tenham sido
-            marcados.
-          </AppText>
+          <TextSection
+            titleStyle={[styles.title, { color: defaultStyles.colors.white }]}
+            title="Sobre Fin Tracker"
+            contentStyle={[
+              styles.subTitle,
+              { color: defaultStyles.colors.white },
+            ]}
+            content="Somos uma aplicação móvel que permite ao público em geral explorar as migrações de cetáceos e outros animais marinhos que tenham sido marcados."
+          />
           <View style={styles.itemsContainer}>
             <FlatList
               numColumns={2}
@@ -80,25 +83,13 @@ const AboutScreen = ({ navigation }) => {
             />
           </View>
         </View>
-        <View
-          style={[
-            styles.box,
-            {
-              backgroundColor: defaultStyles.colors.white,
-            },
-          ]}
-        >
-          <AppText
-            style={[styles.title, { color: defaultStyles.colors.black }]}
-          >
-            A nossa história
-          </AppText>
-          <AppText
-            style={[styles.subTitle, { color: defaultStyles.colors.black }]}
-          >
-            Esta aplicação foi desenvolvida como parte de uma tese de mestrado
-            no contexto do projeto de pesquisa INTERTAGUA.
-          </AppText>
+        <View style={styles.box}>
+          <TextSection
+            titleStyle={styles.title}
+            title="A nossa história"
+            contentStyle={styles.subTitle}
+            content="Esta aplicação foi desenvolvida como parte de uma tese de mestrado no contexto do projeto de pesquisa INTERTAGUA."
+          />
         </View>
         <View
           style={[
@@ -108,18 +99,12 @@ const AboutScreen = ({ navigation }) => {
             },
           ]}
         >
-          <AppText
-            style={[styles.title, { color: defaultStyles.colors.black }]}
-          >
-            A nossa missão
-          </AppText>
-          <AppText
-            style={[styles.subTitle, { color: defaultStyles.colors.black }]}
-          >
-            O nosso principal objetivo é consciencializar a população sobre a
-            importância da preservação das espécies marinhas, com foco nos
-            ecossistemas costeiros e oceânicos da Macaronésia.
-          </AppText>
+          <TextSection
+            titleStyle={styles.title}
+            title="A nossa missão"
+            contentStyle={styles.subTitle}
+            content="O nosso principal objetivo é consciencializar a população sobre a importância da preservação das espécies marinhas, com foco nos ecossistemas costeiros e oceânicos da Macaronésia."
+          />
         </View>
         <View
           style={[
@@ -129,31 +114,14 @@ const AboutScreen = ({ navigation }) => {
             },
           ]}
         >
-          <AppText
-            style={[
-              styles.title,
-              {
-                color: defaultStyles.colors.black,
-              },
-            ]}
-          >
-            Integração com o Movebank
-          </AppText>
-          <AppText
-            style={[
-              styles.subTitle,
-              {
-                color: defaultStyles.colors.black,
-              },
-            ]}
-          >
-            Ao utilizar os dados do Movebank, a nossa aplicação FinTracker
-            garante a qualidade e a confiabilidade das informações exibidas. Com
-            base nos registos coletados pelos sensores acoplados aos animais,
-            oferecemos aos nossos utilizadores a oportunidade de explorar o
+          <TextSection
+            titleStyle={styles.title}
+            title="Integração com o Movebank"
+            contentStyle={styles.subTitle}
+            content=" Ao utilizar os dados do Movebank, a nossa aplicação FinTracker garante a qualidade e a confiabilidade das informações exibidas. Com base nos registos coletados pelos sensores acoplados aos animais, oferecemos aos nossos utilizadores a oportunidade de explorar o
             comportamento migratório, as rotas de viagem e outras
-            características fascinantes dos animais marinhos.
-          </AppText>
+            características fascinantes dos animais marinhos."
+          />
         </View>
       </View>
     </ScrollView>
@@ -164,16 +132,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     color: defaultStyles.colors.white,
-    /*     padding: 15,
-     */ paddingBottom: 36,
+    paddingBottom: 36,
   },
   title: {
-    color: defaultStyles.colors.white,
     marginBottom: 10,
     fontSize: 20,
     fontWeight: "bold",
+    textAlign: "center",
   },
   box: {
+    backgroundColor: "white",
     elevation: 2,
     paddingHorizontal: 15,
     paddingVertical: 50,
@@ -183,7 +151,6 @@ const styles = StyleSheet.create({
   subTitle: {
     lineHeight: 22,
     textAlign: "center",
-    color: defaultStyles.colors.white,
   },
   appIcon: {
     backgroundColor: defaultStyles.colors.white,

@@ -12,7 +12,6 @@ const CategoryCard = ({ data, title, subTitle }) => {
       <AppText style={styles.title}>{title}</AppText>
       <AppText style={styles.subTitle}>{subTitle}</AppText>
       <Carousel data={data} />
-      {/* <LinkButton color="black" title="See more" /> */}
     </View>
   );
 };

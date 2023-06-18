@@ -31,7 +31,6 @@ import { Map } from "../components/Map";
 import TextSection from "../components/Text/TextSection";
 import ToolTip from "../components/ToolTip";
 
-import cache from "../utility/cache";
 import cetaceansApi from "../api/cetaceans";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
@@ -39,6 +38,8 @@ import useAuth from "../auth/useAuth";
 import settings from "../config/settings";
 
 import routes from "../navigation/routes";
+import cache from "../utils/cache";
+import { formatDate } from "../utils/dateUtils";
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
@@ -104,21 +105,16 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   const [comments, setComments] = useState([]);
 
   // ---------- APIS -----------
-  const [updateFavoriteApi, isLoadingUpdateFavorites, errorUpdate] = useApi(
-    usersApi.updateFavorite
-  );
-  const [deleteFavoriteApi, isLoadingDeleteFavorites, errorDelete] = useApi(
-    usersApi.deleteFavorite
-  );
-  const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
+  const [updateFavoriteApi] = useApi(usersApi.updateFavorite);
+  const [deleteFavoriteApi] = useApi(usersApi.deleteFavorite);
+  const [getUserApi, isLoadingUser] = useApi(usersApi.getUser);
 
-  const [updateCommentsApi, isLoadingUpdateComments, errorUpdateComments] =
-    useApi(cetaceansApi.updateComments);
-
-  const [getCetaceanById, isLoadingGetCetacean, errorGetCetacean] = useApi(
-    cetaceansApi.getById
+  const [updateCommentsApi, isLoadingUpdateComments] = useApi(
+    cetaceansApi.updateComments
   );
-  const [deleteCommentApi, isLoadingDeleteComment, errorDeleteComment] = useApi(
+
+  const [getCetaceanById, isLoadingGetCetacean] = useApi(cetaceansApi.getById);
+  const [deleteCommentApi, isLoadingDeleteComment] = useApi(
     cetaceansApi.deleteComment
   );
 
@@ -131,18 +127,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
       setToolTipId(0);
     }
   };
-  const formatDate = (timestamp) => {
-    const date = new Date(timestamp);
 
-    const year = date.getFullYear();
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    const day = ("0" + date.getDate()).slice(-2);
-    const hours = ("0" + date.getHours()).slice(-2);
-    const minutes = ("0" + date.getMinutes()).slice(-2);
-    const seconds = ("0" + date.getSeconds()).slice(-2);
-
-    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-  };
   const update = () => {
     setState((state) => state + 1);
   };
@@ -271,7 +256,6 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
       `${baseURL}\\${item.picture.src.replace(/\.jpg$/, "")}3.jpg`,
       `${baseURL}\\${item.picture.src.replace(/\.jpg$/, "")}4.jpg`,
     ];
-    console.log(pictures);
     return pictures;
   };
 
@@ -504,30 +488,33 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                   <AppText>{formatDate(item.timestamp_end)}</AppText>
                 </AppText>
               </View>
-              <TextSection title="Introdução" content={item.introduction} />
               <TextSection
+                titleStyle={styles.title}
+                title="Introdução"
+                content={item.introduction}
+              />
+              <TextSection
+                titleStyle={styles.title}
                 title="Caraterísticas físicas e Taxonomia"
                 content={item.physic}
               />
               <TextSection
+                titleStyle={styles.title}
                 title="Comportamento e Fisiologia"
                 content={item.socialBehavior}
               />
-              <TextSection title="História" content={item.history} />
+              <TextSection
+                titleStyle={styles.title}
+                title="História"
+                content={item.history}
+              />
               <TextSection
                 title="Rota de migração"
+                subTitleStyle={styles.subTitle}
                 subTitle="Distribuição e Abundância"
                 content={item.migration}
               />
-              <AppText
-                style={{
-                  fontSize: 16,
-                  fontWeight: "bold",
-                  lineHeight: 22,
-                  color: defaultStyles.colors.secondary,
-                  marginTop: 10,
-                }}
-              >
+              <AppText style={styles.subTitle}>
                 Descobre a jornada{" "}
                 {item.details[0].value == "Golfinho"
                   ? `do`
@@ -691,6 +678,15 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 5,
   },
+
+  subTitle: {
+    marginBottom: 5,
+    fontSize: 16,
+    fontWeight: "bold",
+    lineHeight: 22,
+    color: defaultStyles.colors.secondary,
+    marginTop: 10,
+  },
   optionInactive: {
     marginVertical: 5,
     flexDirection: "row",
@@ -745,7 +741,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 15,
     overflow: "hidden",
-    marginTop: 20,
+    marginTop: 15,
   },
   toolTipTitle: { fontSize: 15, fontWeight: "bold" },
   toolTipDescription: { fontSize: 14, marginBottom: 5 },

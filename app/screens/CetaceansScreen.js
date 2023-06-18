@@ -21,9 +21,7 @@ const CetaceansScreen = ({ navigation }) => {
 
   // -------- APIS ----------
 
-  const [getAllCetaceansApi, errorGetAllCetaceans] = useApi(
-    cetaceansApi.getAllCetaceans
-  );
+  const [getAllCetaceansApi] = useApi(cetaceansApi.getAllCetaceans);
   // ------- UTILITIES ------
   const handleSearch = (query) => {
     setSearchQuery(query);

@@ -44,24 +44,14 @@ const MapScreen = ({ navigation, route }) => {
   const [filtersActive, setFiltersActive] = useState([]);
 
   // ---------- APIS -----------
-  const [getAllCetaceansApi, isLoadingCetaceans, errorGetAllCetaceans] = useApi(
+  const [getAllCetaceansApi, isLoadingCetaceans] = useApi(
     cetaceansApi.getAllCetaceans
   );
-  const [getEventsNearApi, isLoadingEventsNear, errorGetEventsNear] = useApi(
-    eventsApi.getNear
-  );
-  const [getAllEventsApi, isLoadingEvents, errorGetAllEvents] = useApi(
-    eventsApi.getAllEvents
-  );
-  const [
-    updateUserPointsApi,
-    isLoadingUpdatePoints,
-    errorUpdatePoints,
-    points,
-  ] = useApi(usersApi.updatePoints);
+  const [getEventsNearApi, isLoadingEventsNear] = useApi(eventsApi.getNear);
+  const [getAllEventsApi] = useApi(eventsApi.getAllEvents);
+  const [updateUserPointsApi, points] = useApi(usersApi.updatePoints);
 
-  const [updateUserVisitedApi, isLoadingUpdateVisited, errorUpdateVisited] =
-    useApi(usersApi.updateVisited);
+  const [updateUserVisitedApi] = useApi(usersApi.updateVisited);
 
   // ------- UTILITIES -------
   const isFilterActive = (id) => {
