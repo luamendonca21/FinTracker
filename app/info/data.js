@@ -136,7 +136,7 @@ export const features = [
     id: 3,
     title: "Rota de migração",
     icon: "map-marker-path",
-    description: "Descobre que animais estão por perto.",
+    description: "Descobre todo o caminho percorrido pelos animais.",
   },
   /* {
     id: 2,
@@ -168,5 +168,38 @@ export const features = [
     title: "Ranking",
     description:
       "Descobre os líderes do ranking e desafia os outros utilizadores.",
+  },
+];
+
+export const toolTipsCetaceanDetails = [
+  {
+    id: 0,
+    title: "Nome Científico",
+    description: "Nome único que identifica a espécie de cetáceo",
+  },
+  {
+    id: 1,
+    title: "Longevidade",
+    description: "Expectativa de vida média da espécie.",
+  },
+  {
+    id: 2,
+    title: "Estado de Conservação",
+    description: "Nível de ameaça enfrentado pela espécie.",
+  },
+  {
+    id: 3,
+    title: "Categoria",
+    description: "Classificação taxonômica da espécie.",
+  },
+  {
+    id: 4,
+    title: "Comprimento Máximo",
+    description: "Tamanho máximo que a espécie pode atingir.",
+  },
+  {
+    id: 5,
+    title: "Alimentação",
+    description: "Tipo de dieta seguida pela espécie.",
   },
 ];

@@ -38,6 +38,7 @@ import useAuth from "../auth/useAuth";
 import settings from "../config/settings";
 
 import routes from "../navigation/routes";
+import { toolTipsCetaceanDetails as toolTips } from "../info/data";
 import cache from "../utils/cache";
 import {
   formatDate,
@@ -53,38 +54,6 @@ const notifications = [
   { id: 2, title: "Quando estiver perto de um local personalizado" },
 ];
 
-const toolTips = [
-  {
-    id: 0,
-    title: "Nome Científico",
-    description: "Nome único que identifica a espécie de cetáceo",
-  },
-  {
-    id: 1,
-    title: "Longevidade",
-    description: "Expectativa de vida média da espécie.",
-  },
-  {
-    id: 2,
-    title: "Estado de Conservação",
-    description: "Nível de ameaça enfrentado pela espécie.",
-  },
-  {
-    id: 3,
-    title: "Categoria",
-    description: "Classificação taxonômica da espécie.",
-  },
-  {
-    id: 4,
-    title: "Comprimento Máximo",
-    description: "Tamanho máximo que a espécie pode atingir.",
-  },
-  {
-    id: 5,
-    title: "Alimentação",
-    description: "Tipo de dieta seguida pela espécie.",
-  },
-];
 const CetaceanProfileScreen = ({ route, navigation }) => {
   const baseURL = settings.apiUrl;
   const { user } = useAuth();
@@ -514,6 +483,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
               />
               <TextSection
                 title="Rota de migração"
+                titleStyle={styles.title}
                 subTitleStyle={styles.subTitle}
                 subTitle="Distribuição e Abundância"
                 content={item.migration}

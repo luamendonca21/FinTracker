@@ -382,7 +382,7 @@ module.exports = [
         title: "Nome Científico",
         value: "Delphinus delphis",
       },
-      { id: 3, title: "Longevidade", value: "25 anos" },
+      { id: 3, title: "Longevidade", value: "30 anos" },
       { id: 4, title: "Estado de conservação", value: "Preocupação menor" },
       {
         id: 5,
@@ -398,13 +398,13 @@ module.exports = [
     introduction:
       "O golfinho-comum é uma espécie de golfinho encontrada em mares e oceanos em todo o mundo. É conhecido por sua natureza brincalhona e suas acrobacias impressionantes.",
     socialBehavior:
-      'Os golfinhos-comuns são altamente sociáveis e formam grupos chamados "manadas" que podem variar de alguns indivíduos a centenas de golfinhos.',
+      'Grupos de centenas ou milhares de golfinhos são compostos por subunidades menores de cerca de 20 a 30 indivíduos, possivelmente relacionados entre si. Não é necessário que os membros de um grupo sejam geneticamente próximos. Os grupos podem apresentar segregação por idade e sexo. O tamanho e espaçamento dos grupos influenciam o comportamento e a taxa de vocalização. Em algumas regiões, os golfinhos comuns são observados em associação com baleias-piloto e outros golfinhos, além de "surfarem" em baleias misticetes. Também é conhecido o comportamento de "acompanhar" atuns-de-barbatana-amarela por parte dos golfinhos comuns em algumas áreas do Pacífico tropical oriental, sendo perseguidos e capturados pelos pescadores de atum.',
     physic:
-      "Possuem um corpo delgado e aerodinâmico, com uma coloração cinza-azulada no dorso e branca no ventre. Apresentam também um padrão de manchas distintivo na região lateral.",
+      "O golfinho comum tem um corpo esbelto e um bico longo que se destaca do melão. Sua nadadeira dorsal é alta e moderadamente falcada. Ele possui um padrão de cores único formado pela sobreposição dorsal e pela capa, resultando em um padrão de cruz nas laterais do corpo. O tamanho adulto varia de cerca de 150 a 225 cm e o peso pode chegar a cerca de 235 kg. O crânio do golfinho comum é diferente dos outros delfinídeos, com um rostro longo e estreito e sulcos palatais profundos. Filogeneticamente, o golfinho comum pertence à subfamília Delphininae, juntamente com outras espécies de golfinhos como o golfinho-de-risso e o golfinho-pintado-do-atlântico.",
     history:
-      "Os golfinhos-comuns têm uma longa história de interação com humanos e são frequentemente avistados em alto-mar durante expedições marítimas.",
+      "A gestação do D. delphis é estimada em 10 a 11,7 meses para várias populações ao redor do mundo. O tamanho estimado ao nascer varia de 80 a 93 cm. O intervalo entre os nascimentos varia de cerca de 1 ano no Mar Negro a cerca de 4 anos no Atlântico Oriental. O desmame ocorre aos 5 a 6 meses no Mar Negro, mas possivelmente mais tarde em outras áreas. As estimativas da idade de maturação sexual variam de acordo com a região, de 3 anos no Mar Negro a 7 a 12 anos no Pacífico Oriental e no Atlântico Ocidental para os machos, e de 2 a 4 e 6 a 8 anos, respectivamente, para as fêmeas. A idade máxima estimada foi de 30 anos para ambos os sexos no Atlântico Norte Ocidental. No ENP, os golfinhos com bico longo e os golfinhos com bico curto têm épocas de reprodução de pico separadas por 3 meses, o que sugere um mecanismo de isolamento reprodutivo entre as formas.",
     migration:
-      "Os golfinhos-comuns podem realizar movimentos migratórios em busca de alimento, seguindo as rotas das espécies de peixes que compõem sua dieta.",
+      "Os golfinhos comuns ocorrem em águas temperadas quentes e tropicais em todo o mundo, aproximadamente entre 40° a 60°N e até cerca de 50°S. Sua ocorrência pode variar sazonalmente e com as flutuações na temperatura da superfície do mar. É uma espécie muito abundante, com estimativas disponíveis para várias regiões: Pacífico tropical oriental, 2.963.000; costa oeste dos EUA, 400.000 (forma de bico curto); águas continentais europeias, 63.400; parte das águas offshore europeias, 273.000; oeste do Atlântico Norte, 121.000; oeste do Mediterrâneo, 19.400. Dados genéticos sugerem a existência de múltiplas populações em todos os oceanos temperados e tropicais, embora o fluxo gênico entre as regiões seja maior do que na maioria dos outros pequenos golfinhos. Houve uma grande redução na população do Mediterrâneo nos últimos 30-40 anos.",
   },
   {
     id: 12,
