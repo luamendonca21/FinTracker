@@ -11,11 +11,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ErrorMessage } from "../Alerts";
 
 import defaultStyles from "../../config/styles";
+import { AppText } from "../Text";
 
 const AppTextInput = ({
   error,
   style,
   submitDisabled,
+  value,
   submitIcon,
   icon,
   onSubmit,
@@ -83,6 +85,7 @@ const AppTextInput = ({
         <TextInput
           ref={localInputRef}
           {...otherProps}
+          value={value}
           onBlur={handleBlur}
           onFocus={handleFocused}
           secureTextEntry={secureTextEntry ? hide()[1] : false}
@@ -90,7 +93,7 @@ const AppTextInput = ({
           placeholderTextColor={defaultStyles.colors.medium}
           style={[defaultStyles.text, styles.textInput]}
         />
-        {secureTextEntry ? (
+        {secureTextEntry && value !== undefined && value !== "" && (
           <TouchableOpacity onPress={handlePress}>
             <MaterialCommunityIcons
               name={hide()[0]}
@@ -98,22 +101,19 @@ const AppTextInput = ({
               color={defaultStyles.colors.black}
             />
           </TouchableOpacity>
-        ) : (
-          ""
         )}
-        {submitIcon && (
-          <TouchableOpacity
-            style={{ opacity: submitDisabled ? 0.5 : 1 }}
-            disabled={submitDisabled}
-            onPress={onSubmit}
-          >
-            <MaterialCommunityIcons
-              name="send"
-              {...otherProps}
-              color={defaultStyles.colors.secondary}
-            />
-          </TouchableOpacity>
-        )}
+        {submitIcon &&
+          value !== undefined &&
+          value !== "" &&
+          !submitDisabled && (
+            <TouchableOpacity onPress={onSubmit}>
+              <MaterialCommunityIcons
+                name="send"
+                {...otherProps}
+                color={defaultStyles.colors.secondary}
+              />
+            </TouchableOpacity>
+          )}
       </View>
       <ErrorMessage error={error} />
     </View>

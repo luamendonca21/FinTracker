@@ -560,7 +560,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
               <AppTextInput
                 style={styles.inputComment}
                 submitIcon
-                submitDisabled={(!comment || isLoadingUpdateComments) && true}
+                submitDisabled={isLoadingUpdateComments}
                 onSubmit={handleSubmit}
                 size={25}
                 maxLength={50}
