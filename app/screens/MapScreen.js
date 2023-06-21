@@ -50,7 +50,7 @@ const MapScreen = ({ navigation, route }) => {
   );
   const [getEventsNearApi, isLoadingEventsNear] = useApi(eventsApi.getNear);
   const [getAllEventsApi] = useApi(eventsApi.getAllEvents);
-  const [updateUserPointsApi, points] = useApi(usersApi.updatePoints);
+  const [updateUserPointsApi, , , points] = useApi(usersApi.updatePoints);
 
   const [updateUserVisitedApi] = useApi(usersApi.updateVisited);
 
@@ -97,8 +97,9 @@ const MapScreen = ({ navigation, route }) => {
 
   const checkVisitedCetaceans = () => {
     const eventsWithin2km = events.filter(
-      (event) => event.dist.calculated / 1000 < 6000
+      (event) => event.dist.calculated / 1000 < 4000
     );
+
     if (eventsWithin2km.length === 0) {
       return;
     }
@@ -254,13 +255,13 @@ const MapScreen = ({ navigation, route }) => {
   }, [location]);
 
   useEffect(() => {
-    location != null && events.length != 0 && checkVisitedCetaceans();
+    location !== null && events.length !== 0 && checkVisitedCetaceans();
   }, [events]);
 
   useEffect(() => {
     console.log("Filtros ativos: ", filtersActive);
 
-    filtersActive.length != 0 && filterEvents();
+    filtersActive.length !== 0 && filterEvents();
   }, [filtersActive]);
 
   return (
