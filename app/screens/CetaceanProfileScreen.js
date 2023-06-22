@@ -7,6 +7,7 @@ import {
   Dimensions,
   FlatList,
   TouchableHighlight,
+  RefreshControl,
 } from "react-native";
 import { LinkButton } from "../components/Buttons";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
@@ -59,6 +60,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   const { user } = useAuth();
 
   // ------ STATE MANAGEMENT -------
+  const [refreshing, setRefreshing] = useState(false);
   const pressDurationRef = useRef(0);
   const [isPressing, setIsPressing] = useState(false);
   const [toolTipId, setToolTipId] = useState(0);
@@ -295,6 +297,14 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   useEffect(() => {
     getCetacean();
   }, [state]);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    getNotifications();
+    getCetacean();
+    getUser();
+    setRefreshing(false);
+  };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -325,7 +335,12 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
           </Swiper>
         </View>
         <View style={styles.profileContainer}>
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <ScrollView
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            showsVerticalScrollIndicator={false}
+          >
             <View style={styles.profileContent}>
               <View style={styles.header}>
                 <View style={{ flex: 1 }}>

@@ -5,6 +5,7 @@ import {
   ScrollView,
   Dimensions,
   FlatList,
+  RefreshControl,
 } from "react-native";
 import LocationContext from "../providers/LocationProvider";
 import { AppText } from "../components/Text";
@@ -41,6 +42,7 @@ const HomeScreen = ({ navigation }) => {
   const { user } = useAuth();
 
   // ------ STATE MANAGEMENT -------
+  const [refreshing, setRefreshing] = useState(false);
   const [username, setUsername] = useState("");
   const [isRankIncreasing, setIsRankIncreasing] = useState(true);
   const [users, setUsers] = useState([]);
@@ -198,9 +200,26 @@ const HomeScreen = ({ navigation }) => {
     users.length != 0 && orderFavoriteCetaceans();
   }, [users]);
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    setRecommendedCetaceans([]);
+    setCetaceans([]);
+    setCloseCetaceans([]);
+    setUsers([]);
+    getAllCetaceans();
+    getUser();
+    getUsers();
+    setRefreshing(false);
+  };
   return (
     <>
-      <ScrollView showsVerticalScrollIndicator={false} ref={scrollRef}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        showsVerticalScrollIndicator={false}
+        ref={scrollRef}
+      >
         <View style={styles.container}>
           <Screen>
             <View

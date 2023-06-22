@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  RefreshControl,
+} from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -45,6 +51,7 @@ function UserProfileScreen({ navigation }) {
   const { user } = useAuth();
 
   // ----- STATE MANAGEMENT ------
+  const [refreshing, setRefreshing] = React.useState(false);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [inputs, setInputs] = useState([]);
@@ -142,6 +149,16 @@ function UserProfileScreen({ navigation }) {
         console.log(error);
       });
   };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setFavoritesIds([]);
+    setFavorites([]);
+    setVisitedIds([]);
+    setVisited([]);
+    getUser();
+    setRefreshing(false);
+  };
   // ------- LIFECYCLE HOOKS --------
 
   useEffect(() => {
@@ -154,6 +171,7 @@ function UserProfileScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
+    console.log("IDS: ", favoritesIds);
     favoritesIds.forEach((value) => {
       getCetaceansById(value)
         .then((response) => {
@@ -165,6 +183,10 @@ function UserProfileScreen({ navigation }) {
         });
     });
   }, [favoritesIds]);
+
+  useEffect(() => {
+    console.log("Favoritos: ", favorites);
+  }, [favorites]);
   useEffect(() => {
     visitedIds.forEach((value) => {
       getCetaceansById(value)
@@ -200,7 +222,15 @@ function UserProfileScreen({ navigation }) {
               />
             </View>
             <View style={styles.profileContainer}>
-              <ScrollView showsVerticalScrollIndicator={false}>
+              <ScrollView
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                  />
+                }
+                showsVerticalScrollIndicator={false}
+              >
                 <View style={styles.header}>
                   {!isLoadingUser ? (
                     <AppText style={styles.userName}>{username}</AppText>
