@@ -302,7 +302,6 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
     setRefreshing(true);
     getNotifications();
     getCetacean();
-    getUser();
     setRefreshing(false);
   };
   return (
