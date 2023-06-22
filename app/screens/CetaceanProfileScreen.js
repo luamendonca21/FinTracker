@@ -295,13 +295,16 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   }, []);
 
   useEffect(() => {
+    setComments([]);
     getCetacean();
   }, [state]);
 
   const onRefresh = () => {
     setRefreshing(true);
+    setComments([]);
     getNotifications();
     getCetacean();
+    getUser();
     setRefreshing(false);
   };
   return (

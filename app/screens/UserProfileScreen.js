@@ -156,6 +156,8 @@ function UserProfileScreen({ navigation }) {
     setFavorites([]);
     setVisitedIds([]);
     setVisited([]);
+    setDetailsActive([]);
+    getUserDetails();
     getUser();
     setRefreshing(false);
   };
