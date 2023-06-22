@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
-import { reloadAsync } from "expo-updates";
 
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
@@ -26,7 +25,7 @@ import defaultStyles from "../config/styles";
 const schema = yup.object({
   username: yup.string().required("Por favor, introduz o nome de utilizador."),
 });
-const UsernameScreen = ({}) => {
+const UsernameScreen = ({ navigation }) => {
   const {
     control,
     reset,
@@ -41,14 +40,11 @@ const UsernameScreen = ({}) => {
   const [updateUsernameApi, isLoading, error] = useApi(usersApi.updateUsername);
 
   // ------ UTILITIES -------
-  function handleReload() {
-    reloadAsync();
-  }
 
   const changeUsername = (data) => {
     updateUsernameApi(user.id, data)
       .then((response) => {
-        handleReload();
+        navigation.goBack();
       })
       .catch((error) => console.log(error))
       .finally(() => {
