@@ -1,4 +1,5 @@
 import ApiManager from "./ApiManager";
+
 const forgotPassword = async (data) => {
   try {
     const response = await ApiManager.post(`/user/forgotPassword`, data);
@@ -7,6 +8,7 @@ const forgotPassword = async (data) => {
     throw error.response.data;
   }
 };
+
 const getDetails = async (id) => {
   try {
     const response = await ApiManager.get(`/user/${id}/details`);
@@ -24,6 +26,7 @@ const getUser = async (id) => {
     throw error.response.data;
   }
 };
+
 const getPicture = async (id) => {
   try {
     const response = await ApiManager.get(`user/${id}/picture`);
@@ -32,6 +35,7 @@ const getPicture = async (id) => {
     throw error.response.data;
   }
 };
+
 const getUsers = async () => {
   try {
     const response = await ApiManager.get(`/users`);
@@ -40,6 +44,7 @@ const getUsers = async () => {
     throw error.response.data;
   }
 };
+
 const updatePassword = async (id, data) => {
   try {
     const response = await ApiManager.put(`/user/${id}/password`, data);
@@ -48,6 +53,7 @@ const updatePassword = async (id, data) => {
     throw error.response.data;
   }
 };
+
 const updateDetails = async (id, data) => {
   try {
     const response = await ApiManager.put(`/user/${id}/details`, data);
@@ -56,6 +62,7 @@ const updateDetails = async (id, data) => {
     throw error.response.data;
   }
 };
+
 const updateUsername = async (id, data) => {
   try {
     const response = await ApiManager.put(`/user/${id}/username`, data);
@@ -64,6 +71,7 @@ const updateUsername = async (id, data) => {
     throw error.response.data;
   }
 };
+
 const updatePoints = async (id, data) => {
   try {
     const response = await ApiManager.put(`/user/${id}/points`, data);
@@ -72,6 +80,7 @@ const updatePoints = async (id, data) => {
     throw error.response.data;
   }
 };
+
 const updateVisited = async (id, data) => {
   try {
     const response = await ApiManager.put(`/user/${id}/visited`, data);
@@ -80,8 +89,8 @@ const updateVisited = async (id, data) => {
     throw error.response.data;
   }
 };
+
 const updatePicture = async (id, data) => {
-  console.log(data);
   try {
     const response = await ApiManager.put(`/user/${id}/picture`, data);
     return response.data;
@@ -89,6 +98,7 @@ const updatePicture = async (id, data) => {
     throw error;
   }
 };
+
 const updateFavorite = async (id, data) => {
   try {
     const response = await ApiManager.put(`/user/${id}/favorites`, {
@@ -99,6 +109,7 @@ const updateFavorite = async (id, data) => {
     throw error.response.data;
   }
 };
+
 const deleteFavorite = async (id, data) => {
   try {
     const response = await ApiManager.put(`/user/${id}/favorites/remove`, {
@@ -109,6 +120,7 @@ const deleteFavorite = async (id, data) => {
     throw error.response.data;
   }
 };
+
 const deletePicture = async (id) => {
   try {
     const response = await ApiManager.delete(`/user/${id}/deletePicture`);
@@ -117,6 +129,7 @@ const deletePicture = async (id) => {
     throw error.response.data;
   }
 };
+
 export default {
   forgotPassword,
   getDetails,

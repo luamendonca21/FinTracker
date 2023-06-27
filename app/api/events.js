@@ -1,4 +1,5 @@
 import ApiManager from "./ApiManager";
+
 const storeEvent = async (data) => {
   try {
     const response = await ApiManager.post(`/events`, data);
@@ -7,6 +8,7 @@ const storeEvent = async (data) => {
     throw error.response.data;
   }
 };
+
 const deleteAllEvents = async () => {
   try {
     const response = await ApiManager.delete(`/events`);
@@ -15,6 +17,7 @@ const deleteAllEvents = async () => {
     throw error.response.data;
   }
 };
+
 const getAllEvents = async () => {
   try {
     const response = await ApiManager.get(`/events`);
@@ -23,6 +26,7 @@ const getAllEvents = async () => {
     throw error.response.data;
   }
 };
+
 const getEventsById = async (id) => {
   try {
     const response = await ApiManager.get(`/events/${id}`);
@@ -31,6 +35,7 @@ const getEventsById = async (id) => {
     throw error.response.data;
   }
 };
+
 const getNear = async (data) => {
   const { lat, long } = data;
   try {

@@ -62,12 +62,13 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
   const send = async (data) => {
     forgetPasswordApi(data)
-      .then((response) => {})
+      .then(() => {
+        reset();
+      })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
-        reset();
         showAlert(true);
       });
   };

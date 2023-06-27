@@ -1,4 +1,5 @@
 import ApiManager from "./ApiManager";
+
 const storeCetacean = async (data) => {
   try {
     const response = await ApiManager.post(`/cetaceans`, data);
@@ -7,6 +8,7 @@ const storeCetacean = async (data) => {
     throw error.response.data;
   }
 };
+
 const updateComments = async (data, id) => {
   try {
     const response = await ApiManager.put(`/comments/${id}`, data);
@@ -15,6 +17,7 @@ const updateComments = async (data, id) => {
     throw error.response.data;
   }
 };
+
 const getAllCetaceans = async () => {
   try {
     const response = await ApiManager.get(`/allCetaceans`);
@@ -23,6 +26,7 @@ const getAllCetaceans = async () => {
     throw error.response.data;
   }
 };
+
 const getById = async (id) => {
   try {
     const response = await ApiManager.get(`/cetaceans/${id}`);
@@ -31,6 +35,7 @@ const getById = async (id) => {
     throw error.response.data;
   }
 };
+
 const deleteAllCetaceans = async () => {
   try {
     const response = await ApiManager.delete(`/cetaceans`);
@@ -48,6 +53,7 @@ const deleteComment = async (id, cetaceanId) => {
     throw error.response.data;
   }
 };
+
 export default {
   storeCetacean,
   updateComments,

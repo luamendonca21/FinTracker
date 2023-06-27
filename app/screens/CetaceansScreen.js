@@ -16,7 +16,6 @@ import defaultStyles from "../config/styles";
 const CetaceansScreen = ({ navigation }) => {
   // ------- STATE MANAGEMENT -------
   const [cetaceans, setCetaceans] = useState([]);
-
   const [searchQuery, setSearchQuery] = useState("");
 
   // -------- APIS ----------

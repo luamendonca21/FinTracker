@@ -11,7 +11,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ErrorMessage } from "../Alerts";
 
 import defaultStyles from "../../config/styles";
-import { AppText } from "../Text";
 
 const AppTextInput = ({
   error,
@@ -84,7 +83,6 @@ const AppTextInput = ({
         )}
         <TextInput
           ref={localInputRef}
-          {...otherProps}
           value={value}
           onBlur={handleBlur}
           onFocus={handleFocused}

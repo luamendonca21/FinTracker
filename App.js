@@ -1,28 +1,28 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { StatusBar } from "react-native";
-import { LocationProvider } from "./app/providers/LocationProvider";
 import { useNetInfo } from "@react-native-community/netinfo";
 import * as SplashScreen from "expo-splash-screen";
-
 import { NavigationContainer } from "@react-navigation/native";
+
 import AppNavigator from "./app/navigation/AppNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import { OfflineNotice } from "./app/components/Alerts";
 
-import AuthContext from "./app/auth/context";
-import authStorage from "./app/auth/storage";
-
 import info from "./app/info/cetaceans";
 import fakeInfo from "./app/info/fakeCetaceans";
+import fakeCetaceans from "./app/info/fakeCetaceans";
+import fakeEvents from "./app/info/fakeEvents";
 import cetaceansApi from "./app/api/cetaceans";
 import eventsApi from "./app/api/events";
 import useApi from "./app/hooks/useApi";
 import movebankApi from "./app/api/movebankApi";
 
+import { LocationProvider } from "./app/providers/LocationProvider";
+import AuthContext from "./app/auth/context";
+import authStorage from "./app/auth/storage";
+
 import myTheme from "./app/navigation/navigationTheme";
 import defaultStyles from "./app/config/styles";
-import fakeCetaceans from "./app/info/fakeCetaceans";
-import fakeEvents from "./app/info/fakeEvents";
 
 SplashScreen.preventAutoHideAsync();
 

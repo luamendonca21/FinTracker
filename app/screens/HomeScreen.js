@@ -7,13 +7,13 @@ import {
   FlatList,
   RefreshControl,
 } from "react-native";
-import LocationContext from "../providers/LocationProvider";
+
 import { AppText } from "../components/Text";
 import { AppButton, AppSecondaryButton } from "../components/Buttons";
 import GlowingCircle from "../assets/animations/GlowingCircle";
 import Screen from "../components/Screen";
 import IndexCarousel from "../components/Carousels/IndexCarousel/IndexCarousel";
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { RecommendedItem, CloseItem, RankItem } from "../components/Items";
 import { Skeleton } from "../components/Loaders";
 import { NoContentCard } from "../components/Alerts";
@@ -24,8 +24,8 @@ import usersApi from "../api/user";
 import cetaceansApi from "../api/cetaceans";
 import eventsApi from "../api/events";
 
+import LocationContext from "../providers/LocationProvider";
 import { homeScreenShortcuts as shortcuts } from "../info/data";
-import routes from "../navigation/routes";
 import settings from "../config/settings";
 
 import defaultStyles from "../config/styles";
@@ -43,26 +43,22 @@ const HomeScreen = ({ navigation }) => {
 
   // ------ STATE MANAGEMENT -------
   const [refreshing, setRefreshing] = useState(false);
-  const [username, setUsername] = useState("");
+  const [isLoadingRecommended, setIsLoadingRecommmended] = useState([]);
   const [isRankIncreasing, setIsRankIncreasing] = useState(true);
+
+  const [username, setUsername] = useState("");
+  const [cetaceans, setCetaceans] = useState([]);
+  const [closeCetaceans, setCloseCetaceans] = useState([]);
+  const [recommendedCetaceans, setRecommendedCetaceans] = useState([]);
   const [users, setUsers] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
-  const [cetaceans, setCetaceans] = useState([]);
-  const [recommendedCetaceans, setRecommendedCetaceans] = useState([]);
-  const [closeCetaceans, setCloseCetaceans] = useState([]);
-  const [isLoadingRecommended, setIsLoadingRecommmended] = useState([]);
 
   // ------- APIS -------
-  const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
-  const [getUsersApi, isLoadingUsers, errorGetUsers] = useApi(
-    usersApi.getUsers
-  );
-  const [getAllCetaceansApi, isLoadingAllCetaceans, errorGetAllCetaceans] =
-    useApi(cetaceansApi.getAllCetaceans);
-  const [getCetaceansByIdApi, errorGetCetaceans] = useApi(cetaceansApi.getById);
-  const [getEventsNearApi, isLoadingEventsNear, errorGetEventsNear] = useApi(
-    eventsApi.getNear
-  );
+  const [getUserApi, isLoadingUser] = useApi(usersApi.getUser);
+  const [getUsersApi, isLoadingUsers] = useApi(usersApi.getUsers);
+  const [getAllCetaceansApi] = useApi(cetaceansApi.getAllCetaceans);
+  const [getCetaceansByIdApi] = useApi(cetaceansApi.getById);
+  const [getEventsNearApi] = useApi(eventsApi.getNear);
 
   // ------- UTILITIES --------
 
@@ -129,7 +125,7 @@ const HomeScreen = ({ navigation }) => {
     return item;
   };
 
-  const renderCetacean = ({ item, index }) => {
+  const renderRecommendedItem = ({ item, index }) => {
     return (
       <RecommendedItem
         key={index}
@@ -138,7 +134,8 @@ const HomeScreen = ({ navigation }) => {
       />
     );
   };
-  const renderItem = ({ item, index }) => {
+
+  const renderRankItem = ({ item, index }) => {
     return <RankItem item={item} index={index} />;
   };
 
@@ -177,6 +174,18 @@ const HomeScreen = ({ navigation }) => {
       .catch((error) => console.log(error));
   };
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    setRecommendedCetaceans([]);
+    setCetaceans([]);
+    setCloseCetaceans([]);
+    setUsers([]);
+    getAllCetaceans();
+    getUser();
+    getUsers();
+    setRefreshing(false);
+  };
+
   // ------ LIFECYCLE HOOKS --------
   useEffect(() => {
     getAllCetaceans();
@@ -201,20 +210,8 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     users.length != 0 && orderFavoriteCetaceans();
-    console.log(recommendedCetaceans);
   }, [users]);
 
-  const onRefresh = () => {
-    setRefreshing(true);
-    setRecommendedCetaceans([]);
-    setCetaceans([]);
-    setCloseCetaceans([]);
-    setUsers([]);
-    getAllCetaceans();
-    getUser();
-    getUsers();
-    setRefreshing(false);
-  };
   return (
     <>
       <ScrollView
@@ -298,7 +295,7 @@ const HomeScreen = ({ navigation }) => {
                 nestedScrollEnabled
                 data={recommendedCetaceans}
                 keyExtractor={(item) => item._id}
-                renderItem={renderCetacean}
+                renderItem={renderRecommendedItem}
               />
             ) : isLoadingUsers || isLoadingRecommended ? (
               <Skeleton style={styles.recommendedContainer} />
@@ -346,7 +343,7 @@ const HomeScreen = ({ navigation }) => {
                 nestedScrollEnabled
                 data={sortedUsers}
                 keyExtractor={(item) => item._id}
-                renderItem={renderItem}
+                renderItem={renderRankItem}
               />
             ) : (
               <Skeleton style={styles.rankContainer} />

@@ -13,6 +13,7 @@ const ContactsScreen = ({ navigation }) => {
 
     Linking.openURL(mailToUrl);
   };
+
   return (
     <View style={styles.container}>
       <TouchableHighlight

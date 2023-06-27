@@ -55,25 +55,21 @@ function UserProfileScreen({ route, navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [inputs, setInputs] = useState([]);
-  const [points, setPoints] = useState(0);
+
   const [username, setUsername] = useState("");
+  const [points, setPoints] = useState(0);
+  const [inputs, setInputs] = useState([]);
   const [detailsActive, setDetailsActive] = useState([]);
   const [favoritesIds, setFavoritesIds] = useState([]);
-  const [visitedIds, setVisitedIds] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [visitedIds, setVisitedIds] = useState([]);
   const [visited, setVisited] = useState([]);
 
   // ------ APIS ------
-  const [updateUserDetailsApi, isLoadingDetailsUpdate, errorUpdateDetails] =
-    useApi(usersApi.updateDetails);
-  const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
-  const [getUserDetailsApi, isLoadingDetails, errorGetDetails] = useApi(
-    usersApi.getDetails
-  );
-  const [getCetaceansById, isLoadingCetaceans, errorGetCetaceans] = useApi(
-    cetaceansApi.getById
-  );
+  const [updateUserDetailsApi] = useApi(usersApi.updateDetails);
+  const [getUserApi, isLoadingUser] = useApi(usersApi.getUser);
+  const [getUserDetailsApi, isLoadingDetails] = useApi(usersApi.getDetails);
+  const [getCetaceansById, isLoadingCetaceans] = useApi(cetaceansApi.getById);
 
   // --------- UTILITIES -----------
 
@@ -162,6 +158,7 @@ function UserProfileScreen({ route, navigation }) {
     getUser();
     setRefreshing(false);
   };
+
   // ------- LIFECYCLE HOOKS --------
 
   useEffect(() => {
@@ -174,7 +171,6 @@ function UserProfileScreen({ route, navigation }) {
   }, []);
 
   useEffect(() => {
-    console.log("IDS: ", favoritesIds);
     favoritesIds.forEach((value) => {
       getCetaceansById(value)
         .then((response) => {
@@ -187,9 +183,6 @@ function UserProfileScreen({ route, navigation }) {
     });
   }, [favoritesIds]);
 
-  useEffect(() => {
-    console.log("Favoritos: ", favorites);
-  }, [favorites]);
   useEffect(() => {
     visitedIds.forEach((value) => {
       getCetaceansById(value)

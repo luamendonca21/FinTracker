@@ -61,8 +61,7 @@ const LoginScreen = ({ navigation }) => {
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(() => {});
+      });
   };
 
   return (

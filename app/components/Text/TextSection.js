@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import AppText from "./AppText";
-import defaultStyles from "../../config/styles";
+
 const TextSection = ({
   titleStyle,
   subTitleStyle,

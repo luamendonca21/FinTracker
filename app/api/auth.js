@@ -1,5 +1,4 @@
 import ApiManager from "./ApiManager";
-import authStorage from "../auth/storage";
 
 const register = async (data) => {
   try {
@@ -9,6 +8,7 @@ const register = async (data) => {
     throw error.response.data;
   }
 };
+
 const login = async (data) => {
   try {
     const response = await ApiManager.post("/auth/login", data);
@@ -17,10 +17,9 @@ const login = async (data) => {
     throw error.response.data;
   }
 };
+
 const deleteAccount = async (id) => {
   try {
-    const token = await authStorage.getToken();
-
     const response = await ApiManager.delete(`/auth/${id}/remove`);
     return response.data;
   } catch (error) {

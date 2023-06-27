@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { TouchableOpacity, StyleSheet, Animated } from "react-native";
 
-import AppText from "../Text/AppText";
-import { animateScale } from "../../assets/animations/AnimateScale";
 import { LinearGradient } from "expo-linear-gradient";
+
+import AppText from "../Text/AppText";
+
+import { animateScale } from "../../assets/animations/AnimateScale";
+
 import defaultStyles from "../../config/styles";
 
 const AppButton = ({

@@ -9,27 +9,29 @@ import {
   TouchableHighlight,
   RefreshControl,
 } from "react-native";
-import { LinkButton } from "../components/Buttons";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import Fade from "../assets/animations/Fade";
-import { AppText } from "../components/Text";
+import { AppText, TextSection } from "../components/Text";
 import {
   ListDetails,
   ListOptions,
   ListItemSeparator,
 } from "../components/Lists";
-import { IconButton, AppSecondaryButton } from "../components/Buttons";
+import {
+  IconButton,
+  AppSecondaryButton,
+  LinkButton,
+} from "../components/Buttons";
 import BottomSheet from "../components/BottomSheet";
 import { AppTextInput } from "../components/Inputs";
 import { Skeleton } from "../components/Loaders";
 import Comment from "../components/Comment";
 import { NoContentCard } from "../components/Alerts";
 import { Map } from "../components/Map";
-import TextSection from "../components/Text/TextSection";
 import ToolTip from "../components/ToolTip";
 
 import cetaceansApi from "../api/cetaceans";
@@ -58,21 +60,24 @@ const notifications = [
 const CetaceanProfileScreen = ({ route, navigation }) => {
   const baseURL = settings.apiUrl;
   const { user } = useAuth();
+  const { item } = route.params;
+
+  const pressDurationRef = useRef(0);
 
   // ------ STATE MANAGEMENT -------
-  const [refreshing, setRefreshing] = useState(false);
-  const pressDurationRef = useRef(0);
-  const [isPressing, setIsPressing] = useState(false);
-  const [toolTipId, setToolTipId] = useState(0);
-  const [state, setState] = useState(0);
-  const { item } = route.params;
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isVisited, setIsVisited] = useState(false);
-  const [isCommentsRecente, setIsCommentsRecente] = useState(false);
 
+  const [state, setState] = useState(0);
+
+  const [isPressing, setIsPressing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isCommentsRecente, setIsCommentsRecente] = useState(false);
+  const [isVisited, setIsVisited] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
 
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [toolTipId, setToolTipId] = useState(0);
+
   const [inputs, setInputs] = useState([]);
   const [notificationsActive, setNotificationsActive] = useState([]);
 
@@ -83,11 +88,9 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   const [updateFavoriteApi] = useApi(usersApi.updateFavorite);
   const [deleteFavoriteApi] = useApi(usersApi.deleteFavorite);
   const [getUserApi, isLoadingUser] = useApi(usersApi.getUser);
-
   const [updateCommentsApi, isLoadingUpdateComments] = useApi(
     cetaceansApi.updateComments
   );
-
   const [getCetaceanById, isLoadingGetCetacean] = useApi(cetaceansApi.getById);
   const [deleteCommentApi, isLoadingDeleteComment] = useApi(
     cetaceansApi.deleteComment
@@ -95,16 +98,16 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
 
   // ---------- UTILITIES -----------
 
+  const update = () => {
+    setState((state) => state + 1);
+  };
+
   const handleNextToolTip = () => {
     if (toolTipId <= 4) {
       setToolTipId(toolTipId + 1);
     } else if (toolTipId === 5) {
       setToolTipId(0);
     }
-  };
-
-  const update = () => {
-    setState((state) => state + 1);
   };
 
   const handleFavoritePress = () => {
@@ -286,6 +289,15 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
       });
   };
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    setComments([]);
+    getNotifications();
+    getCetacean();
+    getUser();
+    setRefreshing(false);
+  };
+
   // ----------- LIFECYCLE HOOKS ------------
   useEffect(() => {
     inputs.length != 0 && storeNotifications();
@@ -303,14 +315,6 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
     getCetacean();
   }, [state]);
 
-  const onRefresh = () => {
-    setRefreshing(true);
-    setComments([]);
-    getNotifications();
-    getCetacean();
-    getUser();
-    setRefreshing(false);
-  };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>

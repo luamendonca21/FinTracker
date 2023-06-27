@@ -6,15 +6,6 @@ import { AppText } from "../Text";
 import defaultStyles from "../../config/styles";
 
 const Detail = ({ title, subTitle }) => {
-  /* const transform = (string) => {
-    const toUpperCase = string.charAt(0).toUpperCase() + string.substring(1);
-    const splitOnCapitalLetters = toUpperCase.split(/(?=[A-Z])/);
-    let result = "";
-    splitOnCapitalLetters.forEach((element) => {
-      result += ` ` + element;
-    });
-    return result;
-  }; */
   return (
     <View style={styles.container}>
       <AppText style={styles.title}>{title}</AppText>
