@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useNavigation, CommonActions } from "@react-navigation/native";
+
 import { MaterialIcons } from "@expo/vector-icons";
 
 import { Alert } from "./Alerts";
@@ -12,7 +14,7 @@ import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
 import { firebase } from "../firebaseConfig";
 
-import settings from "../config/settings";
+import routes from "../navigation/routes";
 import defaultStyles from "../config/styles";
 
 const ProfileImage = ({
@@ -20,10 +22,12 @@ const ProfileImage = ({
   size,
   deleteIcon,
   userId,
+  userProfileId,
   loadingSkeleton,
 }) => {
   // retrieve the user logged
   const { user } = useAuth();
+  const navigation = useNavigation();
 
   // ----- STATE MANAGEMENT ------
   const [alert, setAlert] = useState({
@@ -124,7 +128,7 @@ const ProfileImage = ({
   };
 
   const handleGetPicture = () => {
-    const id = userId ? userId : user.id;
+    const id = userId ? userId : userProfileId ? userProfileId : user.id;
 
     getPictureApi(id)
       .then((response) => setImage(response.userPictureUrl))
@@ -141,6 +145,13 @@ const ProfileImage = ({
   const hideAlert = () => {
     setIsAlertVisible(false);
   };
+
+  const navigateToProfile = () => {
+    navigation.push(routes.USER_PROFILE, { userProfileId: userId });
+  };
+
+  const Component = userId && userId !== user.id ? TouchableOpacity : View;
+
   // ------ LIFECYCLE HOOKS ------
 
   useEffect(() => {
@@ -157,7 +168,8 @@ const ProfileImage = ({
     <ActivityIndicator visible={true} />
   ) : (
     <>
-      <View
+      <Component
+        onPress={navigateToProfile}
         style={[styles.container, { width: size.width, height: size.height }]}
       >
         {image ? (
@@ -181,7 +193,7 @@ const ProfileImage = ({
             />
           </View>
         )}
-        {addIcon && (
+        {addIcon && !userProfileId && (
           <Icon
             onPress={handleAddImagePress}
             style={styles.addIcon}
@@ -191,7 +203,7 @@ const ProfileImage = ({
             backgroundColor={defaultStyles.colors.white}
           />
         )}
-        {deleteIcon && image !== null && (
+        {deleteIcon && image !== null && !userProfileId && (
           <Icon
             onPress={() =>
               showAlert({
@@ -209,7 +221,7 @@ const ProfileImage = ({
             backgroundColor={defaultStyles.colors.white}
           />
         )}
-      </View>
+      </Component>
       <Alert
         showAlert={isAlertVisible}
         msg={alert.title}

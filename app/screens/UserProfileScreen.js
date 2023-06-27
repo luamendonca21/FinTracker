@@ -37,7 +37,8 @@ import defaultStyles from "../config/styles";
 const windowHeight = Dimensions.get("window").height;
 
 const PICTURE_SIZE = 250;
-function UserProfileScreen({ navigation }) {
+function UserProfileScreen({ route, navigation }) {
+  const userProfileId = route?.params?.userProfileId;
   // available details for user
   const details = [
     { id: 1, title: "Idade" },
@@ -129,7 +130,7 @@ function UserProfileScreen({ navigation }) {
   };
 
   const getUser = () => {
-    getUserApi(user.id)
+    getUserApi(userProfileId !== undefined ? userProfileId : user.id)
       .then((response) => {
         setPoints(response.points);
         setUsername(response.username);
@@ -141,7 +142,7 @@ function UserProfileScreen({ navigation }) {
       });
   };
   const getUserDetails = () => {
-    getUserDetailsApi(user.id)
+    getUserDetailsApi(userProfileId !== undefined ? userProfileId : user.id)
       .then((response) => {
         setDetailsActive(response.details);
       })
@@ -164,7 +165,7 @@ function UserProfileScreen({ navigation }) {
   // ------- LIFECYCLE HOOKS --------
 
   useEffect(() => {
-    updateUserDetails();
+    !userProfileId && updateUserDetails();
   }, [detailsActive]);
 
   useEffect(() => {
@@ -217,6 +218,7 @@ function UserProfileScreen({ navigation }) {
                 backgroundColor={defaultStyles.colors.white}
               />
               <ProfileImage
+                userProfileId={userProfileId !== undefined && userProfileId}
                 loadingSkeleton
                 deleteIcon
                 addIcon
@@ -266,13 +268,15 @@ function UserProfileScreen({ navigation }) {
                 <View style={styles.body}>
                   <View style={styles.detailsHeader}>
                     <AppText style={styles.title}>Detalhes</AppText>
-                    <IconButton
-                      style={styles.iconButton}
-                      onPress={handleEditDetailsPress}
-                      color={defaultStyles.colors.black}
-                      name="edit"
-                      size={25}
-                    />
+                    {!userProfileId && (
+                      <IconButton
+                        style={styles.iconButton}
+                        onPress={handleEditDetailsPress}
+                        color={defaultStyles.colors.black}
+                        name="edit"
+                        size={25}
+                      />
+                    )}
                   </View>
                   {isLoadingDetails ? (
                     <Skeleton style={{ width: "100%", height: 80 }} />

@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import { AppText } from "../Text";
 import settings from "../../config/settings";
@@ -20,9 +21,21 @@ const RecommendedItem = ({ item, onPress }) => {
           source={{ uri: `${baseURL}\\${item.picture.src}` }}
         />
         <View style={styles.textContainer}>
-          <AppText numberOfLines={1} style={styles.title}>
-            {item.name}
-          </AppText>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "72%",
+            }}
+          >
+            <AppText numberOfLines={1} style={styles.title}>
+              {item.name}
+            </AppText>
+            <View style={styles.countsContainer}>
+              <AppText style={styles.counts}>{item.counts}</AppText>
+              <MaterialIcons name="favorite" size={18} color="red" />
+            </View>
+          </View>
           <AppText numberOfLines={3} style={styles.subTitle}>
             {item.introduction}
           </AppText>
@@ -54,10 +67,24 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     padding: 10,
-    width: "98%",
+    width: "100%",
   },
-  title: { fontSize: 18, width: "75%", fontWeight: "bold" },
-  subTitle: { width: "75%" },
+  title: {
+    width: "70%",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  counts: {
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+  countsContainer: {
+    flexDirection: "row",
+    width: 30,
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  subTitle: { width: "70%" },
 });
 
 export default RecommendedItem;

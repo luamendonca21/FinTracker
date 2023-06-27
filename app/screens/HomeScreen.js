@@ -110,6 +110,9 @@ const HomeScreen = ({ navigation }) => {
     };
 
     getCetaceansByIds(sortedIds).then((recommendedCetaceans) => {
+      recommendedCetaceans.map(
+        (value) => (value["counts"] = idCounts[value.individualId])
+      );
       setRecommendedCetaceans(recommendedCetaceans);
       setIsLoadingRecommmended(false);
     });
@@ -198,6 +201,7 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     users.length != 0 && orderFavoriteCetaceans();
+    console.log(recommendedCetaceans);
   }, [users]);
 
   const onRefresh = () => {

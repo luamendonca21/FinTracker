@@ -15,6 +15,7 @@ import UsernameScreen from "../screens/UsernameScreen";
 import MapScreen from "../screens/MapScreen";
 import defaultStyles from "../config/styles";
 import CetaceanProfileScreen from "../screens/CetaceanProfileScreen";
+import UserProfileScreen from "../screens/UserProfileScreen";
 import ContactsScreen from "../screens/ContactsScreen";
 import CetaceanActivityScreen from "../screens/CetaceanActivityScreen";
 
@@ -125,6 +126,13 @@ const HomeNavigator = () => (
       }}
       name="MapScreen"
       component={MapScreen}
+    />
+    <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      name="ProfileScreen"
+      component={UserProfileScreen}
     />
   </Stack.Navigator>
 );

@@ -11,7 +11,7 @@ function Carousel({ data, style }) {
       <View style={[styles.container, style]}>
         {data.map((item, index) => (
           <CarouselItem
-            onPress={() => navigation.navigate("CetaceansProfile", { item })}
+            onPress={() => navigation.push("CetaceansProfile", { item })}
             key={index}
             item={item}
           />

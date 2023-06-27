@@ -67,6 +67,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   const [state, setState] = useState(0);
   const { item } = route.params;
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isVisited, setIsVisited] = useState(false);
   const [isCommentsRecente, setIsCommentsRecente] = useState(false);
 
   const [isBottomSheetActive, setBottomSheetActive] = useState(false);
@@ -265,6 +266,9 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
         if (response.favorites.includes(item.individualId)) {
           setIsFavorite(true);
         }
+        if (response.visited.includes(item.individualId)) {
+          setIsVisited(true);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -426,8 +430,8 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
               >
                 <ListDetails details={item.details} />
               </ScrollView>
-              {/*               <AppText>{`IndividualId: ${item.individualId}`}</AppText>
-               */}
+              <AppText>{`IndividualId: ${item.individualId}`}</AppText>
+
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <AppText style={styles.title}>Monitorização</AppText>
                 <ToolTip
@@ -531,56 +535,60 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                   }}
                 ></Map>
               </TouchableHighlight>
-              <AppText style={styles.title}>Comentários</AppText>
-              {comments.length >= 2 && (
-                <AppSecondaryButton
-                  onPress={handleCommentsOrderPress}
-                  title={
-                    isCommentsRecente
-                      ? "Ordenar por antigos"
-                      : "Ordenar por recentes"
-                  }
-                  style={styles.orderButton}
-                  styleText={{ fontSize: 15 }}
-                />
-              )}
-              <AppTextInput
-                style={styles.inputComment}
-                submitIcon
-                submitDisabled={isLoadingUpdateComments}
-                onSubmit={handleSubmit}
-                size={25}
-                maxLength={50}
-                value={comment}
-                onChangeText={(text) => handleComment(text)}
-                icon="comment"
-                placeholder="Adicione um comentário..."
-              />
-              {comments.length != 0 ? (
-                <FlatList
-                  style={styles.commentsBox}
-                  horizontal={false}
-                  nestedScrollEnabled
-                  showsVerticalScrollIndicator
-                  data={comments}
-                  renderItem={renderComment}
-                  ItemSeparatorComponent={() => (
-                    <ListItemSeparator
-                      width="95%"
-                      color={defaultStyles.colors.transparent}
+              {isVisited && (
+                <>
+                  <AppText style={styles.title}>Comentários</AppText>
+                  {comments.length >= 2 && (
+                    <AppSecondaryButton
+                      onPress={handleCommentsOrderPress}
+                      title={
+                        isCommentsRecente
+                          ? "Ordenar por antigos"
+                          : "Ordenar por recentes"
+                      }
+                      style={styles.orderButton}
+                      styleText={{ fontSize: 15 }}
                     />
                   )}
-                />
-              ) : isLoadingGetCetacean ||
-                isLoadingUpdateComments ||
-                isLoadingDeleteComment ? (
-                <Skeleton style={styles.skeletonComments} />
-              ) : !isLoadingGetCetacean && comments.length == 0 ? (
-                <NoContentCard
-                  msg="Ainda não há comentários"
-                  style={styles.noContentCard}
-                />
-              ) : null}
+                  <AppTextInput
+                    style={styles.inputComment}
+                    submitIcon
+                    submitDisabled={isLoadingUpdateComments}
+                    onSubmit={handleSubmit}
+                    size={25}
+                    maxLength={50}
+                    value={comment}
+                    onChangeText={(text) => handleComment(text)}
+                    icon="comment"
+                    placeholder="Adicione um comentário..."
+                  />
+                  {comments.length != 0 ? (
+                    <FlatList
+                      style={styles.commentsBox}
+                      horizontal={false}
+                      nestedScrollEnabled
+                      showsVerticalScrollIndicator
+                      data={comments}
+                      renderItem={renderComment}
+                      ItemSeparatorComponent={() => (
+                        <ListItemSeparator
+                          width="95%"
+                          color={defaultStyles.colors.transparent}
+                        />
+                      )}
+                    />
+                  ) : isLoadingGetCetacean ||
+                    isLoadingUpdateComments ||
+                    isLoadingDeleteComment ? (
+                    <Skeleton style={styles.skeletonComments} />
+                  ) : !isLoadingGetCetacean && comments.length == 0 ? (
+                    <NoContentCard
+                      msg="Ainda não há comentários"
+                      style={styles.noContentCard}
+                    />
+                  ) : null}
+                </>
+              )}
             </View>
           </ScrollView>
         </View>
