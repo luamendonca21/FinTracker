@@ -102,9 +102,7 @@ function UserProfileScreen({ route, navigation }) {
     setIsAnimating(false);
 
     // only unmount the bottom sheet when the fade out animation finish
-    setTimeout(() => {
-      setBottomSheetActive(false);
-    }, 460);
+    setTimeout(() => setBottomSheetActive(false), 460);
   };
 
   const handleApplyChanges = () => {
@@ -112,9 +110,7 @@ function UserProfileScreen({ route, navigation }) {
     setIsAnimating(false);
 
     // only unmount the bottom sheet when the fade out animation finish
-    setTimeout(() => {
-      setBottomSheetActive(false);
-    }, 460);
+    setTimeout(() => setBottomSheetActive(false), 460);
   };
 
   const updateUserDetails = () => {
@@ -263,6 +259,7 @@ function UserProfileScreen({ route, navigation }) {
                     <AppText style={styles.title}>Detalhes</AppText>
                     {!userProfileId && (
                       <IconButton
+                        animate
                         style={styles.iconButton}
                         onPress={handleEditDetailsPress}
                         color={defaultStyles.colors.black}

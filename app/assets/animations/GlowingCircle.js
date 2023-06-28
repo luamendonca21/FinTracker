@@ -28,9 +28,7 @@ const GlowingSun = ({ onPress, ...otherProps }) => {
 
   const handlePress = () => {
     animateScale(animation, 1.1);
-    setTimeout(() => {
-      onPress();
-    }, 250);
+    setTimeout(() => onPress(), 250);
   };
 
   const useGlowAnimation = () => {

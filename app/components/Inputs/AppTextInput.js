@@ -1,11 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Keyboard,
-} from "react-native";
+import { View, StyleSheet, TextInput, Keyboard } from "react-native";
+import { IconButton } from "../Buttons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { ErrorMessage } from "../Alerts";
@@ -92,25 +87,26 @@ const AppTextInput = ({
           style={[defaultStyles.text, styles.textInput]}
         />
         {secureTextEntry && value !== undefined && value !== "" && (
-          <TouchableOpacity onPress={handlePress}>
-            <MaterialCommunityIcons
-              name={hide()[0]}
-              {...otherProps}
-              color={defaultStyles.colors.black}
-            />
-          </TouchableOpacity>
+          <IconButton
+            family={MaterialCommunityIcons}
+            onPress={handlePress}
+            color={defaultStyles.colors.black}
+            name={hide()[0]}
+            size={24}
+          />
         )}
         {submitIcon &&
           value !== undefined &&
           value !== "" &&
           !submitDisabled && (
-            <TouchableOpacity onPress={onSubmit}>
-              <MaterialCommunityIcons
-                name="send"
-                {...otherProps}
-                color={defaultStyles.colors.secondary}
-              />
-            </TouchableOpacity>
+            <IconButton
+              animate
+              family={MaterialCommunityIcons}
+              onPress={onSubmit}
+              color={defaultStyles.colors.secondary}
+              name="send"
+              size={24}
+            />
           )}
       </View>
       <ErrorMessage error={error} />

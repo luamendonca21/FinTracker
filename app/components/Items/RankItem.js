@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     width: "98%",
+    height: 90,
     marginVertical: 5,
     borderRadius: 20,
     backgroundColor: defaultStyles.colors.white,

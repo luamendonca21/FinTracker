@@ -56,7 +56,7 @@ const CloseItem = ({ event, name, url }) => {
 
   return (
     <TouchableHighlight
-      underlayColor={defaultStyles.colors.light}
+      underlayColor={defaultStyles.colors.white}
       onPress={navigateToMap}
       style={styles.container}
     >

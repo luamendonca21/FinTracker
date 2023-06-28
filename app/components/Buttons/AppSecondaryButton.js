@@ -17,7 +17,7 @@ const AppSecondaryButton = ({
   onPress,
 }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <LinearGradient
         colors={[defaultStyles.colors[color], defaultStyles.colors.primary]}
         start={[0, 0]}

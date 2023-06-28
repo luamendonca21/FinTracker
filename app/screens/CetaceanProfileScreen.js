@@ -160,17 +160,13 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
 
   const handleCloseBottomSheet = () => {
     setIsAnimating(false);
-    setTimeout(() => {
-      setBottomSheetActive(false);
-    }, 440);
+    setTimeout(() => setBottomSheetActive(false), 440);
   };
 
   const handleApplyChanges = () => {
     setNotificationsActive(inputs);
     setIsAnimating(false);
-    setTimeout(() => {
-      setBottomSheetActive(false);
-    }, 460);
+    setTimeout(() => setBottomSheetActive(false), 460);
   };
 
   const handleMapPress = () => {
@@ -361,6 +357,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                 <View style={[styles.headerIcons]}>
                   {!isLoadingUser && (
                     <IconButton
+                      animateOnRender
                       animate
                       onPress={handleFavoritePress}
                       name={selectFavoriteIcon()[0]}
@@ -560,7 +557,6 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                     submitDisabled={isLoadingUpdateComments}
                     onSubmit={handleSubmit}
                     size={25}
-                    maxLength={50}
                     value={comment}
                     onChangeText={(text) => handleComment(text)}
                     icon="comment"
@@ -714,16 +710,16 @@ const styles = StyleSheet.create({
   },
   inputComment: { width: "99%", paddingVertical: 8 },
   commentsBox: {
-    paddingVertical: 5,
     width: "99%",
     alignSelf: "center",
     backgroundColor: defaultStyles.colors.white,
     elevation: 2,
     borderRadius: 20,
     marginTop: 5,
-    maxHeight: 300,
+    maxHeight: 400,
+    marginBottom: 20,
   },
-  skeletonComments: { height: 200, width: "100%", marginTop: 5 },
+  skeletonComments: { height: 300, width: "100%", marginTop: 5 },
   noContentCard: { height: 200, marginTop: 5 },
   timestampContainer: {
     marginTop: 5,

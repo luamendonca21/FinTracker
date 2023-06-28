@@ -21,9 +21,7 @@ const AppButton = ({
   const handlePress = () => {
     // animation
     animateScale(animation, 1.04);
-    setTimeout(() => {
-      onPress();
-    }, 300);
+    setTimeout(() => onPress(), 300);
   };
 
   const animatedStyle = {
@@ -31,7 +29,11 @@ const AppButton = ({
   };
   return (
     <Animated.View style={animatedStyle}>
-      <TouchableOpacity onPress={handlePress} {...otherProps}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={handlePress}
+        {...otherProps}
+      >
         <LinearGradient
           colors={[
             defaultStyles.colors[color],

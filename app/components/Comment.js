@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { View, StyleSheet } from "react-native";
 
 import { AppText } from "./Text";
 import ProfileImage from "./ProfileImage";
 import { Alert } from "./Alerts";
 import { Skeleton } from "./Loaders";
+import { IconButton } from "./Buttons";
 
 import usersApi from "../api/user";
 import useApi from "../hooks/useApi";
@@ -21,7 +21,7 @@ const Comment = ({ item, disabledDelete, onDelete }) => {
 
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
-  const [getUserApi, isLoadingUser, errorGetUser] = useApi(usersApi.getUser);
+  const [getUserApi, isLoadingUser] = useApi(usersApi.getUser);
 
   const showAlert = () => {
     setIsAlertVisible(true);
@@ -46,36 +46,27 @@ const Comment = ({ item, disabledDelete, onDelete }) => {
         <View
           style={{
             maxWidth: "60%",
+            justifyContent: "center",
           }}
         >
-          {!isLoadingUser ? (
-            <AppText style={styles.username}>{commentUsername}</AppText>
-          ) : (
-            <Skeleton style={styles.usernameSkeleton} />
-          )}
-          <View style={styles.textContainer}>
-            <AppText style={styles.text}>{item.text}</AppText>
-          </View>
+          <AppText style={styles.username}>{commentUsername}</AppText>
+          <AppText style={styles.text}>{item.text}</AppText>
         </View>
         {user.id === item.userId && (
-          <TouchableOpacity
+          <IconButton
+            animate
             disabled={disabledDelete}
+            style={[
+              styles.deleteBtn,
+              {
+                opacity: disabledDelete ? 0.5 : 1,
+              },
+            ]}
             onPress={showAlert}
-            style={{
-              flex: 1,
-              alignItems: "flex-end",
-              opacity: disabledDelete ? 0.5 : 1,
-              padding: 10,
-            }}
-          >
-            <View style={styles.delete}>
-              <MaterialCommunityIcons
-                name="delete"
-                size={24}
-                color={defaultStyles.colors.medium}
-              />
-            </View>
-          </TouchableOpacity>
+            color={defaultStyles.colors.medium}
+            name="delete"
+            size={24}
+          />
         )}
       </View>
       <Alert
@@ -101,17 +92,15 @@ const Comment = ({ item, disabledDelete, onDelete }) => {
 
 const styles = StyleSheet.create({
   container: {
+    paddingVertical: 10,
     flexDirection: "row",
     alignItems: "center",
   },
-  textContainer: {
-    backgroundColor: defaultStyles.colors.secondary,
-    padding: 5,
-    borderRadius: 10,
-  },
-  text: { color: defaultStyles.colors.white },
-  delete: {
-    flexDirection: "row",
+  text: { color: defaultStyles.colors.black },
+  deleteBtn: {
+    flex: 1,
+    alignItems: "flex-end",
+    padding: 10,
   },
   usernameSkeleton: {
     width: 50,

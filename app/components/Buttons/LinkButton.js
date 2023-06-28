@@ -7,7 +7,11 @@ import defaultStyles from "../../config/styles";
 
 const LinkButton = ({ color = "primary", style, title, ...otherProps }) => {
   return (
-    <TouchableOpacity {...otherProps} style={[style, styles.container]}>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      {...otherProps}
+      style={[style, styles.container]}
+    >
       <AppText
         style={[styles.text, style, { color: defaultStyles.colors[color] }]}
       >

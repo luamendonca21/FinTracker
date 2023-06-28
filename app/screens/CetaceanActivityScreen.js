@@ -60,9 +60,7 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
 
   const handleCloseBottomSheet = () => {
     setIsAnimating(false);
-    setTimeout(() => {
-      setBottomSheetActive(false);
-    }, 460);
+    setTimeout(() => setBottomSheetActive(false), 460);
   };
 
   const handleApplyChanges = () => {
@@ -71,9 +69,7 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
     }
     setFiltersActive(inputs);
     setIsAnimating(false);
-    setTimeout(() => {
-      setBottomSheetActive(false);
-    }, 460);
+    setTimeout(() => setBottomSheetActive(false), 460);
   };
 
   const fetchEvents = async () => {

@@ -13,7 +13,7 @@ const CarouselItem = ({ item, onPress }) => {
   return (
     <TouchableHighlight
       style={{ borderRadius: 15 }}
-      underlayColor={defaultStyles.colors.light}
+      underlayColor={defaultStyles.colors.white}
       onPress={onPress}
     >
       <View style={styles.item}>

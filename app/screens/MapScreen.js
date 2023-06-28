@@ -72,9 +72,7 @@ const MapScreen = ({ navigation, route }) => {
 
   const handleCloseBottomSheet = () => {
     setIsAnimating(false);
-    setTimeout(() => {
-      setBottomSheetActive(false);
-    }, 460);
+    setTimeout(() => setBottomSheetActive(false), 460);
   };
 
   const handleApplyChanges = () => {
@@ -83,9 +81,7 @@ const MapScreen = ({ navigation, route }) => {
     }
     setFiltersActive(inputs);
     setIsAnimating(false);
-    setTimeout(() => {
-      setBottomSheetActive(false);
-    }, 460);
+    setTimeout(() => setBottomSheetActive(false), 460);
   };
 
   const findCetacean = (individualId) => {

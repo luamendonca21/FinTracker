@@ -24,9 +24,7 @@ const Fade = ({ isVisible, style, toast, children, value, duration }) => {
       fadeInAnimation.start();
     } else {
       if (toast) {
-        setTimeout(() => {
-          fadeOutAnimation.start();
-        }, 1200);
+        setTimeout(() => fadeOutAnimation.start(), 1200);
       } else {
         fadeOutAnimation.start();
       }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { useNavigation, CommonActions } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -57,11 +57,9 @@ const ProfileImage = ({
   );
 
   // ------ APIS -----
-  const [updatePictureApi, errorUpdatePicture] = useApi(usersApi.updatePicture);
-  const [getPictureApi, isLoadingGetPicture, errorGetPicture] = useApi(
-    usersApi.getPicture
-  );
-  const [deletePictureApi, errorDeletePicture] = useApi(usersApi.deletePicture);
+  const [updatePictureApi] = useApi(usersApi.updatePicture);
+  const [getPictureApi, isLoadingGetPicture] = useApi(usersApi.getPicture);
+  const [deletePictureApi] = useApi(usersApi.deletePicture);
 
   // ----- UTILITIES -------
   const handleAddImagePress = () => {
@@ -169,6 +167,7 @@ const ProfileImage = ({
   ) : (
     <>
       <Component
+        activeOpacity={0.7}
         onPress={navigateToProfile}
         style={[styles.container, { width: size.width, height: size.height }]}
       >
@@ -179,7 +178,7 @@ const ProfileImage = ({
               {
                 borderColor: addIcon
                   ? defaultStyles.colors.white
-                  : defaultStyles.colors.black,
+                  : defaultStyles.colors.light,
               },
             ]}
             source={{ uri: image }}
@@ -188,7 +187,7 @@ const ProfileImage = ({
           <View style={styles.defaultImage}>
             <MaterialIcons
               name="person"
-              size={addIcon ? 70 : 32}
+              size={addIcon ? 50 : 25}
               color={defaultStyles.colors.transparent}
             />
           </View>

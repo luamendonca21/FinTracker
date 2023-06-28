@@ -2,17 +2,26 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, Animated } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { animateScale } from "../../assets/animations/AnimateScale";
-const IconButton = ({ onPress, style, animate, ...props }) => {
+const IconButton = ({
+  onPress,
+  style,
+  animate,
+  animateOnRender,
+  family = MaterialIcons,
+  ...props
+}) => {
+  const Component = family;
   const [animation] = useState(new Animated.Value(1));
 
   const handlePress = () => {
     if (animate) {
       animateScale(animation, 1.2);
     }
-    onPress();
+
+    animate && !animateOnRender ? setTimeout(onPress, 100) : onPress();
   };
   useEffect(() => {
-    if (animate) {
+    if (animate && animateOnRender) {
       animateScale(animation, 1.2);
     }
   }, []);
@@ -21,9 +30,13 @@ const IconButton = ({ onPress, style, animate, ...props }) => {
   };
 
   return (
-    <TouchableOpacity style={[styles.container, style]} onPress={handlePress}>
+    <TouchableOpacity
+      style={[styles.container, style]}
+      onPress={handlePress}
+      {...props}
+    >
       <Animated.View style={animatedStyle}>
-        <MaterialIcons {...props} />
+        <Component {...props} />
       </Animated.View>
     </TouchableOpacity>
   );
