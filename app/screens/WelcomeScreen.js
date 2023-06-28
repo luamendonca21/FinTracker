@@ -13,13 +13,9 @@ import defaultStyles from "../config/styles";
 const windowHeight = Dimensions.get("window").height;
 
 const WelcomeScreen = ({ navigation }) => {
-  const handlePressRegister = () => {
-    navigation.navigate(routes.REGISTER);
-  };
+  const handlePressRegister = () => navigation.navigate(routes.REGISTER);
 
-  const handleLogin = () => {
-    navigation.navigate(routes.LOGIN);
-  };
+  const handleLogin = () => navigation.navigate(routes.LOGIN);
 
   return (
     <Screen>

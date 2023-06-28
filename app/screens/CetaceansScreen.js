@@ -22,10 +22,7 @@ const CetaceansScreen = ({ navigation }) => {
 
   const [getAllCetaceansApi] = useApi(cetaceansApi.getAllCetaceans);
   // ------- UTILITIES ------
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-  };
-
+  const handleSearch = (query) => setSearchQuery(query);
   const getCetaceansFiltered = () => {
     return cetaceans.filter(
       (c) =>
@@ -40,21 +37,19 @@ const CetaceansScreen = ({ navigation }) => {
     );
   };
 
-  const renderItem = ({ item }) => {
-    return (
-      <ListItem
-        underlayColor={defaultStyles.colors.transparent}
-        title={`${item.name} | ${item.details[1].value}`}
-        onPress={() => navigation.navigate(routes.CETACEAN_PROFILE, { item })}
-        style={styles.listSearchItem}
-        chevrons={{
-          name: "chevron-right",
-          size: 30,
-          color: defaultStyles.colors.white,
-        }}
-      />
-    );
-  };
+  const renderItem = ({ item }) => (
+    <ListItem
+      underlayColor={defaultStyles.colors.transparent}
+      title={`${item.name} | ${item.details[1].value}`}
+      onPress={() => navigation.navigate(routes.CETACEAN_PROFILE, { item })}
+      style={styles.listSearchItem}
+      chevrons={{
+        name: "chevron-right",
+        size: 30,
+        color: defaultStyles.colors.white,
+      }}
+    />
+  );
 
   const fetchIndividuals = async () => {
     try {

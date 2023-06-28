@@ -29,15 +29,12 @@ const items = [
 const AboutScreen = ({ navigation }) => {
   const scrollRef = useRef();
 
-  const handlePressItem = ({ target }, navigation) => {
+  const handlePressItem = ({ target }, navigation) =>
     navigation.navigate(target);
-  };
 
-  const renderItem = ({ item }) => {
-    return (
-      <BoxItem onPress={() => handlePressItem(item, navigation)} item={item} />
-    );
-  };
+  const renderItem = ({ item }) => (
+    <BoxItem onPress={() => handlePressItem(item, navigation)} item={item} />
+  );
 
   return (
     <ScrollView ref={scrollRef}>

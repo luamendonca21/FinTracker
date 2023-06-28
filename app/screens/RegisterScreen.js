@@ -51,9 +51,7 @@ const RegisterScreen = ({ navigation }) => {
   const [registerApi, isLoading, error] = useApi(authApi.register);
 
   // ------- UTILITIES --------
-  const handleLoginPress = () => {
-    navigation.navigate(routes.LOGIN);
-  };
+  const handleLoginPress = () => navigation.navigate(routes.LOGIN);
 
   const register = async (data) => {
     registerApi(data)

@@ -29,7 +29,7 @@ import {
 import BottomSheet from "../components/BottomSheet";
 import { AppTextInput } from "../components/Inputs";
 import { Skeleton } from "../components/Loaders";
-import Comment from "../components/Comment";
+import { CommentItem } from "../components/Items";
 import { NoContentCard } from "../components/Alerts";
 import { Map } from "../components/Map";
 import ToolTip from "../components/ToolTip";
@@ -98,9 +98,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
 
   // ---------- UTILITIES -----------
 
-  const update = () => {
-    setState((state) => state + 1);
-  };
+  const update = () => setState((state) => state + 1);
 
   const handleNextToolTip = () => {
     if (toolTipId <= 4) {
@@ -187,12 +185,9 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
     pressDurationRef.current = Date.now();
   };
 
-  const handleMapPressOut = () => {
-    setIsPressing(false);
-  };
-  const handleComment = (comment) => {
-    setComment(comment);
-  };
+  const handleMapPressOut = () => setIsPressing(false);
+
+  const handleComment = (comment) => setComment(comment);
 
   const handleCommentsOrderPress = () => {
     setIsCommentsRecente(!isCommentsRecente);
@@ -233,7 +228,7 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   const renderComment = ({ item, index }) => {
     const commentId = item._id;
     return (
-      <Comment
+      <CommentItem
         disabledDelete={isLoadingDeleteComment}
         onDelete={() => handleDelete(commentId)}
         item={item}

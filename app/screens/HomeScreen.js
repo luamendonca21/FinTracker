@@ -114,9 +114,7 @@ const HomeScreen = ({ navigation }) => {
     });
   };
 
-  const handlePressShortcut = ({ target }) => {
-    navigation.navigate(target);
-  };
+  const handlePressShortcut = ({ target }) => navigation.navigate(target);
 
   const findCetacean = (individualId) => {
     const item = cetaceans.find(
@@ -125,19 +123,15 @@ const HomeScreen = ({ navigation }) => {
     return item;
   };
 
-  const renderRecommendedItem = ({ item, index }) => {
-    return (
-      <RecommendedItem
-        key={index}
-        onPress={() => navigation.navigate("CetaceansProfile", { item })}
-        item={item}
-      />
-    );
-  };
+  const renderRecommendedItem = ({ item, index }) => (
+    <RecommendedItem
+      key={index}
+      onPress={() => navigation.navigate("CetaceansProfile", { item })}
+      item={item}
+    />
+  );
 
-  const renderRankItem = ({ item, index }) => {
-    return <RankItem item={item} index={index} />;
-  };
+  const renderRankItem = (props) => <RankItem {...props} />;
 
   const getAllCetaceans = () => {
     getAllCetaceansApi()

@@ -48,17 +48,11 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
   // ------ UTILITIES --------
 
-  const showAlert = () => {
-    setIsAlertVisible(true);
-  };
+  const showAlert = () => setIsAlertVisible(true);
 
-  const hideAlert = () => {
-    setIsAlertVisible(false);
-  };
+  const hideAlert = () => setIsAlertVisible(false);
 
-  const handleLoginPress = () => {
-    navigation.navigate(routes.LOGIN);
-  };
+  const handleLoginPress = () => navigation.navigate(routes.LOGIN);
 
   const send = async (data) => {
     forgetPasswordApi(data)

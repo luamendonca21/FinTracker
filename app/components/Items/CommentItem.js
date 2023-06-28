@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 
-import { AppText } from "./Text";
-import ProfileImage from "./ProfileImage";
-import { Alert } from "./Alerts";
-import { Skeleton } from "./Loaders";
-import { IconButton } from "./Buttons";
+import { AppText } from "../Text";
+import ProfileImage from "../ProfileImage";
+import { Alert } from "../Alerts";
+import { IconButton } from "../Buttons";
 
-import usersApi from "../api/user";
-import useApi from "../hooks/useApi";
-import useAuth from "../auth/useAuth";
+import usersApi from "../../api/user";
+import useApi from "../../hooks/useApi";
+import useAuth from "../../auth/useAuth";
 
-import defaultStyles from "../config/styles";
+import defaultStyles from "../../config/styles";
 
 const PICTURE_SIZE = 100;
 
-const Comment = ({ item, disabledDelete, onDelete }) => {
+const CommentItem = ({ item, disabledDelete, onDelete }) => {
   const { user } = useAuth();
   const [commentUsername, setCommentUsername] = useState("");
 
@@ -113,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Comment;
+export default CommentItem;

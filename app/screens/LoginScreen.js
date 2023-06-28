@@ -45,13 +45,10 @@ const LoginScreen = ({ navigation }) => {
   const [loginApi, isLoading, error] = useApi(authApi.login);
 
   // ------ UTILITIES -------
-  const handleForgotPassword = () => {
+  const handleForgotPassword = () =>
     navigation.navigate(routes.FORGOT_PASSWORD);
-  };
 
-  const handleRegisterPress = () => {
-    navigation.navigate(routes.REGISTER);
-  };
+  const handleRegisterPress = () => navigation.navigate(routes.REGISTER);
 
   const login = (data) => {
     loginApi(data)

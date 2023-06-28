@@ -7,6 +7,7 @@ import routes from "../../navigation/routes";
 
 import defaultStyles from "../../config/styles";
 import timediff from "timediff";
+import { formatDate } from "../../utils/utils";
 
 const CloseItem = ({ event, name, url }) => {
   // ------ UTILITIES ---------
@@ -41,10 +42,12 @@ const CloseItem = ({ event, name, url }) => {
     const hours = formatTimeUnit(Math.abs(result.hours), "hora");
     const minutes = formatTimeUnit(Math.abs(result.minutes), "minuto");
 
-    return `${timeDirection}${years}${months}${weeks}${days}${hours}${minutes}`.slice(
-      0,
-      -2
-    );
+    return years == "" && months == ""
+      ? `${timeDirection}${years}${months}${weeks}${days}${hours}${minutes}`.slice(
+          0,
+          -2
+        )
+      : formatDate(dateToCompare);
   };
 
   const navigateToMap = () => {
