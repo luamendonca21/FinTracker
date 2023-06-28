@@ -20,14 +20,16 @@ const IconButton = ({
 
     animate && !animateOnRender ? setTimeout(onPress, 100) : onPress();
   };
+
+  const animatedStyle = {
+    transform: [{ scale: animation }],
+  };
+
   useEffect(() => {
     if (animate && animateOnRender) {
       animateScale(animation, 1.2);
     }
   }, []);
-  const animatedStyle = {
-    transform: [{ scale: animation }],
-  };
 
   return (
     <TouchableOpacity

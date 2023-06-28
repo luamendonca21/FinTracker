@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import MapView from "react-native-maps";
 import Constants from "expo-constants";
 
-const Map = ({ style, children, initialRegion, mini }) => {
+const Map = ({ style, children, mini, ...otherProps }) => {
   return (
     <MapView
       mapType="satellite"
@@ -16,7 +16,7 @@ const Map = ({ style, children, initialRegion, mini }) => {
         right: 5,
         bottom: 50,
       }}
-      initialRegion={initialRegion}
+      {...otherProps}
     >
       {children}
     </MapView>

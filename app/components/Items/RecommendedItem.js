@@ -6,14 +6,14 @@ import { AppText } from "../Text";
 import settings from "../../config/settings";
 import defaultStyles from "../../config/styles";
 
-const RecommendedItem = ({ item, onPress }) => {
+const RecommendedItem = ({ item, ...otherProps }) => {
   const baseURL = settings.apiUrl;
 
   return (
     <TouchableHighlight
       style={{ borderRadius: 15 }}
       underlayColor={defaultStyles.colors.white}
-      onPress={onPress}
+      {...otherProps}
     >
       <View style={styles.container}>
         <Image

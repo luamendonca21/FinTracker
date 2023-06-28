@@ -4,9 +4,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../../../config/styles";
 
 const Index = ({ items, indexSelected, style }) => {
-  const checkIndex = (index) => {
-    return index == indexSelected ? "circle" : "circle-outline";
-  };
+  const checkIndex = (index) =>
+    index == indexSelected ? "circle" : "circle-outline";
+
   return (
     <View style={[style, styles.container]}>
       {items.map((item, index) => (

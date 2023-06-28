@@ -11,11 +11,10 @@ import { findObjectInArrayById as isActive } from "../utils/utils";
 import defaultStyles from "../config/styles";
 
 const OptionSelector = ({ id, title, optionsActive, ...otherProps }) => {
-  const selectOptionIcon = () => {
-    return isActive(optionsActive, id)
+  const selectOptionIcon = () =>
+    isActive(optionsActive, id)
       ? ["check-circle", defaultStyles.colors.white]
       : ["check-circle-outline", defaultStyles.colors.black];
-  };
 
   return (
     <View

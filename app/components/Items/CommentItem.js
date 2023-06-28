@@ -22,19 +22,16 @@ const CommentItem = ({ item, disabledDelete, onDelete }) => {
 
   const [getUserApi, isLoadingUser] = useApi(usersApi.getUser);
 
-  const showAlert = () => {
-    setIsAlertVisible(true);
-  };
+  const showAlert = () => setIsAlertVisible(true);
 
-  const hideAlert = () => {
-    setIsAlertVisible(false);
-  };
+  const hideAlert = () => setIsAlertVisible(false);
 
   useEffect(() => {
     getUserApi(item.userId)
       .then((response) => setCommentUsername(response.username))
       .catch((error) => console.log(error));
   }, [item]);
+
   return (
     <>
       <View style={styles.container}>

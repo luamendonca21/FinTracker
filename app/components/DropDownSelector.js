@@ -23,17 +23,14 @@ const DropDownSelector = ({
   const [showContent, setShowContent] = useState(false);
 
   // ------ UTILITIES ------
-  const toggleListItem = () => {
-    LayoutAnimation.configureNext(toggleAnimation);
-  };
+  const toggleListItem = () => LayoutAnimation.configureNext(toggleAnimation);
 
-  const selectItemIcon = () => {
-    return isActive(itemsActive, id)
+  const selectItemIcon = () =>
+    isActive(itemsActive, id)
       ? ["check-circle", defaultStyles.colors.white]
       : title == "Quando estiver perto de um local personalizado"
       ? ["check-circle-outline", defaultStyles.colors.black]
       : ["add-circle-outline", defaultStyles.colors.black];
-  };
 
   // ------- LIFECYCLE HOOKS -------
   useEffect(() => {

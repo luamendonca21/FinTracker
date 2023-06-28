@@ -4,51 +4,16 @@ import { useNavigation } from "@react-navigation/native";
 import { AppText } from "../Text";
 
 import routes from "../../navigation/routes";
+import { getTimeDifference } from "../../utils/utils";
 
 import defaultStyles from "../../config/styles";
-import timediff from "timediff";
-import { formatDate } from "../../utils/utils";
 
 const CloseItem = ({ event, name, url }) => {
   // ------ UTILITIES ---------
 
   const navigation = useNavigation();
 
-  const metersToKilometers = (meter) => {
-    return meter / 1000;
-  };
-
-  const getTimeDifference = (dateTime) => {
-    const currentDate = new Date();
-    const dateToCompare = new Date(dateTime);
-    const result = timediff(currentDate, dateToCompare, "YMWDHmS");
-    const timeDirection = Object.values(result).some((value) => value < 0)
-      ? "Há "
-      : "Daqui a ";
-
-    const formatTimeUnit = (value, unit) => {
-      if (value === 1) {
-        return `${value} ${unit}, `;
-      } else if (value > 1) {
-        return `${value} ${unit == "mês" ? "meses" : `${unit}s`}, `;
-      }
-      return "";
-    };
-
-    const years = formatTimeUnit(Math.abs(result.years), "ano");
-    const months = formatTimeUnit(Math.abs(result.months), "mês");
-    const weeks = formatTimeUnit(Math.abs(result.weeks), "semana");
-    const days = formatTimeUnit(Math.abs(result.days), "dia");
-    const hours = formatTimeUnit(Math.abs(result.hours), "hora");
-    const minutes = formatTimeUnit(Math.abs(result.minutes), "minuto");
-
-    return years == "" && months == ""
-      ? `${timeDirection}${years}${months}${weeks}${days}${hours}${minutes}`.slice(
-          0,
-          -2
-        )
-      : formatDate(dateToCompare);
-  };
+  const metersToKilometers = (meter) => meter / 1000;
 
   const navigateToMap = () => {
     navigation.navigate(routes.MAP, {

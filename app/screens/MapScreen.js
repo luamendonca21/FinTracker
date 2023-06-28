@@ -72,7 +72,7 @@ const MapScreen = ({ navigation, route }) => {
 
   const handleCloseBottomSheet = () => {
     setIsAnimating(false);
-    setTimeout(() => setBottomSheetActive(false), 460);
+    setTimeout(() => setBottomSheetActive(false), 200);
   };
 
   const handleApplyChanges = () => {

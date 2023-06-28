@@ -1,10 +1,12 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
+
 import defaultStyles from "../../config/styles";
 
 const ActivityIndicator = ({ style, visible = false }) => {
   if (!visible) return null;
+
   return (
     <View style={[styles.container, style]}>
       <LottieView

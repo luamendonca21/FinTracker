@@ -7,14 +7,14 @@ import AppText from "../../Text/AppText";
 
 import defaultStyles from "../../../config/styles";
 
-const CarouselItem = ({ item, onPress }) => {
+const CarouselItem = ({ item, ...otherProps }) => {
   const baseURL = settings.apiUrl;
 
   return (
     <TouchableHighlight
       style={{ borderRadius: 15 }}
       underlayColor={defaultStyles.colors.white}
-      onPress={onPress}
+      {...otherProps}
     >
       <View style={styles.item}>
         <Image

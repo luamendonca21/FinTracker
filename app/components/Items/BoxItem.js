@@ -8,6 +8,7 @@ import defaultStyles from "../../config/styles";
 
 const BoxItem = ({ item, onPress }) => {
   const [pressed, setPressed] = useState(false);
+
   return (
     <TouchableHighlight
       onHideUnderlay={() => {

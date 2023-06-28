@@ -23,9 +23,8 @@ const AppTextInput = ({
   const [isFocused, setIsFocused] = useState(false);
   const localInputRef = useRef(null);
 
-  const keyboardDidHideCallback = () => {
+  const keyboardDidHideCallback = () =>
     localInputRef.current && localInputRef.current.blur();
-  };
 
   useEffect(() => {
     const keyboardDidHideSubscription = Keyboard.addListener(
@@ -39,20 +38,13 @@ const AppTextInput = ({
   }, []);
 
   // ------ UTILITIES ------
-  const handlePress = () => {
-    setHidden(!hidden);
-  };
+  const handlePress = () => setHidden(!hidden);
 
-  const hide = () => {
-    return hidden ? ["eye", true] : ["eye-off", false];
-  };
+  const hide = () => (hidden ? ["eye", true] : ["eye-off", false]);
 
-  const handleFocused = () => {
-    setIsFocused(true);
-  };
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
+  const handleFocused = () => setIsFocused(true);
+
+  const handleBlur = () => setIsFocused(false);
 
   return (
     <View>

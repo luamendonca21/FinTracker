@@ -8,9 +8,9 @@ import defaultStyles from "../../config/styles";
 
 const SearchInput = ({ mainIcon, clearIcon, style, ...otherProps }) => {
   const localInputRef = useRef(null);
-  const keyboardDidHideCallback = () => {
+
+  const keyboardDidHideCallback = () =>
     localInputRef.current && localInputRef.current.blur();
-  };
 
   useEffect(() => {
     const keyboardDidHideSubscription = Keyboard.addListener(
@@ -22,6 +22,7 @@ const SearchInput = ({ mainIcon, clearIcon, style, ...otherProps }) => {
       keyboardDidHideSubscription?.remove();
     };
   }, []);
+
   return (
     <View style={[styles.container, style]}>
       {mainIcon && (

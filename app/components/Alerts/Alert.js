@@ -8,16 +8,12 @@ import defaultStyles from "../../config/styles";
 const Alert = ({
   error,
   msg,
-  confirmText,
-  cancelText,
   buttonTextStyle,
   showAlert,
-  cancelButtonColor,
   confirmButtonColor,
-  showCancelButton,
-  showConfirmButton,
   onConfirm,
   onCancel,
+  ...otherProps
 }) => {
   return (
     <AwesomeAlert
@@ -27,11 +23,7 @@ const Alert = ({
       messageStyle={styles.text}
       closeOnTouchOutside={false}
       closeOnHardwareBackPress={false}
-      showCancelButton={showCancelButton}
-      showConfirmButton={showConfirmButton}
-      cancelText={cancelText}
-      confirmText={confirmText}
-      cancelButtonColor={cancelButtonColor}
+      {...otherProps}
       confirmButtonColor={
         error ? defaultStyles.colors.danger : confirmButtonColor
       }

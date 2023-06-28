@@ -19,29 +19,28 @@ const ListSettings = ({ menuItems }) => {
       navigation.navigate(item.target);
     }
   };
-  const renderItem = ({ item }) => {
-    return (
-      <ListItem
-        onPress={() => handlePress(item)}
-        title={item.title}
-        IconComponent={
-          <Icon
-            activeOpacity={1}
-            style={styles.icon}
-            icon={item.icon.name}
-            size={20}
-            iconColor={item.icon.iconColor}
-            backgroundColor={item.icon.backgroundColor}
-          />
-        }
-        chevrons={{
-          name: "chevron-right",
-          size: 30,
-          color: defaultStyles.colors.black,
-        }}
-      />
-    );
-  };
+  const renderItem = ({ item }) => (
+    <ListItem
+      onPress={() => handlePress(item)}
+      title={item.title}
+      IconComponent={
+        <Icon
+          activeOpacity={1}
+          style={styles.icon}
+          icon={item.icon.name}
+          size={20}
+          iconColor={item.icon.iconColor}
+          backgroundColor={item.icon.backgroundColor}
+        />
+      }
+      chevrons={{
+        name: "chevron-right",
+        size: 30,
+        color: defaultStyles.colors.black,
+      }}
+    />
+  );
+
   return (
     <View style={styles.container}>
       <FlatList

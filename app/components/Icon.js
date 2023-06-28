@@ -9,8 +9,8 @@ const Icon = ({
   backgroundColor = defaultStyles.colors.black,
   size,
   style,
-  onPress,
   activeOpacity = 0.7,
+  ...otherProps
 }) => {
   return (
     <TouchableOpacity
@@ -25,7 +25,7 @@ const Icon = ({
           borderRadius: size,
         },
       ]}
-      onPress={onPress}
+      {...otherProps}
     >
       <MaterialCommunityIcons name={icon} size={size} color={iconColor} />
     </TouchableOpacity>

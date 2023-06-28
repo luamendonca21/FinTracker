@@ -66,6 +66,7 @@ const ProfileImage = ({
     requestMediaPermissions();
     setImageChanged(true);
   };
+
   const handleDeleteImagePress = async () => {
     setIsLoadingDeletePicture(true);
     const userFolderRef = firebase.storage().ref().child(user.id);
@@ -140,13 +141,10 @@ const ProfileImage = ({
     setIsAlertVisible(true);
   };
 
-  const hideAlert = () => {
-    setIsAlertVisible(false);
-  };
+  const hideAlert = () => setIsAlertVisible(false);
 
-  const navigateToProfile = () => {
+  const navigateToProfile = () =>
     navigation.push(routes.USER_PROFILE, { userProfileId: userId });
-  };
 
   const Component = userId && userId !== user.id ? TouchableOpacity : View;
 

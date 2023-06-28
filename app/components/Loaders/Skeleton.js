@@ -1,15 +1,20 @@
 import React, { useEffect, useRef } from "react";
-import { LinearGradient } from "expo-linear-gradient";
 import { View, StyleSheet, Animated, Dimensions } from "react-native";
+
+import { LinearGradient } from "expo-linear-gradient";
+
 import defaultStyles from "../../config/styles";
 const { width } = Dimensions.get("window");
+
 const Skeleton = ({ style }) => {
   const x = useRef(new Animated.Value(0)).current;
+
   useEffect(() => {
     Animated.loop(
       Animated.timing(x, { toValue: 1, useNativeDriver: true, duration: 1000 })
     ).start();
   }, []);
+
   return (
     <View style={styles.container}>
       <View style={[styles.box, style]}>

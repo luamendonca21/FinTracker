@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import {
   GestureDetector,
   Gesture,
@@ -53,9 +48,8 @@ const BottomSheet = ({
     });
 
   // ----- UTILITIES ------
-  const handlePressButton = () => {
-    translateY.value = withSpring(0, { damping: 10 });
-  };
+  const handlePressButton = () =>
+    (translateY.value = withSpring(0, { damping: 10 }));
 
   // ------ LIFECYCLE HOOKS ------
   useEffect(() => {

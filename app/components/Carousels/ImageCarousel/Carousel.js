@@ -6,6 +6,7 @@ import CarouselItem from "./CarouselItem";
 
 function Carousel({ data, style }) {
   const navigation = useNavigation();
+
   return data.length !== 0 ? (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
       <View style={[styles.container, style]}>

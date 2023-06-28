@@ -6,12 +6,12 @@ import { Carousel } from "./Carousels/ImageCarousel";
 
 import defaultStyles from "../config/styles";
 
-const CategoryCard = ({ data, title, subTitle }) => {
+const CategoryCard = ({ title, subTitle, ...otherProps }) => {
   return (
     <View style={styles.container}>
       <AppText style={styles.title}>{title}</AppText>
       <AppText style={styles.subTitle}>{subTitle}</AppText>
-      <Carousel data={data} />
+      <Carousel {...otherProps} />
     </View>
   );
 };
