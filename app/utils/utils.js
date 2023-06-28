@@ -65,8 +65,18 @@ export const getTimeDifference = (dateTime) => {
   const days = formatTimeUnit(Math.abs(result.days), "dia");
   const hours = formatTimeUnit(Math.abs(result.hours), "hora");
   const minutes = formatTimeUnit(Math.abs(result.minutes), "minuto");
+  const seconds = formatTimeUnit(Math.abs(result.seconds), "segundo");
 
-  return years == "" && months == ""
+  return (years == "" &&
+    months == "" &&
+    weeks == "" &&
+    days == "" &&
+    hours == "" &&
+    minutes == "" &&
+    seconds !== "") ||
+    dateToCompare === currentDate
+    ? "Agora mesmo"
+    : years == "" && months == ""
     ? `${timeDirection}${years}${months}${weeks}${days}${hours}${minutes}`.slice(
         0,
         -2

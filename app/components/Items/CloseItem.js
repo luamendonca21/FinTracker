@@ -18,7 +18,7 @@ const CloseItem = ({ event, name, url }) => {
   const navigateToMap = () => {
     navigation.navigate(routes.MAP, {
       cetaceanLocation: event.location.coordinates,
-      delta: 0.01,
+      delta: 0.04,
     });
   };
 
@@ -44,7 +44,7 @@ const CloseItem = ({ event, name, url }) => {
                 {metersToKilometers(event.dist.calculated).toFixed(2)} km
               </AppText>
             </View>
-            <AppText style={{ width: 200 }}>
+            <AppText style={{ maxWidth: 180 }}>
               {getTimeDifference(event.timestamp)}
             </AppText>
           </View>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   details: {
     marginLeft: 10,
-    height: 60,
+    height: 70,
     justifyContent: "space-between",
     alignItems: "flex-start",
   },

@@ -10,6 +10,7 @@ import usersApi from "../../api/user";
 import useApi from "../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
 
+import { getTimeDifference } from "../../utils/utils";
 import defaultStyles from "../../config/styles";
 
 const PICTURE_SIZE = 100;
@@ -39,7 +40,31 @@ const CommentItem = ({ item, disabledDelete, onDelete }) => {
           userId={item.userId}
           size={{ width: PICTURE_SIZE, height: PICTURE_SIZE }}
         />
+
         <View
+          style={{
+            width: "60%",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              width: "50%",
+            }}
+          >
+            <AppText numberOfLines={1} style={styles.username}>
+              {commentUsername}
+            </AppText>
+            <AppText style={styles.commentDate}>
+              {getTimeDifference(item.createdAt)}
+            </AppText>
+          </View>
+          <AppText style={styles.text}>{item.text}</AppText>
+        </View>
+
+        {/* <View
           style={{
             maxWidth: "60%",
             justifyContent: "center",
@@ -47,7 +72,7 @@ const CommentItem = ({ item, disabledDelete, onDelete }) => {
         >
           <AppText style={styles.username}>{commentUsername}</AppText>
           <AppText style={styles.text}>{item.text}</AppText>
-        </View>
+        </View> */}
         {user.id === item.userId && (
           <IconButton
             animate
@@ -106,6 +131,11 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 16,
     fontWeight: "bold",
+  },
+  commentDate: {
+    marginLeft: 5,
+    fontSize: 14,
+    color: defaultStyles.colors.gray,
   },
 });
 
