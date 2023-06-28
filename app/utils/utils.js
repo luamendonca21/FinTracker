@@ -10,7 +10,7 @@ export const formatDate = (timestamp) => {
   const minutes = ("0" + date.getMinutes()).slice(-2);
   const seconds = ("0" + date.getSeconds()).slice(-2);
 
-  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  return `${day}/${month}/${year}`;
 };
 
 export const calculateDateAgo = (units, quantity) => {
@@ -76,11 +76,21 @@ export const getTimeDifference = (dateTime) => {
     seconds !== "") ||
     dateToCompare === currentDate
     ? "Agora mesmo"
-    : years == "" && months == ""
-    ? `${timeDirection}${years}${months}${weeks}${days}${hours}${minutes}`.slice(
-        0,
-        -2
-      )
+    : years == "" && months !== ""
+    ? `${timeDirection}${months}`.slice(0, -2)
+    : years == "" && months == "" && weeks !== ""
+    ? `${timeDirection}${weeks}`.slice(0, -2)
+    : years == "" && months == "" && weeks == "" && days !== ""
+    ? `${timeDirection}${days}`.slice(0, -2)
+    : years == "" && months == "" && weeks == "" && days == "" && hours !== ""
+    ? `${timeDirection}${hours}`.slice(0, -2)
+    : years == "" &&
+      months == "" &&
+      weeks == "" &&
+      days == "" &&
+      hours == "" &&
+      minutes != ""
+    ? `${timeDirection}${minutes}`.slice(0, -2)
     : formatDate(dateToCompare);
 };
 

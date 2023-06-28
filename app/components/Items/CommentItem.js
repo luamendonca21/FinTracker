@@ -51,7 +51,7 @@ const CommentItem = ({ item, disabledDelete, onDelete }) => {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              width: "50%",
+              maxWidth: "50%",
             }}
           >
             <AppText numberOfLines={1} style={styles.username}>
