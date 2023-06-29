@@ -597,20 +597,43 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                       position: "absolute",
                       left: 0,
                       right: 0,
-                      height: 150,
+                      height: 160,
                       justifyContent: "space-around",
-                      bottom: 25,
+                      bottom: 40,
                       alignItems: "center",
                     }}
                   >
                     <AppText style={styles.unlockTitle}>
-                      Desbloqueia comentários exclusivos do animal visitando-o.
+                      Desbloqueia a secção de comentários visitando o animal.
                     </AppText>
                     <FontAwesome
-                      name="unlock-alt"
+                      name="lock"
                       size={60}
                       color={defaultStyles.colors.thirdly}
                     />
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignSelf: "flex-end",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginRight: 10,
+                      }}
+                    >
+                      <LinkButton
+                        color="medium"
+                        style={{
+                          fontSize: 14,
+                        }}
+                        onPress={() => navigation.navigate(routes.FEATURE)}
+                        title="Ver mais"
+                      />
+                      <MaterialIcons
+                        name="keyboard-arrow-right"
+                        size={20}
+                        color={defaultStyles.colors.medium}
+                      />
+                    </View>
                   </View>
                 </>
               )}
@@ -783,6 +806,7 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.white,
     opacity: 0.5,
     borderRadius: 15,
+    marginBottom: 20,
   },
   unlockTitle: {
     position: "relative",

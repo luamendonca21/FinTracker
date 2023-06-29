@@ -117,7 +117,7 @@ export const features = [
     title: "Conhecimento",
     icon: "menu-book",
     description:
-      "Conheçe ao detalhe os animais, a sua vida, história e migração.",
+      "Conhece ao detalhe os animais, a sua vida, história e migração.",
   },
   {
     id: 1,
