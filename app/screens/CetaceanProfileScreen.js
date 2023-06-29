@@ -9,7 +9,11 @@ import {
   TouchableHighlight,
   RefreshControl,
 } from "react-native";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  FontAwesome,
+} from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -50,6 +54,7 @@ import {
 import defaultStyles from "../config/styles";
 
 const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
 
 // available notifications for user
 const notifications = [
@@ -531,9 +536,10 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                   }}
                 ></Map>
               </TouchableHighlight>
-              {isVisited && (
+
+              <AppText style={styles.title}>Comentários</AppText>
+              {isVisited ? (
                 <>
-                  <AppText style={styles.title}>Comentários</AppText>
                   {comments.length >= 2 && (
                     <AppSecondaryButton
                       onPress={handleCommentsOrderPress}
@@ -582,6 +588,30 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
                       style={styles.noContentCard}
                     />
                   ) : null}
+                </>
+              ) : (
+                <>
+                  <View style={styles.unlockContainer} />
+                  <View
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      right: 0,
+                      height: 150,
+                      justifyContent: "space-around",
+                      bottom: 25,
+                      alignItems: "center",
+                    }}
+                  >
+                    <AppText style={styles.unlockTitle}>
+                      Desbloqueia comentários exclusivos do animal visitando-o.
+                    </AppText>
+                    <FontAwesome
+                      name="unlock-alt"
+                      size={60}
+                      color={defaultStyles.colors.thirdly}
+                    />
+                  </View>
                 </>
               )}
             </View>
@@ -740,6 +770,28 @@ const styles = StyleSheet.create({
   toolTipTitle: { fontSize: 15, fontWeight: "bold" },
   toolTipDescription: { fontSize: 14, marginBottom: 5 },
   toolTipNext: { alignSelf: "flex-end", fontSize: 18 },
+  unlockContainer: {
+    position: "relative",
+    marginTop: 10,
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: defaultStyles.colors.thirdly,
+    alignItems: "center",
+    elevation: 2,
+    width: "99%",
+    height: 200,
+    backgroundColor: defaultStyles.colors.white,
+    opacity: 0.5,
+    borderRadius: 15,
+  },
+  unlockTitle: {
+    position: "relative",
+    color: defaultStyles.colors.thirdly,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    width: "70%",
+  },
 });
 
 export default CetaceanProfileScreen;
