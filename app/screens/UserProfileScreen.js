@@ -149,6 +149,7 @@ function UserProfileScreen({ route, navigation }) {
     setFavorites([]);
     setVisitedIds([]);
     setVisited([]);
+    setPoints(0);
     setDetailsActive([]);
     getUserDetails();
     getUser();
@@ -158,7 +159,7 @@ function UserProfileScreen({ route, navigation }) {
   // ------- LIFECYCLE HOOKS --------
 
   useEffect(() => {
-    !userProfileId && updateUserDetails();
+    userProfileId == undefined && updateUserDetails();
   }, [detailsActive]);
 
   useEffect(() => {
