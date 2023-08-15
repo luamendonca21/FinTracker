@@ -15,8 +15,8 @@ export default useMedia = (onSelectImage, onPermissionDenied) => {
       quality: 1,
     });
 
-    if (!response.cancelled) {
-      onSelectImage(response.uri);
+    if (!response.canceled) {
+      onSelectImage(response.assets[0].uri);
     }
   };
   return requestMediaPermissions;

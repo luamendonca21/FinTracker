@@ -1,7 +1,7 @@
 module.exports = [
   {
     id: 1,
-    name: "Golfinho-de-dentes-rugosos",
+    name: "Bubbles",
     individualId: "1526404269",
     timestamp_start: "2021-07-26T17:07:29.000+00:00",
     timestamp_end: "2043-11-07T21:09:20.000+00:00",
@@ -38,7 +38,7 @@ module.exports = [
   },
   {
     id: 2,
-    name: "Golfinho-de-dentes-rugosos",
+    name: "Starshine",
     individualId: "1701327825",
     timestamp_start: "2000-01-01T00:02:08.000+00:00",
     timestamp_end: "2021-05-04T20:27:08.000+00:00",
@@ -75,7 +75,7 @@ module.exports = [
   },
   {
     id: 3,
-    name: "Baleia-piloto-de-barbatanas-curta",
+    name: "Willow",
     individualId: "1526405834",
     timestamp_start: "2021-04-21T17:06:02.000+00:00",
     timestamp_end: "2049-12-21T23:47:12.000+00:00",
@@ -112,7 +112,7 @@ module.exports = [
   },
   {
     id: 4,
-    name: "Baleia-piloto-de-barbatanas-curta",
+    name: "Snowflake",
     individualId: "1646601250",
     timestamp_start: "2021-09-02T19:07:23.000+00:00",
     timestamp_end: "2021-11-05T08:28:26.000+00:00",
@@ -149,7 +149,7 @@ module.exports = [
   },
   {
     id: 5,
-    name: "Orca-falsa",
+    name: "Sunny",
     individualId: "1720209119",
     timestamp_start: "2021-10-19T19:04:56.000+00:00",
     timestamp_end: "2022-04-08T07:32:17.000+00:00",
@@ -186,7 +186,7 @@ module.exports = [
   },
   {
     id: 6,
-    name: "Cachalote",
+    name: "Luna",
     individualId: "1802428755",
     timestamp_start: "2021-09-09T12:07:30.000+00:00",
     timestamp_end: "2063-10-18T15:34:08.000+00:00",
@@ -223,7 +223,7 @@ module.exports = [
   },
   {
     id: 7,
-    name: "Cachalote",
+    name: "Pearl",
     individualId: "1782515852",
     timestamp_start: "2016-12-01T00:00:00.000+00:00",
     timestamp_end: "2023-10-31T23:59:59.000+00:00",
@@ -260,7 +260,7 @@ module.exports = [
   },
   {
     id: 8,
-    name: "Golfinho-riscado",
+    name: "Misty",
     individualId: "1816921753",
     timestamp_start: "2019-09-20T00:00:00.000+00:00",
     timestamp_end: "2024-12-31T23:59:59.000+00:00",
@@ -297,7 +297,7 @@ module.exports = [
   },
   {
     id: 9,
-    name: "Golfinho-riscado",
+    name: "Whirl",
     individualId: "886020691",
     timestamp_start: "2020-11-09T21:01:52.000+00:00",
     timestamp_end: "2055-04-16T18:09:52.000+00:00",
@@ -334,7 +334,7 @@ module.exports = [
   },
   {
     id: 10,
-    name: "Golfinho-roaz",
+    name: "Finley",
     individualId: "1829272483",
     timestamp_start: "2021-02-12T11:49:39.000+00:00",
     timestamp_end: "2045-10-17T15:14:56.000+00:00",
@@ -371,7 +371,7 @@ module.exports = [
   },
   {
     id: 11,
-    name: "Golfinho-comum",
+    name: "Twilight",
     individualId: "2230866929",
     timestamp_start: "2015-09-15T12:00:00.000+00:00",
     timestamp_end: "2025-02-28T23:59:59.000+00:00",
@@ -408,7 +408,7 @@ module.exports = [
   },
   {
     id: 12,
-    name: "Baleia-jubarte",
+    name: "Cove",
     individualId: "886564423",
     timestamp_start: "2022-03-01T00:00:00.000+00:00",
     timestamp_end: "2027-12-31T23:59:59.000+00:00",
@@ -445,7 +445,7 @@ module.exports = [
   },
   {
     id: 13,
-    name: "Baleia-jubarte",
+    name: "Silky",
     individualId: "2464047587",
     timestamp_start: "2022-11-03T18:08:19.000+00:00",
     timestamp_end: "2022-12-07T11:11:40.000+00:00",
@@ -482,7 +482,7 @@ module.exports = [
   },
   {
     id: 14,
-    name: "Baleia-sei",
+    name: "Neptune",
     individualId: "2420126173",
     timestamp_start: "2018-06-20T10:00:00.000+00:00",
     timestamp_end: "2023-08-15T18:00:00.000+00:00",
@@ -519,7 +519,7 @@ module.exports = [
   },
   {
     id: 15,
-    name: "Baleia-de-bico-blainville",
+    name: "Aurora",
     individualId: "2420119440",
     timestamp_start: "2021-04-08T17:45:42.000+00:00",
     timestamp_end: "2021-04-22T10:02:22.000+00:00",

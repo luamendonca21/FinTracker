@@ -5,6 +5,7 @@ import CetaceansScreen from "../screens/CetaceansScreen";
 import CetaceanActivityScreen from "../screens/CetaceanActivityScreen";
 import CetaceanProfileScreen from "../screens/CetaceanProfileScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
+import FeatureScreen from "../screens/FeatureScreen";
 import defaultStyles from "../config/styles";
 
 const Stack = createStackNavigator();
@@ -25,6 +26,7 @@ const HomeNavigator = () => (
       component={CetaceanActivityScreen}
     />
     <Stack.Screen name="ProfileScreen" component={UserProfileScreen} />
+    <Stack.Screen name="Features" component={FeatureScreen} />
   </Stack.Navigator>
 );
 

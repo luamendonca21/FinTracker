@@ -538,7 +538,9 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
               </TouchableHighlight>
 
               <AppText style={styles.title}>Comentários</AppText>
-              {isVisited ? (
+              {isLoadingUser ? (
+                <Skeleton style={styles.skeletonComments} />
+              ) : isVisited ? (
                 <>
                   {comments.length >= 2 && (
                     <AppSecondaryButton
