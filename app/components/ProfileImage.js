@@ -93,31 +93,47 @@ const ProfileImage = ({
       });
   };
 
+  // to fetch resources as Blob data
+  const requestBlob = (uri) => {
+    return new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
+      xhr.onload = () => resolve(xhr.response);
+      xhr.onerror = () => reject(new TypeError("Network request failed"));
+      xhr.responseType = "blob";
+
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+  };
+
   const handleUpdatePicture = async () => {
     setIsLoadingUpdatePicture(true);
-    const response = await fetch(image);
-    const blob = await response.blob();
-    const filename = image.substring(image.lastIndexOf("/") + 1);
-    const userFolderRef = firebase.storage().ref().child(user.id);
-    const urlStatic = `https://storage.googleapis.com/fintracker-51cdf.appspot.com/${user.id}/${filename}`;
-    // Excluir todos os arquivos dentro da pasta do usuário
     try {
-      const userFiles = await userFolderRef.listAll();
-      userFiles.items.forEach(async (fileRef) => {
-        await fileRef.delete();
-      });
-    } catch (error) {
-      console.log(error);
-    }
+      const blob = await requestBlob(image);
+      const filename = image.substring(image.lastIndexOf("/") + 1);
+      const userFolderRef = firebase.storage().ref().child(user.id);
+      const urlStatic = `https://storage.googleapis.com/fintracker-51cdf.appspot.com/${user.id}/${filename}`;
 
-    // Adicionar a nova foto
-    const newFileRef = userFolderRef.child(filename);
-    try {
+      // Delete old files
+      const userFiles = await userFolderRef.listAll();
+      for (const fileRef of userFiles.items) {
+        await fileRef.delete();
+      }
+
+      // Upload new image
+      const newFileRef = userFolderRef.child(filename);
       await newFileRef.put(blob);
-      updatePictureApi(user.id, { url: urlStatic })
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error));
-      console.log("Nova foto adicionada com sucesso!");
+
+      // Update picture API call
+      try {
+        const updateResponse = await updatePictureApi(user.id, {
+          url: urlStatic,
+        });
+        console.log(updateResponse);
+        console.log("New picture added successfully!");
+      } catch (updateError) {
+        console.log(updateError);
+      }
     } catch (error) {
       console.log(error);
     } finally {
