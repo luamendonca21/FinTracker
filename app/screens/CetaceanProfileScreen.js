@@ -37,6 +37,7 @@ import { CommentItem } from "../components/Items";
 import { NoContentCard } from "../components/Alerts";
 import { Map } from "../components/Map";
 import ToolTip from "../components/ToolTip";
+import { Alert } from "../components/Alerts";
 
 import cetaceansApi from "../api/cetaceans";
 import useApi from "../hooks/useApi";
@@ -71,6 +72,8 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
 
   // ------ STATE MANAGEMENT -------
 
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
+
   const [state, setState] = useState(0);
 
   const [isPressing, setIsPressing] = useState(false);
@@ -103,6 +106,10 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
 
   // ---------- UTILITIES -----------
 
+  const showAlert = () => setIsAlertVisible(true);
+
+  const hideAlert = () => setIsAlertVisible(false);
+
   const update = () => setState((state) => state + 1);
 
   const handleNextToolTip = () => {
@@ -133,6 +140,10 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
   };
 
   const handleNotificationPress = () => {
+    showAlert(true);
+  };
+
+  const renderBottomSheet = () => {
     setBottomSheetActive(!isBottomSheetActive);
     setIsAnimating(true);
   };
@@ -670,6 +681,17 @@ const CetaceanProfileScreen = ({ route, navigation }) => {
           </>
         )}
       </View>
+      <Alert
+        showAlert={isAlertVisible}
+        msg="Esta funcionalidade ainda não está funcional, pelo que só está desenvolvida a parte visual."
+        showConfirmButton
+        confirmText="Ok"
+        confirmButtonColor={defaultStyles.colors.secondary}
+        onConfirm={() => {
+          hideAlert();
+          renderBottomSheet();
+        }}
+      />
     </GestureHandlerRootView>
   );
 };
