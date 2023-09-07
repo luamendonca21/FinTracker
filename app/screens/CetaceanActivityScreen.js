@@ -36,6 +36,8 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
   const [inputs, setInputs] = useState([]);
   const [filtersActive, setFiltersActive] = useState([]);
   const [events, setEvents] = useState([]);
+  const [eventsFiltered, setEventsFiltered] = useState([]);
+
   const [coordinates, setCoordinates] = useState([]);
 
   // ---------- APIS -----------
@@ -77,6 +79,7 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
     getEventsById(individualId)
       .then((response) => {
         setEvents(response.events);
+        setEventsFiltered(response.events);
       })
       .catch((error) => {
         console.log(error);
@@ -140,10 +143,12 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
       default:
         break;
     }
-    setEvents(filteredEvents);
+    setEventsFiltered(filteredEvents);
   };
   const extractCoordinates = () => {
-    const orderedEvents = events.sort((a, b) => a.timestamp - b.timestamp);
+    const orderedEvents = eventsFiltered.sort(
+      (a, b) => a.timestamp - b.timestamp
+    );
 
     const extractedCoordinates = orderedEvents.map((event) => ({
       latitude: event.location.coordinates[1],
@@ -162,7 +167,7 @@ const CetaceanActivityScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     extractCoordinates();
-  }, [events]);
+  }, [events, eventsFiltered]);
 
   useEffect(() => {
     filtersActive.length != 0 && filterEvents();
