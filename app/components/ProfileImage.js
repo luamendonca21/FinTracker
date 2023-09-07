@@ -12,7 +12,7 @@ import useMedia from "../hooks/useMedia";
 import useAuth from "../auth/useAuth";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
-import { firebase } from "../firebaseConfig";
+import { firebase } from "../config/firebaseConfig";
 
 import routes from "../navigation/routes";
 import defaultStyles from "../config/styles";

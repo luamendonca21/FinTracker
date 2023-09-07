@@ -10,6 +10,7 @@ import CategoryCard from "../components/CategoryCard";
 import useApi from "../hooks/useApi";
 import cetaceansApi from "../api/cetaceans";
 import routes from "../navigation/routes";
+import { removeDiacritics } from "../utils/utils";
 
 import defaultStyles from "../config/styles";
 
@@ -26,21 +27,25 @@ const CetaceansScreen = ({ navigation }) => {
   const getCetaceansFiltered = () => {
     return cetaceans.filter(
       (c) =>
-        c.name
+        removeDiacritics(c.name)
           .toLowerCase()
           .trim()
-          .includes(searchQuery.toLowerCase().trim()) ||
-        c.details[1].value
+          .includes(removeDiacritics(searchQuery.toLowerCase().trim())) ||
+        removeDiacritics(c.details[1].value)
           .toLowerCase()
           .trim()
-          .includes(searchQuery.toLowerCase().trim())
+          .includes(removeDiacritics(searchQuery.toLowerCase().trim())) ||
+        removeDiacritics(c.details[2].value)
+          .toLowerCase()
+          .trim()
+          .includes(removeDiacritics(searchQuery.toLowerCase().trim()))
     );
   };
 
   const renderItem = ({ item }) => (
     <ListItem
       underlayColor={defaultStyles.colors.transparent}
-      title={`${item.name} | ${item.details[1].value}`}
+      title={`${item.name} |  ${item.details[1].value} | ${item.details[2].value}`}
       onPress={() => navigation.navigate(routes.CETACEAN_PROFILE, { item })}
       style={styles.listSearchItem}
       chevrons={{

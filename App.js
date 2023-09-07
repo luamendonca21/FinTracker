@@ -83,7 +83,7 @@ export default function App() {
         migration,
         name,
       } = info.find(
-        (animal) => animal.details[1].value === value.taxon_canonical_name
+        (animal) => animal.details[2].value === value.taxon_canonical_name
       );
       const cetacean = {
         ...value,

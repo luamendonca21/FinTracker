@@ -7,8 +7,9 @@ module.exports = [
     timestamp_end: "2043-11-07T21:09:20.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Golfinho" },
+      { id: 2, title: "Nome Comum", value: "Caldeirão" },
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Steno bredanensis",
       },
@@ -44,8 +45,10 @@ module.exports = [
     timestamp_end: "2021-05-04T20:27:08.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Golfinho" },
+      { id: 2, title: "Nome Comum", value: "Caldeirão" },
+
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Steno bredanensis",
       },
@@ -81,8 +84,9 @@ module.exports = [
     timestamp_end: "2049-12-21T23:47:12.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Baleia" },
+      { id: 2, title: "Nome Comum", value: "Baleia Piloto" },
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Globicephala macrorhynchus",
       },
@@ -118,8 +122,9 @@ module.exports = [
     timestamp_end: "2021-11-05T08:28:26.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Baleia" },
+      { id: 2, title: "Nome Comum", value: "Baleia Piloto" },
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Globicephala macrorhynchus",
       },
@@ -155,8 +160,9 @@ module.exports = [
     timestamp_end: "2022-04-08T07:32:17.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Orca" },
+      { id: 2, title: "Nome Comum", value: "Falsa Orca" },
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Pseudorca crassidens",
       },
@@ -192,8 +198,9 @@ module.exports = [
     timestamp_end: "2063-10-18T15:34:08.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Baleia" },
+      { id: 2, title: "Nome Comumca", value: "Cachalote" },
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Physeter macrocephalus",
       },
@@ -229,8 +236,10 @@ module.exports = [
     timestamp_end: "2023-10-31T23:59:59.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Baleia" },
+      { id: 2, title: "Nome Comumca", value: "Cachalote" },
+
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Physeter macrocephalus",
       },
@@ -266,8 +275,9 @@ module.exports = [
     timestamp_end: "2024-12-31T23:59:59.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Golfinho" },
+      { id: 2, title: "Nome Comum", value: "Golfinho Riscado" },
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Stenella coeruleoalba",
       },
@@ -303,8 +313,10 @@ module.exports = [
     timestamp_end: "2055-04-16T18:09:52.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Golfinho" },
+      { id: 2, title: "Nome Comum", value: "Golfinho Riscado" },
+
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Stenella coeruleoalba",
       },
@@ -340,8 +352,9 @@ module.exports = [
     timestamp_end: "2045-10-17T15:14:56.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Golfinho" },
+      { id: 2, title: "Nome Comum", value: "Roaz" },
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Tursiops",
       },
@@ -377,8 +390,9 @@ module.exports = [
     timestamp_end: "2025-02-28T23:59:59.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Golfinho" },
+      { id: 2, title: "Nome Comum", value: "Golfinho-comum" },
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Delphinus delphis",
       },
@@ -414,8 +428,9 @@ module.exports = [
     timestamp_end: "2027-12-31T23:59:59.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Baleia" },
+      { id: 2, title: "Nome Comum", value: "Baleia-de-bossas" },
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Megaptera novaeangliae",
       },
@@ -451,8 +466,10 @@ module.exports = [
     timestamp_end: "2022-12-07T11:11:40.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Baleia" },
+      { id: 2, title: "Nome Comum", value: "Baleia-de-bossas" },
+
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Megaptera novaeangliae",
       },
@@ -488,8 +505,9 @@ module.exports = [
     timestamp_end: "2023-08-15T18:00:00.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Baleia" },
+      { id: 2, title: "Nome Comum", value: "Baleia-sardinheira" },
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Balaenoptera borealis",
       },
@@ -525,8 +543,9 @@ module.exports = [
     timestamp_end: "2021-04-22T10:02:22.000+00:00",
     details: [
       { id: 1, title: "Categoria", value: "Baleia" },
+      { id: 2, title: "Nome Comum", value: "Baleia de Bico de Blainville" },
       {
-        id: 2,
+        id: 3,
         title: "Nome Científico",
         value: "Mesoplodon densirostris",
       },

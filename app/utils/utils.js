@@ -97,3 +97,7 @@ export const getTimeDifference = (dateTime) => {
 export const findObjectInArrayById = (items, id) => {
   return items.find((item) => item.id === id);
 };
+
+export const removeDiacritics = (str) => {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+};

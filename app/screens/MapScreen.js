@@ -42,6 +42,7 @@ const MapScreen = ({ navigation, route }) => {
   const [inputs, setInputs] = useState([]);
   const [cetaceans, setCetaceans] = useState([]);
   const [events, setEvents] = useState([]);
+  const [eventsFiltered, setEventsFiltered] = useState([]);
   const [filtersActive, setFiltersActive] = useState([]);
 
   // ---------- APIS -----------
@@ -201,7 +202,7 @@ const MapScreen = ({ navigation, route }) => {
     const eventsFiltered = events.filter((event) =>
       filteredCetaceanIds.has(event.individualId)
     );
-    setEvents(eventsFiltered);
+    setEventsFiltered(eventsFiltered);
   };
   const onCalloutPress = (individualId) => {
     const item = findCetacean(individualId);
@@ -228,11 +229,15 @@ const MapScreen = ({ navigation, route }) => {
           long: location.coords.longitude,
           lat: location.coords.latitude,
         })
-          .then((response) => setEvents(response.events))
+          .then((response) => {
+            setEvents(response.events);
+            setEventsFiltered(response.events);
+          })
           .catch((error) => console.log(error))
       : getAllEventsApi()
           .then((response) => {
             setEvents(response.events);
+            setEventsFiltered(response.events);
           })
           .catch((error) => {
             console.log(error);
@@ -252,7 +257,7 @@ const MapScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     location !== null && events.length !== 0 && checkVisitedCetaceans();
-  }, [events]);
+  }, [events, eventsFiltered]);
 
   useEffect(() => {
     console.log("Filtros ativos: ", filtersActive);
@@ -297,7 +302,7 @@ const MapScreen = ({ navigation, route }) => {
               longitudeDelta: delta ? delta : 1,
             }}
           >
-            {events.map((event, index) => (
+            {eventsFiltered.map((event, index) => (
               <MapMarker
                 key={index}
                 onCalloutPress={() => onCalloutPress(event.individualId)}
@@ -327,7 +332,7 @@ const MapScreen = ({ navigation, route }) => {
           <View style={styles.resultsContainer}>
             <AppText
               style={styles.resultsText}
-            >{`${events.length} resultados`}</AppText>
+            >{`${eventsFiltered.length} resultados`}</AppText>
           </View>
           {isBottomSheetActive && (
             <>
