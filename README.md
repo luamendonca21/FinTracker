@@ -4,6 +4,14 @@
  
 A mobile application developed as a key component of my Master's thesis. This application is designed to engage and educate the general audience about the migration patterns of cetaceans.
 
+## Built with
+
+<img src="https://github.com/luamendonca22/luamendonca22/blob/main/assets/react-native-seeklogo.com.svg" title="ReactNative" alt="ReactNative" width="45" height="42"/>&nbsp;
+<img src="https://github.com/tandpfun/skill-icons/blob/main/icons/NodeJS-Dark.svg" title="NodeJS" alt="NodeJS" width="40" height="40"/>&nbsp;
+<img src="https://github.com/tandpfun/skill-icons/blob/main/icons/ExpressJS-Dark.svg" title="ExpressJS" alt="ExpressJS" width="40" height="40"/>&nbsp;
+<img src="https://github.com/tandpfun/skill-icons/blob/main/icons/MongoDB.svg" title="MongoDB" alt="MongoDB" width="40" height="40"/>&nbsp;
+<img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Firebase-Dark.svg" title="Firebase" alt="Firebase" width="40" height="40"/>&nbsp;
+
 ## Usage
 
 ### Authentication
@@ -63,10 +71,3 @@ A mobile application developed as a key component of my Master's thesis. This ap
 <img src="https://github.com/luamendonca22/FinTracker/assets/58524849/6b8c12b5-206a-44d4-b4a3-9cd82980c7b8" width="180"/>&nbsp;
 <img src="https://github.com/luamendonca22/FinTracker/assets/58524849/1eea0aad-bbb3-4a24-8f02-3b5425309793" width="180"/>&nbsp;
 
-## Built with
-
-<img src="https://github.com/luamendonca22/luamendonca22/blob/main/assets/react-native-seeklogo.com.svg" title="ReactNative" alt="ReactNative" width="45" height="42"/>&nbsp;
-<img src="https://github.com/tandpfun/skill-icons/blob/main/icons/NodeJS-Dark.svg" title="NodeJS" alt="NodeJS" width="40" height="40"/>&nbsp;
-<img src="https://github.com/tandpfun/skill-icons/blob/main/icons/ExpressJS-Dark.svg" title="ExpressJS" alt="ExpressJS" width="40" height="40"/>&nbsp;
-<img src="https://github.com/tandpfun/skill-icons/blob/main/icons/MongoDB.svg" title="MongoDB" alt="MongoDB" width="40" height="40"/>&nbsp;
-<img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Firebase-Dark.svg" title="Firebase" alt="Firebase" width="40" height="40"/>&nbsp;
