@@ -1,12 +1,11 @@
 # FinTracker
-
-## About the project
  
 A mobile application developed as a key component of my Master's thesis. This application is designed to engage and educate the general audience about the migration patterns of cetaceans.
 
 ## Usage
 
 ### Authentication
+
 
 ## Built with
 
