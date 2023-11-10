@@ -34,16 +34,34 @@ A mobile application developed as a key component of my Master's thesis. This ap
 
 ### Map
 
-<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/56c8162a-3dcc-4e9c-ba62-878e18422a2b" width="180"/>&nbsp;
-<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/213dce98-f1a1-402a-b1df-add627d48aa3" width="180"/>&nbsp;
 <img src="https://github.com/luamendonca22/FinTracker/assets/58524849/8697dcbe-ac8d-43de-9607-cd5760174074" width="180"/>&nbsp;
 <img src="https://github.com/luamendonca22/FinTracker/assets/58524849/97d59233-9215-4c10-8a62-f9d2c80f16db" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/56c8162a-3dcc-4e9c-ba62-878e18422a2b" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/213dce98-f1a1-402a-b1df-add627d48aa3" width="180"/>&nbsp;
 <img src="https://github.com/luamendonca22/FinTracker/assets/58524849/686d5c10-b001-4f3d-89b9-f466a5469860" width="180"/>&nbsp;
 
 ### Route
+
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/51c49561-b98e-426c-86fd-a72f6b70b76a" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/468165c4-8611-4fc6-8661-12b386b598eb" width="180"/>&nbsp;
+
 ### User Profile
+
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/b2ade59b-4324-4c8f-b691-9aea115aeea2" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/a905c4f5-d363-49da-9192-931cc196ea76" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/77b84d48-12ab-4e10-b721-9395c6f0e4d2" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/a3dc79bc-b408-4d9c-9552-1f4270159149" width="180"/>&nbsp;
+
 ### Settings
 
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/6b8c12b5-206a-44d4-b4a3-9cd82980c7b8" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/7e599650-b9e3-414b-bb2c-e9366c640a45" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/d3bad004-e2bd-44bf-9b7d-03ea6a301dc0" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/f371b861-58f6-4283-8f4c-7918f1f9598b" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/5c15ea6e-4529-4dad-981a-ef63a8ba4b9f" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/56adad1d-ca81-4250-8e15-1474236b69fb" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/4cd80ed1-7fb9-4bd4-bcda-98d158d9e291" width="180"/>&nbsp;
+<img src="https://github.com/luamendonca22/FinTracker/assets/58524849/1eea0aad-bbb3-4a24-8f02-3b5425309793" width="180"/>&nbsp;
 
 ## Built with
 
@@ -52,4 +70,3 @@ A mobile application developed as a key component of my Master's thesis. This ap
 <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/ExpressJS-Dark.svg" title="ExpressJS" alt="ExpressJS" width="40" height="40"/>&nbsp;
 <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/MongoDB.svg" title="MongoDB" alt="MongoDB" width="40" height="40"/>&nbsp;
 <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Firebase-Dark.svg" title="Firebase" alt="Firebase" width="40" height="40"/>&nbsp;
-
