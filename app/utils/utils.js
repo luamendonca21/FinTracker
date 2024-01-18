@@ -6,9 +6,6 @@ export const formatDate = (timestamp) => {
   const year = date.getFullYear();
   const month = ("0" + (date.getMonth() + 1)).slice(-2);
   const day = ("0" + date.getDate()).slice(-2);
-  const hours = ("0" + date.getHours()).slice(-2);
-  const minutes = ("0" + date.getMinutes()).slice(-2);
-  const seconds = ("0" + date.getSeconds()).slice(-2);
 
   return `${day}/${month}/${year}`;
 };
@@ -100,4 +97,17 @@ export const findObjectInArrayById = (items, id) => {
 
 export const removeDiacritics = (str) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+};
+
+// to fetch resources as Blob data
+export const requestBlob = (uri) => {
+  return new Promise((resolve, reject) => {
+    let xhr = new XMLHttpRequest();
+    xhr.onload = () => resolve(xhr.response);
+    xhr.onerror = () => reject(new TypeError("Network request failed"));
+    xhr.responseType = "blob";
+
+    xhr.open("GET", uri, true);
+    xhr.send(null);
+  });
 };

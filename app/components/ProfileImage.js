@@ -12,7 +12,13 @@ import useMedia from "../hooks/useMedia";
 import useAuth from "../auth/useAuth";
 import useApi from "../hooks/useApi";
 import usersApi from "../api/user";
-import { firebase } from "../config/firebaseConfig";
+import { requestBlob } from "../utils/utils";
+import {
+  uploadFileToFolder,
+  deleteAllFromFolder,
+  getStaticUrl,
+  getFolderRef,
+} from "../utils/fileStorage";
 
 import routes from "../navigation/routes";
 import defaultStyles from "../config/styles";
@@ -69,7 +75,7 @@ const ProfileImage = ({
 
   const handleDeleteImagePress = async () => {
     setIsLoadingDeletePicture(true);
-    const userFolderRef = firebase.storage().ref().child(user.id);
+    const userFolderRef = getFolderRef(user.id)
 
     userFolderRef
       .listAll()
@@ -93,44 +99,25 @@ const ProfileImage = ({
       });
   };
 
-  // to fetch resources as Blob data
-  const requestBlob = (uri) => {
-    return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      xhr.onload = () => resolve(xhr.response);
-      xhr.onerror = () => reject(new TypeError("Network request failed"));
-      xhr.responseType = "blob";
-
-      xhr.open("GET", uri, true);
-      xhr.send(null);
-    });
-  };
-
   const handleUpdatePicture = async () => {
     setIsLoadingUpdatePicture(true);
     try {
       const blob = await requestBlob(image);
       const filename = image.substring(image.lastIndexOf("/") + 1);
-      const userFolderRef = firebase.storage().ref().child(user.id);
-      const urlStatic = `https://storage.googleapis.com/fintracker-51cdf.appspot.com/${user.id}/${filename}`;
+      const userFolderRef = getFolderRef(user.id);
+      const urlStatic = getStaticUrl(user.id, filename);
 
       // Delete old files
-      const userFiles = await userFolderRef.listAll();
-      for (const fileRef of userFiles.items) {
-        await fileRef.delete();
-      }
+      await deleteAllFromFolder(userFolderRef);
 
       // Upload new image
-      const newFileRef = userFolderRef.child(filename);
-      await newFileRef.put(blob);
+      await uploadFileToFolder(userFolderRef, filename, blob);
 
       // Update picture API call
       try {
-        const updateResponse = await updatePictureApi(user.id, {
+        await updatePictureApi(user.id, {
           url: urlStatic,
         });
-        console.log(updateResponse);
-        console.log("New picture added successfully!");
       } catch (updateError) {
         console.log(updateError);
       }
